@@ -3,7 +3,7 @@
 **A rigorous, self-contained compendium: from real analysis to stochastic differential equations.**
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![PDF](https://img.shields.io/badge/PDF-335%20numbered%20pages-blue.svg)](pdf/mathematical-methods-for-ml.pdf)
+[![PDF](https://img.shields.io/badge/PDF-334%20numbered%20pages-blue.svg)](pdf/mathematical-methods-for-ml.pdf)
 [![Status](https://img.shields.io/badge/status-living%20document-brightgreen.svg)](#status-and-versioning)
 [![Made with LaTeX](https://img.shields.io/badge/made%20with-LaTeX-008080.svg)](src/)
 
@@ -15,13 +15,17 @@
 
 *Mathematical Methods for Machine Learning* develops a unified pathway from the foundations of mathematical analysis to the advanced methods used for modeling and inference. It covers calculus, linear and functional analysis, differential equations, optimization, Fourier methods, and probability, together with the operational tools needed for biophysical modeling and probabilistic inference in complex systems.
 
-The compendium contains 335 numbered pages (342 physical pages including front matter and table of contents) across 12 chapters, each split into several source files. It began in June 2023 as a study companion to the Analysis course taught by Prof. Monica Conti at Politecnico di Milano. It has since grown into a much broader treatment, last updated in September 2026.
+The compendium contains 334 numbered pages (341 physical pages including front matter and table of contents) across 12 chapters, each split into several source files. It began in June 2023 as a study companion to the Analysis course taught by Prof. Monica Conti at Politecnico di Milano. It has since grown into a much broader treatment, last updated in September 2026.
 
 Every result is developed with its assumptions stated, its proof (or a proof sketch) given, and its role in modern machine learning and computational neuroscience made explicit.
 
 ## Why this exists
 
+<<<<<<< Updated upstream
 I am a Medtech student at Campus Bio-Medico University of Rome, an interdisciplinary programme combining a Master's degree in Medicine and Surgery with a Bachelor's degree in Biomedical Engineering. I previously studied at the Medtec School of Humanitas University and Politecnico di Milano, where I attended the Mathematics course taught by Professor Monica Conti, on which the first part of this compendium is based. Working across these two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the mathematical prerequisites that the ideas silently assume.
+=======
+I am a Medtech student at Campus Bio-Medico University of Rome, an interdisciplinary programme combining a Master's degree in Medicine and Surgery with a Bachelor's degree in Biomedical Engineering. I previously studied at the Medtec School of Humanitas University and Politecnico di Milano, where I attended the Mathematics course taught by Professor Monica Conti, on which the first part of this compendium is based.  Working across those two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the **mathematical prerequisites that the ideas silently assume**.
+>>>>>>> Stashed changes
 
 Books like Bishop's *Pattern Recognition and Machine Learning*, Dayan & Abbott's *Theoretical Neuroscience*, and Sutton & Barto's *Reinforcement Learning* are wonderful, but they move quickly through measure, operators, distributions, stochastic calculus, and variational arguments. Engineering curricula often stop short of these topics, and medical curricula almost never reach them.
 

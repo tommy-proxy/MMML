@@ -1,572 +1,624 @@
-\chapter{Functional, Fourier, and Complex Analysis}
+\section{Harmonic Analysis and Fourier Transforms}
 
-\section{Hilbert Spaces and Square-Integrable Functions}
+\subsection{Fourier Transform and Inversion}
 
-To rigorously generalize the concept of Euclidean space $\mathbb{R}^N$ to infinite dimensions, we must construct a vector space of functions that retains the geometric notions of length (norm) and angle (inner product), while ensuring that the space is \textit{complete}. Completeness guarantees that limits of Cauchy sequences exist within the space, which is an absolute prerequisite for performing calculus and infinite series expansions. The standard choice for physical applications is the space of square-integrable functions, denoted $L^2(\mathbb{R})$.
-
-However, constructing this space requires addressing several foundational subtleties that are often glossed over. We will build it step-by-step, explicitly justifying every definition.
-
-\subsection{Measure-Theoretic Construction of \texorpdfstring{$L^2(\mathbb{R})$}{L2(R)}}
-
-Before defining the space, we must address the integral. In elementary calculus, the Riemann integral is used. However, the Riemann integral is inadequate for our purposes because the space of Riemann-integrable functions is \textit{not complete} under the $L^2$ norm. Specifically, a sequence of continuous (and thus Riemann-integrable) functions can converge in the $L^2$ norm to a highly discontinuous function that is not Riemann-integrable. To ensure completeness, we must use the \textit{Lebesgue integral}.
-\begin{itemize}
-\item \textit{Lebesgue measure ($\mu$)}: a function that assigns a ``length'' or ``volume'' to subsets of $\mathbb{R}$. Unlike the intuitive length of an interval, it is defined on a $\sigma$-algebra of sets, allowing us to measure highly fragmented sets (like the rational numbers, which have measure zero).
-\item \textit{Measurable functions}: a function $v: \mathbb{R} \to \mathbb{C}$ is Lebesgue measurable if the preimage of any open set in $\mathbb{C}$ is a Lebesgue measurable set in $\mathbb{R}$. This is the exact class of functions for which the Lebesgue integral
-
-\[
-\int_\mathbb{R} |v(t)|^2 \dd t
-\]
-is well-defined.
-\end{itemize}
-
-
-Let $\mathcal{L}^2(\mathbb{R})$ be the set of all Lebesgue measurable functions $v: \mathbb{R} \to \mathbb{C}$ such that the integral of their squared modulus is finite:
+\begin{definition}[Fourier Transform]
+Let $f \in L^1(\R)$ be a complex-valued, Lebesgue-integrable function. The Fourier transform of $f$, denoted $\hat{f}$, is defined as the function $\hat{f}: \R \to \C$ given by:
 \begin{equation}
-\mathcal{L}^2(\mathbb{R}) = \left\{ v \in \mathcal{M}(\mathbb{R}) : \int_\mathbb{R} |v(t)|^2 \dd t < \infty \right\}
+\hat{f}(\omega) = \int_\R f(t) e^{i\omega t} \dd t
 \end{equation}
-where $\mathcal{M}(\mathbb{R})$ denotes the set of all complex-valued Lebesgue measurable functions.
 
-\begin{remark}[The Problem of Positive Definiteness]
-If we attempt to define a norm on $\mathcal{L}^2(\mathbb{R})$ as
-\[
-\|v\| = \left( \int_\mathbb{R} |v(t)|^2 \dd t \right)^{1/2},
-\]
-we encounter a fatal flaw. The integral of a nonnegative function is zero if and only if the function is zero \textit{almost everywhere} (a.e.), meaning the set of points where it is nonzero has Lebesgue measure zero.
-Therefore, $\|v\| = 0$ does \textit{not} imply $v(t) = 0$ for all $t \in \mathbb{R}$; it only implies $v(t) = 0$ except possibly on a set of measure zero. This violates the axiom of positive definiteness for a norm, which strictly requires
-\[
-\|v\| = 0 \implies v = \mathbf{0}.
-\]
+\end{definition}
 
+\begin{remark}[Why $L^1(\R)$?]
+The requirement that $f \in L^1(\R)$ is strictly necessary to guarantee that the integral converges absolutely for every $\omega \in \R$. Because the complex exponential is bounded by unity ($|e^{i\omega t}| = 1$), we have:
+\begin{equation}
+\int_\R |f(t) e^{i\omega t}| \dd t = \int_\R |f(t)| \dd t = \|f\|_{L^1} < \infty
+\end{equation}
+Absolute convergence ensures that $\hat{f}(\omega)$ is a well-defined, finite complex number for all $\omega$.
 \end{remark}
 
-To resolve this, we must introduce an equivalence relation and form a quotient space.
+\begin{lemma}[Riemann--Lebesgue Lemma]
+If $f \in L^1(\R)$, then its Fourier transform $\hat{f}$ is continuous, bounded, and vanishes at infinity:
+\[
+\lim_{|\omega| \to \infty} \hat{f}(\omega) = 0.
+\]
 
-\begin{definition}[Equivalence Relation and Quotient Space]
-We define a relation $\sim$ on $\mathcal{L}^2(\mathbb{R})$ such that $v \sim u$ if and only if $v(t) = u(t)$ for almost every $t \in \mathbb{R}$. Formally, the set $\{t \in \mathbb{R} : v(t) \neq u(t)\}$ has Lebesgue measure zero.
-This relation is reflexive, symmetric, and transitive, making it a valid equivalence relation. It partitions $\mathcal{L}^2(\mathbb{R})$ into disjoint equivalence classes.
-We define the Hilbert space $L^2(\mathbb{R})$ as the quotient space:
+\end{lemma}
+
+\begin{proof}
+We prove the three properties sequentially.
+
+\textit{1. Boundedness:}
+By the triangle inequality for integrals:
 \begin{equation}
 \begin{aligned}
-L^2(\mathbb{R}) &= \mathcal{L}^2(\mathbb{R}) / \\
-&\sim
+|\hat{f}(\omega)| &= \left| \int_\R f(t) e^{i\omega t} \dd t \right| \\
+&\leq \int_\R |f(t)| |e^{i\omega t}| \dd t \\
+&= \int_\R |f(t)| \dd t \\
+&= \|f\|_{L^1}
+\end{aligned}
+\end{equation}
+Thus, $\hat{f}$ is bounded by the $L^1$ norm of $f$.
+
+\textit{2. Continuity:}
+Let $\omega_n$ be a sequence converging to $\omega$. The integrand $f(t) e^{i\omega_n t}$ converges pointwise to $f(t) e^{i\omega t}$ for every $t$. Furthermore, the absolute value of the integrand is bounded by $|f(t)|$, which is an integrable dominating function since $f \in L^1(\R)$. By the \textit{Dominated Convergence Theorem}, we can pass the limit inside the integral:
+\begin{equation}
+\begin{aligned}
+    \lim_{n \to \infty} \hat{f}(\omega_n)
+    &= \int_\R \lim_{n \to \infty} \left( f(t) e^{i\omega_n t} \right) \dd t \\
+    &= \int_\R f(t) e^{i\omega t} \dd t = \hat{f}(\omega)
+    \end{aligned}
+\end{equation}
+This proves $\hat{f}$ is continuous.
+
+\textit{3. Decay at Infinity:}
+We use a phase-shift trick. Let $\omega \neq 0$. We perform the change of variables $s = t + \pi/\omega$, which implies $t = s - \pi/\omega$ and $\dd t = \dd s$. Notice that
+\[
+\begin{aligned}
+e^{i\omega(s - \pi/\omega)} &= e^{i\omega s} e^{-i\pi} \\
+&= -e^{i\omega s}.
+\end{aligned}
+\]
+Substituting this into the definition:
+\begin{equation}
+\begin{aligned}
+\hat{f}(\omega) &= \int_\R f(s - \pi/\omega) e^{i\omega (s - \pi/\omega)} \dd s \\
+&= -\int_\R f(s - \pi/\omega) e^{i\omega s} \dd s
 \end{aligned}
 \end{equation}
 
-An element of $L^2(\mathbb{R})$ is not a single function, but an equivalence class $[v]$ of functions that differ only on sets of measure zero. By convention, we abuse notation and write $v$ instead of $[v]$, treating functions that are equal almost everywhere as identical elements of the space.
-\end{definition}
-
-\subsection{The Inner Product and Norm}
-
-With the elements of the space properly defined as equivalence classes, we can define the geometric structure.
-
-\begin{definition}[Inner Product on $L^2(\mathbb{R})$]
-For any two elements $v, u \in L^2(\mathbb{R})$, we define the inner product as:
+Adding this expression to the original definition of $\hat{f}(\omega)$ (and renaming the dummy variable $s$ back to $t$):
 \begin{equation}
-\langle v, u \rangle = \int_\mathbb{R} v(t) \overline{u(t)} \dd t
+2\hat{f}(\omega) = \int_\R \left[ f(t) - f(t - \pi/\omega) \right] e^{i\omega t} \dd t
+\end{equation}
+Taking the absolute value and applying the triangle inequality:
+\begin{equation}
+\begin{aligned}
+2|\hat{f}(\omega)| &\leq \int_\R \left| f(t) - f(t - \pi/\omega) \right| \dd t \\
+&= \left\| f(\cdot) - f(\cdot - \pi/\omega) \right\|_{L^1}
+\end{aligned}
 \end{equation}
 
-\end{definition}
-
-\begin{remark}[Well-definedness and Finiteness of the Inner Product]
-Before using this formula, we must prove the integral actually converges to a finite complex number. We apply the \textit{Cauchy--Schwarz inequality for integrals}, which states that for measurable functions $f, g$:
+To show this goes to zero as $|\omega| \to \infty$, we must explicitly prove that translation is continuous in the $L^1$ norm. Let $\tau = \pi/\omega$. We want to show
+\[
+\lim_{\tau \to 0} \|f - f_\tau\|_{L^1} = 0,
+\]
+where $f_\tau(t) = f(t-\tau)$.
+Let $\varepsilon > 0$. The space of continuous functions with compact support, $C_c(\R)$, is dense in $L^1(\R)$. Thus, there exists a function $g \in C_c(\R)$ such that $\|f - g\|_{L^1} < \varepsilon/3$. By the triangle inequality:
 \begin{equation}
-\int_\mathbb{R} |f(t) g(t)| \dd t \leq \left( \int_\mathbb{R} |f(t)|^2 \dd t \right)^{1/2} \left( \int_\mathbb{R} |g(t)|^2 \dd t \right)^{1/2}
+\|f - f_\tau\|_{L^1} \leq \|f - g\|_{L^1} + \|g - g_\tau\|_{L^1} + \|g_\tau - f_\tau\|_{L^1}
 \end{equation}
-Setting $f(t) = v(t)$ and $g(t) = \overline{u(t)}$, we get:
+Because the Lebesgue measure is translation-invariant,
+\[
+\|g_\tau - f_\tau\|_{L^1} = \|g - f\|_{L^1} < \varepsilon/3.
+\]
+
+Since $g$ is continuous and has compact support, it is uniformly continuous. Let $K$ be a compact set containing the support of $g$ and $g_\tau$ for small $\tau$. For sufficiently small $|\tau|$,
+\[
+|g(t) - g(t-\tau)| < (\varepsilon/(3 \mu(K)))
+\]
+for all $t$. Thus:
 \begin{equation}
-\int_\mathbb{R} |v(t) \overline{u(t)}| \dd t \leq \|v\| \|u\| < \infty
+\|g - g_\tau\|_{L^1} = \int_K |g(t) - g(t-\tau)| \dd t < \mu(K) \frac{\varepsilon}{3 \mu(K)} = \varepsilon/3
 \end{equation}
-Since the integral of the absolute value is finite, the integral
-\[
-\int v \bar{u}
-\]
-is absolutely convergent and thus well-defined. Furthermore, because $v$ and $u$ are equivalence classes, changing the representative functions on a set of measure zero does not change the value of the integral, making the inner product well-defined on the quotient space.
-\end{remark}
 
-The inner product induces a norm via
-\[
-\|v\| = (\langle v, v \rangle)^{1/2}.
-\]
-Because we quotiented out the null sets,
-\[
-\|v\| = 0 \implies \int |v|^2 = 0 \implies v = 0
-\]
-a.e. $\implies v$ is the zero vector in $L^2(\mathbb{R})$. The triangle inequality for this norm follows directly from the \textit{Minkowski inequality}.
-
-\subsection{Completeness and the Riesz--Fischer Theorem}
-
-A normed space is a \textit{Banach space} if it is complete. A \textit{Hilbert space} is a Banach space whose norm is induced by an inner product.
-
-\begin{definition}[Cauchy Sequence and Completeness]
-A sequence $\{v_n\}$ in $L^2(\mathbb{R})$ is a \textit{Cauchy sequence} if for every $\varepsilon > 0$, there exists an integer $N$ such that for all $m, n > N$, $\|v_m - v_n\| < \varepsilon$.
-The space is \textit{complete} if every Cauchy sequence converges to a limit $v \in L^2(\mathbb{R})$, meaning
-\[
-\lim_{n \to \infty} \|v_n - v\| = 0.
-\]
-
-\end{definition}
-
-\begin{theorem}[Riesz--Fischer Theorem]
-The space $L^2(\mathbb{R})$ is complete with respect to the norm induced by its inner product. Consequently, $L^2(\mathbb{R})$ is a Hilbert space.
-\end{theorem}
-
-\begin{proof}[Rigorous Sketch of Logic]
-The original text's reliance on the Dominated Convergence Theorem (DCT) is a common logical leap; DCT requires a \textit{pre-existing} dominating function, which a general Cauchy sequence does not possess a priori. The rigorous proof constructs the limit function explicitly using a subsequence.
-
-\textit{Step 1: Extract a rapidly converging subsequence.}
-Since $\{v_n\}$ is Cauchy, we can find a subsequence $\{v_{n_k}\}$ such that
-\[
-\|v_{n_{k+1}} - v_{n_k}\| < 2^{-k}
-\]
-for all $k \geq 1$.
-
-\textit{Step 2: Define a sequence of partial sums of differences.}
-Define the partial sums
-\[
-g_K(t) = \sum_{k=1}^K |v_{n_{k+1}}(t) - v_{n_k}(t)|.
-\]
-This is a monotonically increasing sequence of nonnegative measurable functions.
-
-\textit{Step 3: Apply the Monotone Convergence Theorem (MCT).}
-By Minkowski's inequality, the $L^2$ norm of $g_K$ is bounded:
-\begin{equation}
-\|g_K\| \leq \sum_{k=1}^K \|v_{n_{k+1}} - v_{n_k}\| < \sum_{k=1}^K 2^{-k} < 1
-\end{equation}
-Thus,
-\[
-\int_\mathbb{R} |g_K(t)|^2 \dd t < 1.
-\]
-By the Monotone Convergence Theorem, the pointwise limit
-\[
-g(t) = \lim_{K \to \infty} g_K(t)
-\]
-exists, and
-\[
-\int_\mathbb{R} |g(t)|^2 \dd t \leq 1.
-\]
-Because the integral of $|g(t)|^2$ is finite, $g(t)$ must be finite almost everywhere.
-
-\textit{Step 4: Construct the limit function.}
-Since $g(t) < \infty$ a.e., the series
-\[
-\sum_{k=1}^\infty |v_{n_{k+1}}(t) - v_{n_k}(t)|
-\]
-converges absolutely a.e. This implies that the telescoping series:
-\begin{equation}
-v_{n_1}(t) + \sum_{k=1}^\infty \left( v_{n_{k+1}}(t) - v_{n_k}(t) \right)
-\end{equation}
-converges absolutely a.e. to some measurable function $v(t)$. By construction, $v_{n_k}(t) \to v(t)$ pointwise a.e.
-
-\textit{Step 5: Prove $v \in L^2(\mathbb{R})$ and $v_n \to v$ in norm.}
-Using Fatou's Lemma on the sequence $|v_{n_k} - v_m|^2$ (for fixed $m$), one can show that $v - v_m \in L^2(\mathbb{R})$, which implies $v \in L^2(\mathbb{R})$. Finally, because $\{v_n\}$ is Cauchy and a subsequence converges to $v$ in norm, the entire sequence must converge to $v$ in the $L^2$ norm.
+Combining these, $\|f - f_\tau\|_{L^1} < \varepsilon$. Since $\pi/\omega \to 0$ as $|\omega| \to \infty$, we conclude that $\|f - f_{\pi/\omega}\|_{L^1} \to 0$, which forces $\hat{f}(\omega) \to 0$.
 \end{proof}
 
-\subsection{Separability and Orthonormal Bases}
-
-Completeness allows us to treat $L^2(\mathbb{R})$ as the rigorous infinite-dimensional analogue of $\mathbb{R}^N$. In $\mathbb{R}^N$, any vector is expanded in a finite orthonormal basis. In infinite dimensions, we require a countable basis.
-
-\begin{definition}[Separability]
-A metric space is \textit{separable} if it contains a countable, dense subset. $L^2(\mathbb{R})$ is separable because the set of step functions with rational endpoints and rational heights is countable and dense in $L^2(\mathbb{R})$.
-\end{definition}
-
-Because $L^2(\mathbb{R})$ is a separable Hilbert space, it admits a \textit{countable orthonormal basis} (more formally, a complete orthonormal system) $\{\phi_n\}_{n \in \mathbb{N}}$. ``Orthonormal'' means $\langle \phi_n, \phi_m \rangle = \delta_{nm}$ (the Kronecker delta). ``Complete'' means the only vector orthogonal to all $\phi_n$ is the zero vector.
-
-Just as in $\mathbb{R}^N$, any $v \in L^2(\mathbb{R})$ has an expansion with coefficients given by its inner products with the basis functions:
+\begin{theorem}[Fourier Inversion]
+If $f \in L^1(\R)$ and its Fourier transform $\hat{f} \in L^1(\R)$, then for almost every $t \in \R$:
 \begin{equation}
-\begin{aligned}
-v &= \sum_{n=1}^\infty c_n \phi_n, \\
-c_n &= \langle v, \phi_n \rangle.
-\end{aligned}
+f(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-i\omega t} \dd \omega
 \end{equation}
-
-\begin{remark}[Nature of Convergence]
-The infinite sum
-\[
-\sum_{n=1}^\infty c_n \phi_n
-\]
-does \textit{not} necessarily converge pointwise. The equality $v = \sum c_n \phi_n$ is understood in the \textit{$L^2$-norm sense} (mean-square convergence). Let
-\[
-S_N = \sum_{n=1}^N c_n \phi_n
-\]
-be the partial sum. The expansion means:
-\begin{equation}
-\lim_{N \to \infty} \left\| v - S_N \right\| = 0 \implies \lim_{N \to \infty} \int_\mathbb{R} \left| v(t) - \sum_{n=1}^N c_n \phi_n(t) \right|^2 \dd t = 0
-\end{equation}
-
-This is guaranteed by the completeness of the space and Bessel's inequality becoming an equality (Parseval's identity):
-\[
-\|v\|^2 = \sum_{n=1}^\infty |c_n|^2.
-\]
-
-\end{remark}
-
-\input{figures/orthogonal-modes.tex}
-
-\section{Integral Operators and Spectral Theory}
-
-\subsection{Hilbert--Schmidt Integral Operators}
-
-In linear algebra, linear transformations on $\mathbb{R}^N$ are represented by matrices. In $L^2(\mathbb{R})$, a broad and highly useful class of linear operators is represented by integral kernels.
-
-\begin{definition}[Linear Integral Operator]
-Let $W(t, t')$ be a measurable function on $\mathbb{R} \times \mathbb{R}$. We define a linear operator
-\[
-W: L^2(\mathbb{R}) \to L^2(\mathbb{R})
-\]
-acting on a function $v \in L^2(\mathbb{R})$ via:
-\begin{equation}
-(Wv)(t) = \int_\mathbb{R} W(t, t') v(t') \dd t'
-\end{equation}
-
-\end{definition}
-
-For $W$ to be a valid operator on $L^2(\mathbb{R})$, it must map $L^2$ functions to $L^2$ functions, and ideally, it should be a \textit{bounded operator}. An operator is bounded if there exists a constant $C > 0$ such that $\|Wv\| \leq C\|v\|$ for all $v \in L^2(\mathbb{R})$. Boundedness is equivalent to continuity in normed spaces.
-
-\begin{definition}[Hilbert--Schmidt Kernel and Operator]
-If the kernel $W(t, t')$ is square-integrable over the product space $\mathbb{R}^2$ with respect to the product Lebesgue measure $\dd t \dd t'$, meaning:
-\begin{equation}
-\|W\|_{HS}^2 := \iint_{\mathbb{R}^2} |W(t, t')|^2 \dd t \dd t' < \infty
-\end{equation}
-then $W$ is called a \textit{Hilbert--Schmidt kernel}.
-\end{definition}
-
-\begin{theorem}[Boundedness of Hilbert--Schmidt Operators]
-Every Hilbert--Schmidt kernel defines a bounded linear operator from $L^2(\mathbb{R})$ to $L^2(\mathbb{R})$, with operator norm bounded by $\|W\|_{HS}$.
+If $f$ is continuous, this equality holds for all $t \in \R$.
 \end{theorem}
 
-\begin{proof}[Explicit Derivation of Boundedness]
-We must prove that if $v \in L^2(\mathbb{R})$, then
+\begin{proof}
+The integral
+\[
+\int \hat{f}(\omega) e^{-i\omega t} \dd \omega
+\]
+might not converge absolutely if we merely know $\hat{f} \in L^1$ and attempt to substitute the definition of $\hat{f}$ directly, because the resulting double integral may fail Fubini's conditions. To bypass this, we introduce a regularization factor $e^{-\varepsilon \omega^2}$ (Gaussian damping) and take the limit as $\varepsilon \to 0^+$. Define the regularized integral:
+\begin{equation}
+I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-\varepsilon \omega^2} e^{-i\omega t} \dd \omega
+\end{equation}
+The two facts needed for dominated convergence are
 \[
 \begin{gathered}
-Wv \in L^2(\mathbb{R}) \\
-\|Wv\| \leq \|W\|_{HS} \|v\|.
+\hat{f} \in L^1 \\
+|e^{-\varepsilon \omega^2} e^{-i\omega t}| \leq 1,
 \end{gathered}
 \]
 
-First, we evaluate the pointwise absolute value of $(Wv)(t)$ using the \textit{Cauchy--Schwarz inequality for integrals} with respect to the variable $t'$:
-\begin{align}
-|(Wv)(t)|^2 &= \left| \int_\mathbb{R} W(t, t') v(t') \dd t' \right|^2 \\
-    &\leq \left( \int_\mathbb{R} |W(t, t')|^2 \dd t' \right) \left( \int_\mathbb{R} |v(t')|^2 \dd t' \right) \\
-    &= \|v\|^2 \int_\mathbb{R} |W(t, t')|^2 \dd t'
-\end{align}
-Notice that we factored out $\|v\|^2$ because it does not depend on $t'$. Next, to find the $L^2$ norm of $Wv$, we integrate both sides of this inequality with respect to $t$ over $\mathbb{R}$:
-\begin{align}
-\|Wv\|^2 = \int_\mathbb{R} |(Wv)(t)|^2 \dd t &\leq \int_\mathbb{R} \left( \|v\|^2 \int_\mathbb{R} |W(t, t')|^2 \dd t' \right) \dd t \\
-    &= \|v\|^2 \iint_{\mathbb{R}^2} |W(t, t')|^2 \dd t' \dd t \\
-    &= \|v\|^2 \|W\|_{HS}^2
-\end{align}
-Taking the square root of both sides yields:
+Together, they show that the integrand is dominated by $|\hat{f}(\omega)| \in L^1$. By the Dominated Convergence Theorem, as $\varepsilon \to 0^+$:
 \begin{equation}
-\|Wv\| \leq \|W\|_{HS} \|v\|
+\lim_{\varepsilon \to 0^+} I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-i\omega t} \dd \omega
+\end{equation}
+Now, substitute the definition of
+\[
+\hat{f}(\omega) = \int_\R f(s) e^{i\omega s} \dd s
+\]
+into $I_\varepsilon(t)$:
+\begin{equation}
+I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \left[ \int_\R f(s) e^{i\omega s} \dd s \right] e^{-\varepsilon \omega^2} e^{-i\omega t} \dd \omega
 \end{equation}
 
-This explicitly proves that $W$ is a bounded linear operator, and the constant $C$ in the definition of boundedness is precisely the Hilbert--Schmidt norm of the kernel, $\|W\|_{HS}$. Furthermore, because $|Wv(t)|^2$ is bounded by an $L^1$ function of $t$, it guarantees that $Wv \in L^2(\mathbb{R})$.
-\end{proof}
-
-\input{figures/integral-kernel.tex}
-
-\subsection{Eigenfunctions, Self-Adjointness, and Compactness}
-
-In finite-dimensional linear algebra, the Spectral Theorem states that any real symmetric matrix (or complex Hermitian matrix) is diagonalizable by a unitary matrix. To generalize this to infinite-dimensional Hilbert spaces, we must carefully identify which properties of finite matrices survive the transition to infinite dimensions, and which new conditions are required to prevent pathological behavior.
-
-
-Let $\calH$ be a separable Hilbert space with inner product $\langle \cdot, \cdot \rangle$ and induced norm $\|\cdot\|$. Let $W: \calH \to \calH$ be a bounded linear operator. We first define the adjoint and then the two crucial properties required for the spectral theorem.
-
-\begin{definition}[Adjoint and Self-Adjoint Operator]
-The \textit{adjoint} of $W$, denoted $W^\dagger$, is the unique bounded linear operator satisfying $\langle Wv, u \rangle = \langle v, W^\dagger u \rangle$ for all $v, u \in \calH$.
-An operator $W$ is \textit{self-adjoint} (or Hermitian) if $W = W^\dagger$, meaning that the following identity holds for all $v, u \in \calH$:
+We must justify swapping the order of integration. The absolute value of the integrand is $|f(s)| e^{-\varepsilon \omega^2}$. The double integral of the absolute value is:
 \begin{equation}
-\langle Wv, u \rangle = \langle v, Wu \rangle.
+\begin{aligned}
+    \int_\R \int_\R |f(s)| e^{-\varepsilon \omega^2} \dd s \dd \omega
+    &= \|f\|_{L^1} \int_\R e^{-\varepsilon \omega^2} \dd \omega \\
+    &= \|f\|_{L^1} \sqrt{\frac{\pi}{\varepsilon}} < \infty
+    \end{aligned}
 \end{equation}
 
-\end{definition}
+Since the double integral is absolutely convergent, the \textit{Fubini--Tonelli Theorem} permits us to swap the integrals:
+\begin{equation}
+\begin{aligned}
+I_\varepsilon(t)
+    &= \int_\R f(s) \underbrace{ \left[ \frac{1}{2\pi} \int_\R e^{-\varepsilon \omega^2} e^{i\omega(s-t)} \dd \omega \right] }_{g_\varepsilon(s-t)} \dd s \\
+    &= (f * g_\varepsilon)(t)
+    \end{aligned}
+\end{equation}
+where $*$ denotes convolution. We now explicitly evaluate the inner integral $g_\varepsilon(u)$ by completing the square in the exponent:
+\begin{equation}
+\begin{aligned}
+    -\varepsilon \omega^2 + i\omega u
+    &= -\varepsilon \left( \omega^2 - \frac{i\omega u}{\varepsilon} \right) \\
+    &= -\varepsilon \left( \left(\omega - \frac{iu}{2\varepsilon}\right)^2 + \frac{u^2}{4\varepsilon^2} \right) \\
+    &= -\varepsilon \left(\omega - \frac{iu}{2\varepsilon}\right)^2 - \frac{u^2}{4\varepsilon}
+    \end{aligned}
+\end{equation}
 
-\begin{remark}[Why Self-Adjointness?]
-Self-adjointness is the infinite-dimensional analogue of matrix symmetry and yields two key spectral consequences:
-\textit{1. Real Eigenvalues:} If $Wv = \lambda v$ for $v \neq 0$, then
+Substituting $z = \omega - iu/(2\varepsilon)$ and shifting the contour of integration (justified by Cauchy's Integral Theorem, since $e^{-\varepsilon z^2}$ is entire and decays rapidly in horizontal strips):
+\begin{equation}
+\begin{aligned}
+g_\varepsilon(u)
+    &= \frac{1}{2\pi} e^{-u^2 / 4\varepsilon} \int_\R e^{-\varepsilon z^2} \dd z \\
+    &= \frac{1}{2\pi} e^{-u^2 / 4\varepsilon} \sqrt{\frac{\pi}{\varepsilon}}
+    = \frac{1}{\sqrt{4\pi\varepsilon}} e^{-u^2 / 4\varepsilon}
+    \end{aligned}
+\end{equation}
 
-\[
-\lambda \langle v, v \rangle = \langle Wv, v \rangle = \langle v, Wv \rangle = \langle v, \lambda v \rangle = \bar{\lambda} \langle v, v \rangle.
-\]
-Since $\langle v, v \rangle > 0$, we must have $\lambda = \bar{\lambda}$, so $\lambda \in \R$.
-\textit{2. Orthogonal Eigenvectors:} If $Wv_1 = \lambda_1 v_1$ and $Wv_2 = \lambda_2 v_2$ with $\lambda_1 \neq \lambda_2$, then
-
-\[
-\lambda_1 \langle v_1, v_2 \rangle = \langle Wv_1, v_2 \rangle = \langle v_1, Wv_2 \rangle = \lambda_2 \langle v_1, v_2 \rangle.
-\]
-Thus,
-\[
-(\lambda_1 - \lambda_2)\langle v_1, v_2 \rangle = 0,
-\]
-which forces $\langle v_1, v_2 \rangle = 0$.
-\end{remark}
-
-\begin{definition}[Compact Operator]
-An operator $W: \calH \to \calH$ is \textit{compact} if it maps every bounded set in $\calH$ to a relatively compact set (a set whose closure is compact). In a metric space like a Hilbert space, compactness is equivalent to sequential compactness. Therefore, $W$ is compact if and only if for every bounded sequence $\{v_n\} \subset \calH$, the image sequence $\{Wv_n\}$ contains a convergent subsequence in $\calH$.
-\end{definition}
-
-\begin{remark}[Why Compactness?]
-In finite dimensions, the closed unit ball is compact (Heine--Borel theorem), so every bounded linear operator is automatically compact. In infinite dimensions, the closed unit ball is \textit{never} compact. Compact operators are those that ``compress'' the infinite-dimensional space enough to mimic finite-dimensional behavior. Without compactness, the spectrum of an operator can be continuous, meaning the operator might have no eigenvectors in $\calH$ at all.
-\end{remark}
-
-\subsection{The Spectral Theorem for Compact Self-Adjoint Operators}
-
-\begin{theorem}[Spectral Theorem]
-Let $W$ be a compact self-adjoint operator on a separable Hilbert space $\calH$. Then:
+The family of functions $\{g_\varepsilon\}_{\varepsilon > 0}$ forms a \textit{nascent delta sequence}. We explicitly verify the three required conditions:
 \begin{enumerate}
-\item \textit{Real eigenvalues}: the eigenvalues of $W$ are all real.
-\item \textit{Orthonormal eigenvectors}: there exists an orthonormal sequence of eigenvectors $\{\phi_n\}$ with corresponding real eigenvalues $\{\lambda_n\}$.
-\item \textit{Eigenvalue convergence}: if the sequence of nonzero eigenvalues is infinite, then
+\item \textit{Non-negativity}: $g_\varepsilon(u) > 0$ for all $u \in \R$.
+\item \textit{Normalization}: the following identity holds:
 
 \[
-\lim_{n \to \infty} \lambda_n = 0.
+\int_\R g_\varepsilon(u) \dd u = 1
 \]
 
-\item \textit{Spectral expansion}: any vector $v \in \calH$ can be expanded as:
+(which follows from evaluating the Gaussian integral or noting it is the inverse Fourier transform of $e^{-\varepsilon \omega^2}$ at $t=0$).
+\item \textit{Concentration}: for any $\eta > 0$, let $v = u/(4\varepsilon)^{1/2}$. Then:
 
 \begin{equation}
-Wv = \sum_{n} \lambda_n \langle v, \phi_n \rangle \phi_n
+\int_{|u| > \eta} g_\varepsilon(u) \dd u = \frac{2}{\sqrt{\pi}} \int_{|v| > \eta/\sqrt{4\varepsilon}} e^{-v^2} \dd v
 \end{equation}
-where the series converges in the norm of $\calH$. (If $W$ is injective, $\{\phi_n\}$ forms a complete orthonormal basis for $\calH$.)
+As $\varepsilon \to 0^+$, the lower limit $\eta/(4\varepsilon)^{1/2} \to \infty$, so the integral approaches 0.
 \end{enumerate}
-\end{theorem}
-
-\begin{proof}[Explicit Logic for $\lambda_n \to 0$]
-We must explicitly prove why compactness forces the eigenvalues to converge to zero.
-Suppose, for contradiction, that $\lambda_n \not\to 0$. Then there exists some $\varepsilon > 0$ and a subsequence of eigenvalues $\{\lambda_{n_k}\}$ such that $|\lambda_{n_k}| \geq \varepsilon$ for all $k$.
-Consider the corresponding eigenvectors $\{\phi_{n_k}\}$. Because they are orthonormal, they form a bounded sequence ($\|\phi_{n_k}\| = 1$).
-Now, examine the image sequence under $W$: $W\phi_{n_k} = \lambda_{n_k} \phi_{n_k}$.
-For any $j \neq k$, the distance between two terms in this image sequence is:
-\begin{align}
-\|W\phi_{n_j} - W\phi_{n_k}\|^2 &= \|\lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k}\|^2 \notag \\
-    &= \langle \lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k}, \lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k} \rangle \notag \\
-    &= |\lambda_{n_j}|^2 \|\phi_{n_j}\|^2 + |\lambda_{n_k}|^2 \|\phi_{n_k}\|^2 - 2\Re(\lambda_{n_j} \bar{\lambda}_{n_k} \langle \phi_{n_j}, \phi_{n_k} \rangle)
-\end{align}
-Because the eigenvectors are orthonormal, $\langle \phi_{n_j}, \phi_{n_k} \rangle = 0$ and $\|\phi_{n_k}\| = 1$. Thus:
-\begin{equation}
-\begin{aligned}
-\|W\phi_{n_j} - W\phi_{n_k}\|^2 &= |\lambda_{n_j}|^2 + |\lambda_{n_k}|^2 \\
-&\geq \varepsilon^2 + \varepsilon^2 \\
-&= 2\varepsilon^2
-\end{aligned}
-\end{equation}
-
-This means the distance between any two distinct terms in the sequence $\{W\phi_{n_k}\}$ is at least $\sqrt{2}\varepsilon$. Consequently, this sequence cannot contain any Cauchy subsequence, and therefore cannot contain any convergent subsequence. This directly contradicts the definition of $W$ being a compact operator. Hence, our assumption was false, and we must have $\lambda_n \to 0$.
+By the properties of nascent delta sequences, the convolution $(f * g_\varepsilon)(t)$ converges to $f(t)$ at every point of continuity of $f$. Equating the two limits ($\varepsilon \to 0^+$) yields the inversion formula.
 \end{proof}
 
-\begin{remark}[Connection to Finite-Dimensional Diagonalization]
-In finite dimensions, diagonalization is written as $W = E \Lambda E^{-1}$, where $E$ is the matrix of eigenvectors and $\Lambda$ is the diagonal matrix of eigenvalues. Because $W$ is self-adjoint, $E$ is unitary, so $E^{-1} = E^\dagger$.
-The infinite-dimensional expansion
-\[
-Wv = \sum_n \lambda_n \langle v, \phi_n \rangle \phi_n
-\]
-is the exact analogue. If we define the operator $E$ by its action
-\[
-E c = \sum_n c_n \phi_n,
-\]
-then $W = E \Lambda E^\dagger$, where $\Lambda$ acts by multiplying the $n$-th component by $\lambda_n$.
-\end{remark}
+\subsection{\texorpdfstring{$L^2$}{L2} Theory and Convolution}
 
-\subsection{Convolution Operators and the Continuous Spectrum}
-
-When we drop the requirement of compactness, the spectral theorem fails in its discrete form. A prime example in physics and signal processing is the convolution operator.
-
-\begin{definition}[Convolution Operator]
-Let $K \in L^1(\R)$ be a kernel function. The convolution operator $W_K: L^2(\R) \to L^2(\R)$ is defined by:
+\begin{theorem}[Plancherel Theorem]
+The Fourier transform extends uniquely to a unitary operator (up to a scaling factor) on $L^2(\R)$. For all $f, g \in L^2(\R)$:
 \begin{equation}
-\begin{aligned}
-(W_K v)(t) &= (K * v)(t) \\
-&= \int_\R K(t-t') v(t') \dd t'
-\end{aligned}
+\int_\R f(t) \overline{g(t)} \dd t = \frac{1}{2\pi} \int_\R \hat{f}(\omega) \overline{\hat{g}(\omega)} \dd \omega
 \end{equation}
 
-\end{definition}
+\end{theorem}
 
-\begin{remark}[Boundedness via Young's Inequality]
-We must verify that $W_K$ actually maps $L^2$ to $L^2$. By \textit{Young's convolution inequality}, if $K \in L^1(\R)$ and $v \in L^2(\R)$, then
+\begin{proof}
+We first prove the identity for $f, g \in \mathcal{S}(\R)$ (the Schwartz space), and then extend it to $L^2(\R)$.
+
+\textit{Step 1: Setup for Schwartz functions.}
+Define the time-reversed, complex-conjugated function $\tilde{g}(t) = \overline{g(-t)}$. Since $g \in \mathcal{S}(\R)$, it is clear that $\tilde{g} \in \mathcal{S}(\R)$. Let $h = f * \tilde{g}$. Because $\mathcal{S}(\R)$ is closed under convolution, $h \in \mathcal{S}(\R)$.
+
+\textit{Step 2: Evaluate $h(0)$ in the time domain.}
+
+\begin{equation}
+h(0) = (f * \tilde{g})(0) = \int_\R f(t) \tilde{g}(-t) \dd t = \int_\R f(t) \overline{g(t)} \dd t = \langle f, g \rangle_{L^2}
+\end{equation}
+
+\textit{Step 3: Evaluate $\hat{h}(\omega)$ in the frequency domain.}
+By the Convolution Theorem (proven below),
+\[
+\hat{h}(\omega) = \hat{f}(\omega) \hat{\tilde{g}}(\omega).
+\]
+We compute $\hat{\tilde{g}}(\omega)$:
+\begin{equation}
+\hat{\tilde{g}}(\omega) = \int_\R \overline{g(-t)} e^{i\omega t} \dd t
+\end{equation}
+Substitute $s = -t$, so $\dd t = -\dd s$:
+\begin{equation}
+\begin{aligned}
+    \hat{\tilde{g}}(\omega)
+    &= \int_\R \overline{g(s)} e^{-i\omega s} \dd s \\
+    &= \overline{ \left( \int_\R g(s) e^{i\omega s} \dd s \right) }
+    = \overline{\hat{g}(\omega)}
+    \end{aligned}
+\end{equation}
+Thus,
+\[
+\hat{h}(\omega) = \hat{f}(\omega) \overline{\hat{g}(\omega)}.
+\]
+
+\textit{Step 4: Apply the Inversion Theorem.}
+Since $h \in \mathcal{S}(\R)$, both $h$ and $\hat{h}$ are in $L^1(\R)$. Applying the Fourier Inversion Theorem at $t=0$:
+\begin{equation}
+\begin{aligned}
+h(0) &= \frac{1}{2\pi} \int_\R \hat{h}(\omega) e^{0} \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R \hat{f}(\omega) \overline{\hat{g}(\omega)} \dd \omega \\
+    &= \frac{1}{2\pi} \langle \hat{f}, \hat{g} \rangle_{L^2}
+    \end{aligned}
+\end{equation}
+Equating the results from Step 2 and Step 4 yields
+\[
+\langle f, g \rangle_{L^2} = (1/(2\pi)) \langle \hat{f}, \hat{g} \rangle_{L^2}.
+\]
+
+\textit{Step 5: Extension to $L^2(\R)$.}
+The Schwartz space $\mathcal{S}(\R)$ is dense in $L^2(\R)$. On this dense subset, the Fourier transform is a linear isometry (up to the $1/(2\pi)^{1/2}$ factor). By the \textit{Bounded Linear Transformation (BLT) Theorem}, any uniformly continuous linear map from a dense subset of a metric space to a complete metric space extends uniquely to the entire space. Since $L^2(\R)$ is complete, the Fourier transform extends uniquely to a bounded linear operator on all of $L^2(\R)$. Because the isometry property holds on the dense subset, it holds on the entire space by the continuity of the norm.
+\end{proof}
+
+\begin{corollary}[Parseval's Identity]
+Setting $f=g$ in Plancherel's theorem yields the conservation of energy:
+\begin{equation}
+\int_\R |f(t)|^2 \dd t = \frac{1}{2\pi} \int_\R |\hat{f}(\omega)|^2 \dd \omega
+\end{equation}
+
+\end{corollary}
+
+\begin{theorem}[Convolution Theorem]
+If $f, g \in L^1(\R)$, then their convolution $f*g \in L^1(\R)$ and the Fourier transform of the convolution is the pointwise product of their Fourier transforms:
+\begin{equation}
+\widehat{f*g}(\omega) = \hat{f}(\omega) \hat{g}(\omega)
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+By definition,
+\[
+(f*g)(t) = \int_\R f(\tau) g(t-\tau) \dd \tau.
+\]
+We evaluate its Fourier transform:
+\begin{equation}
+\widehat{f*g}(\omega) = \int_\R e^{i\omega t} \left( \int_\R f(\tau) g(t-\tau) \dd \tau \right) \dd t
+\end{equation}
+To swap the order of integration, we verify absolute integrability via Fubini--Tonelli:
+\begin{equation}
+\int_\R \int_\R |f(\tau)| |g(t-\tau)| \dd \tau \dd t = \int_\R |f(\tau)| \left( \int_\R |g(t-\tau)| \dd t \right) \dd \tau = \|f\|_{L^1} \|g\|_{L^1} < \infty
+\end{equation}
+Since the double integral is absolutely convergent, we swap the integrals:
+\begin{equation}
+\widehat{f*g}(\omega) = \int_\R f(\tau) \left( \int_\R g(t-\tau) e^{i\omega t} \dd t \right) \dd \tau
+\end{equation}
+
+In the inner integral, we perform the substitution $u = t-\tau$, which implies $t = u+\tau$ and $\dd t = \dd u$. The limits of integration remain $-\infty$ to $\infty$:
+\begin{equation}
+\begin{aligned}
+\int_\R g(u) e^{i\omega (u+\tau)} \dd u &= e^{i\omega \tau} \int_\R g(u) e^{i\omega u} \dd u \\
+&= e^{i\omega \tau} \hat{g}(\omega)
+\end{aligned}
+\end{equation}
+Substituting this back into the outer integral:
+\begin{equation}
+\begin{aligned}
+    \widehat{f*g}(\omega)
+    &= \int_\R f(\tau) e^{i\omega \tau} \hat{g}(\omega) \dd \tau \\
+    &= \hat{g}(\omega) \int_\R f(\tau) e^{i\omega \tau} \dd \tau
+    = \hat{g}(\omega) \hat{f}(\omega)
+    \end{aligned}
+\end{equation}
+
+\end{proof}
+
+\input{figures/box-convolution.tex}
+
+\subsection{The Heisenberg Uncertainty Principle}
+
+
+\begin{theorem}[Heisenberg Uncertainty Principle]
+For $f \in L^2(\R)$ with $\|f\|_{L^2}=1$, assuming $tf(t)$ and $\omega \hat{f}(\omega)$ are in $L^2(\R)$:
+\begin{equation}
+\left( \int_\R t^2 |f(t)|^2 \dd t \right) \left( \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega \right) \geq \frac{1}{4}
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+Define the time and frequency second moments by
 \[
 \begin{gathered}
-K * v \in L^2(\R) \\
-\|K * v\|_{L^2} \leq \|K\|_{L^1} \|v\|_{L^2}.
+\Delta t^2 = \int_\R t^2 |f(t)|^2 \dd t \\
+\Delta \omega^2 = \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega.
 \end{gathered}
 \]
 
-Thus, the condition $K \in L^1$ is sufficient to guarantee that $W_K$ is a bounded (continuous) operator on $L^2(\R)$.
-\end{remark}
+For the derivation, we assume $f \in \mathcal{S}(\R)$ to ensure all boundary terms vanish and derivatives are well-behaved; the result extends to the specified domain in $L^2$ by a standard density argument.
 
-\begin{proposition}[Action on Complex Exponentials]
-Consider the complex exponential functions $e_\omega(t) = e^{i\omega t}$ for $\omega \in \R$. The action of $W_K$ on $e_\omega$ yields:
-\begin{equation}
-(W_K e_\omega)(t) = \hat{K}(\omega) e_\omega(t)
-\end{equation}
-Here the Fourier transform of $K$ is defined by
-\[
-\hat{K}(\omega) = \int_\R K(\tau) e^{-i\omega \tau} \dd \tau
-\]
-
-\end{proposition}
-
-\begin{proof}
-We evaluate the integral explicitly using the substitution $\tau = t - t'$, which implies $t' = t - \tau$ and $\dd t' = -\dd \tau$. The limits of integration change from $t' \in (-\infty, \infty)$ to $\tau \in (\infty, -\infty)$:
-\begin{align}
-(W_K e_\omega)(t) &= \int_{-\infty}^\infty K(t-t') e^{i\omega t'} \dd t' \notag \\
-    &= \int_{\infty}^{-\infty} K(\tau) e^{i\omega (t-\tau)} (-\dd \tau) \notag \\
-    &= \int_{-\infty}^\infty K(\tau) e^{i\omega t} e^{-i\omega \tau} \dd \tau \notag \\
-    &= e^{i\omega t} \left( \int_{-\infty}^\infty K(\tau) e^{-i\omega \tau} \dd \tau \right) \notag \\
-    &= \hat{K}(\omega) e_\omega(t)
-\end{align}
-This shows that $e_\omega$ is an eigenfunction of the convolution operator with eigenvalue $\hat{K}(\omega)$.
-\end{proof}
-
-\begin{remark}[Why $e_\omega$ are not true Eigenvectors in $L^2$]
-For $e_\omega$ to be a valid eigenvector in the Hilbert space $L^2(\R)$, it must belong to $L^2(\R)$. However, its norm is:
+\textit{Step 1: Relate $\Delta \omega^2$ to the time-domain derivative.}
+First, we establish the derivative property of the Fourier transform. Using integration by parts on $\widehat{f'}(\omega)$:
 \begin{equation}
 \begin{aligned}
-\|e_\omega\|^2 &= \int_{-\infty}^\infty |e^{i\omega t}|^2 \dd t \\
-&= \int_{-\infty}^\infty 1 \dd t \\
-&= \infty
+    \widehat{f'}(\omega)
+    &= \int_\R f'(t) e^{i\omega t} \dd t \\
+    &= \left[ f(t) e^{i\omega t} \right]_{-\infty}^\infty
+    - \int_\R f(t) (i\omega) e^{i\omega t} \dd t
+    \end{aligned}
+\end{equation}
+Because $f \in \mathcal{S}(\R)$, $f(t) \to 0$ as $|t| \to \infty$, so the boundary term vanishes. Thus,
+\[
+\widehat{f'}(\omega) = -i\omega \hat{f}(\omega).
+\]
+Applying Plancherel's theorem to the function $f'$:
+\begin{equation}
+\begin{aligned}
+    \int_\R |f'(t)|^2 \dd t
+    &= \frac{1}{2\pi} \int_\R |\widehat{f'}(\omega)|^2 \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R |-i\omega \hat{f}(\omega)|^2 \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega
+    = \Delta \omega^2
+    \end{aligned}
+\end{equation}
+
+\textit{Step 2: Integration by parts on the time second moment.}
+We evaluate the integral of $t (d/dt) |f(t)|^2$. Note that by the product rule:
+\begin{equation}
+\begin{aligned}
+\frac{d}{dt} |f(t)|^2 &= \frac{d}{dt} (f(t) \overline{f(t)}) \\
+&= f'(t) \overline{f(t)} + f(t) \overline{f'(t)} \\
+&= 2 \Re\left( f'(t) \overline{f(t)} \right)
+\end{aligned}
+\end{equation}
+Integrating by parts over $\R$:
+\begin{equation}
+\int_\R t \frac{d}{dt} |f(t)|^2 \dd t = \left[ t |f(t)|^2 \right]_{-\infty}^\infty - \int_\R |f(t)|^2 \dd t
+\end{equation}
+
+Since $f \in \mathcal{S}(\R)$, the boundary term vanishes. The remaining integral is $-\|f\|_{L^2}^2 = -1$. Equating the two expressions for the integral:
+\begin{equation}
+\begin{aligned}
+-1 &= \int_\R t \left( f'(t) \overline{f(t)} + f(t) \overline{f'(t)} \right) \dd t \\
+&= 2 \Re \int_\R t f'(t) \overline{f(t)} \dd t
 \end{aligned}
 \end{equation}
 
-Thus, $e_\omega \notin L^2(\R)$. They are ``generalized eigenvectors''. Because the eigenvalues $\hat{K}(\omega)$ form a continuous range (as $\omega$ varies continuously over $\R$), the operator $W_K$ possesses a \textit{continuous spectrum}.
-\end{remark}
-
-\begin{proposition}[Convolution Operators are Never Compact]
-Unless $W_K$ is the zero operator, it is never compact.
-\end{proposition}
-
-\begin{proof}
-We prove this by constructing a bounded sequence with no convergent subsequence in the image.
-Let $v \in L^2(\R)$ be any nonzero function. Define a sequence of translated functions $v_n(t) = v(t - n)$ for $n \in \N$.
-Because translation preserves the $L^2$ norm,
-\[
-\|v_n\|_{L^2} = \|v\|_{L^2},
-\]
-so $\{v_n\}$ is a bounded sequence.
-The image of this sequence under $W_K$ is:
+\textit{Step 3: Apply the Cauchy--Schwarz inequality.}
+Taking the absolute value of both sides:
 \begin{equation}
 \begin{aligned}
-(W_K v_n)(t) &= \int_\R K(t-t') v(t'-n) \dd t' \\
-&= \int_\R K(t - n - \tau) v(\tau) \dd \tau \\
-&= (W_K v)(t - n)
+1 &= \left| 2 \Re \int_\R t f'(t) \overline{f(t)} \dd t \right| \\
+&\leq 2 \left| \int_\R t f'(t) \overline{f(t)} \dd t \right| \\
+&\leq 2 \int_\R |t f(t)| |f'(t)| \dd t
 \end{aligned}
 \end{equation}
 
-Thus, $W_K v_n$ is simply the function $W_K v$ shifted by $n$.
-For $j \neq k$, the squared distance between two terms in the image sequence is:
+We apply the Cauchy--Schwarz inequality to the functions $A(t) = t f(t)$ and $B(t) = f'(t)$ in $L^2(\R)$:
 \begin{equation}
-\|W_K v_j - W_K v_k\|^2 = \int_\R |(W_K v)(t-j) - (W_K v)(t-k)|^2 \dd t
+\begin{aligned}
+\int_\R |A(t) B(t)| \dd t &\leq \|A\|_{L^2} \|B\|_{L^2} \\
+&= \left( \int_\R t^2 |f(t)|^2 \dd t \right)^{1/2} \left( \int_\R |f'(t)|^2 \dd t \right)^{1/2} \\
+&= \sqrt{\Delta t^2 \Delta \omega^2}
+\end{aligned}
 \end{equation}
-
-As $j, k \to \infty$, the overlap between the shifted functions $(W_K v)(t-j)$ and $(W_K v)(t-k)$ approaches zero because $W_K v \in L^2(\R)$ (its mass cannot be infinite). Therefore, the cross-terms in the squared integral vanish, leaving:
+Substituting this bound back into the inequality:
 \begin{equation}
-\lim_{j,k \to \infty} \|W_K v_j - W_K v_k\|^2 = \|W_K v\|^2 + \|W_K v\|^2 = 2\|W_K v\|^2 > 0
+1 \leq 2 \sqrt{\Delta t^2 \Delta \omega^2}
 \end{equation}
+Squaring both sides and dividing by 4 yields the uncertainty principle: $\Delta t^2 \Delta \omega^2 \geq 1/4$.
 
-Since the distance between terms does not approach zero, the sequence $\{W_K v_n\}$ contains no Cauchy subsequence, and therefore no convergent subsequence. This violates the definition of a compact operator.
+\textit{Step 4: Determine the equality condition.}
+Equality in the Cauchy--Schwarz inequality holds if and only if $B(t) = c A(t)$ for some constant $c \in \C$, meaning $f'(t) = c t f(t)$.
+Furthermore, equality in the bound $\Re(z) \leq |z|$ requires $z$ to be a nonnegative real number. Here,
+\[
+\begin{aligned}
+z &= \int t f' \bar{f} \\
+&= c \int t^2 |f|^2 \\
+&= c \Delta t^2.
+\end{aligned}
+\]
+
+Since $1 = -2 \Re(z)$, $z$ must be real and strictly negative, which implies $c$ is a negative real number. Let $c = -\alpha$ with $\alpha > 0$.
+Solving the differential equation
+\[
+f'(t) = -\alpha t f(t):
+\]
+
+\begin{equation}
+\frac{f'(t)}{f(t)} = -\alpha t \implies \ln f(t) = -\frac{\alpha}{2} t^2 + C \implies f(t) = A e^{-\frac{\alpha}{2} t^2}
+\end{equation}
+This explicitly proves that the lower bound is achieved if and only if $f$ is a Gaussian function.
 \end{proof}
 
-\begin{remark}[Diagonalization via the Fourier Transform]
-Although $W_K$ lacks a discrete eigenbasis, it is still ``diagonalized'' by the Fourier transform. The \textit{Convolution Theorem} states that
-\[
-\widehat{K * v}(\omega) = \hat{K}(\omega) \hat{v}(\omega).
-\]
+Figure~\ref{fig:ch14-uncertainty} illustrates the trade-off between localization in time and in frequency.
 
-In the Fourier domain, the operator $W_K$ acts on $\hat{v}$ by simple pointwise multiplication by the function $\hat{K}(\omega)$. This is the exact continuous analogue of a diagonal matrix multiplying a vector. Rigorously, this is formalized by the theory of \textit{Direct Integrals}, where the discrete sum
-\[
-\sum_n \lambda_n \langle v, \phi_n \rangle \phi_n
-\]
-is replaced by the continuous integral
-\[
-\int_\R \hat{K}(\omega) \hat{v}(\omega) e^{i\omega t} \frac{\dd \omega}{2\pi}.
-\]
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$t$}, ylabel={$f(t)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figblue,very thick,domain=-3:3,samples=150] {exp(-4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(7.2cm,0)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$\xi$}, ylabel={$\hat f(\xi)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figred,very thick,domain=-3:3,samples=150] {exp(-0.4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(0,-5.2cm)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$t$}, ylabel={$f(t)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figgreen,very thick,domain=-3:3,samples=150] {exp(-0.4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(7.2cm,-5.2cm)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$\xi$}, ylabel={$\hat f(\xi)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figblue,very thick,domain=-3:3,samples=150] {exp(-4*x^2)};
+\end{axis}
+\end{tikzpicture}
+\caption[Uncertainty principle: time vs frequency]{Schematic time--frequency localization using Gaussian profiles. Left column: signals in time. Right column: frequency profiles. A narrow signal corresponds to a broad frequency profile (top row), while a broad signal corresponds to a narrow frequency profile (bottom row), illustrating the uncertainty bound discussed in the text.}
+\label{fig:ch14-uncertainty}
+\end{figure}
 
-\end{remark}
+\section{Holomorphic Functions, Singularities, and Residues}
+\label{sec:complex-analysis}
 
-\section{Sobolev Spaces}
+Complex differentiation and contour integration complement the preceding Fourier methods. They also connect the planar integral theorems to harmonic functions and provide tools for evaluating real integrals and Fourier transforms.
 
-\subsection{Unbounded Differential Operators}
+\subsection{Holomorphic Functions and the Cauchy--Riemann Equations}
 
-In quantum mechanics and field theory, we frequently encounter differential operators, such as the momentum operator $P = -i(\dd/\dd t)$. However, differential operators are inherently \textit{unbounded} on $L^2(\R)$.
-
-\begin{remark}[Why Differential Operators are Unbounded]
-An operator $D$ is bounded if there exists a constant $C$ such that $\|Dv\| \leq C\|v\|$ for all $v$. Consider the sequence of functions
-\[
-v_n(t) = (1/\sqrt{n}) \sin(nt) \chi(t),
-\]
-where $\chi(t)$ is a smooth bump function with compact support.
-The $L^2$ norm of $v_n$ scales as
-\[
-\|v_n\|_{L^2} \sim (1/\sqrt{n}) \to 0.
-\]
-However, the derivative is
-\[
-v_n'(t) = \sqrt{n} \cos(nt) \chi(t) + \dots,
-\]
-so its $L^2$ norm scales as
-\[
-\|v_n'\|_{L^2} \sim \sqrt{n} \to \infty.
-\]
-Because the ratio
-\[
-\|v_n'\| / \|v_n\| \sim n \to \infty,
-\]
-no finite constant $C$ can bound the derivative operator. An unbounded operator cannot be defined on the entire Hilbert space; it requires a restricted, dense domain.
-\end{remark}
-
-To rigorously define the domain of differential operators and ensure they are closed and self-adjoint, we introduce Sobolev spaces. These spaces restrict the domain to functions that possess a specific degree of ``smoothness'' or ``regularity''.
-
-\subsection{Fourier Characterization of Sobolev Regularity}
-
-Instead of defining smoothness via pointwise derivatives (which can be problematic for non-differentiable functions), we define it via the decay of the Fourier transform at high frequencies. Rapid decay in the frequency domain corresponds to smoothness in the time domain.
-
-\begin{definition}[Sobolev Space $H^s(\R)$]
-For any real number $s \geq 0$, the Sobolev space $H^s(\R)$ is defined as the set of all functions $v \in L^2(\R)$ whose Fourier transform $\hat{v}(\omega)$ satisfies:
+\begin{definition}[Complex Differentiability and Holomorphy]
+Let $U\subset\C$ be open. A function $f:U\to\C$ is \emph{complex differentiable} at $z_0\in U$ if the limit
 \begin{equation}
-\|v\|_{H^s}^2 := \int_\R (1 + \omega^2)^s |\hat{v}(\omega)|^2 \dd \omega < \infty
+f'(z_0):=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}{h}
 \end{equation}
-This space is a Hilbert space equipped with the inner product:
-\begin{equation}
-\langle v, u \rangle_{H^s} = \int_\R (1 + \omega^2)^s \hat{v}(\omega) \overline{\hat{u}(\omega)} \dd \omega
-\end{equation}
-
+exists independently of how the complex increment $h$ approaches zero. The function is \emph{holomorphic} on $U$ if it is complex differentiable at every point of $U$; it is holomorphic near $z_0$ if this holds in a neighborhood of $z_0$.
 \end{definition}
 
-\begin{remark}[Equivalence to Weak Derivatives for Integer $s$]
-Why does this Fourier definition control derivatives? We use the property that the Fourier transform turns differentiation into algebraic multiplication. Specifically, if we define the Fourier transform as
+This condition is stronger than real differentiability of a map $\R^2\to\R^2$. Writing
 \[
-\hat{v}(\omega) = \frac{1}{\sqrt{2\pi}} \int_\R v(t) e^{-i\omega t} \dd t,
+\begin{gathered}
+z=x+iy \\
+f(z)=u(x,y)+iv(x,y),
+\end{gathered}
 \]
-then the Fourier transform of the derivative is
-\[
-\widehat{v'}(\omega) = i\omega \hat{v}(\omega).
-\]
-By the \textit{Plancherel Theorem}, the $L^2$ norm is preserved under the Fourier transform:
-\[
-\|\hat{f}\|_{L^2} = \|f\|_{L^2}.
-\]
-Let us evaluate the $H^1$ norm explicitly:
+the difference quotient must have the same limit along the real and imaginary directions. This imposes relations between the partial derivatives of $u$ and $v$.
+
+\begin{theorem}[Cauchy--Riemann Equations]
+If $f=u+iv$ is complex differentiable at $z_0=x_0+iy_0$, then the partial derivatives of $u,v$ exist at $(x_0,y_0)$ and satisfy
+\begin{equation}
+\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},
+\qquad
+\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}.
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+\textit{Step 1: approach along the real direction.} Taking $h=\Delta x\in\R$ gives
+
 \begin{align}
-\|v\|_{H^1}^2 &= \int_\R (1 + \omega^2) |\hat{v}(\omega)|^2 \dd \omega \notag \\
-    &= \int_\R |\hat{v}(\omega)|^2 \dd \omega + \int_\R \omega^2 |\hat{v}(\omega)|^2 \dd \omega \notag \\
-    &= \|\hat{v}\|_{L^2}^2 + \|i\omega \hat{v}\|_{L^2}^2 \notag \\
-    &= \|v\|_{L^2}^2 + \|\widehat{v'}\|_{L^2}^2 \notag \\
-    &= \|v\|_{L^2}^2 + \|v'\|_{L^2}^2
+f'(z_0)
+&=\lim_{\Delta x\to0}\left[
+\frac{u(x_0+\Delta x,y_0)-u(x_0,y_0)}{\Delta x}\right.\notag\\
+&\hspace{35mm}\left.+i\frac{v(x_0+\Delta x,y_0)-v(x_0,y_0)}{\Delta x}\right]\notag\\
+&=u_x(x_0,y_0)+iv_x(x_0,y_0).
 \end{align}
 
-This explicitly proves that $v \in H^1(\R)$ if and only if both $v$ and its first derivative $v'$ are in $L^2(\R)$. For a general integer $s$, expanding $(1+\omega^2)^s$ yields a polynomial in $\omega^2$ of degree $s$, which corresponds exactly to controlling the $L^2$ norms of all weak derivatives up to order $s$.
+\textit{Step 2: approach along the imaginary direction.} Taking $h=i\Delta y$ with $\Delta y\in\R$ gives
+
+\begin{align}
+f'(z_0)
+&=\lim_{\Delta y\to0}\left[
+\frac{u(x_0,y_0+\Delta y)-u(x_0,y_0)}{i\Delta y}\right.\notag\\
+&\hspace{35mm}\left.+\frac{v(x_0,y_0+\Delta y)-v(x_0,y_0)}{\Delta y}\right]\notag\\
+&=-iu_y(x_0,y_0)+v_y(x_0,y_0),
+\end{align}
+because $1/i=-i$.
+
+\textit{Step 3: compare the two limits.} Independence of the approach direction implies
+
+\[
+u_x+iv_x=v_y-iu_y.
+\]
+Equality of the real and imaginary parts gives $u_x=v_y$ and $v_x=-u_y$, as required.
+\end{proof}
+
+\begin{remark}[Sufficiency and Harmonic Functions]
+If $u,v$ have continuous first partial derivatives on an open set and satisfy the Cauchy--Riemann equations there, then $f=u+iv$ is holomorphic. Moreover, the real and imaginary parts of a holomorphic function are harmonic. To see the differential mechanism, assuming $u,v\in C^2$, differentiate $u_x=v_y$ in $x$ and $u_y=-v_x$ in $y$:
+\[
+\begin{aligned}
+\Delta u &= u_{xx}+u_{yy} \\
+&= v_{yx}-v_{xy} \\
+&= 0.
+\end{aligned}
+\]
+
+Equality of mixed partial derivatives gives the cancellation; the argument for $\Delta v=0$ is analogous. Holomorphic functions in fact possess the required higher regularity, a result not proved here. This connects complex analysis to the Laplace equation and to the Dirichlet and Neumann problems discussed in Section~\ref{sec:pde-boundary-problems}.
 \end{remark}
 
-\begin{definition}[Weak Derivative]
-Because functions in $H^s(\R)$ might not be classically differentiable everywhere, we rely on \textit{weak derivatives}. A locally integrable function $g$ is the weak derivative of $f$ if for every smooth test function $\varphi$ with compact support:
-\begin{equation}
-\int_\R g(t) \varphi(t) \dd t = - \int_\R f(t) \varphi'(t) \dd t
-\end{equation}
+\subsection{Singularities, Residues, and the Residue Theorem}
 
-The Fourier definition of $H^s(\R)$ automatically handles weak derivatives because it only requires the integral of $|\omega|^s |\hat{v}(\omega)|^2$ to be finite, bypassing the need for pointwise classical derivatives.
+\begin{definition}[Isolated Singularity and Residue]
+An \emph{isolated singularity} of $f$ is a point $z_0$ around which $f$ is holomorphic on a punctured disk $0<|z-z_0|<r$, while its value at $z_0$ may be undefined or fail to give a holomorphic extension. On this punctured disk, $f$ has a \emph{Laurent expansion}
+\begin{equation}
+f(z)=\sum_{n=-\infty}^{\infty}c_n(z-z_0)^n.
+\end{equation}
+The coefficient of $(z-z_0)^{-1}$ is the \emph{residue}, denoted by
+\[
+\operatorname{Res}(f,z_0):=c_{-1}.
+\]
+The existence of the Laurent expansion is a standard result whose proof we omit.
 \end{definition}
 
-\begin{remark}[Fractional Differentiability for Non-Integer $s$]
-For non-integer $s$ (e.g., $s = 1/2$), the weight $(1+\omega^2)^s$ does not correspond to an integer number of classical derivatives. Instead, it defines \textit{fractional differentiability}.
-The factor $(1+\omega^2)^s$ penalizes high frequencies smoothly rather than abruptly. This measures the ``fractional smoothness'' of the function, interpolating between integer derivative spaces. This is crucial in the analysis of partial differential equations and neural field models, where solutions often exhibit regularity that is not an integer number of derivatives, but still possesses a well-defined, quantifiable degree of smoothness that ensures the convergence of numerical schemes and the well-posedness of the equations.
-\end{remark}
+\begin{theorem}[Residue Theorem]
+\label{thm:residue}
+Let $\gamma$ be a positively oriented piecewise smooth simple closed curve. Suppose that $f$ is holomorphic on an open neighborhood of $\gamma$ and its interior, except for finitely many isolated singularities $z_1,\dots,z_k$ strictly inside $\gamma$. Then
+\begin{equation}
+\oint_\gamma f(z)\,\dd z
+=2\pi i\sum_{j=1}^k\operatorname{Res}(f,z_j).
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing
+\[
+f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y),
+\]
+the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
+\begin{equation}
+\oint_{|z-z_0|=\varepsilon}(z-z_0)^n\,\dd z
+=\begin{cases}2\pi i,&n=-1,\\0,&n\in\Z,\ n\ne-1.\end{cases}
+\end{equation}
+
+Remove disjoint small disks around the singularities and apply Cauchy's theorem to the remaining region. The integral along $\gamma$ equals the sum of the counterclockwise integrals around the small circles. Integrating each Laurent expansion term by term selects only its coefficient $c_{-1}$, yielding the stated formula.
+\end{proof}
+
+\begin{example}[Evaluating a Real Integral by Residues]
+Consider
+\[
+\int_{-\infty}^{\infty}\frac{\dd x}{1+x^2}.
+\]
+
+Its value is already accessible through the arctangent, but it illustrates a method that also applies when elementary antiderivatives are unavailable. The complex function $f(z)=1/(1+z^2)$ has simple poles at $z=\pm i$. For $R>1$, let $\gamma_R$ consist of the segment $[-R,R]$ followed by the upper semicircle
+\[
+C_R = \{Re^{i\theta}:0 \leq \theta \leq \pi\}.
+\]
+Only the pole at $i$ is enclosed, and
+\begin{equation}
+\operatorname{Res}(f,i)
+=\lim_{z\to i}(z-i)f(z)
+=\left.\frac{1}{z+i}\right|_{z=i}=\frac{1}{2i}.
+\end{equation}
+The residue theorem gives
+\[
+\oint_{\gamma_R}f(z)\,\dd z=\pi.
+\]
+On the semicircle, $|1+z^2|\geq R^2-1$, so
+\begin{equation}
+\left|\int_{C_R}f(z)\,\dd z\right|
+\leq\frac{\pi R}{R^2-1}\longrightarrow0.
+\end{equation}
+Letting $R\to\infty$ therefore yields
+\begin{equation}
+\int_{-\infty}^{\infty}\frac{\dd x}{1+x^2}=\pi.
+\end{equation}
+
+Closing a real contour with an arc whose integral vanishes is also useful for explicit Fourier-transform calculations. For integrals containing $f(x)e^{i\omega x}$, the choice of half-plane must account for the exponential decay as well as the poles of $f$.
+\end{example}
+
+\input{figures/residue-contour.tex}
