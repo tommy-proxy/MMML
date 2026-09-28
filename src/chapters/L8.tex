@@ -18,14 +18,10 @@ A partition of $R$ is a pair $P = (P_x, P_y)$, where
 \[
 \begin{gathered}
 P_x : a = x_0 < x_1 < \cdots < x_m = b \\
-P_y : c = y_0 < y_1 < \cdots < y_n = d
+P_y : c = y_0 < y_1 < \cdots < y_n = d.
 \end{gathered}
 \]
-are partitions of $[a,b]$ and $[c,d]$ respectively. The partition $P$ divides $R$ into $mn$ closed subrectangles
-\[
-R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j],
-\]
-of area
+These are partitions of $[a,b]$ and $[c,d]$ respectively. The partition $P$ divides $R$ into $mn$ closed subrectangles $R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j]$, of area
 \[
 \Delta A_{ij} = \Delta x_i \, \Delta y_j = (x_i - x_{i-1})(y_j-y_{j-1}).
 \]
@@ -37,11 +33,7 @@ The mesh of $P$ is
 \end{definition}
 
 \begin{definition}[Darboux Sums and the Double Integral]
-Let $f : R \to \mathbb{R}$ be bounded, and let $P$ be a partition of $R$ with subrectangles $R_{ij}$. Set
-\[
-M_{ij} = \sup_{(x,y)\in R_{ij}} f(x,y), \qquad m_{ij} = \inf_{(x,y)\in R_{ij}} f(x,y),
-\]
-and define the upper and lower Darboux sums
+Let $f : R \to \mathbb{R}$ be bounded, and let $P$ be a partition of $R$ with subrectangles $R_{ij}$. Set $M_{ij} = \sup_{(x,y)\in R_{ij}} f(x,y), \qquad m_{ij} = \inf_{(x,y)\in R_{ij}} f(x,y)$, and define the upper and lower Darboux sums
 \[
 U(f,P) = \sum_{i,j} M_{ij}\,\Delta A_{ij}, \qquad L(f,P) = \sum_{i,j} m_{ij}\,\Delta A_{ij}.
 \]
@@ -60,18 +52,10 @@ In this case, the common value is called the double integral of $f$ over $R$. Th
 
 \end{definition}
 
-Since refining a partition can only decrease upper sums and increase lower sums, one has
-\[
-L(f,P) \leq \sup_{P'} L(f,P') \leq \inf_{P'} U(f,P') \leq U(f,P)
-\]
-for every partition $P$, exactly as in the one-dimensional theory; the content of integrability is that these two bounding quantities coincide.
+Since refining a partition can only decrease upper sums and increase lower sums, one has $L(f,P) \leq \sup_{P'} L(f,P') \leq \inf_{P'} U(f,P') \leq U(f,P)$ for every partition $P$, exactly as in the one-dimensional theory; the content of integrability is that these two bounding quantities coincide.
 
 \begin{theorem}[Continuity Implies Integrability]
-If $f$ is continuous on the closed rectangle
-\[
-R = [a,b]\times[c,d],
-\]
-then $f$ is integrable on $R$.
+If $f$ is continuous on the closed rectangle $R = [a,b]\times[c,d]$, then $f$ is integrable on $R$.
 \end{theorem}
 
 \begin{proof}
@@ -79,11 +63,7 @@ Since $R$ is closed and bounded, it is compact, and since $f$ is continuous on $
 \[
 |f(x,y)-f(x',y')| < \varepsilon / \operatorname{Area}(R).
 \]
-Choose any partition $P$ with mesh
-\[
-\|P\| < \delta/\sqrt{2},
-\]
-so that every subrectangle $R_{ij}$ has diameter
+Choose any partition $P$ with mesh $\|P\| < \delta/\sqrt{2}$, so that every subrectangle $R_{ij}$ has diameter
 \[
 ((\Delta x_i)^2 + (\Delta y_j)^2)^{1/2} < \delta.
 \]
@@ -94,9 +74,9 @@ M_{ij}-m_{ij} = f(\mathbf{p}_{ij})-f(\mathbf{q}_{ij}) < \varepsilon/\operatornam
 \]
 Consequently
 \[
-U(f,P) - L(f,P) = \sum_{i,j}(M_{ij}-m_{ij})\,\Delta A_{ij} < \frac{\varepsilon}{\operatorname{Area}(R)}\sum_{i,j}\Delta A_{ij} = \varepsilon,
+U(f,P) - L(f,P) = \sum_{i,j}(M_{ij}-m_{ij})\,\Delta A_{ij} < \frac{\varepsilon}{\operatorname{Area}(R)}\sum_{i,j}\Delta A_{ij} = \varepsilon.
 \]
-since
+Since
 \[
 \sum_{i,j}\Delta A_{ij} = \operatorname{Area}(R).
 \]
@@ -111,11 +91,7 @@ For the particular partition $P$ chosen above, they imply
 \[
 0 \leq \inf_{P'}U(f,P') - \sup_{P'}L(f,P') \leq U(f,P)-L(f,P) < \varepsilon
 \]
-Since $\varepsilon>0$ was arbitrary, it follows that
-\[
-\inf_{P'}U(f,P') = \sup_{P'}L(f,P'),
-\]
-that is, $f$ is integrable on $R$.
+Since $\varepsilon>0$ was arbitrary, it follows that $\inf_{P'}U(f,P') = \sup_{P'}L(f,P')$, that is, $f$ is integrable on $R$.
 \end{proof}
 
 Fubini's Theorem is the principal computational tool of multivariable integration: it asserts that, under mild hypotheses, a double integral may be evaluated as an iterated sequence of two ordinary one-dimensional integrals, performed one variable at a time.
@@ -126,11 +102,9 @@ Let $f$ be continuous on
 R = [a,b]\times[c,d].
 \]
 
-Then, for every fixed $x \in [a,b]$, the function $y \mapsto f(x,y)$ is continuous on $[c,d]$ and hence integrable there, and the resulting function
-\[
+Then, for every fixed $x \in [a,b]$, the function $y \mapsto f(x,y)$ is continuous on $[c,d]$ and hence integrable there, and the resulting function \[
 A(x) = \int_c^d f(x,y)\, dy
-\]
-is continuous, hence integrable, on $[a,b]$. Moreover,
+\] is continuous, hence integrable, on $[a,b]$. Moreover,
 \[
 \iint_R f\, dA = \int_a^b A(x)\, dx = \int_a^b \left( \int_c^d f(x,y)\, dy \right) dx.
 \]
@@ -142,24 +116,16 @@ The same conclusion holds with the roles of $x$ and $y$ exchanged, so that in pa
 \end{theorem}
 
 \begin{proof}
-Fix $x \in [a,b]$; since $f$ is continuous on $R$, the single-variable function $y \mapsto f(x,y)$ is continuous on $[c,d]$, and therefore integrable there by the one-dimensional theory, so $A(x)$ is well defined. Let $P = (P_x,P_y)$ be any partition of $R$, with subrectangles
-\[
-R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j],
-\]
-and retain the notation $M_{ij}, m_{ij}$ of the preceding section. Fix $i$, and let $x \in [x_{i-1},x_i]$. For every $j$ and every $y \in [y_{j-1},y_j]$, one has
-\[
-m_{ij} \leq f(x,y) \leq M_{ij},
-\]
-since $(x,y) \in R_{ij}$; integrating this inequality over $y \in [y_{j-1},y_j]$ gives
+Fix $x \in [a,b]$; since $f$ is continuous on $R$, the single-variable function $y \mapsto f(x,y)$ is continuous on $[c,d]$, and therefore integrable there by the one-dimensional theory, so $A(x)$ is well defined. Let $P = (P_x,P_y)$ be any partition of $R$, with subrectangles $R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j]$, and retain the notation $M_{ij}, m_{ij}$ of the preceding section. Fix $i$, and let $x \in [x_{i-1},x_i]$. For every $j$ and every $y \in [y_{j-1},y_j]$, one has $m_{ij} \leq f(x,y) \leq M_{ij}$, since $(x,y) \in R_{ij}$; integrating this inequality over $y \in [y_{j-1},y_j]$ gives
 \[
 m_{ij}\,\Delta y_j \;\leq\; \int_{y_{j-1}}^{y_j} f(x,y)\, dy \;\leq\; M_{ij}\,\Delta y_j.
 \]
 
 Summing over $j = 1, \dots, n$, and using additivity of the one-dimensional integral over the subintervals of $[c,d]$,
 \[
-\sum_{j} m_{ij}\,\Delta y_j \;\leq\; A(x) = \int_c^d f(x,y)\, dy \;\leq\; \sum_j M_{ij}\, \Delta y_j,
+\sum_{j} m_{ij}\,\Delta y_j \;\leq\; A(x) = \int_c^d f(x,y)\, dy \;\leq\; \sum_j M_{ij}\, \Delta y_j.
 \]
-valid for every $x \in [x_{i-1},x_i]$. Integrating this inequality over $x \in [x_{i-1},x_i]$ and summing over $i = 1, \dots, m$ gives
+This is valid for every $x \in [x_{i-1},x_i]$. Integrating this inequality over $x \in [x_{i-1},x_i]$ and summing over $i = 1, \dots, m$ gives
 \[
 \sum_{i,j} m_{ij}\, \Delta x_i \, \Delta y_j \;\leq\; \int_a^b A(x)\, dx \;\leq\; \sum_{i,j} M_{ij}\,\Delta x_i\, \Delta y_j,
 \]
@@ -167,28 +133,18 @@ For every partition $P$ of $R$, this gives the bounds
 \[
 L(f,P) \;\leq\; \int_a^b A(x)\, dx \;\leq\; U(f,P),
 \]
-Since $f$ is continuous on $R$, it is integrable there by the previous theorem, so
-\[
+Since $f$ is continuous on $R$, it is integrable there by the previous theorem, so \[
 \sup_P L(f,P) = \inf_P U(f,P) = \iint_R f\, dA;
-\]
-as the fixed number
-\[
+\] as the fixed number \[
 \int_a^b A(x)\, dx
-\]
-is squeezed between $L(f,P)$ and $U(f,P)$ for every partition $P$, it must equal this common value, giving
+\] is squeezed between $L(f,P)$ and $U(f,P)$ for every partition $P$, it must equal this common value, giving
 \[
 \int_a^b A(x)\, dx = \iint_R f\, dA.
 \]
 
-Continuity of $A$ follows from uniform continuity of $f$ on the compact rectangle $R$: given $\varepsilon>0$, choose $\delta>0$ so that $\|(x,y)-(x',y)\|<\delta$ implies
-\[
-|f(x,y)-f(x',y)| < \varepsilon/(d-c)
-\]
-for all $y$; then $|x-x'|<\delta$ implies
-\[
+Continuity of $A$ follows from uniform continuity of $f$ on the compact rectangle $R$: given $\varepsilon>0$, choose $\delta>0$ so that $\|(x,y)-(x',y)\|<\delta$ implies $|f(x,y)-f(x',y)| < \varepsilon/(d-c)$ for all $y$; then $|x-x'|<\delta$ implies \[
 |A(x)-A(x')| \leq \int_c^d |f(x,y)-f(x',y)|\, dy < \varepsilon,
-\]
-establishing continuity, hence integrability, of $A$. The identity with the roles of $x$ and $y$ exchanged follows by the identical argument applied with the two coordinates interchanged throughout.
+\] establishing continuity, hence integrability, of $A$. The identity with the roles of $x$ and $y$ exchanged follows by the identical argument applied with the two coordinates interchanged throughout.
 \end{proof}
 
 \begin{example}
@@ -263,15 +219,7 @@ Let $D \subset \mathbb{R}^2$ be bounded, with $\partial D$ of content zero, and 
 The discontinuities of $\tilde f$ occur only within $\partial D$, together with the discontinuities of $f$ already present in $D$, together forming a set of content zero; the preceding theorem guarantees that $\tilde f$ is integrable on $R$, so this definition is meaningful, and it is independent of the choice of enclosing rectangle $R$, since $\tilde f$ vanishes outside $D$ regardless.
 
 \begin{definition}[Type I and Type II Regions]
-A region $D \subset \mathbb{R}^2$ is of Type I if
-\[
-D = \{(x,y) : a \leq x \leq b, \; g_1(x) \leq y \leq g_2(x)\}
-\]
-for continuous functions $g_1 \leq g_2$ on $[a,b]$; it is of Type II if
-\[
-D = \{(x,y) : c \leq y \leq d, \; h_1(y) \leq x \leq h_2(y)\}
-\]
-for continuous functions $h_1 \leq h_2$ on $[c,d]$.
+A region $D \subset \mathbb{R}^2$ is of Type I if $D = \{(x,y) : a \leq x \leq b, \; g_1(x) \leq y \leq g_2(x)\}$ for continuous functions $g_1 \leq g_2$ on $[a,b]$; it is of Type II if $D = \{(x,y) : c \leq y \leq d, \; h_1(y) \leq x \leq h_2(y)\}$ for continuous functions $h_1 \leq h_2$ on $[c,d]$.
 \end{definition}
 
 For a Type I region, $\partial D$ consists of the graphs of $g_1$ and $g_2$, each of content zero as noted above, together with the two vertical segments $x=a$ and $x=b$, also visibly of content zero; hence $\partial D$ has content zero, being a finite union of sets of content zero, and the integral over $D$ is defined. Applying Fubini's Theorem on an enclosing rectangle $R = [a,b]\times[c,d]$ to the extension $\tilde f$, and noting that $\tilde f(x,y) = 0$ for $y \notin [g_1(x),g_2(x)]$, gives the following practical evaluation formula.
@@ -322,11 +270,7 @@ Let $f,g$ be integrable on a region $D$, and let $\alpha,\beta \in \mathbb{R}$. 
 \end{theorem}
 
 \begin{proof}
-(i) and (ii) follow directly from the corresponding properties of upper and lower Darboux sums: since
-\[
-M_{ij}[\alpha f + \beta g] = \alpha M_{ij}[f] + \beta M_{ij}[g]
-\]
-whenever $\alpha,\beta \geq 0$ (with the analogous relation for $m_{ij}$ when either scalar is negative, upon exchanging the roles of $M_{ij}$ and $m_{ij}$), the Darboux sums of $\alpha f + \beta g$ are the corresponding linear combinations of the Darboux sums of $f$ and $g$ for every partition, and passing to the common limiting value defining the integral yields (i); (ii) follows since $f \leq g$ on $D$ forces $L(f,P) \leq L(g,P)$ for every partition $P$ of an enclosing rectangle (applied to the zero-extensions), hence
+(i) and (ii) follow directly from the corresponding properties of upper and lower Darboux sums: since $M_{ij}[\alpha f + \beta g] = \alpha M_{ij}[f] + \beta M_{ij}[g]$ whenever $\alpha,\beta \geq 0$ (with the analogous relation for $m_{ij}$ when either scalar is negative, upon exchanging the roles of $M_{ij}$ and $m_{ij}$), the Darboux sums of $\alpha f + \beta g$ are the corresponding linear combinations of the Darboux sums of $f$ and $g$ for every partition, and passing to the common limiting value defining the integral yields (i); (ii) follows since $f \leq g$ on $D$ forces $L(f,P) \leq L(g,P)$ for every partition $P$ of an enclosing rectangle (applied to the zero-extensions), hence
 \[
 \iint_D f\,dA = \sup_P L(f,P) \leq \sup_P L(g,P) = \iint_D g\, dA.
 \]
@@ -369,18 +313,12 @@ Figure~\ref{fig:ch11-typeI-region} shows the vertical slices used to evaluate an
 
 \subsection{Change of Variables in the Plane}
 
-The one-dimensional substitution rule
-\[
+The one-dimensional substitution rule \[
 \int_a^b f(x)\,dx = \int_{\alpha}^{\beta} f(\varphi(u))\,\varphi'(u)\,du,
-\]
-valid for a differentiable bijection $\varphi$ with $\varphi(\alpha)=a$, $\varphi(\beta)=b$, admits a direct generalization to $\mathbb{R}^2$, in which the scalar factor $\varphi'(u)$ is replaced by the absolute value of the Jacobian determinant introduced in the preceding chapter.
+\] valid for a differentiable bijection $\varphi$ with $\varphi(\alpha)=a$, $\varphi(\beta)=b$, admits a direct generalization to $\mathbb{R}^2$, in which the scalar factor $\varphi'(u)$ is replaced by the absolute value of the Jacobian determinant introduced in the preceding chapter.
 
 \begin{theorem}[Change of Variables Formula, Two Dimensions]
-Let $T : U \to V$,
-\[
-T(u,v) = (x(u,v),y(u,v)),
-\]
-be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^2$, with $\det J_T(u,v) \neq 0$ for every $(u,v) \in U$. Let $D \subset U$ be a bounded region with $D' = T(D) \subset V$, and let $f$ be continuous on $D'$. Then
+Let $T : U \to V$, $T(u,v) = (x(u,v),y(u,v))$, be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^2$, with $\det J_T(u,v) \neq 0$ for every $(u,v) \in U$. Let $D \subset U$ be a bounded region with $D' = T(D) \subset V$, and let $f$ be continuous on $D'$. Then
 \[
 \iint_{D'} f(x,y)\, dx\, dy = \iint_D f\big(T(u,v)\big)\, |\det J_T(u,v)|\, du\, dv.
 \]
@@ -388,11 +326,7 @@ be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^2$, with $\de
 \end{theorem}
 
 \begin{proof}[Derivation]
-Partition $D$ by a fine grid of small rectangles
-\[
-R_{ij} = [u_{i-1},u_i]\times[v_{j-1},v_j],
-\]
-of dimensions $\Delta u \times \Delta v$, and fix a corner $(u_i,v_j)$ of $R_{ij}$. By differentiability of $T$ at $(u_i,v_j)$ -- precisely the statement that $J_T(u_i,v_j)$ furnishes the best local linear approximation to $T$, established in the preceding chapter -- the image of $R_{ij}$ under $T$ satisfies
+Partition $D$ by a fine grid of small rectangles $R_{ij} = [u_{i-1},u_i]\times[v_{j-1},v_j]$, of dimensions $\Delta u \times \Delta v$, and fix a corner $(u_i,v_j)$ of $R_{ij}$. By differentiability of $T$ at $(u_i,v_j)$ -- precisely the statement that $J_T(u_i,v_j)$ furnishes the best local linear approximation to $T$, established in the preceding chapter -- the image of $R_{ij}$ under $T$ satisfies
 \begin{align*}
 T(u_i + \Delta u, v_j) &\approx T(u_i,v_j) + \frac{\partial T}{\partial u}(u_i,v_j)\,\Delta u, \\
 T(u_i, v_j+\Delta v) &\approx T(u_i,v_j) + \frac{\partial T}{\partial v}(u_i,v_j)\, \Delta v,
@@ -447,14 +381,12 @@ Passing to polar coordinates, with $x^2+y^2 = r^2$ and the region $\mathbb{R}^2$
 I^2 &= \int_0^{2\pi}\int_0^{\infty} e^{-r^2}\, r\, dr\, d\theta \\
 &= 2\pi \int_0^{\infty} e^{-r^2} r\, dr \\
 &= 2\pi \left[ -\frac{1}{2} e^{-r^2} \right]_0^{\infty}
-= 2\pi \cdot \frac{1}{2} = \pi,
+= 2\pi \cdot \frac{1}{2} = \pi.
 \end{aligned}
 \]
-where the substitution $t=r^2$, $dt = 2r\,dr$ converts
-\[
+Here the substitution $t=r^2$, $dt = 2r\,dr$ converts \[
 \int_0^\infty e^{-r^2}r\,dr
-\]
-into the elementary
+\] into the elementary
 \[
 \frac12\int_0^\infty e^{-t}\,dt = \frac12.
 \]
@@ -481,17 +413,17 @@ Let $f : B \to \mathbb{R}$ be bounded. A partition of $B$ is obtained by partiti
 \[
 \begin{gathered}
 M_{ijk} = \sup_{B_{ijk}} f \\
-m_{ijk} = \inf_{B_{ijk}} f,
+m_{ijk} = \inf_{B_{ijk}} f.
 \end{gathered}
 \]
-define
+Define
 \[
 \begin{gathered}
 U(f,P) = \sum M_{ijk}\Delta V_{ijk} \\
-L(f,P) = \sum m_{ijk} \Delta V_{ijk}
+L(f,P) = \sum m_{ijk} \Delta V_{ijk}.
 \end{gathered}
 \]
-exactly as before; $f$ is integrable on $B$ if
+These sums are defined exactly as before. The function $f$ is integrable on $B$ if
 \[
 \sup_P L(f,P) = \inf_P U(f,P),
 \]
@@ -522,31 +454,23 @@ Group the last two variables together: writing
 \[
 \begin{gathered}
 \mathbf{y} = (y,z) \in \mathbb{R}^2 \\
-R = [a_2,b_2]\times[a_3,b_3],
+R = [a_2,b_2]\times[a_3,b_3].
 \end{gathered}
 \]
-the two-dimensional Fubini Theorem, applied to the function $\mathbf{y} \mapsto f(x,\mathbf{y})$ for fixed $x$, together with the identical squeeze argument of the rectangular case applied with $x$ playing the role of the single ``outer'' variable and $R$ playing the role of the two-dimensional ``inner'' rectangle, yields
-\[
+The two-dimensional Fubini Theorem, applied to the function $\mathbf{y} \mapsto f(x,\mathbf{y})$ for fixed $x$, together with the identical squeeze argument of the rectangular case applied with $x$ playing the role of the single ``outer'' variable and $R$ playing the role of the two-dimensional ``inner'' rectangle, yields \[
 \iiint_B f\, dV = \int_{a_1}^{b_1}\left(\iint_R f(x,y,z)\, dy\,dz\right) dx;
-\]
-applying the two-dimensional Fubini Theorem once more to the inner double integral, for each fixed $x$, resolves it into the iterated integral over $y$ then $z$ (or $z$ then $y$), giving the stated formula. Since the grouping of variables was arbitrary, the same argument applied with a different variable singled out as ``outer'' establishes the remaining orders of integration.
+\] applying the two-dimensional Fubini Theorem once more to the inner double integral, for each fixed $x$, resolves it into the iterated integral over $y$ then $z$ (or $z$ then $y$), giving the stated formula. Since the grouping of variables was arbitrary, the same argument applied with a different variable singled out as ``outer'' establishes the remaining orders of integration.
 \end{proof}
 
 \subsection{Triple Integrals over General Regions}
 
 \begin{definition}[Type I Solid Region]
-A solid region $E \subset \mathbb{R}^3$ is of Type I if
-\[
-E = \big\{ (x,y,z) : (x,y) \in D, \; u_1(x,y) \leq z \leq u_2(x,y) \big\}
-\]
-for a Type I or Type II planar region $D \subset \mathbb{R}^2$ and continuous functions $u_1 \leq u_2$ on $D$. Regions defined analogously with the roles of $x,y,z$ permuted are of Type II and Type III.
+A solid region $E \subset \mathbb{R}^3$ is of Type I if $E = \big\{ (x,y,z) : (x,y) \in D, \; u_1(x,y) \leq z \leq u_2(x,y) \big\}$ for a Type I or Type II planar region $D \subset \mathbb{R}^2$ and continuous functions $u_1 \leq u_2$ on $D$. Regions defined analogously with the roles of $x,y,z$ permuted are of Type II and Type III.
 \end{definition}
 
-As in the planar case, extending $f$ by zero outside $E$ and applying Fubini's Theorem on an enclosing box yields, for a Type I region,
-\[
+As in the planar case, extending $f$ by zero outside $E$ and applying Fubini's Theorem on an enclosing box yields, for a Type I region, \[
 \iiint_E f\, dV = \iint_D \left( \int_{u_1(x,y)}^{u_2(x,y)} f(x,y,z)\, dz \right) dA,
-\]
-and the inner double integral over $D$ is then evaluated by the planar methods of the preceding sections.
+\] and the inner double integral over $D$ is then evaluated by the planar methods of the preceding sections.
 
 \begin{example}[Volume of a Tetrahedron]
 Let $E$ be the solid tetrahedron bounded by the coordinate planes $x=0$, $y=0$, $z=0$ and the plane $x+y+z=1$. Regarding $E$ as a Type I region over the planar triangle
@@ -839,11 +763,9 @@ Let $B_1 \subset \mathbb{R}^{n-1}$ be a box and define
 \[
 B = B_1 \times [c,d] \subset \mathbb{R}^{n-1}\times\mathbb{R} = \mathbb{R}^n,
 \]
-Let $f$ be continuous on $B$. Then
-\[
+Let $f$ be continuous on $B$. Then \[
 \int_B f \, dV = \int_{B_1} \left( \int_c^d f(\mathbf{x}',x_n)\, dx_n \right) dV',
-\]
-and the inner $(n-1)$-dimensional integral over $B_1$ may itself be evaluated as a further iterated integral, one variable at a time, in any order.
+\] and the inner $(n-1)$-dimensional integral over $B_1$ may itself be evaluated as a further iterated integral, one variable at a time, in any order.
 \end{theorem}
 
 \begin{proof}
@@ -898,11 +820,7 @@ The change of variables formula applied to this generalized polar map yields a J
 \end{proof}
 
 \begin{example}[Volume of the Unit Ball in $\mathbb{R}^n$]
-The volume
-\[
-V_n = \operatorname{Vol}(\{\mathbf{x}\in\mathbb{R}^n : \|\mathbf{x}\|\leq 1\})
-\]
-of the unit ball in $\mathbb{R}^n$ can be computed in closed form using the Gaussian integral together with the shell formula above. By Fubini's Theorem in $\mathbb{R}^n$, the $n$-fold Gaussian integral separates into a product of $n$ one-dimensional Gaussian integrals, each equal to $\sqrt{\pi}$ by the earlier example:
+The volume $V_n = \operatorname{Vol}(\{\mathbf{x}\in\mathbb{R}^n : \|\mathbf{x}\|\leq 1\})$ of the unit ball in $\mathbb{R}^n$ can be computed in closed form using the Gaussian integral together with the shell formula above. By Fubini's Theorem in $\mathbb{R}^n$, the $n$-fold Gaussian integral separates into a product of $n$ one-dimensional Gaussian integrals, each equal to $\sqrt{\pi}$ by the earlier example:
 \[
 \int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV = \left( \int_{-\infty}^{\infty} e^{-t^2}\, dt \right)^n = \pi^{n/2}.
 \]
@@ -922,11 +840,9 @@ by definition of the Gamma function
 \[
 \Gamma(s) = \int_0^\infty e^{-t}t^{s-1}\,dt.
 \]
-Equating the two expressions for
-\[
+Equating the two expressions for \[
 \int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV
-\]
-and solving,
+\] and solving,
 \[
 \pi^{n/2} = S_{n-1}\cdot \frac{1}{2}\Gamma\!\left(\frac{n}{2}\right) \qquad\Longrightarrow\qquad S_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}.
 \]
@@ -937,22 +853,18 @@ V_n &= \int_0^1 S_{n-1}\, \rho^{n-1}\, d\rho
 = S_{n-1} \left[\frac{\rho^n}{n}\right]_0^1 \\
 &= \frac{S_{n-1}}{n}
 = \frac{2\pi^{n/2}}{n\,\Gamma(n/2)}
-= \frac{\pi^{n/2}}{\Gamma\!\left(\frac{n}{2}+1\right)},
+= \frac{\pi^{n/2}}{\Gamma\!\left(\frac{n}{2}+1\right)}.
 \end{aligned}
 \]
-using the recursive property
-\[
-\Gamma(s+1) = s\,\Gamma(s)
-\]
-of the Gamma function with $s=n/2$. As a consistency check, for $n=2$ this gives
+Using the recursive property $\Gamma(s+1) = s\,\Gamma(s)$ of the Gamma function with $s=n/2$. As a consistency check, for $n=2$ this gives
 \[
 \begin{aligned}
 V_2 &= \pi/\Gamma(2) \\
 &= \pi/1 \\
-&= \pi,
+&= \pi.
 \end{aligned}
 \]
-the area of the unit disk; for $n=3$, using
+The area of the unit disk; for $n=3$, using
 \[
 \begin{aligned}
 \Gamma(5/2) &= (3/2)\cdot(1/2)\cdot\sqrt{\pi} \\
@@ -977,11 +889,9 @@ The gradient, divergence, and curl introduced in Section~\ref{sec:vector-operato
 \subsection{The Divergence Theorem}
 
 \begin{definition}[Flux through a Closed Surface]
-Let $\Omega\subset\R^3$ be a bounded domain with piecewise smooth boundary $\partial\Omega$, and let $\mathbf{n}(\bx)$ denote the outward unit normal. The \emph{flux} of a continuous vector field $\mathbf{F}$ through $\partial\Omega$ is
-\begin{equation}
+Let $\Omega\subset\R^3$ be a bounded domain with piecewise smooth boundary $\partial\Omega$, and let $\mathbf{n}(\bx)$ denote the outward unit normal. The \emph{flux} of a continuous vector field $\mathbf{F}$ through $\partial\Omega$ is \[
 \Phi := \iint_{\partial\Omega}\mathbf{F}\cdot\mathbf{n}\,\dd S,
-\end{equation}
-where $\dd S$ is the surface area element. On a regular parametrized surface $\mathbf{r}(s,t)$, this element is
+\] where $\dd S$ is the surface area element. On a regular parametrized surface $\mathbf{r}(s,t)$, this element is
 \[
 \dd S=|\mathbf{r}_s\times\mathbf{r}_t|\,\dd s\,\dd t;
 \]
@@ -1025,11 +935,9 @@ which is exactly the volume integral above. The other components follow by excha
 \end{proof}
 
 \begin{remark}[A Multidimensional Fundamental Theorem of Calculus]
-The one-dimensional identity
-\[
+The one-dimensional identity \[
 \int_a^b g'(x)\,\dd x=g(b)-g(a)
-\]
-expresses an integral of a derivative in terms of boundary values. The signs at $a$ and $b$ are precisely the outward normals $-1$ and $+1$. The divergence theorem has the same structure in three dimensions: the volume integral of a derivative becomes a boundary integral weighted by the outward normal. This explains why its proof closely follows the fundamental theorem of calculus.
+\] expresses an integral of a derivative in terms of boundary values. The signs at $a$ and $b$ are precisely the outward normals $-1$ and $+1$. The divergence theorem has the same structure in three dimensions: the volume integral of a derivative becomes a boundary integral weighted by the outward normal. This explains why its proof closely follows the fundamental theorem of calculus.
 \end{remark}
 
 \begin{example}[The Continuity Equation]
@@ -1113,11 +1021,7 @@ Applying the circulation formula to the rotated field $(-Q,P)$ gives
 \oint_{\partial D}(P\,\dd y-Q\,\dd x)
 =\iint_D\left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}\right)\dd x\,\dd y.
 \end{equation}
-For counterclockwise orientation,
-\[
-\mathbf{n}\,\dd s=(\dd y,-\dd x),
-\]
-so the left-hand side is the outward flux of $(P,Q)$. This is the two-dimensional divergence theorem: in the plane, circulation and divergence are related by a rotation through $90^\circ$.
+For counterclockwise orientation, $\mathbf{n}\,\dd s=(\dd y,-\dd x)$, so the left-hand side is the outward flux of $(P,Q)$. This is the two-dimensional divergence theorem: in the plane, circulation and divergence are related by a rotation through $90^\circ$.
 \end{remark}
 
 \subsection{Stokes' Theorem}
@@ -1135,11 +1039,7 @@ If $\mathbf{F}$ is continuously differentiable on a neighborhood of $\Sigma$, th
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-First suppose that $\Sigma$ is the graph
-\[
-\mathbf{r}(x,y)=(x,y,g(x,y))
-\]
-over a planar domain $D$, oriented upward, with $g$ sufficiently smooth. Writing $\mathbf{F}=(F_1,F_2,F_3)$ and evaluating its components on the graph gives
+First suppose that $\Sigma$ is the graph $\mathbf{r}(x,y)=(x,y,g(x,y))$ over a planar domain $D$, oriented upward, with $g$ sufficiently smooth. Writing $\mathbf{F}=(F_1,F_2,F_3)$ and evaluating its components on the graph gives
 \[
 \mathbf{F}\cdot\dd\mathbf{r}
 =(F_1+F_3g_x)\,\dd x+(F_2+F_3g_y)\,\dd y.

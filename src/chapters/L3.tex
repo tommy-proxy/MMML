@@ -17,15 +17,9 @@ f'(a) &= \lim_{h \to 0} \frac{f(a+h) - f(a)}{h} \\
 provided that this limit exists and is finite.
 \end{definition}
 
-For any given $h \in \mathbb{R}$, it is convenient to introduce the notation
-\[
-R_a(h) = \frac{f(a+h) - f(a)}{h}
-\]
-for the ratio appearing in the definition above, so that
-\[
+For any given $h \in \mathbb{R}$, it is convenient to introduce the notation $R_a(h) = \frac{f(a+h) - f(a)}{h}$ for the ratio appearing in the definition above, so that \[
 f'(a) = \lim_{h \to 0} R_a(h),
-\]
-provided the limit exists and is finite. The derivative admits several complementary interpretations, the first of which is geometric. Given a curve $C$ with equation $y = f(x)$, one seeks the tangent line to $C$ at the point $P = (a, f(a))$. To construct this tangent line, one considers a nearby point $Q = (x, f(x))$ with $x \neq a$, and computes the slope of the secant line through $P$ and $Q$,
+\] provided the limit exists and is finite. The derivative admits several complementary interpretations, the first of which is geometric. Given a curve $C$ with equation $y = f(x)$, one seeks the tangent line to $C$ at the point $P = (a, f(a))$. To construct this tangent line, one considers a nearby point $Q = (x, f(x))$ with $x \neq a$, and computes the slope of the secant line through $P$ and $Q$,
 \[
 m_Q = \frac{f(x) - f(a)}{x - a}.
 \]
@@ -47,27 +41,17 @@ A second interpretation of the derivative arises from physics. Suppose an object
 v_{\text{mean}} = \frac{\text{displacement}}{\text{time}} = \frac{f(a+h) - f(a)}{h}.
 \]
 
-Computing the average velocity over shorter and shorter time intervals, one defines the instantaneous velocity at time $t = a$ as the limit of these average velocities,
-\[
+Computing the average velocity over shorter and shorter time intervals, one defines the instantaneous velocity at time $t = a$ as the limit of these average velocities, \[
 v(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h},
-\]
-which again is recognized as the derivative $f'(a)$. A third and more general interpretation concerns rates of change. Suppose $y$ is a quantity depending on another quantity $x$, so that $y$ is a function of $x$ and one writes $y = f(x)$. If $x$ changes from $x_1$ to $x_2$, the change in $x$, also called the increment of $x$, is $\Delta x = x_2 - x_1$, and the corresponding change in $y$ is
+\] which again is recognized as the derivative $f'(a)$. A third and more general interpretation concerns rates of change. Suppose $y$ is a quantity depending on another quantity $x$, so that $y$ is a function of $x$ and one writes $y = f(x)$. If $x$ changes from $x_1$ to $x_2$, the change in $x$, also called the increment of $x$, is $\Delta x = x_2 - x_1$, and the corresponding change in $y$ is
 \[
 \Delta y = f(x_2) - f(x_1).
 \]
-The difference quotient, or incremental ratio,
+The difference quotient, or incremental ratio, $\frac{\Delta y}{\Delta x} = \frac{f(x_2) - f(x_1)}{x_2 - x_1}$ is called the average rate of change of $y$ with respect to $x$ over the interval $[x_1, x_2]$. Considering the average rate of change over smaller and smaller intervals, by letting $\Delta x$ approach zero, one defines the instantaneous rate of change of $y$ with respect to $x$ at $x_1$ as
 \[
-\frac{\Delta y}{\Delta x} = \frac{f(x_2) - f(x_1)}{x_2 - x_1}
+\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_1 + \Delta x) - f(x_1)}{\Delta x}.
 \]
-is called the average rate of change of $y$ with respect to $x$ over the interval $[x_1, x_2]$. Considering the average rate of change over smaller and smaller intervals, by letting $\Delta x$ approach zero, one defines the instantaneous rate of change of $y$ with respect to $x$ at $x_1$ as
-\[
-\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_1 + \Delta x) - f(x_1)}{\Delta x},
-\]
-which is once again recognized as the derivative $f'(x_1)$. This general notion of instantaneous rate of change has broad applicability outside physics; for instance, biomedical scientists have studied the physiological changes in the body resulting from alcohol consumption by means of the law
-\[
-C(t) = 0.0225 \, t \, e^{-0.0467 t}
-\]
-milligrams per milliliter, and one may ask how quickly the blood alcohol concentration is increasing after ten minutes, a question that is naturally answered by evaluating the derivative $C'(10)$.
+This is once again recognized as the derivative $f'(x_1)$. This general notion of instantaneous rate of change has broad applicability outside physics; for instance, biomedical scientists have studied the physiological changes in the body resulting from alcohol consumption by means of the law $C(t) = 0.0225 \, t \, e^{-0.0467 t}$ milligrams per milliliter, and one may ask how quickly the blood alcohol concentration is increasing after ten minutes, a question that is naturally answered by evaluating the derivative $C'(10)$.
 
 Several notations for the derivative coexist in the literature, namely $f'(x)$, $y'$, $df/dx$, $dy/dx$, $(d/dx) f(x)$, and $Df(x)$. Among these, the symbol $dy/dx$, known as Leibniz notation and dating back to 1672, deserves a specific comment: it should not be regarded as an actual ratio of two quantities $dy$ and $dx$, but simply as a synonym for $f'(x)$. Nonetheless, this notation is extremely useful and suggestive, since it directly invokes the definition of the derivative as a limit of a ratio of increments,
 \[
@@ -93,19 +77,13 @@ The converse of this theorem is not true: the function $f(x) = |x|$ is continuou
 \end{remark}
 
 \begin{proof}
-We wish to prove that
-\[
+We wish to prove that \[
 \lim_{x \to a} f(x) = f(a),
-\]
-which is equivalent to showing that
+\] which is equivalent to showing that
 \[
 \lim_{x \to a} [f(x) - f(a)] = 0.
 \]
-Writing
-\[
-f(x) - f(a) = \frac{f(x) - f(a)}{x - a} \cdot (x-a)
-\]
-and passing to the limit as $x \to a$, using the differentiability of $f$ at $a$, we obtain
+Writing $f(x) - f(a) = \frac{f(x) - f(a)}{x - a} \cdot (x-a)$ and passing to the limit as $x \to a$, using the differentiability of $f$ at $a$, we obtain
 \[
 \begin{aligned}
 \lim_{x \to a} [f(x) - f(a)] &= \lim_{x \to a} \frac{f(x) - f(a)}{x-a} \cdot \lim_{x \to a} (x-a) \\
@@ -118,21 +96,15 @@ which proves the claim.
 
 There are essentially four distinct ways in which a function can fail to be differentiable at a point $x = a$. The most familiar is the presence of an angle in the graph, as exemplified by $f(x) = |x|$ at the origin: here $f$ is continuous at $a$, and the right-derivative and left-derivative, respectively defined by
 \[
-f'_+(a) := \lim_{h \to 0^+} \frac{f(a+h) - f(a)}{h}, \qquad f'_-(a) := \lim_{h \to 0^-} \frac{f(a+h) - f(a)}{h},
+f'_+(a) := \lim_{h \to 0^+} \frac{f(a+h) - f(a)}{h}, \qquad f'_-(a) := \lim_{h \to 0^-} \frac{f(a+h) - f(a)}{h}.
 \]
-both exist and are finite, but differ from one another. A second way is the presence of a discontinuity of $f$ itself at $a$, which automatically precludes differentiability. A third way is the presence of a vertical tangent or a cusp, in which case $f$ is continuous at $a$ but the right-derivative and left-derivative are both infinite.
+Both exist and are finite, but differ from one another. A second way is the presence of a discontinuity of $f$ itself at $a$, which automatically precludes differentiability. A third way is the presence of a vertical tangent or a cusp, in which case $f$ is continuous at $a$ but the right-derivative and left-derivative are both infinite.
 
 \subsection{Derivative Functions and Higher Derivatives}
 
-Given any number $x$ for which the limit
-\[
+Given any number $x$ for which the limit \[
 f'(x) = \lim_{h \to 0} [f(x+h) - f(x)]/h
-\]
-exists and is finite, one may assign to $x$ the corresponding number $f'(x)$, obtaining a rule $x \mapsto f'(x)$. In this way, $f'$ may itself be regarded as a new function, called the derivative of $f$. The domain of $f'$ is the set
-\[
-\{x \in \operatorname{Dom}(f) : f'(x) \text{ is finite}\},
-\]
-and this set may be strictly smaller than the domain of $f$ itself. The graph of $f'$ can be derived from the graph of $f$ by exploiting the geometric fact that $f'(x)$ represents the slope of the tangent line to the graph of $f$ at the point $(x, f(x))$.
+\] exists and is finite, one may assign to $x$ the corresponding number $f'(x)$, obtaining a rule $x \mapsto f'(x)$. In this way, $f'$ may itself be regarded as a new function, called the derivative of $f$. The domain of $f'$ is the set $\{x \in \operatorname{Dom}(f) : f'(x) \text{ is finite}\}$, and this set may be strictly smaller than the domain of $f$ itself. The graph of $f'$ can be derived from the graph of $f$ by exploiting the geometric fact that $f'(x)$ represents the slope of the tangent line to the graph of $f$ at the point $(x, f(x))$.
 
 
 If $y = f(x)$ is a differentiable function, then its derivative $y' = f'(x)$ is itself a function of $x$, and it may happen that $f'$ possesses a derivative of its own, denoted by $(f')' = f''$. This new function is called the second derivative of $f$, since it is obtained by differentiating the derivative of $f$. Using Leibniz notation, the second derivative of $f$ is written as
@@ -259,15 +231,11 @@ Combining the general differentiation rules with the definition of derivative, o
 \[
 \frac{d}{dx} e^x = e^x.
 \]
-Indeed, writing the incremental ratio and factoring out $e^x$, we have
-\[
+Indeed, writing the incremental ratio and factoring out $e^x$, we have \[
 \lim_{h \to 0} \frac{e^{x+h} - e^x}{h} = e^x \lim_{h \to 0} \frac{e^h - 1}{h},
-\]
-and the result follows from the special limit
-\[
+\] and the result follows from the special limit \[
 \lim_{h \to 0} (e^h - 1)/h = 1
-\]
-established in the theory of infinitesimal sequences. The derivative of the natural logarithm is given by
+\] established in the theory of infinitesimal sequences. The derivative of the natural logarithm is given by
 \[
 \frac{d}{dx} \ln x = \frac{1}{x}.
 \]
@@ -275,10 +243,10 @@ Indeed, we compute
 \[
 \begin{aligned}
 \lim_{h \to 0} \frac{\ln(x+h) - \ln x}{h} &= \lim_{h \to 0} \frac{\ln\!\left( \frac{x+h}{x} \right)}{h} \\
-&= \frac{1}{x} \lim_{h \to 0} \frac{\ln\!\left(1 + \frac{h}{x}\right)}{\frac{h}{x}},
+&= \frac{1}{x} \lim_{h \to 0} \frac{\ln\!\left(1 + \frac{h}{x}\right)}{\frac{h}{x}}.
 \end{aligned}
 \]
-and the conclusion again follows from the corresponding special limit for the logarithm. The derivatives of the sine and cosine functions are given by
+The conclusion again follows from the corresponding special limit for the logarithm. The derivatives of the sine and cosine functions are given by
 \[
 \frac{d}{dx} \sin x = \cos x, \qquad \frac{d}{dx} \cos x = -\sin x.
 \]
@@ -286,11 +254,7 @@ To establish the first identity, we must compute
 \[
 \lim_{h \to 0} \frac{\sin(x+h) - \sin x}{h}.
 \]
-Using the addition formula
-\[
-\sin(x+h) = \sin x \cos h + \cos x \sin h,
-\]
-we obtain
+Using the addition formula $\sin(x+h) = \sin x \cos h + \cos x \sin h$, we obtain
 \[
 \lim_{h \to 0} \frac{\sin x \cos h + \cos x \sin h - \sin x}{h} = \sin x \cdot \lim_{h \to 0} \frac{\cos h - 1}{h} + \cos x \cdot \lim_{h \to 0} \frac{\sin h}{h}.
 \]
@@ -298,10 +262,10 @@ Exploiting the special limits
 \[
 \begin{gathered}
 \lim_{h \to 0} (\sin h)/h = 1 \\
-\lim_{h \to 0} \frac{\cos h - 1}{h} = \lim_{h \to 0} (-h) \, \frac{1 - \cos h}{h^2} = 0,
+\lim_{h \to 0} \frac{\cos h - 1}{h} = \lim_{h \to 0} (-h) \, \frac{1 - \cos h}{h^2} = 0.
 \end{gathered}
 \]
-we conclude that the derivative of $\sin x$ equals $\cos x$; the derivative of $\cos x$ is obtained by a completely analogous computation. The derivative of a real power function is given by
+We conclude that the derivative of $\sin x$ equals $\cos x$; the derivative of $\cos x$ is obtained by a completely analogous computation. The derivative of a real power function is given by
 \[
 \frac{d}{dx} x^\alpha = \alpha \, x^{\alpha - 1}, \qquad \alpha \in \mathbb{R}.
 \]
@@ -330,10 +294,10 @@ Let $f(x) = \sin x$. By definition, $y = \arcsin x$ if and only if $x = \sin y$.
 D f^{-1}(x) &= \frac{1}{f'(y)} \\
 &= \frac{1}{\cos y} \\
 &= \frac{1}{\sqrt{1 - \sin^2 y}} \\
-&= \frac{1}{\sqrt{1 - x^2}},
+&= \frac{1}{\sqrt{1 - x^2}}.
 \end{aligned}
 \]
-where the positive square root is selected since $\cos y \geq 0$ on the range of $\arcsin$. The formula for $\arccos x$ is obtained analogously. For $f(x) = \tan x$, one instead has $y = \arctan x$ if and only if $x = \tan y$, and hence
+Here the positive square root is selected since $\cos y \geq 0$ on the range of $\arcsin$. The formula for $\arccos x$ is obtained analogously. For $f(x) = \tan x$, one instead has $y = \arctan x$ if and only if $x = \tan y$, and hence
 \[
 \begin{aligned}
 D f^{-1}(x) &= \frac{1}{f'(y)} \\
@@ -394,11 +358,7 @@ Taking the right-hand limit as $h \to 0^+$ and invoking the Sign Preserving Prop
 \lim_{h \to 0^+} \frac{f(c+h) - f(c)}{h} \leq 0 \implies f'_+(c) \leq 0.
 \]
 
-Analogously, if $h < 0$ is sufficiently small, dividing inequality $(*)$ by $h$ reverses its direction, giving
-\[
-\frac{f(c+h) - f(c)}{h} \geq 0,
-\]
-so that taking the left-hand limit yields
+Analogously, if $h < 0$ is sufficiently small, dividing inequality $(*)$ by $h$ reverses its direction, giving $\frac{f(c+h) - f(c)}{h} \geq 0$, so that taking the left-hand limit yields
 \[
 \lim_{h \to 0^-} \frac{f(c+h) - f(c)}{h} \geq 0 \implies f'_-(c) \geq 0.
 \]
@@ -406,10 +366,10 @@ Since $f$ is differentiable at $c$, we have
 \[
 \begin{aligned}
 f'_+(c) &= f'_-(c) \\
-&= f'(c),
+&= f'(c).
 \end{aligned}
 \]
-and the only value compatible with the two inequalities $f'(c) \leq 0$ and $f'(c) \geq 0$ is $f'(c) = 0$, as claimed.
+The only value compatible with the two inequalities $f'(c) \leq 0$ and $f'(c) \geq 0$ is $f'(c) = 0$, as claimed.
 \end{proof}
 
 
@@ -417,18 +377,14 @@ Fermat's Theorem provides the theoretical foundation for a systematic method of 
 \[
 \begin{aligned}
 f(c) &\leq f(x) \\
-&\leq f(d)
+&\leq f(d).
 \end{aligned}
 \]
-for every $x \in [a,b]$. Weierstrass' Theorem guarantees that such points exist, but it does not, by itself, indicate how to locate them; this is precisely the role played by Fermat's Theorem.
+This holds for every $x \in [a,b]$. Weierstrass' Theorem guarantees that such points exist, but it does not, by itself, indicate how to locate them; this is precisely the role played by Fermat's Theorem.
 
 The resulting procedure, known as the Closed Interval Method, consists of three steps. The first step is to find the critical points of $f$ inside the open interval $(a,b)$, including any points where $f$ fails to be differentiable, and to evaluate $f$ at each of these points. The second step is to evaluate $f$ at the two endpoints of the interval, namely at $a$ and at $b$. The third step is to compare all the values obtained in the first two steps: the largest of these values is the absolute maximum value of $f$ on $[a,b]$, and the smallest is the absolute minimum value.
 
-For a complete application, let $g(x)=x^4-4x^3$ on $[0,5]$. Since
-\[
-g'(x)=4x^3-12x^2=4x^2(x-3),
-\]
-the interior critical points are $x=0$ and $x=3$, but only $x=3$ lies
+For a complete application, let $g(x)=x^4-4x^3$ on $[0,5]$. Since $g'(x)=4x^3-12x^2=4x^2(x-3)$, the interior critical points are $x=0$ and $x=3$, but only $x=3$ lies
 in $(0,5)$. Evaluating the critical point and endpoints gives
 \[
 g(0)=0,\qquad g(3)=81-108=-27,\qquad g(5)=625-500=125.
@@ -456,16 +412,7 @@ The critical values are
 x=\frac{32\pm\sqrt{32^2-4\cdot3\cdot60}}{6}
 =\frac{16\pm2\sqrt{19}}{3}.
 \]
-Only
-\[
-x_* = \frac{16-2\sqrt{19}}{3}\approx2.427\ \mathrm{cm}
-\]
-belongs to $[0,6]$. Since $V(0)=V(6)=0$ and
-\[
-V(x_*)=\frac{1792+1216\sqrt{19}}{27}
-\approx262.682\ \mathrm{cm}^3,
-\]
-this value of $x$ gives the maximum volume.
+Only $x_* = \frac{16-2\sqrt{19}}{3}\approx2.427\ \mathrm{cm}$ belongs to $[0,6]$. Since $V(0)=V(6)=0$ and $V(x_*)=\frac{1792+1216\sqrt{19}}{27} \approx262.682\ \mathrm{cm}^3$, this value of $x$ gives the maximum volume.
 
 \subsection{Rolle's Theorem and Lagrange's Theorem}
 
@@ -486,15 +433,7 @@ Let $f$ be a function satisfying the following three hypotheses: $f$ is continuo
 \end{theorem}
 
 \begin{proof}
-The proof distinguishes three cases according to the behavior of $f$ on $(a,b)$. In the first case, $f$ is constant on $[a,b]$; then $f' \equiv 0$ throughout, so the number $c$ may be taken to be any point of $(a,b)$. In the second case, $f$ is not constant and there exists some $x \in (a,b)$ such that
-\[
-f(x) > f(a) = f(b);
-\]
-by Weierstrass' Theorem, $f$ attains a maximum value somewhere on $[a,b]$, and since this maximum value exceeds $f(a) = f(b)$, it must be attained at a point $c$ inside the open interval $(a,b)$, so that $c$ is a local maximum of $f$. Since $f$ is differentiable at $c$, Fermat's Theorem yields $f'(c) = 0$. In the third case, $f$ is not constant and there exists some $x \in (a,b)$ such that
-\[
-f(x) < f(a) = f(b);
-\]
-by Weierstrass' Theorem, $f$ attains a minimum value somewhere on $[a,b]$, and since this minimum value is smaller than $f(a) = f(b)$, it must be attained at a point $c$ inside $(a,b)$. Again, Fermat's Theorem yields $f'(c) = 0$, which completes the proof in all three cases.
+The proof distinguishes three cases according to the behavior of $f$ on $(a,b)$. In the first case, $f$ is constant on $[a,b]$; then $f' \equiv 0$ throughout, so the number $c$ may be taken to be any point of $(a,b)$. In the second case, $f$ is not constant and there exists some $x \in (a,b)$ such that $f(x) > f(a) = f(b)$; by Weierstrass' Theorem, $f$ attains a maximum value somewhere on $[a,b]$, and since this maximum value exceeds $f(a) = f(b)$, it must be attained at a point $c$ inside the open interval $(a,b)$, so that $c$ is a local maximum of $f$. Since $f$ is differentiable at $c$, Fermat's Theorem yields $f'(c) = 0$. In the third case, $f$ is not constant and there exists some $x \in (a,b)$ such that $f(x) < f(a) = f(b)$; by Weierstrass' Theorem, $f$ attains a minimum value somewhere on $[a,b]$, and since this minimum value is smaller than $f(a) = f(b)$, it must be attained at a point $c$ inside $(a,b)$. Again, Fermat's Theorem yields $f'(c) = 0$, which completes the proof in all three cases.
 \end{proof}
 
 \begin{proof}[Proof of Lagrange's Theorem]
@@ -507,10 +446,10 @@ Observe that $F$ is continuous on $[a,b]$ and differentiable on $(a,b)$, being a
 \[
 \begin{aligned}
 F(a) &= f(a) \\
-&= F(b),
+&= F(b).
 \end{aligned}
 \]
-so that $F$ satisfies the hypotheses of Rolle's Theorem on $[a,b]$. Applying Rolle's Theorem to $F$, we find a point $c \in (a,b)$ such that $F'(c) = 0$. For every $x \in (a,b)$, the derivative of $F$ is
+Consequently, $F$ satisfies the hypotheses of Rolle's Theorem on $[a,b]$. Applying Rolle's Theorem to $F$, we find a point $c \in (a,b)$ such that $F'(c) = 0$. For every $x \in (a,b)$, the derivative of $F$ is
 \[
 F'(x) = f'(x) - \frac{f(b) - f(a)}{b-a}.
 \]
@@ -534,14 +473,12 @@ Let $c \in \mathbb{R}$, and let $f, g$ be differentiable in a punctured neighbor
 \[
 \begin{aligned}
 \lim_{x \to c} f(x) &= \lim_{x \to c} g(x) \\
-&= 0;
+&= 0.
 \end{aligned}
 \]
-second, $g'(x) \neq 0$ throughout $\dot{U}(c)$; and third,
-\[
+Second, $g'(x) \neq 0$ throughout $\dot{U}(c)$; and third, \[
 \lim_{x \to c} f'(x)/g'(x) = \ell
-\]
-for some $\ell \in \mathbb{R}$. Then
+\] for some $\ell \in \mathbb{R}$. Then
 \[
 \lim_{x \to c} \frac{f(x)}{g(x)} = \ell.
 \]
@@ -600,20 +537,16 @@ Taking the quotient of the derivatives of numerator and denominator, one obtains
 \end{aligned}
 \]
 
-It is worth noting that the computation may in fact be stopped one step earlier, at the quotient $-\sin x / (6x)$, since the value $-1/6$ then follows directly from the special limit
-\[
+It is worth noting that the computation may in fact be stopped one step earlier, at the quotient $-\sin x / (6x)$, since the value $-1/6$ then follows directly from the special limit \[
 \lim_{x \to 0} (\sin x)/x = 1
-\]
-established previously, without a further application of the rule. L'H\^opital's Rule is particularly useful for establishing the hierarchy of infinities as $x \to +\infty$, namely the relation $(\ln x)^\beta \prec x^\alpha \prec e^x$ for $\alpha > 0$; consider, for instance, the comparison $\ln x \prec x^\alpha$. Indeed, for $\alpha > 0$, applying L'H\^opital's Rule gives
+\] established previously, without a further application of the rule. L'H\^opital's Rule is particularly useful for establishing the hierarchy of infinities as $x \to +\infty$, namely the relation $(\ln x)^\beta \prec x^\alpha \prec e^x$ for $\alpha > 0$; consider, for instance, the comparison $\ln x \prec x^\alpha$. Indeed, for $\alpha > 0$, applying L'H\^opital's Rule gives
 \[
 \lim_{x \to +\infty} \frac{\ln x}{x^\alpha} \xrightarrow{\text{l'H\^opital}} \lim_{x \to +\infty} \frac{\frac{1}{x}}{\alpha x^{\alpha - 1}} = \lim_{x \to +\infty} \frac{1}{\alpha x^\alpha} = 0.
 \]
 
-The rule is likewise useful for resolving indeterminate forms of type $0 \cdot \infty$; for instance, the special limit
-\[
+The rule is likewise useful for resolving indeterminate forms of type $0 \cdot \infty$; for instance, the special limit \[
 \lim_{x \to 0^+} x^\alpha (\ln x)^\beta = 0,
-\]
-in the particular case $\beta = 1$, can be established by rewriting $x^\alpha \ln x$ as the quotient $\ln x / x^{-\alpha}$, which presents the indeterminate form $-\infty / \infty$, and applying L'H\^opital's Rule:
+\] in the particular case $\beta = 1$, can be established by rewriting $x^\alpha \ln x$ as the quotient $\ln x / x^{-\alpha}$, which presents the indeterminate form $-\infty / \infty$, and applying L'H\^opital's Rule:
 \[
 \begin{aligned}
 \lim_{x \to 0^+} x^\alpha \ln x
@@ -627,10 +560,10 @@ Despite its evident usefulness, L'H\^opital's Rule must be applied with a degree
 \[
 \begin{gathered}
 \lim_{x \to 1^+} x/(x-1) \\
-\lim_{x \to +\infty} (x + \sin x)/x,
+\lim_{x \to +\infty} (x + \sin x)/x.
 \end{gathered}
 \]
-since in the first case the hypothesis of a $0/0$ or $\infty/\infty$ indeterminate form is not satisfied, while in the second case the derivative of the denominator does not lead to a resolvable limit in the required sense. Finally, there exist situations in which the rule is simply inconclusive, such as the limit
+Since in the first case the hypothesis of a $0/0$ or $\infty/\infty$ indeterminate form is not satisfied, while in the second case the derivative of the denominator does not lead to a resolvable limit in the required sense. Finally, there exist situations in which the rule is simply inconclusive, such as the limit
 \[
 \lim_{x \to \infty} (x^2+1)^{1/2}/x,
 \]
@@ -668,11 +601,9 @@ It should not be assumed that all local minima look essentially alike upon close
 A further useful consequence of Lagrange's Theorem provides a sufficient condition for differentiability at a point, based on the limiting behavior of the derivative nearby.
 
 \begin{theorem}
-Assume $f$ is continuous at a point $c$ and differentiable in a punctured neighborhood $\dot{U}(c)$. If
-\[
+Assume $f$ is continuous at a point $c$ and differentiable in a punctured neighborhood $\dot{U}(c)$. If \[
 \lim_{x \to c} f'(x) = L \in \mathbb{R},
-\]
-then $f$ is differentiable at $c$ and $f'(c) = L$.
+\] then $f$ is differentiable at $c$ and $f'(c) = L$.
 \end{theorem}
 
 \begin{proof}
@@ -685,10 +616,10 @@ Since $x_h \to c$ as $h \to 0$, it follows that
 \begin{aligned}
 f'_+(c) &= \lim_{h \to 0^+} \frac{f(c+h) - f(c)}{h} \\
 &= \lim_{h \to 0^+} f'(x_h) \\
-&= L,
+&= L.
 \end{aligned}
 \]
-and an analogous argument for $h \to 0^-$ shows that $f'_-(c) = L$ as well, so that $f'(c) = L$, as claimed.
+An analogous argument for $h \to 0^-$ shows that $f'_-(c) = L$ as well, so that $f'(c) = L$, as claimed.
 \end{proof}
 
 \begin{remark}
@@ -735,14 +666,10 @@ Since $f'$ is increasing, we have $f'(y) \geq f'(c)$, and hence
 \[
 \begin{aligned}
 f(x) - f(c) &= f'(y)(x-c) \\
-&\geq f'(c)(x-c),
+&\geq f'(c)(x-c).
 \end{aligned}
 \]
-so that
-\[
-f(x) \geq f'(c)(x-c) + f(c),
-\]
-which is precisely the definition of convexity at $c$, from the right; the case $x < c$ is treated analogously, establishing convexity on all of $I$.
+Consequently, $f(x) \geq f'(c)(x-c) + f(c)$, which is precisely the definition of convexity at $c$, from the right; the case $x < c$ is treated analogously, establishing convexity on all of $I$.
 
 We now show that the first statement implies the second. Let $x < y$ be two points of $I$. By the definition of convexity, the value $f(y)$ is greater than the value of the tangent line to the graph at $(x, f(x))$ evaluated at $y$, that is,
 \[
@@ -792,15 +719,7 @@ Let $f$ be differentiable at $a$. Then
 
 \end{theorem}
 
-This result may be interpreted as saying that the error
-\[
-E(x) = f(x) - L(x)
-\]
-approaches zero faster than $(x-a)$ itself as $x \to a$; adopting the standard Landau notation, we write $E(x) = o(x-a)$ as $x \to a$. With this notation, the conclusion of the theorem may be restated as
-\[
-f(x) = f(a) + f'(a)(x-a) + o(x-a), \qquad x \to a,
-\]
-or, equivalently, setting $x = a + h$,
+This result may be interpreted as saying that the error $E(x) = f(x) - L(x)$ approaches zero faster than $(x-a)$ itself as $x \to a$; adopting the standard Landau notation, we write $E(x) = o(x-a)$ as $x \to a$. With this notation, the conclusion of the theorem may be restated as $f(x) = f(a) + f'(a)(x-a) + o(x-a), \qquad x \to a$, or, equivalently, setting $x = a + h$,
 \[
 f(a+h) = f(a) + f'(a) h + o(h), \qquad h \to 0.
 \]
@@ -832,29 +751,13 @@ If $f$ is of class $C^2$ on a neighborhood of $a$, then
 
 \end{theorem}
 
-As in the linear case, this result may be interpreted in terms of the error term: the error
-\[
-E_2(x) = f(x) - T_2(x)
-\]
-approaches zero faster than $(x-a)^2$ as $x \to a$, that is,
-\[
-E_2(x) = o((x-a)^2)
-\]
-as $x \to a$. The conclusion of the theorem may accordingly be rewritten as
-\[
-f(x) = f(a) + f'(a)(x-a) + \frac{1}{2} f''(a)(x-a)^2 + o\big((x-a)^2\big), \qquad x \to a,
-\]
-or, setting $x = a+h$,
+As in the linear case, this result may be interpreted in terms of the error term: the error $E_2(x) = f(x) - T_2(x)$ approaches zero faster than $(x-a)^2$ as $x \to a$, that is, $E_2(x) = o((x-a)^2)$ as $x \to a$. The conclusion of the theorem may accordingly be rewritten as $f(x) = f(a) + f'(a)(x-a) + \frac{1}{2} f''(a)(x-a)^2 + o\big((x-a)^2\big), \qquad x \to a$, or, setting $x = a+h$,
 \[
 f(a+h) = f(a) + f'(a) h + \frac{1}{2} f''(a) h^2 + o(h^2), \qquad h \to 0.
 \]
 
 \begin{proof}
-We prove the result for $a = 0$; the general case follows by an entirely analogous argument after a translation of the variable. Setting
-\[
-g(x) = f(x) - T_2(x),
-\]
-the thesis becomes
+We prove the result for $a = 0$; the general case follows by an entirely analogous argument after a translation of the variable. Setting $g(x) = f(x) - T_2(x)$, the thesis becomes
 \[
 \lim_{x \to 0} g(x)/x^2 = 0.
 \]
@@ -879,10 +782,10 @@ Setting $y = \tau x$ and recalling that
 \[
 \begin{aligned}
 g'(0) &= g''(0) \\
-&= 0,
+&= 0.
 \end{aligned}
 \]
-we find
+We find
 \begin{equation*}
 g'(\tau x) = o(\tau x). \tag{2}
 \end{equation*}
@@ -935,18 +838,10 @@ Figure~\ref{fig:ch5-taylor} compares a function with its linear and quadratic ap
 The construction of the second-degree Taylor polynomial generalizes naturally to any degree $n$, provided that the function under consideration is differentiable a sufficient number of times.
 
 \begin{definition}
-Let $f$ be differentiable $n$ times at $a$. The polynomial
-\[
-T_n(x) := f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x-a)^n
-\]
-is called the $n$-th degree Taylor polynomial of $f$ centered at $a$. In the special case $a = 0$, it is also called the $n$-th degree Maclaurin polynomial of $f$.
+Let $f$ be differentiable $n$ times at $a$. The polynomial $T_n(x) := f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x-a)^n$ is called the $n$-th degree Taylor polynomial of $f$ centered at $a$. In the special case $a = 0$, it is also called the $n$-th degree Maclaurin polynomial of $f$.
 \end{definition}
 
-By construction, the polynomial $T_n$ satisfies
-\[
-T_n^{(k)}(a) = f^{(k)}(a)
-\]
-for every $k = 1, \dots, n$, and it is in fact the unique polynomial of degree $n$ possessing this property. As the degree $n$ increases, the corresponding Taylor polynomial provides an increasingly accurate approximation to $f$ near $a$, a phenomenon that becomes visually apparent when several Taylor polynomials of increasing degree are plotted together against the original function.
+By construction, the polynomial $T_n$ satisfies $T_n^{(k)}(a) = f^{(k)}(a)$ for every $k = 1, \dots, n$, and it is in fact the unique polynomial of degree $n$ possessing this property. As the degree $n$ increases, the corresponding Taylor polynomial provides an increasingly accurate approximation to $f$ near $a$, a phenomenon that becomes visually apparent when several Taylor polynomials of increasing degree are plotted together against the original function.
 
 This improvement in accuracy with increasing degree is made precise by the following generalization of the Taylor--Peano theorem stated above for the case $n=2$.
 
@@ -958,19 +853,11 @@ Let $f$ be of class $C^n$ on a neighborhood of $a$. Then
 
 \end{theorem}
 
-As before, this result may be phrased in terms of the error term: the error
+As before, this result may be phrased in terms of the error term: the error $E_n(x) = f(x) - T_n(x)$ approaches zero faster than $(x-a)^n$ as $x \to a$, that is, $E_n(x) = o((x-a)^n)$ as $x \to a$. The conclusion of the theorem is thus written as
 \[
-E_n(x) = f(x) - T_n(x)
+f(x) = f(a) + f'(a)(x-a) + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + o\big((x-a)^n\big), \qquad x \to a.
 \]
-approaches zero faster than $(x-a)^n$ as $x \to a$, that is,
-\[
-E_n(x) = o((x-a)^n)
-\]
-as $x \to a$. The conclusion of the theorem is thus written as
-\[
-f(x) = f(a) + f'(a)(x-a) + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + o\big((x-a)^n\big), \qquad x \to a,
-\]
-or, setting $x = a + h$,
+Alternatively, setting $x = a + h$,
 \[
 f(a+h) = f(a) + f'(a) h + \cdots + \frac{1}{n!} f^{(n)}(a) h^n + o(h^n), \qquad h \to 0.
 \]
@@ -1045,11 +932,9 @@ The global character of the Taylor--Lagrange formula becomes particularly valuab
 
 \subsection{Taylor Expansions of Elementary Functions}
 
-It follows from the general theory developed above that, for every $n \in \mathbb{N}$,
-\[
+It follows from the general theory developed above that, for every $n \in \mathbb{N}$, \[
 e^x = \sum_{k=0}^{n} \frac{x^k}{k!} + o(x^n), \qquad x \to 0,
-\]
-which shows that the Maclaurin polynomials of the exponential function reconstruct $e^x$ near $a = 0$ with arbitrary precision, in the local sense described by the Taylor--Peano formula. A far more striking fact, however, is that the Maclaurin polynomials of $e^x$ reconstruct the function not merely near $a=0$, but throughout its entire domain, in the sense made precise by the following theorem.
+\] which shows that the Maclaurin polynomials of the exponential function reconstruct $e^x$ near $a = 0$ with arbitrary precision, in the local sense described by the Taylor--Peano formula. A far more striking fact, however, is that the Maclaurin polynomials of $e^x$ reconstruct the function not merely near $a=0$, but throughout its entire domain, in the sense made precise by the following theorem.
 
 \begin{theorem}
 For every $x \in \mathbb{R}$,
@@ -1067,9 +952,9 @@ e = \sum_{n=0}^{\infty} \frac{1}{n!}.
 \begin{proof}
 Let $x > 0$ be fixed; the case $x \leq 0$ is handled by an entirely analogous argument. By the Taylor--Lagrange formula applied to $f(x) = e^x$ centered at $a = 0$, we have
 \begin{equation*}
-e^x - T_n(x) = \frac{f^{(n+1)}(z)}{(n+1)!} x^{n+1} \tag{$*$}
+e^x - T_n(x) = \frac{f^{(n+1)}(z)}{(n+1)!} x^{n+1}. \tag{$*$}
 \end{equation*}
-for some $z$ with $0 < z < x$, where $f^{(k)}(z) = e^z$ for every $k \geq 0$, and
+Here $z$ satisfies $0 < z < x$, while $f^{(k)}(z) = e^z$ for every $k \geq 0$, and
 \[
 T_n(x) = \sum_{k=0}^{n} x^k / k!.
 \]
@@ -1077,11 +962,9 @@ Since $z < x$, we have $e^z < e^x$, and from $(*)$ we obtain the bound
 \[
 |e^x - T_n(x)| \leq e^x \, \frac{x^{n+1}}{(n+1)!}.
 \]
-Recalling that
-\[
+Recalling that \[
 \lim_{n \to \infty} q^{n+1}/(n+1)! = 0
-\]
-for every fixed real number $q$, a fact established in the theory of sequences, we conclude that
+\] for every fixed real number $q$, a fact established in the theory of sequences, we conclude that
 \[
 \lim_{n \to \infty} [e^x - T_n(x)] = 0,
 \]
@@ -1102,21 +985,19 @@ function to equal its Taylor series. For example,
 f(x)=
 \begin{cases}
 e^{-1/x^2},&x>0,\\
-0,&x\leq0,
-\end{cases}
+0,&x\leq0
+\end{cases}.
 \]
-is of class $C^\infty$ on $\mathbb{R}$, but every derivative at $0$
+This is of class $C^\infty$ on $\mathbb{R}$, but every derivative at $0$
 vanishes. Its Taylor series at $0$ is therefore identically zero although
 $f(x)>0$ for $x>0$. A function is called \emph{analytic} near $a$ when
 its Taylor series at $a$ converges to the function on some neighborhood
 of $a$. The exponential, sine, and cosine functions are analytic; their
 Taylor series in fact converge to them on all of $\mathbb{R}$.
 
-The systematic use of Maclaurin expansions for the computation of limits, illustrated earlier for the limit
-\[
+The systematic use of Maclaurin expansions for the computation of limits, illustrated earlier for the limit \[
 \lim_{x \to 0} (\sin x - x)/x^3,
-\]
-rests on a small collection of algebraic manipulation rules governing the symbol $o(x^n)$. We now record the precise definition of this symbol, together with its basic algebraic properties.
+\] rests on a small collection of algebraic manipulation rules governing the symbol $o(x^n)$. We now record the precise definition of this symbol, together with its basic algebraic properties.
 
 \begin{definition}
 Given $n \in \mathbb{N}$, the symbol $o(x^n)$, read "small $o$ of $x^n$", denotes a generic, unspecified quantity depending on $x$, vanishing as $x \to 0$, with the property that
@@ -1126,23 +1007,7 @@ Given $n \in \mathbb{N}$, the symbol $o(x^n)$, read "small $o$ of $x^n$", denote
 
 \end{definition}
 
-As $x \to 0$, the symbol $o(x^n)$ obeys the following algebraic rules, which together constitute what is customarily called the algebra of small $o$. First, $x^n = o(x^m)$ for any integer $m < n$, reflecting the fact that a higher power of $x$ is itself negligible compared to a lower power as $x \to 0$. Second, $c \cdot o(x^n) = o(x^n)$ for any constant $c$, so that multiplying a small-$o$ quantity by a fixed constant does not change its order. Third,
-\[
-o(x^n) \pm o(x^n) = o(x^n),
-\]
-so that the sum or difference of two quantities of the same order remains of that order. Fourth,
-\[
-x^n \cdot o(x^m) = o(x^{n+m}),
-\]
-so that multiplying a small-$o$ quantity by an explicit power increases its order accordingly. Fifth,
-\[
-o(x^n) \cdot o(x^m) = o(x^{n+m}),
-\]
-extending the previous rule to the product of two small-$o$ quantities. Sixth,
-\[
-(o(x^n))^m = o(x^{nm}),
-\]
-governing the behavior of small-$o$ quantities under exponentiation.
+As $x \to 0$, the symbol $o(x^n)$ obeys the following algebraic rules, which together constitute what is customarily called the algebra of small $o$. First, $x^n = o(x^m)$ for any integer $m < n$, reflecting the fact that a higher power of $x$ is itself negligible compared to a lower power as $x \to 0$. Second, $c \cdot o(x^n) = o(x^n)$ for any constant $c$, so that multiplying a small-$o$ quantity by a fixed constant does not change its order. Third, $o(x^n) \pm o(x^n) = o(x^n)$, so that the sum or difference of two quantities of the same order remains of that order. Fourth, $x^n \cdot o(x^m) = o(x^{n+m})$, so that multiplying a small-$o$ quantity by an explicit power increases its order accordingly. Fifth, $o(x^n) \cdot o(x^m) = o(x^{n+m})$, extending the previous rule to the product of two small-$o$ quantities. Sixth, $(o(x^n))^m = o(x^{nm})$, governing the behavior of small-$o$ quantities under exponentiation.
 Composition statements require explicit remainder functions and suitable
 domain hypotheses; an expression such as $o(x^n+o(x^n))$ is therefore
 avoided.
@@ -1163,23 +1028,15 @@ stated finite-order hypothesis, substitution gives
 \[
 \begin{aligned}
 \lim_{x \to 0} \frac{f(x)}{g(x)} &= \lim_{x \to 0} \frac{a x^n + o(x^n)}{b x^m + o(x^m)} \\
-&= \lim_{x \to 0} \frac{x^n \left( a + \dfrac{o(x^n)}{x^n} \right)}{x^m \left( b + \dfrac{o(x^m)}{x^m} \right)},
+&= \lim_{x \to 0} \frac{x^n \left( a + \dfrac{o(x^n)}{x^n} \right)}{x^m \left( b + \dfrac{o(x^m)}{x^m} \right)}.
 \end{aligned}
 \]
-and it then suffices to apply the definition of small $o$, according to which the two fractions $o(x^n)/x^n$ and $o(x^m)/x^m$ both tend to zero as $x \to 0$, in order to resolve the limit explicitly in terms of $n$, $m$, $a$, and $b$.
+Moreover, it then suffices to apply the definition of small $o$, according to which the two fractions $o(x^n)/x^n$ and $o(x^m)/x^m$ both tend to zero as $x \to 0$, in order to resolve the limit explicitly in terms of $n$, $m$, $a$, and $b$.
 
 \begin{remark}[Worked exercises on Taylor expansions and limits]
 We solve the preceding computational exercises explicitly.
 
-First, if $m<n$, then
-\[
-\frac{x^n}{x^m}=x^{n-m}\longrightarrow0,
-\]
-so $x^n=o(x^m)$. If $r(x)=o(x^m)$, then
-\[
-\frac{x^n r(x)}{x^{n+m}}=\frac{r(x)}{x^m}\longrightarrow0,
-\]
-which proves $x^n o(x^m)=o(x^{n+m})$.
+First, if $m<n$, then $\frac{x^n}{x^m}=x^{n-m}\longrightarrow0$, so $x^n=o(x^m)$. If $r(x)=o(x^m)$, then $\frac{x^n r(x)}{x^{n+m}}=\frac{r(x)}{x^m}\longrightarrow0$, which proves $x^n o(x^m)=o(x^{n+m})$.
 
 For $f(x)=\sin x$ centered at $a=\pi/3$, set $h=x-\pi/3$.
 The derivatives repeat with period four, and
@@ -1218,11 +1075,7 @@ Subtracting,
 The function is therefore an infinitesimal of order $4$ with leading
 part $x^4/3$.
 
-For the quotient, the required expansions are
-\[
-\tan x-\sin x=\frac{x^3}{2}+\frac{x^5}{8}+o(x^5)
-\]
-and
+For the quotient, the required expansions are $\tan x-\sin x=\frac{x^3}{2}+\frac{x^5}{8}+o(x^5)$ and
 \[
 x^2(x+1)+\ln(1-x^2)
 =x^3-\frac{x^4}{2}+o(x^4).
@@ -1243,11 +1096,11 @@ for $k>0$ and a local maximum for $k<0$. If $n$ is odd, $h^n$ changes
 sign, so the graph crosses its horizontal tangent and $a$ is an
 inflection point.
 
-Finally, the exponential and logarithmic series give
-\[
+Finally, the exponential and logarithmic series give \[
 \sum_{n=0}^{\infty}\frac{(-1)^n x^{4n}}{n!}=e^{-x^4}
-\]
-and, since $\ln(1+z)=\sum_{n=1}^{\infty}(-1)^{n-1}z^n/n$ for
+\] and, since \[
+\ln(1+z)=\sum_{n=1}^{\infty}(-1)^{n-1}z^n/n
+\] for
 $|z|<1$,
 \[
 \sum_{n=1}^{\infty}\frac{(-1)^{n-1}3^n}{n5^n}

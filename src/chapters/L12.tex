@@ -80,11 +80,9 @@ Taking the absolute value and applying the triangle inequality:
 \end{aligned}
 \end{equation}
 
-To show this goes to zero as $|\omega| \to \infty$, we must explicitly prove that translation is continuous in the $L^1$ norm. Let $\tau = \pi/\omega$. We want to show
-\[
+To show this goes to zero as $|\omega| \to \infty$, we must explicitly prove that translation is continuous in the $L^1$ norm. Let $\tau = \pi/\omega$. We want to show \[
 \lim_{\tau \to 0} \|f - f_\tau\|_{L^1} = 0,
-\]
-where $f_\tau(t) = f(t-\tau)$.
+\] where $f_\tau(t) = f(t-\tau)$.
 Let $\varepsilon > 0$. The space of continuous functions with compact support, $C_c(\R)$, is dense in $L^1(\R)$. Thus, there exists a function $g \in C_c(\R)$ such that $\|f - g\|_{L^1} < \varepsilon/3$. By the triangle inequality:
 \begin{equation}
 \|f - f_\tau\|_{L^1} \leq \|f - g\|_{L^1} + \|g - g_\tau\|_{L^1} + \|g_\tau - f_\tau\|_{L^1}
@@ -94,11 +92,7 @@ Because the Lebesgue measure is translation-invariant,
 \|g_\tau - f_\tau\|_{L^1} = \|g - f\|_{L^1} < \varepsilon/3.
 \]
 
-Since $g$ is continuous and has compact support, it is uniformly continuous. Let $K$ be a compact set containing the support of $g$ and $g_\tau$ for small $\tau$. For sufficiently small $|\tau|$,
-\[
-|g(t) - g(t-\tau)| < (\varepsilon/(3 \mu(K)))
-\]
-for all $t$. Thus:
+Since $g$ is continuous and has compact support, it is uniformly continuous. Let $K$ be a compact set containing the support of $g$ and $g_\tau$ for small $\tau$. For sufficiently small $|\tau|$, $|g(t) - g(t-\tau)| < (\varepsilon/(3 \mu(K)))$ for all $t$. Thus:
 \begin{equation}
 \|g - g_\tau\|_{L^1} = \int_K |g(t) - g(t-\tau)| \dd t < \mu(K) \frac{\varepsilon}{3 \mu(K)} = \varepsilon/3
 \end{equation}
@@ -115,11 +109,9 @@ If $f$ is continuous, this equality holds for all $t \in \R$.
 \end{theorem}
 
 \begin{proof}
-The integral
-\[
+The integral \[
 \int \hat{f}(\omega) e^{i\omega t} \dd \omega
-\]
-might not converge absolutely if we merely know $\hat{f} \in L^1$ and attempt to substitute the definition of $\hat{f}$ directly, because the resulting double integral may fail Fubini's conditions. To bypass this, we introduce a regularization factor $e^{-\varepsilon \omega^2}$ (Gaussian damping) and take the limit as $\varepsilon \to 0^+$. Define the regularized integral:
+\] might not converge absolutely if we merely know $\hat{f} \in L^1$ and attempt to substitute the definition of $\hat{f}$ directly, because the resulting double integral may fail Fubini's conditions. To bypass this, we introduce a regularization factor $e^{-\varepsilon \omega^2}$ (Gaussian damping) and take the limit as $\varepsilon \to 0^+$. Define the regularized integral:
 \begin{equation}
 I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-\varepsilon \omega^2} e^{i\omega t} \dd \omega
 \end{equation}
@@ -135,11 +127,9 @@ Together, they show that the integrand is dominated by $|\hat{f}(\omega)| \in L^
 \begin{equation}
 \lim_{\varepsilon \to 0^+} I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{i\omega t} \dd \omega
 \end{equation}
-Now, substitute the definition of
-\[
+Now, substitute the definition of \[
 \hat{f}(\omega) = \int_\R f(s) e^{-i\omega s} \dd s
-\]
-into $I_\varepsilon(t)$:
+\] into $I_\varepsilon(t)$:
 \begin{equation}
 I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \left[ \int_\R f(s) e^{-i\omega s} \dd s \right] e^{-\varepsilon \omega^2} e^{i\omega t} \dd \omega
 \end{equation}
@@ -158,10 +148,10 @@ Since the double integral is absolutely convergent, the \textit{Fubini--Tonelli 
 \begin{aligned}
 I_\varepsilon(t)
     &= \int_\R f(s) \underbrace{ \left[ \frac{1}{2\pi} \int_\R e^{-\varepsilon \omega^2} e^{i\omega(t-s)} \dd \omega \right] }_{g_\varepsilon(t-s)} \dd s \\
-    &= (f * g_\varepsilon)(t)
-    \end{aligned}
+    &= (f * g_\varepsilon)(t).
+\end{aligned}
 \end{equation}
-where $*$ denotes convolution. We now explicitly evaluate the inner integral $g_\varepsilon(u)$ by completing the square in the exponent:
+Here $*$ denotes convolution. We now explicitly evaluate the inner integral $g_\varepsilon(u)$ by completing the square in the exponent:
 \begin{equation}
 \begin{aligned}
     -\varepsilon \omega^2 + i\omega u
@@ -481,21 +471,19 @@ Complex differentiation and contour integration complement the preceding Fourier
 \subsection{Holomorphic Functions and the Cauchy--Riemann Equations}
 
 \begin{definition}[Complex Differentiability and Holomorphy]
-Let $U\subset\C$ be open. A function $f:U\to\C$ is \emph{complex differentiable} at $z_0\in U$ if the limit
-\begin{equation}
+Let $U\subset\C$ be open. A function $f:U\to\C$ is \emph{complex differentiable} at $z_0\in U$ if the limit \[
 f'(z_0):=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}{h}
-\end{equation}
-exists independently of how the complex increment $h$ approaches zero. The function is \emph{holomorphic} on $U$ if it is complex differentiable at every point of $U$; it is holomorphic near $z_0$ if this holds in a neighborhood of $z_0$.
+\] exists independently of how the complex increment $h$ approaches zero. The function is \emph{holomorphic} on $U$ if it is complex differentiable at every point of $U$; it is holomorphic near $z_0$ if this holds in a neighborhood of $z_0$.
 \end{definition}
 
 This condition is stronger than real differentiability of a map $\R^2\to\R^2$. Writing
 \[
 \begin{gathered}
 z=x+iy \\
-f(z)=u(x,y)+iv(x,y),
+f(z)=u(x,y)+iv(x,y).
 \end{gathered}
 \]
-the difference quotient must have the same limit along the real and imaginary directions. This imposes relations between the partial derivatives of $u$ and $v$.
+The difference quotient must have the same limit along the real and imaginary directions. This imposes relations between the partial derivatives of $u$ and $v$.
 
 \begin{theorem}[Cauchy--Riemann Equations]
 If $f=u+iv$ is complex differentiable at $z_0=x_0+iy_0$, then the partial derivatives of $u,v$ exist at $(x_0,y_0)$ and satisfy
@@ -575,11 +563,7 @@ Let $\gamma$ be a positively oriented piecewise smooth simple closed curve. Supp
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing
-\[
-f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y),
-\]
-the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
+The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing $f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y)$, the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
 \begin{equation}
 \oint_{|z-z_0|=\varepsilon}(z-z_0)^n\,\dd z
 =\begin{cases}2\pi i,&n=-1,\\0,&n\in\Z,\ n\ne-1.\end{cases}

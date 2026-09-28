@@ -38,15 +38,7 @@ We cannot simply assign probabilities to \textit{all} subsets of $\Omega$ (for e
 \end{remark}
 
 \begin{definition}[Random Variable and Expectation]
-A \textit{random variable} $S$ is a measurable function
-\[
-S: (\Omega, \mathcal{F}) \to (\R, \mathcal{B}(\R)),
-\]
-where $\mathcal{B}(\R)$ is the Borel $\sigma$-algebra on $\R$. Measurability means that for any Borel set $B$, the preimage
-\[
-S^{-1}(B) = \{\omega \in \Omega : S(\omega) \in B\}
-\]
-is an element of $\mathcal{F}$.
+A \textit{random variable} $S$ is a measurable function $S: (\Omega, \mathcal{F}) \to (\R, \mathcal{B}(\R))$, where $\mathcal{B}(\R)$ is the Borel $\sigma$-algebra on $\R$. Measurability means that for any Borel set $B$, the preimage $S^{-1}(B) = \{\omega \in \Omega : S(\omega) \in B\}$ is an element of $\mathcal{F}$.
 For the purposes of this chapter, we restrict attention to integrable
 random variables, meaning that
 \[
@@ -337,20 +329,16 @@ By Taylor's theorem with the Peano form of the remainder, we have:
 \begin{equation}
 \begin{aligned}
 \varphi_{X_1}(u) &= \varphi_{X_1}(0) + u\varphi_{X_1}'(0) + \frac{u^2}{2}\varphi_{X_1}''(0) + o(u^2) \\
-&= 1 - \frac{\sigma^2 u^2}{2} + o(u^2)
+&= 1 - \frac{\sigma^2 u^2}{2} + o(u^2).
 \end{aligned}
 \end{equation}
-where $o(u^2)$ denotes a function such that
+Here $o(u^2)$ denotes a function such that
 \[
 \lim_{u \to 0} o(u^2)/u^2 = 0.
 \]
 
 \textit{Step 4: Substitute and take the limit.}
-We substitute
-\[
-u = (t/(\sigma\sqrt{m}))
-\]
-into the Taylor expansion. Note that as $m \to \infty$, $u \to 0$:
+We substitute $u = (t/(\sigma\sqrt{m}))$ into the Taylor expansion. Note that as $m \to \infty$, $u \to 0$:
 \begin{equation}
 \begin{aligned}
 \varphi_{X_1}\left( \frac{t}{\sigma\sqrt{m}} \right) &= 1 - \frac{\sigma^2}{2} \left( \frac{t}{\sigma\sqrt{m}} \right)^2 + o\left( \frac{t^2}{\sigma^2 m} \right) \\
@@ -437,11 +425,7 @@ A \emph{standard Wiener process}, or \emph{standard Brownian motion}, is a real-
 \end{definition}
 
 \begin{remark}[Continuity without Differentiability]
-Brownian paths are almost surely nowhere differentiable, a result we do not prove here. The scale of an increment gives some intuition: over an interval of length $\Delta t$, its standard deviation is $(\Delta t)^{1/2}$, so a typical difference quotient has magnitude of order
-\[
-\frac{\sqrt{\Delta t}}{\Delta t}=\frac{1}{\sqrt{\Delta t}},
-\]
-which grows without bound as $\Delta t\to0$. This scaling is a heuristic, not a proof of nowhere differentiability. It explains why $\dot W$ cannot be treated as an ordinary function and why an equation written informally as $\dot{\bv}=f(\bv)+\dot{\bW}$ is not a classical ODE. A rigorous treatment requires stochastic integration.
+Brownian paths are almost surely nowhere differentiable, a result we do not prove here. The scale of an increment gives some intuition: over an interval of length $\Delta t$, its standard deviation is $(\Delta t)^{1/2}$, so a typical difference quotient has magnitude of order $\frac{\sqrt{\Delta t}}{\Delta t}=\frac{1}{\sqrt{\Delta t}}$, which grows without bound as $\Delta t\to0$. This scaling is a heuristic, not a proof of nowhere differentiability. It explains why $\dot W$ cannot be treated as an ordinary function and why an equation written informally as $\dot{\bv}=f(\bv)+\dot{\bW}$ is not a classical ODE. A rigorous treatment requires stochastic integration.
 \end{remark}
 
 \input{figures/brownian-paths.tex}
@@ -450,11 +434,7 @@ which grows without bound as $\Delta t\to0$. This scaling is a heuristic, not a 
 
 \begin{definition}[It\^o Stochastic Differential Equation]
 \label{def:langevin-equation}
-An It\^o \emph{Langevin equation} has the form
-\begin{equation}
-\dd\bv(t)=f(\bv(t))\,\dd t+\sigma(\bv(t))\,\dd\bW(t),
-\end{equation}
-where $\bv(t)\in\R^d$, $f:\R^d\to\R^d$ is the deterministic \emph{drift}, $\bW$ is an $m$-dimensional Wiener process with independent components, and $\sigma:\R^d\to\R^{d\times m}$ is the noise-amplitude matrix. The diffusion covariance is $\sigma\sigma^{\top}$. The equation is interpreted in integral form:
+An It\^o \emph{Langevin equation} has the form $\dd\bv(t)=f(\bv(t))\,\dd t+\sigma(\bv(t))\,\dd\bW(t)$, where $\bv(t)\in\R^d$, $f:\R^d\to\R^d$ is the deterministic \emph{drift}, $\bW$ is an $m$-dimensional Wiener process with independent components, and $\sigma:\R^d\to\R^{d\times m}$ is the noise-amplitude matrix. The diffusion covariance is $\sigma\sigma^{\top}$. The equation is interpreted in integral form:
 \begin{equation}
 \bv(t)=\bv(0)+\int_0^t f(\bv(s))\,\dd s
 +\int_0^t\sigma(\bv(s))\,\dd\bW(s).
@@ -607,13 +587,5 @@ p_\infty(v)=\sqrt{\frac{\gamma}{\pi\sigma^2}}
 \exp\left(-\frac{\gamma v^2}{\sigma^2}\right),
 \qquad \var(v)=\frac{\sigma^2}{2\gamma}.
 \end{equation}
-Indeed,
-\[
-p_\infty'=-(2\gamma v/\sigma^2)p_\infty,
-\]
-so the stationary current
-\[
-J_\infty=-\gamma v p_\infty-(\sigma^2/2)p_\infty'
-\]
-vanishes identically. The restoring drift narrows the distribution, while noise broadens it. This balance models fluctuations of a subthreshold membrane potential around its equilibrium, or small fluctuations of gene expression around a stable mean. In the latter interpretation, $v$ is a deviation from the mean, not an unrestricted physical molecular count; threshold/reset dynamics or positivity constraints require additional modeling.
+Indeed, $p_\infty'=-(2\gamma v/\sigma^2)p_\infty$, so the stationary current $J_\infty=-\gamma v p_\infty-(\sigma^2/2)p_\infty'$ vanishes identically. The restoring drift narrows the distribution, while noise broadens it. This balance models fluctuations of a subthreshold membrane potential around its equilibrium, or small fluctuations of gene expression around a stable mean. In the latter interpretation, $v$ is a deviation from the mean, not an unrestricted physical molecular count; threshold/reset dynamics or positivity constraints require additional modeling.
 \end{example}

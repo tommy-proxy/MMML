@@ -27,16 +27,14 @@ of such functions. Let $\mathcal{L}^2(\mathbb{R})$ be the set of all
 Lebesgue measurable functions $v: \mathbb{R} \to \mathbb{C}$ such that the
 integral of their squared modulus is finite:
 \begin{equation}
-\mathcal{L}^2(\mathbb{R}) = \left\{ v \in \mathcal{M}(\mathbb{R}) : \int_\mathbb{R} |v(t)|^2 \dd t < \infty \right\}
+\mathcal{L}^2(\mathbb{R}) = \left\{ v \in \mathcal{M}(\mathbb{R}) : \int_\mathbb{R} |v(t)|^2 \dd t < \infty \right\}.
 \end{equation}
-where $\mathcal{M}(\mathbb{R})$ denotes the set of all complex-valued Lebesgue measurable functions.
+Here $\mathcal{M}(\mathbb{R})$ denotes the set of all complex-valued Lebesgue measurable functions.
 
 \begin{remark}[The Problem of Positive Definiteness]
-If we attempt to define a norm on $\mathcal{L}^2(\mathbb{R})$ as
-\[
+If we attempt to define a norm on $\mathcal{L}^2(\mathbb{R})$ as \[
 \|v\| = \left( \int_\mathbb{R} |v(t)|^2 \dd t \right)^{1/2},
-\]
-we encounter a fatal flaw. The integral of a nonnegative function is zero if and only if the function is zero \textit{almost everywhere} (a.e.), meaning the set of points where it is nonzero has Lebesgue measure zero.
+\] we encounter a fatal flaw. The integral of a nonnegative function is zero if and only if the function is zero \textit{almost everywhere} (a.e.), meaning the set of points where it is nonzero has Lebesgue measure zero.
 Therefore, $\|v\| = 0$ does \textit{not} imply $v(t) = 0$ for all $t \in \mathbb{R}$; it only implies $v(t) = 0$ except possibly on a set of measure zero. This violates the axiom of positive definiteness for a norm, which strictly requires
 \[
 \|v\| = 0 \implies v = \mathbf{0}.
@@ -86,22 +84,18 @@ Setting $f(t) = v(t)$ and $g(t) = \overline{u(t)}$, we get:
 \begin{equation}
 \int_\mathbb{R} |v(t) \overline{u(t)}| \dd t \leq \|v\| \|u\| < \infty
 \end{equation}
-Since the integral of the absolute value is finite, the integral
-\[
+Since the integral of the absolute value is finite, the integral \[
 \int v \bar{u}
-\]
-is absolutely convergent and thus well-defined. Furthermore, because $v$ and $u$ are equivalence classes, changing the representative functions on a set of measure zero does not change the value of the integral, making the inner product well-defined on the quotient space.
+\] is absolutely convergent and thus well-defined. Furthermore, because $v$ and $u$ are equivalence classes, changing the representative functions on a set of measure zero does not change the value of the integral, making the inner product well-defined on the quotient space.
 \end{remark}
 
 The inner product induces a norm via
 \[
 \|v\| = (\langle v, v \rangle)^{1/2}.
 \]
-Because we quotiented out the null sets,
-\[
+Because we quotiented out the null sets, \[
 \|v\| = 0 \implies \int |v|^2 = 0 \implies v = 0
-\]
-a.e. $\implies v$ is the zero vector in $L^2(\mathbb{R})$. The triangle inequality for this norm follows directly from the \textit{Minkowski inequality}.
+\] a.e. $\implies v$ is the zero vector in $L^2(\mathbb{R})$. The triangle inequality for this norm follows directly from the \textit{Minkowski inequality}.
 
 \subsection{Completeness and the Riesz--Fischer Theorem}
 
@@ -124,11 +118,7 @@ The space $L^2(\mathbb{R})$ is complete with respect to the norm induced by its 
 The original text's reliance on the Dominated Convergence Theorem (DCT) is a common logical leap; DCT requires a \textit{pre-existing} dominating function, which a general Cauchy sequence does not possess a priori. The rigorous proof constructs the limit function explicitly using a subsequence.
 
 \textit{Step 1: Extract a rapidly converging subsequence.}
-Since $\{v_n\}$ is Cauchy, we can find a subsequence $\{v_{n_k}\}$ such that
-\[
-\|v_{n_{k+1}} - v_{n_k}\| < 2^{-k}
-\]
-for all $k \geq 1$.
+Since $\{v_n\}$ is Cauchy, we can find a subsequence $\{v_{n_k}\}$ such that $\|v_{n_{k+1}} - v_{n_k}\| < 2^{-k}$ for all $k \geq 1$.
 
 \textit{Step 2: Define a sequence of partial sums of differences.}
 Define the partial sums
@@ -146,26 +136,20 @@ Thus,
 \[
 \int_\mathbb{R} |g_K(t)|^2 \dd t < 1.
 \]
-By the Monotone Convergence Theorem, the pointwise limit
-\[
+By the Monotone Convergence Theorem, the pointwise limit \[
 g(t) = \lim_{K \to \infty} g_K(t)
-\]
-exists, and
+\] exists, and
 \[
 \int_\mathbb{R} |g(t)|^2 \dd t \leq 1.
 \]
 Because the integral of $|g(t)|^2$ is finite, $g(t)$ must be finite almost everywhere.
 
 \textit{Step 4: Construct the limit function.}
-Since $g(t) < \infty$ a.e., the series
-\[
+Since $g(t) < \infty$ a.e., the series \[
 \sum_{k=1}^\infty |v_{n_{k+1}}(t) - v_{n_k}(t)|
-\]
-converges absolutely a.e. This implies that the telescoping series:
-\begin{equation}
+\] converges absolutely a.e. This implies that the telescoping series: \[
 v_{n_1}(t) + \sum_{k=1}^\infty \left( v_{n_{k+1}}(t) - v_{n_k}(t) \right)
-\end{equation}
-converges absolutely a.e. to some measurable function $v(t)$. By construction, $v_{n_k}(t) \to v(t)$ pointwise a.e.
+\] converges absolutely a.e. to some measurable function $v(t)$. By construction, $v_{n_k}(t) \to v(t)$ pointwise a.e.
 
 \textit{Step 5: Prove $v \in L^2(\mathbb{R})$ and $v_n \to v$ in norm.}
 Using Fatou's Lemma on the sequence $|v_{n_k} - v_m|^2$ (for fixed $m$), one can show that $v - v_m \in L^2(\mathbb{R})$, which implies $v \in L^2(\mathbb{R})$. Finally, because $\{v_n\}$ is Cauchy and a subsequence converges to $v$ in norm, the entire sequence must converge to $v$ in the $L^2$ norm.
@@ -190,11 +174,11 @@ c_n &= \langle v, \phi_n \rangle.
 \end{equation}
 
 \begin{remark}[Nature of Convergence]
-The infinite sum
-\[
+The infinite sum \[
 \sum_{n=1}^\infty c_n \phi_n
-\]
-does \textit{not} necessarily converge pointwise. The equality $v = \sum c_n \phi_n$ is understood in the \textit{$L^2$-norm sense} (mean-square convergence). Let
+\] does \textit{not} necessarily converge pointwise. The equality \[
+v = \sum c_n \phi_n
+\] is understood in the \textit{$L^2$-norm sense} (mean-square convergence). Let
 \[
 S_N = \sum_{n=1}^N c_n \phi_n
 \]
@@ -219,11 +203,7 @@ This is guaranteed by the completeness of the space and Bessel's inequality beco
 In linear algebra, linear transformations on $\mathbb{R}^N$ are represented by matrices. In $L^2(\mathbb{R})$, a broad and highly useful class of linear operators is represented by integral kernels.
 
 \begin{definition}[Linear Integral Operator]
-Let $W(t, t')$ be a measurable function on $\mathbb{R} \times \mathbb{R}$. We define a linear operator
-\[
-W: L^2(\mathbb{R}) \to L^2(\mathbb{R})
-\]
-acting on a function $v \in L^2(\mathbb{R})$ via:
+Let $W(t, t')$ be a measurable function on $\mathbb{R} \times \mathbb{R}$. We define a linear operator $W: L^2(\mathbb{R}) \to L^2(\mathbb{R})$ acting on a function $v \in L^2(\mathbb{R})$ via:
 \begin{equation}
 (Wv)(t) = \int_\mathbb{R} W(t, t') v(t') \dd t'
 \end{equation}
@@ -233,11 +213,9 @@ acting on a function $v \in L^2(\mathbb{R})$ via:
 For $W$ to be a valid operator on $L^2(\mathbb{R})$, it must map $L^2$ functions to $L^2$ functions, and ideally, it should be a \textit{bounded operator}. An operator is bounded if there exists a constant $C > 0$ such that $\|Wv\| \leq C\|v\|$ for all $v \in L^2(\mathbb{R})$. Boundedness is equivalent to continuity in normed spaces.
 
 \begin{definition}[Hilbert--Schmidt Kernel and Operator]
-If the kernel $W(t, t')$ is square-integrable over the product space $\mathbb{R}^2$ with respect to the product Lebesgue measure $\dd t \dd t'$, meaning:
-\begin{equation}
+If the kernel $W(t, t')$ is square-integrable over the product space $\mathbb{R}^2$ with respect to the product Lebesgue measure $\dd t \dd t'$, meaning: \[
 \|W\|_{HS}^2 := \iint_{\mathbb{R}^2} |W(t, t')|^2 \dd t \dd t' < \infty
-\end{equation}
-then $W$ is called a \textit{Hilbert--Schmidt kernel}.
+\] then $W$ is called a \textit{Hilbert--Schmidt kernel}.
 \end{definition}
 
 \begin{theorem}[Boundedness of Hilbert--Schmidt Operators]
@@ -310,11 +288,7 @@ Since $\langle v, v \rangle > 0$, we must have $\lambda = \bar{\lambda}$, so $\l
 \[
 \lambda_1 \langle v_1, v_2 \rangle = \langle Wv_1, v_2 \rangle = \langle v_1, Wv_2 \rangle = \lambda_2 \langle v_1, v_2 \rangle.
 \]
-Thus,
-\[
-(\lambda_1 - \lambda_2)\langle v_1, v_2 \rangle = 0,
-\]
-which forces $\langle v_1, v_2 \rangle = 0$.
+Thus, $(\lambda_1 - \lambda_2)\langle v_1, v_2 \rangle = 0$, which forces $\langle v_1, v_2 \rangle = 0$.
 \end{remark}
 
 \begin{definition}[Compact Operator]
@@ -372,15 +346,11 @@ This means the distance between any two distinct terms in the sequence $\{W\phi_
 
 \begin{remark}[Connection to Finite-Dimensional Diagonalization]
 In finite dimensions, diagonalization is written as $W = E \Lambda E^{-1}$, where $E$ is the matrix of eigenvectors and $\Lambda$ is the diagonal matrix of eigenvalues. Because $W$ is self-adjoint, $E$ is unitary, so $E^{-1} = E^\dagger$.
-The infinite-dimensional expansion
-\[
+The infinite-dimensional expansion \[
 Wv = \sum_n \lambda_n \langle v, \phi_n \rangle \phi_n
-\]
-is the exact analogue. If we define the operator $E$ by its action
-\[
+\] is the exact analogue. If we define the operator $E$ by its action \[
 E c = \sum_n c_n \phi_n,
-\]
-then $W = E \Lambda E^\dagger$, where $\Lambda$ acts by multiplying the $n$-th component by $\lambda_n$.
+\] then $W = E \Lambda E^\dagger$, where $\Lambda$ acts by multiplying the $n$-th component by $\lambda_n$.
 \end{remark}
 
 \subsection{Convolution Operators and the Continuous Spectrum}
@@ -475,12 +445,7 @@ sufficiently distant translates have disjoint supports, and the general
 case follows by density of compactly supported functions in $L^2$ and the
 Cauchy--Schwarz inequality.
 
-Choose $L>0$ so large that
-\[
-|\langle g,\tau_hg\rangle|\leq\frac14\|g\|_2^2
-\qquad\text{whenever }|h|\geq L,
-\]
-and define $v_n=\tau_{nL}v$. Translation preserves the $L^2$ norm, so
+Choose $L>0$ so large that $|\langle g,\tau_hg\rangle|\leq\frac14\|g\|_2^2 \qquad\text{whenever }|h|\geq L$, and define $v_n=\tau_{nL}v$. Translation preserves the $L^2$ norm, so
 $\{v_n\}$ is bounded. If $j\neq k$, then
 \[
 \begin{aligned}
@@ -519,28 +484,16 @@ is replaced by the continuous integral
 In quantum mechanics and field theory, we frequently encounter differential operators, such as the momentum operator $P = -i(\dd/\dd t)$. However, differential operators are inherently \textit{unbounded} on $L^2(\R)$.
 
 \begin{remark}[Why Differential Operators are Unbounded]
-An operator $D$ is bounded if there exists a constant $C$ such that $\|Dv\| \leq C\|v\|$ for all $v$. Consider the sequence of functions
-\[
-v_n(t) = (1/\sqrt{n}) \sin(nt) \chi(t),
-\]
-where $\chi(t)$ is a smooth bump function with compact support.
+An operator $D$ is bounded if there exists a constant $C$ such that $\|Dv\| \leq C\|v\|$ for all $v$. Consider the sequence of functions $v_n(t) = (1/\sqrt{n}) \sin(nt) \chi(t)$, where $\chi(t)$ is a smooth bump function with compact support.
 The $L^2$ norm of $v_n$ scales as
 \[
 \|v_n\|_{L^2} \sim (1/\sqrt{n}) \to 0.
 \]
-However, the derivative is
-\[
-v_n'(t) = \sqrt{n} \cos(nt) \chi(t) + \dots,
-\]
-so its $L^2$ norm scales as
+However, the derivative is $v_n'(t) = \sqrt{n} \cos(nt) \chi(t) + \dots$, so its $L^2$ norm scales as
 \[
 \|v_n'\|_{L^2} \sim \sqrt{n} \to \infty.
 \]
-Because the ratio
-\[
-\|v_n'\| / \|v_n\| \sim n \to \infty,
-\]
-no finite constant $C$ can bound the derivative operator. An unbounded operator cannot be defined on the entire Hilbert space; it requires a restricted, dense domain.
+Because the ratio $\|v_n'\| / \|v_n\| \sim n \to \infty$, no finite constant $C$ can bound the derivative operator. An unbounded operator cannot be defined on the entire Hilbert space; it requires a restricted, dense domain.
 \end{remark}
 
 To rigorously define the domain of differential operators and ensure they are closed and self-adjoint, we introduce Sobolev spaces. These spaces restrict the domain to functions that possess a specific degree of ``smoothness'' or ``regularity''.
@@ -566,11 +519,9 @@ This space is a Hilbert space equipped with the inner product:
 \end{definition}
 
 \begin{remark}[Equivalence to Weak Derivatives for Integer $s$]
-Why does this Fourier definition control derivatives? We use the property that the Fourier transform turns differentiation into algebraic multiplication. Specifically, if we define the Fourier transform as
-\[
+Why does this Fourier definition control derivatives? We use the property that the Fourier transform turns differentiation into algebraic multiplication. Specifically, if we define the Fourier transform as \[
 \hat{v}(\omega) = \int_\R v(t) e^{-i\omega t} \dd t,
-\]
-then the Fourier transform of the derivative is
+\] then the Fourier transform of the derivative is
 \[
 \widehat{v'}(\omega) = i\omega \hat{v}(\omega).
 \]

@@ -4,11 +4,7 @@
 
 \subsection{Approximating Areas under Nonnegative Curves}
 
-Let $f : [a,b] \to \mathbb{R}$ be a nonnegative bounded function. Our goal is to compute, or more precisely to define in a rigorous way, the area of the region
-\[
-S = \{ (x,y) \in \mathbb{R}^2 : x \in [a,b], \ 0 \leq y \leq f(x) \}
-\]
-lying between the graph of $f$ and the horizontal axis. Before attempting a general definition, it is instructive to consider the concrete example $f(x) = x^2$ on the interval $[0,1]$, and to ask how the area beneath this parabola might be approximated.
+Let $f : [a,b] \to \mathbb{R}$ be a nonnegative bounded function. Our goal is to compute, or more precisely to define in a rigorous way, the area of the region $S = \{ (x,y) \in \mathbb{R}^2 : x \in [a,b], \ 0 \leq y \leq f(x) \}$ lying between the graph of $f$ and the horizontal axis. Before attempting a general definition, it is instructive to consider the concrete example $f(x) = x^2$ on the interval $[0,1]$, and to ask how the area beneath this parabola might be approximated.
 
 The natural idea is to divide $S$ into $n$ vertical strips $S_i$ and to approximate each strip by a rectangle. Two immediate choices for the height of the approximating rectangle present themselves: one may take the height equal to the value of $f$ at the right endpoint of the strip, or equal to the value of $f$ at the left endpoint of the strip. These two choices produce two sequences of approximations, which we may denote by $R_n$ and $L_n$ respectively. As $n$ increases, both $L_n$ and $R_n$ appear, from geometric inspection, to become increasingly accurate approximations to the true area of $S$; this suggests that the area $A$ should be defined as the common limit of the sums of the areas of the approximating rectangles, as the number of strips tends to infinity.
 
@@ -17,26 +13,16 @@ More generally, each strip $S_i$ may be approximated by a rectangle having the s
 A \approx \sum_{i=1}^{n} f(x_i^*) \, \Delta x.
 \]
 
-In the particular example under consideration, since $f$ is increasing, one has the sandwich inequality
-\[
+In the particular example under consideration, since $f$ is increasing, one has the sandwich inequality \[
 L_n \leq \sum_{i=1}^{n} f(x_i^*) \, \Delta x \leq R_n
-\]
-for every choice of sample points $x_i^*$, which shows that
-\[
+\] for every choice of sample points $x_i^*$, which shows that \[
 A = \lim_{n \to +\infty} \sum_{i=1}^{n} f(x_i^*) \, \Delta x
-\]
-regardless of the particular choice of the points $x_i^*$ within their respective subintervals.
+\] regardless of the particular choice of the points $x_i^*$ within their respective subintervals.
 
 
-We now apply this idea to a general region $S$ of the form introduced above. One begins by subdividing the interval $[a,b]$ into $n$ strips $S_i$ of equal width $\Delta x = (b-a)/n$, and one then approximates each strip $S_i$ by a rectangle having the same base as the strip and height equal to $f(x_i^*)$, where $x_i^*$ is an arbitrary point chosen within the $i$-th subinterval $[x_{i-1}, x_i]$; the points
-\[
-x_1^*, x_2^*, \ldots, x_n^*
-\]
-obtained in this way are called the sample points. It can be proved that the limit
-\[
+We now apply this idea to a general region $S$ of the form introduced above. One begins by subdividing the interval $[a,b]$ into $n$ strips $S_i$ of equal width $\Delta x = (b-a)/n$, and one then approximates each strip $S_i$ by a rectangle having the same base as the strip and height equal to $f(x_i^*)$, where $x_i^*$ is an arbitrary point chosen within the $i$-th subinterval $[x_{i-1}, x_i]$; the points $x_1^*, x_2^*, \ldots, x_n^*$ obtained in this way are called the sample points. It can be proved that the limit \[
 \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \, \Delta x
-\]
-always exists, and it can furthermore be shown that this limit takes the same value regardless of the particular choice of sample points. On the basis of this result, one defines the area $A$ of the region $S$ to be the limit of the sums of the areas of the approximating rectangles, that is,
+\] always exists, and it can furthermore be shown that this limit takes the same value regardless of the particular choice of sample points. On the basis of this result, one defines the area $A$ of the region $S$ to be the limit of the sums of the areas of the approximating rectangles, that is,
 \[
 A = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \, \Delta x.
 \]
@@ -83,30 +69,20 @@ This limit is of precisely the same nature as the one encountered in the area pr
 \subsection{Riemann Sums and the Definition of the Integral}
 
 
-In order to formulate the definition of the definite integral with full rigor, several preliminary notions are required. A partition $P$ of an interval $[a,b]$ is a finite sequence of numbers of the form
-\[
-a = x_0 < x_1 < x_2 < \cdots < x_n = b;
-\]
-the interval $[x_{i-1}, x_i]$ is called the $i$-th subinterval of the partition. The mesh, or norm, of a partition is defined to be the length of its longest subinterval, that is, writing $\Delta x_i := x_i - x_{i-1}$, one sets
+In order to formulate the definition of the definite integral with full rigor, several preliminary notions are required. A partition $P$ of an interval $[a,b]$ is a finite sequence of numbers of the form $a = x_0 < x_1 < x_2 < \cdots < x_n = b$; the interval $[x_{i-1}, x_i]$ is called the $i$-th subinterval of the partition. The mesh, or norm, of a partition is defined to be the length of its longest subinterval, that is, writing $\Delta x_i := x_i - x_{i-1}$, one sets
 \[
 m_P := \max\{ \Delta x_i : 1 \leq i \leq n \}.
 \]
 
-A tagged partition of an interval $[a,b]$ is a partition together with a finite sequence of sample points
-\[
-x_1^*, x_2^*, \ldots, x_n^*,
-\]
-subject to the requirement that $x_i^* \in [x_{i-1}, x_i]$ for every index $i$. Given a tagged partition, the Riemann sum of $f$ with respect to this partition, with nodes $x_0 < x_1 < \cdots < x_n$ and sample points $x_1^*, x_2^*, \ldots, x_n^*$, is the quantity
+A tagged partition of an interval $[a,b]$ is a partition together with a finite sequence of sample points $x_1^*, x_2^*, \ldots, x_n^*$, subject to the requirement that $x_i^* \in [x_{i-1}, x_i]$ for every index $i$. Given a tagged partition, the Riemann sum of $f$ with respect to this partition, with nodes $x_0 < x_1 < \cdots < x_n$ and sample points $x_1^*, x_2^*, \ldots, x_n^*$, is the quantity
 \[
 \sum_{i=1}^{n} f(x_i^*) \, \Delta x_i.
 \]
 
 \begin{definition}[Integrable Function]
-Let $f$ be a bounded function defined on $[a,b]$. We say that $f$ is integrable on $[a,b]$ if the limit
-\[
+Let $f$ be a bounded function defined on $[a,b]$. We say that $f$ is integrable on $[a,b]$ if the limit \[
 \lim_{m_P \to 0} \sum_{i=1}^{n} f(x_i^*) \, \Delta x_i
-\]
-exists, is finite, and gives the same value for every tagged partition $P$ of $[a,b]$, regardless of the choice of subdivision points and sample points, provided only that the mesh $m_P$ tends to zero.
+\] exists, is finite, and gives the same value for every tagged partition $P$ of $[a,b]$, regardless of the choice of subdivision points and sample points, provided only that the mesh $m_P$ tends to zero.
 \end{definition}
 
 \begin{definition}[Definite Integral]
@@ -126,15 +102,11 @@ Several remarks concerning notation and convention are in order. The definite in
 \[
 \int_b^a f(x) \, dx := -\int_a^b f(x) \, dx, \qquad \int_a^a f(x) \, dx = 0.
 \]
-When $f \geq 0$ on $[a,b]$, the definite integral satisfies
-\[
+When $f \geq 0$ on $[a,b]$, the definite integral satisfies \[
 \int_a^b f(x) \, dx \geq 0
-\]
-and can be interpreted geometrically as the area under the curve $y = f(x)$ between $a$ and $b$. When $f$ takes on both positive and negative values on $[a,b]$, its definite integral can instead be interpreted as a net area, that is, as a difference of areas,
-\[
+\] and can be interpreted geometrically as the area under the curve $y = f(x)$ between $a$ and $b$. When $f$ takes on both positive and negative values on $[a,b]$, its definite integral can instead be interpreted as a net area, that is, as a difference of areas, \[
 \int_a^b f(x) \, dx = A_1 - A_2,
-\]
-where $A_1$ denotes the area of the region lying above the horizontal axis and below the graph of $f$, and $A_2$ denotes the area of the region lying below the horizontal axis and above the graph of $f$. Finally, returning to the distance problem discussed earlier, if $v = f(t)$ is the velocity of an object, then the total distance travelled during a time interval
+\] where $A_1$ denotes the area of the region lying above the horizontal axis and below the graph of $f$, and $A_2$ denotes the area of the region lying below the horizontal axis and above the graph of $f$. Finally, returning to the distance problem discussed earlier, if $v = f(t)$ is the velocity of an object, then the total distance travelled during a time interval
 \[
 \begin{aligned}
 a &\leq t \\
@@ -343,10 +315,10 @@ Let $m$ and $M$ denote respectively the minimum and maximum values of $f$ on $[a
 \[
 \begin{aligned}
 m &\leq f(x) \\
-&\leq M
+&\leq M.
 \end{aligned}
 \]
-for every $x \in [a,b]$. By the boundedness property of the definite integral, it follows that
+This holds for every $x \in [a,b]$. By the boundedness property of the definite integral, it follows that
 \[
 m(b-a) \leq \int_a^b f(x) \, dx \leq M(b-a),
 \]
@@ -369,11 +341,9 @@ Applying the Intermediate Value Theorem for continuous functions on $[a,b]$, we 
 
 \subsection{The Integral Function and Its Derivative}
 
-We now come to the central result of the entire theory, which reveals a deep and unexpected connection between the operations of differentiation and integration. Let $f$ be integrable on $[a,b]$, and fix any point $x \in [a,b]$. The quantity
-\[
+We now come to the central result of the entire theory, which reveals a deep and unexpected connection between the operations of differentiation and integration. Let $f$ be integrable on $[a,b]$, and fix any point $x \in [a,b]$. The quantity \[
 \int_a^x f(t) \, dt
-\]
-is a well-defined real number depending on the choice of $x$; letting $x$ vary throughout $[a,b]$ defines a new function. For every $x \in [a,b]$, set
+\] is a well-defined real number depending on the choice of $x$; letting $x$ vary throughout $[a,b]$ defines a new function. For every $x \in [a,b]$, set
 \[
 g(x) = \int_a^x f(t) \, dt.
 \]
@@ -385,11 +355,9 @@ The map $x \mapsto g(x)$ defined above is called the integral function, or area 
 The first part of the Fundamental Theorem of Calculus asserts that, whenever $f$ is continuous, its integral function is not merely continuous but is in fact differentiable, and that its derivative recovers the original function $f$.
 
 \begin{theorem}[Fundamental Theorem of Calculus, Part I]
-If $f$ is continuous on $[a,b]$, then the area function
-\[
+If $f$ is continuous on $[a,b]$, then the area function \[
 g(x) = \int_a^x f(t) \, dt
-\]
-is continuous and differentiable on $[a,b]$, and its derivative is given by $g'(x) = f(x)$ for every $x \in [a,b]$.
+\] is continuous and differentiable on $[a,b]$, and its derivative is given by $g'(x) = f(x)$ for every $x \in [a,b]$.
 \end{theorem}
 
 \begin{proof}
@@ -423,37 +391,29 @@ Using Leibniz notation for derivatives, the conclusion of the first part of the 
 
 This identity is of great practical importance, since it means that the entire apparatus of differential calculus can be brought to bear on the study of the area function $g$, even when $g$ itself cannot be expressed in terms of elementary functions.
 
-A useful extension of this result concerns integral functions whose limits of integration are themselves differentiable functions of $x$, rather than $x$ itself; given a continuous function $f$ and two differentiable functions $k$ and $h$, one may seek a formula for the derivative of
-\[
+A useful extension of this result concerns integral functions whose limits of integration are themselves differentiable functions of $x$, rather than $x$ itself; given a continuous function $f$ and two differentiable functions $k$ and $h$, one may seek a formula for the derivative of \[
 \int_{h(x)}^{k(x)} f(t) \, dt,
-\]
-which can be obtained by combining the Fundamental Theorem of Calculus with the Chain Rule and the additivity property of the integral. It is also worth noting that continuity of $f$, while sufficient, is not strictly necessary for the continuity of the area function: if $f$ is merely assumed to be integrable, but not necessarily continuous, on $[a,b]$, one can still prove that the corresponding area function $g$ remains continuous on $[a,b]$, although in general it need no longer be differentiable.
+\] which can be obtained by combining the Fundamental Theorem of Calculus with the Chain Rule and the additivity property of the integral. It is also worth noting that continuity of $f$, while sufficient, is not strictly necessary for the continuity of the area function: if $f$ is merely assumed to be integrable, but not necessarily continuous, on $[a,b]$, one can still prove that the corresponding area function $g$ remains continuous on $[a,b]$, although in general it need no longer be differentiable.
 
-As applications of these ideas, consider the sine integral
-\[
+As applications of these ideas, consider the sine integral \[
 \operatorname{Si}(x) = \int_0^x (\sin t)/t \, dt,
-\]
-where the integrand is continuously extended at $t=0$ by the value $1$.
+\] where the integrand is continuously extended at $t=0$ by the value $1$.
 The Fundamental Theorem gives
 \[
 \operatorname{Si}'(x)=\frac{\sin x}{x}\quad(x\neq0),
 \qquad \operatorname{Si}'(0)=1.
 \]
-For the function
-\[
+For the function \[
 G(x)=\int_0^{x^4} \sin(t^2) \, dt,
-\]
-the upper limit is $u(x)=x^4$. Combining the Fundamental Theorem with
+\] the upper limit is $u(x)=x^4$. Combining the Fundamental Theorem with
 the Chain Rule yields
 \[
 G'(x)=\sin\bigl((x^4)^2\bigr)\,4x^3
 =4x^3\sin(x^8).
 \]
-Finally, let
-\[
+Finally, let \[
 F(x) = \int_0^x f(t) \, dt
-\]
-for a continuous function $f$. If $f$ is even, then the substitution
+\] for a continuous function $f$. If $f$ is even, then the substitution
 $t=-u$ gives $F(-x)=-F(x)$, so $F$ is odd. If $f$ is odd, the same
 substitution gives $F(-x)=F(x)$, so $F$ is even.
 
@@ -471,10 +431,10 @@ If $F$ is an antiderivative of $f$ on $I$, then for any constant $c \in \mathbb{
 \begin{aligned}
 \frac{d}{dx} [F(x) + c] &= \frac{d}{dx} [F(x)] + \frac{d}{dx} c \\
 &= f(x) + 0 \\
-&= f(x),
+&= f(x).
 \end{aligned}
 \]
-so that $F + c$ is also an antiderivative of $f$ on $I$. Thus, whenever $f$ admits an antiderivative, it in fact admits infinitely many, which shows that the antiderivative of a given function is never unique.
+Consequently, $F + c$ is also an antiderivative of $f$ on $I$. Thus, whenever $f$ admits an antiderivative, it in fact admits infinitely many, which shows that the antiderivative of a given function is never unique.
 \end{remark}
 
 The following theorem shows that, on an interval, this non-uniqueness is fully accounted for by the addition of an arbitrary constant, and no other source of ambiguity is present.
@@ -504,35 +464,33 @@ The conclusion of this theorem is false, in general, on a domain that is not an 
 F(x) =
 \begin{cases}
 \dfrac{1}{x} + c_1 & x < 0, \\[1mm]
-\dfrac{1}{x} + c_2 & x > 0,
-\end{cases}
+\dfrac{1}{x} + c_2 & x > 0
+\end{cases}.
 \]
-for arbitrary and, crucially, independent constants $c_1, c_2 \in \mathbb{R}$, since the domain $\mathbb{R} \setminus \{0\}$ consists of two disjoint intervals rather than a single connected interval.
+This holds for arbitrary and, crucially, independent constants $c_1, c_2 \in \mathbb{R}$, since the domain $\mathbb{R} \setminus \{0\}$ consists of two disjoint intervals rather than a single connected interval.
 \end{remark}
 
 \subsection{Existence of Antiderivatives}
 
-It is natural to ask whether every function admits an antiderivative, and the Fundamental Theorem of Calculus provides a complete answer for the class of continuous functions: every continuous function $f$ has an antiderivative, and one such antiderivative $F$ is given by the definite integral of $f$ with variable upper limit,
-\[
+It is natural to ask whether every function admits an antiderivative, and the Fundamental Theorem of Calculus provides a complete answer for the class of continuous functions: every continuous function $f$ has an antiderivative, and one such antiderivative $F$ is given by the definite integral of $f$ with variable upper limit, \[
 F(x) = \int_a^x f(t) \, dt,
-\]
-precisely as established in the first part of the Fundamental Theorem of Calculus. It should be emphasized, however, that although such an antiderivative always exists for a continuous function, it cannot always be expressed in terms of elementary functions; well-known examples of continuous functions whose antiderivatives escape elementary expression include $e^{-x^2}$, $\sin(x^2)$, $(\sin x)/x$, and $1/\ln x$.
+\] precisely as established in the first part of the Fundamental Theorem of Calculus. It should be emphasized, however, that although such an antiderivative always exists for a continuous function, it cannot always be expressed in terms of elementary functions; well-known examples of continuous functions whose antiderivatives escape elementary expression include $e^{-x^2}$, $\sin(x^2)$, $(\sin x)/x$, and $1/\ln x$.
 
 It is also possible for non-continuous functions to possess antiderivatives, as illustrated by the function
 \[
 F(x) =
 \begin{cases}
 x^2 \sin(1/x) & x \neq 0, \\
-0 & x = 0.
-\end{cases}
+0 & x = 0
+\end{cases}.
 \]
 Computing its derivative directly from the definition, one finds
 \[
 F'(x) =
 \begin{cases}
 2x \sin(1/x) - \cos(1/x) & x \neq 0, \\
-0 & x = 0.
-\end{cases}
+0 & x = 0
+\end{cases}.
 \]
 
 The function $f(x) := F'(x)$ obtained in this way is not continuous at $x = 0$, since $\cos(1/x)$ oscillates without limit as $x \to 0$; nonetheless, $F$ is by construction an antiderivative of $f$ on every interval containing $x = 0$, showing that continuity of $f$ is sufficient, but not necessary, for the existence of an antiderivative.
@@ -552,15 +510,7 @@ Let $F : [a,b] \to \mathbb{R}$ be a differentiable function, with derivative fun
 \end{theorem}
 
 \begin{proof}
-Assume that $f(a) < f(b)$, and take any $\lambda$ such that $f(a) < \lambda < f(b)$; the case $f(a) > f(b)$ is treated analogously. Define the auxiliary function $H(x) = F(x) - \lambda x$ on $[a,b]$, whose derivative is $H'(x) = f(x) - \lambda$. Since $H$ is continuous on $[a,b]$, being differentiable, it attains its absolute minimum somewhere on $[a,b]$ by Weierstrass' Theorem; we claim that this minimum is attained at an interior point $c$ of $(a,b)$, rather than at one of the two endpoints. Indeed,
-\[
-H'(a) = f(a) - \lambda < 0
-\]
-shows that $H$ is decreasing near $a$, so the minimum cannot occur at $a$, while
-\[
-H'(b) = f(b) - \lambda > 0
-\]
-shows that $H$ is increasing near $b$, so the minimum cannot occur at $b$ either. Since the minimum is attained at an interior point $c \in (a,b)$, Fermat's Theorem yields $H'(c) = 0$. But $H'(c) = f(c) - \lambda$, so $f(c) - \lambda = 0$, that is, $f(c) = \lambda$, which proves the theorem.
+Assume that $f(a) < f(b)$, and take any $\lambda$ such that $f(a) < \lambda < f(b)$; the case $f(a) > f(b)$ is treated analogously. Define the auxiliary function $H(x) = F(x) - \lambda x$ on $[a,b]$, whose derivative is $H'(x) = f(x) - \lambda$. Since $H$ is continuous on $[a,b]$, being differentiable, it attains its absolute minimum somewhere on $[a,b]$ by Weierstrass' Theorem; we claim that this minimum is attained at an interior point $c$ of $(a,b)$, rather than at one of the two endpoints. Indeed, $H'(a) = f(a) - \lambda < 0$ shows that $H$ is decreasing near $a$, so the minimum cannot occur at $a$, while $H'(b) = f(b) - \lambda > 0$ shows that $H$ is increasing near $b$, so the minimum cannot occur at $b$ either. Since the minimum is attained at an interior point $c \in (a,b)$, Fermat's Theorem yields $H'(c) = 0$. But $H'(c) = f(c) - \lambda$, so $f(c) - \lambda = 0$, that is, $f(c) = \lambda$, which proves the theorem.
 \end{proof}
 
 \section{Evaluating Definite Integrals}
@@ -577,11 +527,9 @@ If $f$ is integrable on $[a,b]$ and has an antiderivative $F$ on $[a,b]$, then
 In particular, this conclusion holds for every continuous function $f$.
 \end{theorem}
 
-It is worth pausing to appreciate how remarkable this result is: the definite integral
-\[
+It is worth pausing to appreciate how remarkable this result is: the definite integral \[
 \int_a^b f(x) \, dx,
-\]
-defined by means of a rather complicated limiting procedure involving the values of $f$ at every point of $[a,b]$, can nonetheless be computed simply by evaluating a suitable function $F$ at only the two endpoints $a$ and $b$.
+\] defined by means of a rather complicated limiting procedure involving the values of $f$ at every point of $[a,b]$, can nonetheless be computed simply by evaluating a suitable function $F$ at only the two endpoints $a$ and $b$.
 
 \begin{proof}[Proof for continuous $f$]
 Define the area function of $f$ by
@@ -603,11 +551,9 @@ which completes the proof.
 
 \subsection{Differentiation and Integration as Inverse Processes}
 
-The two parts of the Fundamental Theorem of Calculus, taken together, reveal that differentiation and integration are, in a precise sense, inverse operations of one another. If $f$ is continuous on $[a,b]$, the first part asserts that
-\[
+The two parts of the Fundamental Theorem of Calculus, taken together, reveal that differentiation and integration are, in a precise sense, inverse operations of one another. If $f$ is continuous on $[a,b]$, the first part asserts that \[
 \frac{d}{dx} \int_a^x f(t) \, dt = f(x),
-\]
-while the second part asserts that, for any function $F$ that is differentiable with continuous derivative on $[a,b]$,
+\] while the second part asserts that, for any function $F$ that is differentiable with continuous derivative on $[a,b]$,
 \[
 \int_a^b F'(x) \, dx = F(b) - F(a).
 \]
@@ -629,11 +575,9 @@ Given a function $f : I \to \mathbb{R}$, where $I$ is an interval, we call the i
 A further practical tool for the evaluation of definite integrals is provided by the change of variable formula, which allows a given integral to be transformed into a possibly simpler one through a suitable substitution.
 
 \begin{theorem}[Change of Variable]
-Let $f$ be continuous on $[a,b]$, and let $\varphi : [\alpha, \beta] \to [a,b]$ be an invertible function from $[\alpha,\beta]$ onto $[a,b]$. Assume further that $\varphi$ is differentiable, with $\varphi'$ continuous on $[\alpha,\beta]$. Then
-\[
+Let $f$ be continuous on $[a,b]$, and let $\varphi : [\alpha, \beta] \to [a,b]$ be an invertible function from $[\alpha,\beta]$ onto $[a,b]$. Assume further that $\varphi$ is differentiable, with $\varphi'$ continuous on $[\alpha,\beta]$. Then \[
 \int_a^b f(x) \, dx = \int_\alpha^\beta f(\varphi(t)) \cdot \varphi'(t) \, dt,
-\]
-where $\varphi(\alpha) = a$ and $\varphi(\beta) = b$.
+\] where $\varphi(\alpha) = a$ and $\varphi(\beta) = b$.
 \end{theorem}
 
 \begin{proof}
@@ -702,11 +646,7 @@ Setting $g(x) = x^4+1$, one has $g'(x) = 4x^3$, and the factor $x^3$ appearing i
 
 \end{example}
 
-By choosing specific elementary functions for $f(y)$ in the general formula above, one obtains a small table of frequently occurring almost immediate integrals. If $f(y) = y^\alpha$ with $\alpha \neq -1$, then
-\[
-F(y) = y^{\alpha+1}/(\alpha+1),
-\]
-yielding the power rule for almost immediate integrals,
+By choosing specific elementary functions for $f(y)$ in the general formula above, one obtains a small table of frequently occurring almost immediate integrals. If $f(y) = y^\alpha$ with $\alpha \neq -1$, then $F(y) = y^{\alpha+1}/(\alpha+1)$, yielding the power rule for almost immediate integrals,
 \[
 \int [g(x)]^\alpha \, g'(x) \, dx = \frac{[g(x)]^{\alpha+1}}{\alpha+1} + C.
 \]
@@ -725,11 +665,9 @@ The method of integration by substitution generalizes the technique of almost im
 Once the integral on the right-hand side has been evaluated with respect to $t$, one substitutes back $t = g^{-1}(x)$ in order to express the final result in terms of the original variable $x$.
 
 \begin{example}
-To compute
-\[
+To compute \[
 \int \sqrt{2x+1} \, dx,
-\]
-we set $u = 2x+1$, so that $du = 2 \, dx$, that is, $dx = (1/2) \, du$. The integral becomes
+\] we set $u = 2x+1$, so that $du = 2 \, dx$, that is, $dx = (1/2) \, du$. The integral becomes
 \[
 \int \sqrt{u} \cdot \frac{1}{2} \, du = \frac{1}{2} \int u^{1/2} \, du = \frac{1}{2} \cdot \frac{2}{3} u^{3/2} + C = \frac{1}{3} (2x+1)^{3/2} + C.
 \]
@@ -761,11 +699,9 @@ Consider the integral
 \int x \sin(x) \, dx.
 \]
 
-Setting $f(x) = x$ and $g'(x) = \sin(x)$, one has $f'(x) = 1$, and one may choose $g(x) = -\cos(x)$. Applying the formula for integration by parts,
-\[
+Setting $f(x) = x$ and $g'(x) = \sin(x)$, one has $f'(x) = 1$, and one may choose $g(x) = -\cos(x)$. Applying the formula for integration by parts, \[
 \int x \sin(x) \, dx = x(-\cos(x)) - \int 1 \cdot (-\cos(x)) \, dx = -x\cos(x) + \int \cos(x) \, dx,
-\]
-and evaluating the remaining elementary integral yields the final result, $-x\cos(x) + \sin(x) + C$.
+\] and evaluating the remaining elementary integral yields the final result, $-x\cos(x) + \sin(x) + C$.
 \end{example}
 
 This technique proves particularly useful for integrals involving products of polynomials with trigonometric functions, such as $\sin(mx)$ or $\cos(mx)$, or with exponential functions of the form $e^{mx}$; in some cases, the formula for integration by parts must be applied repeatedly, in succession, before the integral is finally resolved.
@@ -789,34 +725,22 @@ Applying the linearity of the integral, together with the substitution $u = cx+d
 \int \frac{ax+b}{cx+d} \, dx = \frac{a}{c} x + \frac{bc-ad}{c^2} \ln|cx+d| + C.
 \]
 
-For integrals of the form
-\[
+For integrals of the form \[
 \int P(x)/(ax^2+bx+c) \, dx,
-\]
-where $P(x)$ is a polynomial of degree less than two, the appropriate technique depends on the sign of the discriminant $\Delta = b^2 - 4ac$ of the denominator; we now examine the two resulting cases in turn.
+\] where $P(x)$ is a polynomial of degree less than two, the appropriate technique depends on the sign of the discriminant $\Delta = b^2 - 4ac$ of the denominator; we now examine the two resulting cases in turn.
 
 If the discriminant is positive, $\Delta > 0$, the denominator factors into two distinct real roots, and the appropriate technique is partial fraction decomposition. As an illustration, consider the integral
 \[
 \int 1/(x^2-x-2) \, dx.
 \]
-The roots of $x^2-x-2=0$ are $x=2$ and $x=-1$, so that the integrand decomposes as
-\[
-\frac{1}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1}
-\]
-for suitable constants $A$ and $B$; clearing denominators gives
-\[
-1 = A(x+1) + B(x-2),
-\]
-and setting $x=2$ yields $A = 1/3$, while setting $x=-1$ yields $B = -1/3$. Integrating the resulting decomposition term by term, one finds
+The roots of $x^2-x-2=0$ are $x=2$ and $x=-1$, so that the integrand decomposes as $\frac{1}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1}$ for suitable constants $A$ and $B$; clearing denominators gives $1 = A(x+1) + B(x-2)$, and setting $x=2$ yields $A = 1/3$, while setting $x=-1$ yields $B = -1/3$. Integrating the resulting decomposition term by term, one finds
 \[
 \int \left( \frac{1/3}{x-2} - \frac{1/3}{x+1} \right) dx = \frac{1}{3} \ln|x-2| - \frac{1}{3} \ln|x+1| + C.
 \]
 
-If instead the discriminant is negative, $\Delta < 0$, the denominator cannot be factored into real linear terms, and the appropriate technique is to complete the square within the denominator. For a general integral of the form
-\[
+If instead the discriminant is negative, $\Delta < 0$, the denominator cannot be factored into real linear terms, and the appropriate technique is to complete the square within the denominator. For a general integral of the form \[
 \int 1/(ax^2+bx+c) \, dx,
-\]
-one first manipulates the numerator, if it is of first degree, by splitting the integral into a part resembling $f'(x)/f(x)$ together with a constant remainder; for a purely constant numerator, one relies on the fundamental formula
+\] one first manipulates the numerator, if it is of first degree, by splitting the integral into a part resembling $f'(x)/f(x)$ together with a constant remainder; for a purely constant numerator, one relies on the fundamental formula
 \[
 \int \frac{1}{x^2+a^2} \, dx = \frac{1}{a} \arctan\!\left( \frac{x}{a} \right) + C.
 \]
@@ -834,9 +758,9 @@ Completing the square in the denominator, one finds
 \]
 Setting $u = x+1/4$, so that $du = dx$, the integral becomes
 \[
-\int \frac{1}{4u^2 + 3/4} \, du = \int \frac{1}{\tfrac{3}{4}\left( \tfrac{16}{3} u^2 + 1 \right)} \, du,
+\int \frac{1}{4u^2 + 3/4} \, du = \int \frac{1}{\tfrac{3}{4}\left( \tfrac{16}{3} u^2 + 1 \right)} \, du.
 \]
-and the further substitution $v=4u/\sqrt{3}$ gives
+The further substitution $v=4u/\sqrt{3}$ gives
 \[
 \begin{aligned}
 \int \frac{\dd u}{4u^2+3/4}
@@ -864,11 +788,9 @@ Each term of this decomposition is then integrated separately, using the logarit
 
 \subsection{Improper Integrals of Type I}
 
-In defining the definite integral
-\[
+In defining the definite integral \[
 \int_a^b f(x) \, dx,
-\]
-we have dealt exclusively with a bounded function $f$ on a bounded interval $[a,b]$. We now extend this concept to the case in which the interval of integration is infinite, of the form $[a, \infty)$; an integral of this kind is called an improper integral, and is denoted by
+\] we have dealt exclusively with a bounded function $f$ on a bounded interval $[a,b]$. We now extend this concept to the case in which the interval of integration is infinite, of the form $[a, \infty)$; an integral of this kind is called an improper integral, and is denoted by
 \[
 \int_a^{\infty} f(x) \, dx.
 \]
@@ -930,11 +852,9 @@ Thus it diverges, and the corresponding area is infinite.
 Both $1/x^2$ and $1/x$ tend to $0$ as $x \to \infty$, yet the corresponding improper integrals exhibit opposite behavior: the former converges, while the latter diverges. This shows that the values of $1/x$ simply do not decrease fast enough, as $x \to \infty$, for the corresponding improper integral to attain a finite value.
 \end{remark}
 
-More generally, for $p\neq1$,
-\[
+More generally, for $p\neq1$, \[
 \int_1^{\infty} x^{-p} \, dx
-\]
-satisfies
+\] satisfies
 \[
 \begin{aligned}
 \int_1^R x^{-p}\,\dd x
@@ -944,15 +864,11 @@ satisfies
 \]
 If $p>1$, then $R^{1-p}\to0$ and the integral converges to
 $1/(p-1)$. If $p<1$, it diverges; the case $p=1$ is the logarithmic
-case above. Finally,
-\[
+case above. Finally, \[
 \int_0^{\infty} e^{-x} \, dx
-\]
-satisfies
-\[
+\] satisfies \[
 \int_0^R e^{-x}\,\dd x=[-e^{-x}]_0^R=1-e^{-R}\longrightarrow1,
-\]
-so it converges to $1$.
+\] so it converges to $1$.
 
 \input{figures/improper-tail.tex}
 
@@ -975,15 +891,9 @@ Let $f, g \geq 0$ be two bounded functions defined on $[a, \infty)$, with $f(x) 
 
 \end{theorem}
 
-As an application of this theorem, one may show that the integral
-\[
+As an application of this theorem, one may show that the integral \[
 \int_0^{\infty} e^{-x^2} \, dx
-\]
-is convergent, by comparing the integrand with a suitable exponential function for large values of $x$; it can in fact be shown, using tools from multivariable calculus, that the exact value of this integral is
-\[
-\sqrt{\pi}/2,
-\]
-although this precise value lies beyond the scope of the comparison method itself. A refinement of the Comparison Test, analogous to the Asymptotic Comparison Test established earlier for series, replaces the pointwise inequality between the two functions with an asymptotic equivalence as $x \to \infty$.
+\] is convergent, by comparing the integrand with a suitable exponential function for large values of $x$; it can in fact be shown, using tools from multivariable calculus, that the exact value of this integral is $\sqrt{\pi}/2$, although this precise value lies beyond the scope of the comparison method itself. A refinement of the Comparison Test, analogous to the Asymptotic Comparison Test established earlier for series, replaces the pointwise inequality between the two functions with an asymptotic equivalence as $x \to \infty$.
 
 \begin{theorem}[Asymptotic Comparison Test]
 Let $f, g \geq 0$ be two bounded functions defined on $[a, \infty)$. If $f \sim g$ as $x \to \infty$, then the integral
@@ -1002,11 +912,9 @@ Let $f, g \geq 0$ be two bounded functions defined on $[a, \infty)$. If $f \sim 
 
 \end{theorem}
 
-As an application, one may show that the integral
-\[
+As an application, one may show that the integral \[
 \int_2^{\infty} \ln\!\left(1 + 1/x^2\right) dx
-\]
-is convergent, by observing that the integrand is asymptotically equivalent to $1/x^2$ as $x \to \infty$, and invoking the convergence of
+\] is convergent, by observing that the integrand is asymptotically equivalent to $1/x^2$ as $x \to \infty$, and invoking the convergence of
 \[
 \int_1^{\infty} x^{-2} \, dx
 \]
@@ -1062,35 +970,29 @@ As applications of the Integral Test, one may study the convergence or divergenc
 \[
 \begin{gathered}
 \sum_{n=2}^{\infty} 1/[n (\ln n)^q] \\
-\sum_{n=1}^{\infty} 1/n^p,
+\sum_{n=1}^{\infty} 1/n^p.
 \end{gathered}
 \]
-for positive parameters $p, q > 0$, by comparing each series with the corresponding improper integral and applying the criteria for convergence of
+This holds for positive parameters $p, q > 0$, by comparing each series with the corresponding improper integral and applying the criteria for convergence of
 \[
 \int^{\infty} x^{-p} \, dx
 \]
 established earlier.
 
-The definition of improper integral given above extends naturally to a left semi-infinite interval, and to the entire real line. If
-\[
+The definition of improper integral given above extends naturally to a left semi-infinite interval, and to the entire real line. If \[
 \int_t^b f(x) \, dx
-\]
-exists for every number $t \leq b$, then
-\[
+\] exists for every number $t \leq b$, then \[
 \int_{-\infty}^{b} f(x) \, dx := \lim_{t \to -\infty} \int_t^b f(x) \, dx,
-\]
-provided that this limit exists. If both
+\] provided that this limit exists. If both
 \[
 \begin{gathered}
 \int_{-\infty}^{c} f(x) \, dx \\
-\int_c^{\infty} f(x) \, dx
+\int_c^{\infty} f(x) \, dx.
 \end{gathered}
 \]
-are convergent for some real number $c$, one then defines
-\[
+These are convergent for some real number $c$, one then defines \[
 \int_{-\infty}^{\infty} f(x) \, dx := \int_{-\infty}^{c} f(x) \, dx + \int_c^{\infty} f(x) \, dx,
-\]
-and it can be shown that the resulting value does not depend on the particular choice of the splitting point $c$.
+\] and it can be shown that the resulting value does not depend on the particular choice of the splitting point $c$.
 
 \subsection{Improper Integrals of Type II}
 
@@ -1114,22 +1016,18 @@ If $f$ is continuous on $[a,b)$ and has a vertical asymptote at $x = b$, then
 provided that this limit exists as a finite number. The improper integral is called convergent if the corresponding limit exists and is finite, and divergent if the limit is infinite.
 \end{definition}
 
-An entirely analogous definition applies when the vertical asymptote occurs at the left endpoint rather than at the right: if $f$ is continuous on $(a,b]$ and has a vertical asymptote at $x = a$, one sets
-\[
+An entirely analogous definition applies when the vertical asymptote occurs at the left endpoint rather than at the right: if $f$ is continuous on $(a,b]$ and has a vertical asymptote at $x = a$, one sets \[
 \int_a^b f(x) \, dx := \lim_{t \to a^+} \int_t^b f(x) \, dx,
-\]
-whenever this limit exists as a finite number. Finally, if $f$ is continuous on $[a,b] \setminus \{c\}$ and has a vertical asymptote at an interior point $c$, one defines the improper integral over the entire interval $[a,b]$ by splitting at the singularity,
+\] whenever this limit exists as a finite number. Finally, if $f$ is continuous on $[a,b] \setminus \{c\}$ and has a vertical asymptote at an interior point $c$, one defines the improper integral over the entire interval $[a,b]$ by splitting at the singularity,
 \[
 \int_a^b f(x) \, dx := \int_a^c f(x) \, dx + \int_c^b f(x) \, dx,
 \]
 provided that both improper integrals on the right-hand side are convergent.
 
 \begin{remark}
-From this point onward, whenever the symbol
-\[
+From this point onward, whenever the symbol \[
 \int_a^b f(x) \, dx
-\]
-is encountered, one must first examine the behavior of $f$ on $[a,b]$ in order to determine whether the expression represents an ordinary definite integral or an improper integral, since the two require different definitions and different tests for existence.
+\] is encountered, one must first examine the behavior of $f$ on $[a,b]$ in order to determine whether the expression represents an ordinary definite integral or an improper integral, since the two require different definitions and different tests for existence.
 \end{remark}
 
 We now evaluate the standard endpoint examples directly. First,
@@ -1138,23 +1036,21 @@ We now evaluate the standard endpoint examples directly. First,
 \int_0^1\frac{\dd x}{x}
 &=\lim_{t\to0^+}\int_t^1\frac{\dd x}{x}\\
 &=\lim_{t\to0^+}[\ln x]_t^1\\
-&=\lim_{t\to0^+}(-\ln t)=+\infty,
+&=\lim_{t\to0^+}(-\ln t)=+\infty.
 \end{aligned}
 \]
-so the integral diverges. By contrast,
+Consequently, the integral diverges. By contrast,
 \[
 \begin{aligned}
 \int_0^1\ln x\,\dd x
 &=\lim_{t\to0^+}[x\ln x-x]_t^1\\
 &=-1-\lim_{t\to0^+}(t\ln t-t)\\
-&=-1,
+&=-1.
 \end{aligned}
 \]
-because $t\ln t\to0$ as $t\to0^+$. More generally, for $p\neq1$,
-\[
+This follows because $t\ln t\to0$ as $t\to0^+$. More generally, for $p\neq1$, \[
 \int_0^1 x^{-p} \, dx
-\]
-satisfies
+\] satisfies
 \[
 \begin{aligned}
 \int_0^1x^{-p}\,\dd x
@@ -1166,11 +1062,9 @@ If $p<1$, then $t^{1-p}\to0$ and the value is $1/(1-p)$; if
 $p>1$, then $t^{1-p}\to+\infty$ and the integral diverges. The case
 $p=1$ is the logarithmic divergence computed above. Thus the integral
 converges exactly for $p<1$ and diverges for $p\geq1$. This behavior is
-opposite to that of
-\[
-\int_1^{\infty} x^{-p} \, dx
-\]
-which converges exactly for $p>1$.
+opposite to that of \[
+\int_1^{\infty} x^{-p} \, dx,
+\] which converges exactly for $p>1$.
 
 \subsection{Improper Integrals and Probability}
 

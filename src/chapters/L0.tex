@@ -195,11 +195,7 @@ The Axiom of Continuity can now be stated precisely.
 Every nonempty subset $A \subset \mathbb{R}$ that admits an upper bound has a least upper bound in $\mathbb{R}$.
 \end{theorem}
 
-This property distinguishes the real numbers from the rational numbers: it does not hold in $\mathbb{Q}$. For example, the set
-\[
-A = \{ x \in \mathbb{Q} : x \geq 0, \ x^2 < 2 \} \subset \mathbb{Q}
-\]
-is bounded above in $\mathbb{Q}$, for example by $2$, but has no least upper bound in $\mathbb{Q}$. Such a bound would have to be $\sqrt{2}$,
+This property distinguishes the real numbers from the rational numbers: it does not hold in $\mathbb{Q}$. For example, the set $A = \{ x \in \mathbb{Q} : x \geq 0, \ x^2 < 2 \} \subset \mathbb{Q}$ is bounded above in $\mathbb{Q}$, for example by $2$, but has no least upper bound in $\mathbb{Q}$. Such a bound would have to be $\sqrt{2}$,
 which is irrational. In $\mathbb{R}$, the least upper bound guaranteed by the Axiom of Continuity has a special name and notation.
 
 \subsection{Suprema, Maxima, and Infima}
@@ -276,11 +272,9 @@ Given any $q \neq 1$,
 \end{theorem}
 
 \begin{proof}
-Multiplying both sides of the identity
-\[
+Multiplying both sides of the identity \[
 \sum_{k=0}^{n-1} q^k = q^0 + q^1 + q^2 + \cdots + q^{n-1}
-\]
-by $1-q$, we obtain
+\] by $1-q$, we obtain
 \[
 \begin{aligned}
 (1-q) \sum_{k=0}^{n-1} q^k &= (1-q)(q^0 + q^1 + q^2 + \cdots + q^{n-1}) \\
@@ -452,10 +446,10 @@ As an illustration,
 \begin{aligned}
 (-1+3i)(2-5i) &= (-1)(2-5i) + 3i(2-5i) \\
 &= -2 + 5i + 6i - 15 i^2 \\
-&= 13 + 11i,
+&= 13 + 11i.
 \end{aligned}
 \]
-where the last equality uses $i^2 = -1$.
+Here the last equality uses $i^2 = -1$.
 
 \subsection{Conjugation, Modulus, and Division}
 
@@ -465,19 +459,15 @@ Division uses the complex conjugate to make the denominator real, much as ration
 For a complex number $z = a+bi$, its complex conjugate is defined to be $\overline{z} = a - bi$.
 \end{definition}
 
-To divide by a nonzero complex number, multiply the numerator and denominator by the conjugate of the denominator. For example, to express $(-1+3i)/(2+5i)$ in the form $a+bi$, use the conjugate $2-5i$. The numerator becomes
-\[
-(-1+3i)(2-5i),
-\]
-which was evaluated above. Dividing by the resulting real denominator gives $13/29 + 11i/29$. Geometrically, the complex conjugate $\overline{z}$ is the reflection of $z$ in the real axis. The complex conjugate obeys several elementary
+To divide by a nonzero complex number, multiply the numerator and denominator by the conjugate of the denominator. For example, to express $(-1+3i)/(2+5i)$ in the form $a+bi$, use the conjugate $2-5i$. The numerator becomes $(-1+3i)(2-5i)$, which was evaluated above. Dividing by the resulting real denominator gives $13/29 + 11i/29$. Geometrically, the complex conjugate $\overline{z}$ is the reflection of $z$ in the real axis. The complex conjugate obeys several elementary
 algebraic properties, namely
 \[
 \begin{aligned}
 \overline{z+w} &= \overline{z} + \overline{w} \\
-\overline{zw} &= \overline{z}\,\overline{w},
+\overline{zw} &= \overline{z}\,\overline{w}.
 \end{aligned}
 \]
-both of which follow directly from the definitions of the sum and product of complex numbers. The modulus, or absolute value, $|z|$ of a complex
+Both identities follow directly from the definitions of the sum and product of complex numbers. The modulus, or absolute value, $|z|$ of a complex
 number $z = a+bi$ is defined as its distance from the origin in the Argand plane, that is,
 \[
 |z| = \sqrt{a^2+b^2}.
@@ -487,10 +477,10 @@ It is a direct consequence of the definitions that
 \begin{aligned}
 z \overline{z} &= (a+bi)(a-bi) \\
 &= a^2 + abi - abi - b^2 i^2 \\
-&= a^2 + b^2,
+&= a^2 + b^2.
 \end{aligned}
 \]
-so that $z\overline{z} = |z|^2$, which explains the division rule. For a nonzero divisor, it can be written as
+Consequently, $z\overline{z} = |z|^2$, which explains the division rule. For a nonzero divisor, it can be written as
 \[
 \begin{aligned}
 z/w &= z\overline{w}/(w\overline{w}) \\
@@ -527,10 +517,10 @@ Since $i^2 = -1$, one may regard $i$ as a square root of $-1$; however, one also
 \[
 \begin{aligned}
 (-i)^2 &= i^2 \\
-&= -1,
+&= -1.
 \end{aligned}
 \]
-so that $-i$ is likewise a square root of $-1$. By convention, $i$ is designated the principal square root of $-1$, and one writes $\sqrt{-1} = i$;
+Consequently, $-i$ is likewise a square root of $-1$. By convention, $i$ is designated the principal square root of $-1$, and one writes $\sqrt{-1} = i$;
 more generally, for any positive number $c$, one writes $\sqrt{-c} = \sqrt{c}\, i$.
 
 With this convention, the usual derivation of the quadratic formula for an equation with a nonzero leading coefficient, $ax^2 + bx + c = 0$, remains valid even when the discriminant $b^2 - 4ac$ is negative. The roots are
@@ -570,10 +560,10 @@ $(r,\theta)$, with $r \geq 0$, related to the Cartesian coordinates by
 \[
 \begin{aligned}
 a &= r \cos \theta \\
-b &= r \sin \theta,
+b &= r \sin \theta.
 \end{aligned}
 \]
-giving the \emph{polar form} of $z$:
+This gives the \emph{polar form} of $z$:
 \[
 \begin{aligned}
 z &= a+bi \\
@@ -657,14 +647,10 @@ Polar form reveals the geometry of multiplication and division. Given two comple
 \[
 \begin{aligned}
 z_1 &= r_1(\cos\theta_1 + i\sin\theta_1) \\
-z_2 &= r_2(\cos\theta_2 + i\sin\theta_2),
+z_2 &= r_2(\cos\theta_2 + i\sin\theta_2).
 \end{aligned}
 \]
-expanding their product and applying the addition formulas for sine and cosine yields
-\[
-z_1 z_2 = r_1 r_2 \big[ \cos(\theta_1+\theta_2) + i \sin(\theta_1+\theta_2) \big],
-\]
-so multiplication multiplies the moduli and adds the arguments. Similarly, the subtraction formulas for sine and cosine show that division
+Expanding their product and applying the addition formulas for sine and cosine yields $z_1 z_2 = r_1 r_2 \big[ \cos(\theta_1+\theta_2) + i \sin(\theta_1+\theta_2) \big]$, so multiplication multiplies the moduli and adds the arguments. Similarly, the subtraction formulas for sine and cosine show that division
 divides the moduli and subtracts the arguments. For $z_2 \neq 0$, the quotient is
 \[
 \frac{z_1}{z_2} = \frac{r_1}{r_2} \big[ \cos(\theta_1-\theta_2) + i \sin(\theta_1-\theta_2) \big].
@@ -804,9 +790,9 @@ z = 8(\cos\pi + i\sin\pi).
 \]
 Applying the formula with $n = 6$, we obtain the six roots by taking $k = 0, 1, 2, 3, 4, 5$ in
 \[
-8^{1/6} \left[ \cos\left( \frac{\pi + 2k\pi}{6} \right) + i \sin\left( \frac{\pi+2k\pi}{6} \right) \right];
+8^{1/6} \left[ \cos\left( \frac{\pi + 2k\pi}{6} \right) + i \sin\left( \frac{\pi+2k\pi}{6} \right) \right].
 \]
-all six resulting points lie on the circle of radius $8^{1/6} = \sqrt{2}$ in the complex plane, equally spaced around it.
+All six resulting points lie on the circle of radius $8^{1/6} = \sqrt{2}$ in the complex plane, equally spaced around it.
 Their arguments and Cartesian forms are
 \[
 \begin{aligned}
@@ -863,10 +849,10 @@ Motivated by the Maclaurin series for $e^x$, we define the complex exponential b
 \[
 \begin{aligned}
 e^z &:= \sum_{n=0}^{\infty} \frac{z^n}{n!} \\
-&= 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots,
+&= 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots.
 \end{aligned}
 \]
-which has the same fundamental algebraic properties as the real exponential. In particular, $e^{z+w} = e^z e^w$, for all complex numbers $z$ and $w$.
+This has the same fundamental algebraic properties as the real exponential. In particular, $e^{z+w} = e^z e^w$, for all complex numbers $z$ and $w$.
 
 
 Substituting $z = iy$ for real $y$ into the defining series and using $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, together with the periodic recurrence of higher powers of $i$, one obtains
@@ -891,10 +877,10 @@ Combining Euler's formula with the multiplicative property gives
 \[
 \begin{aligned}
 e^{x+iy} &= e^x e^{iy} \\
-&= e^x (\cos y + i \sin y),
+&= e^x (\cos y + i \sin y).
 \end{aligned}
 \]
-which expresses the exponential of $x+iy$ using the real exponential and trigonometric functions.
+This expresses the exponential of $x+iy$ using the real exponential and trigonometric functions.
 
 \begin{example}
 We evaluate two particular complex exponentials using Euler's formula. First,
@@ -902,10 +888,10 @@ We evaluate two particular complex exponentials using Euler's formula. First,
 \begin{aligned}
 e^{i\pi} &= \cos\pi + i \sin\pi \\
 &= -1 + i \cdot 0 \\
-&= -1,
+&= -1.
 \end{aligned}
 \]
-an identity linking five fundamental mathematical constants. Second, the general formula for $e^{x+iy}$ gives
+This is an identity linking five fundamental mathematical constants. Second, the general formula for $e^{x+iy}$ gives
 \[
 \begin{aligned}
 e^{1+i\pi/2} &= e^1 (\cos(\pi/2) + i \sin(\pi/2)) \\

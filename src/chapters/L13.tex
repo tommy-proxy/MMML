@@ -4,18 +4,10 @@
 
 \subsection{Differential Equations and Families of Solutions}
 
-An ordinary differential equation of first order is an equation that involves an unknown function of a single variable, which we shall generally denote by $y = y(t)$, together with its first derivative. The general form of such an equation is
-\[
-y' = F(t,y),
-\]
-where $F(t,y)$ is a given expression in the two variables $t$ and $y$. Several important classes of first-order equations arise as special cases of this general form, according to the specific dependence of $F$ on $t$ and $y$. A pure-time equation is one of the form $y' = f(t)$, in which the right-hand side depends only on the independent variable. A separable equation is one of the form $y' = a(t) g(y)$, in which the right-hand side factors as a product of a function of $t$ alone and a function of $y$ alone. An autonomous equation is the special case of a separable equation in which the dependence on $t$ disappears entirely, so that $y' = g(y)$. Finally, a linear equation is one of the form $y' = a(t) y + f(t)$, in which the right-hand side is affine in the unknown $y$.
+An ordinary differential equation of first order is an equation that involves an unknown function of a single variable, which we shall generally denote by $y = y(t)$, together with its first derivative. The general form of such an equation is $y' = F(t,y)$, where $F(t,y)$ is a given expression in the two variables $t$ and $y$. Several important classes of first-order equations arise as special cases of this general form, according to the specific dependence of $F$ on $t$ and $y$. A pure-time equation is one of the form $y' = f(t)$, in which the right-hand side depends only on the independent variable. A separable equation is one of the form $y' = a(t) g(y)$, in which the right-hand side factors as a product of a function of $t$ alone and a function of $y$ alone. An autonomous equation is the special case of a separable equation in which the dependence on $t$ disappears entirely, so that $y' = g(y)$. Finally, a linear equation is one of the form $y' = a(t) y + f(t)$, in which the right-hand side is affine in the unknown $y$.
 
 \begin{definition}
-A function $y = y(t)$ is called a solution of the differential equation $y' = F(t,y)$ on the interval $I$ if the equation is satisfied identically, that is, if
-\[
-y'(t) = F(t, y(t))
-\]
-for every $t \in I$.
+A function $y = y(t)$ is called a solution of the differential equation $y' = F(t,y)$ on the interval $I$ if the equation is satisfied identically, that is, if $y'(t) = F(t, y(t))$ for every $t \in I$.
 \end{definition}
 
 As a simple illustration of this definition, one may verify directly that $y(t) = 10 e^{2t}$ is a solution of the equation $y' = 2y$, since differentiating this expression indeed yields
@@ -33,10 +25,10 @@ To address this question, it is instructive to consider the simplest possible cl
 \[
 \begin{aligned}
 y(t) &= \int f(t) \, dt \\
-&= g(t) + C,
+&= g(t) + C.
 \end{aligned}
 \]
-where $g$ denotes any fixed antiderivative of $f$; the equation therefore possesses infinitely many solutions, parametrized by the arbitrary constant $C$. This phenomenon is not peculiar to pure-time equations, but is in fact a general feature of first-order ordinary differential equations: such equations typically possess infinitely many solutions, depending on a single free parameter, which may be fixed by imposing an additional condition, as will be discussed below in connection with initial value problems.
+Here $g$ denotes any fixed antiderivative of $f$; the equation therefore possesses infinitely many solutions, parametrized by the arbitrary constant $C$. This phenomenon is not peculiar to pure-time equations, but is in fact a general feature of first-order ordinary differential equations: such equations typically possess infinitely many solutions, depending on a single free parameter, which may be fixed by imposing an additional condition, as will be discussed below in connection with initial value problems.
 
 \input{figures/ode-direction-field.tex}
 
@@ -63,15 +55,7 @@ Consider the equation $y' = t y^3$. As before, one immediately identifies the co
 \[
 \frac{y'(t)}{y^3(t)} = t \implies \int \frac{y'(t)}{y^3(t)} \, dt = \int t \, dt.
 \]
-The integral on the left-hand side is again elementary, yielding
-\[
--(1/(2 y^2(t))) = (t^2/2) + c;
-\]
-setting $C = -2c$, we obtain two branches of solutions,
-\[
-y(t) = \frac{1}{\sqrt{C - t^2}}, \qquad y(t) = -\frac{1}{\sqrt{C - t^2}},
-\]
-each defined on the maximal interval $(-\sqrt{C}, \sqrt{C})$, for every fixed $C > 0$.
+The integral on the left-hand side is again elementary, yielding $-(1/(2 y^2(t))) = (t^2/2) + c$; setting $C = -2c$, we obtain two branches of solutions, $y(t) = \frac{1}{\sqrt{C - t^2}}, \qquad y(t) = -\frac{1}{\sqrt{C - t^2}}$, each defined on the maximal interval $(-\sqrt{C}, \sqrt{C})$, for every fixed $C > 0$.
 \end{example}
 
 These two examples illustrate the general method applicable to the broader class of separable equations, defined as follows.
@@ -85,15 +69,7 @@ Assuming that $a$ and $g$ are continuous functions, the general solution of a se
 \int \frac{y'(t)}{g(y(t))} \, dt = \int a(t) \, dt.
 \]
 
-The third step consists of evaluating both integrals explicitly: denoting by $A(t)$ a given antiderivative of $a(t)$, and by $H(u)$ an antiderivative of $1/g(u)$, one obtains the implicit relation
-\[
-H(y(t)) = A(t) + C,
-\]
-for an arbitrary constant $C \in \mathbb{R}$. The fourth and final step consists of inverting this implicit relation, whenever $H$ is invertible, to obtain the explicit formula
-\[
-y(t) = H^{-1}(A(t) + C);
-\]
-it should be noted that restrictions on the domain of $t$, possibly depending on the value of $C$, may arise at this final step, as illustrated in the two examples above.
+The third step consists of evaluating both integrals explicitly: denoting by $A(t)$ a given antiderivative of $a(t)$, and by $H(u)$ an antiderivative of $1/g(u)$, one obtains the implicit relation $H(y(t)) = A(t) + C$, for an arbitrary constant $C \in \mathbb{R}$. The fourth and final step consists of inverting this implicit relation, whenever $H$ is invertible, to obtain the explicit formula $y(t) = H^{-1}(A(t) + C)$; it should be noted that restrictions on the domain of $t$, possibly depending on the value of $C$, may arise at this final step, as illustrated in the two examples above.
 
 \subsection{Applications to Population Dynamics}
 
@@ -122,22 +98,10 @@ and substituting this expression for the biological potential into the growth eq
 \frac{dN}{dt} = \varepsilon \left( 1 - \frac{N}{k} \right) N.
 \]
 
-As with the Malthus model, a comparison with experimental data on the growth of a yeast population shows that the logistic model
-\[
-dN/dt = (0.55 - 0.0026\, N)\, N,
-\]
-again with initial condition $N(0) = 0.2 \times 10^6$ cells per milliliter, reproduces the observed data considerably more accurately than the simple Malthus model, particularly as the population approaches its carrying capacity.
+As with the Malthus model, a comparison with experimental data on the growth of a yeast population shows that the logistic model $dN/dt = (0.55 - 0.0026\, N)\, N$, again with initial condition $N(0) = 0.2 \times 10^6$ cells per milliliter, reproduces the observed data considerably more accurately than the simple Malthus model, particularly as the population approaches its carrying capacity.
 
-We now solve two representative logistic equations explicitly. For
-\[
-y'=y(2-y),
-\]
-the equilibrium solutions are $y\equiv0$ and $y\equiv2$. Away from
-them, partial fractions give
-\[
-\frac1{y(2-y)}=\frac1{2y}+\frac1{2(2-y)},
-\]
-and therefore
+We now solve two representative logistic equations explicitly. For $y'=y(2-y)$, the equilibrium solutions are $y\equiv0$ and $y\equiv2$. Away from
+them, partial fractions give $\frac1{y(2-y)}=\frac1{2y}+\frac1{2(2-y)}$, and therefore
 \[
 \frac12\ln|y|-\frac12\ln|2-y|=t+C.
 \]
@@ -147,15 +111,7 @@ y(t)=\frac{2}{1+Ce^{-2t}},
 \]
 on every interval where the denominator is nonzero.
 
-For
-\[
-y'=y(y-2),
-\]
-the equilibria are again $0$ and $2$, while
-\[
-\frac1{y(y-2)}=-\frac1{2y}+\frac1{2(y-2)}
-\]
-gives
+For $y'=y(y-2)$, the equilibria are again $0$ and $2$, while $\frac1{y(y-2)}=-\frac1{2y}+\frac1{2(y-2)}$ gives
 \[
 \ln\left|\frac{y-2}{y}\right|=2t+C,
 \qquad
@@ -211,10 +167,10 @@ A Cauchy problem is a system consisting of a differential equation together with
 \[
 \begin{cases}
 y' = F(t,y), \\
-y(t_0) = y_0,
-\end{cases}
+y(t_0) = y_0
+\end{cases}.
 \]
-where $t_0$ and $y_0$ are assigned values.
+Here $t_0$ and $y_0$ are assigned values.
 \end{definition}
 
 A central theoretical question concerns whether a given Cauchy problem admits a solution, and if so, whether that solution is unique; a problem for which both properties hold is said to be well-posed.
@@ -232,10 +188,10 @@ Let $a(t)$ be continuous on an interval $I = (\alpha, \beta)$, and let $g(y)$ be
 \[
 \begin{cases}
 y' = a(t) g(y), \\
-y(t_0) = y_0,
-\end{cases}
+y(t_0) = y_0
+\end{cases}.
 \]
-has a unique solution $y(t)$, defined on an interval $(t_0 - \delta_0, t_0 + \delta_0)$ for some $\delta_0 > 0$.
+This problem has a unique solution $y(t)$, defined on an interval $(t_0 - \delta_0, t_0 + \delta_0)$ for some $\delta_0 > 0$.
 \end{theorem}
 
 \begin{remark}
@@ -249,11 +205,9 @@ Existence of solutions is, in general, not global in time: there exist solutions
 \end{remark}
 
 \begin{example}[Blow-Up in Finite Time]
-Consider the Cauchy problem $y' = y^2$, $y(0) = 1$. This equation is separable, with $a(t) \equiv 1$, continuous on all of $\mathbb{R}$, and $g(y) = y^2$. The problem admits a unique solution, given explicitly by $y(t) = 1/(1-t)$. Since
-\[
+Consider the Cauchy problem $y' = y^2$, $y(0) = 1$. This equation is separable, with $a(t) \equiv 1$, continuous on all of $\mathbb{R}$, and $g(y) = y^2$. The problem admits a unique solution, given explicitly by $y(t) = 1/(1-t)$. Since \[
 \lim_{t \to 1^-} y(t) = +\infty,
-\]
-the solution blows up at the finite time $t=1$, and its maximal interval of existence is $I_{\max} = (-\infty, 1)$, strictly smaller than the interval $\mathbb{R}$ on which the coefficients of the equation are defined.
+\] the solution blows up at the finite time $t=1$, and its maximal interval of existence is $I_{\max} = (-\infty, 1)$, strictly smaller than the interval $\mathbb{R}$ on which the coefficients of the equation are defined.
 \end{example}
 
 \begin{remark}
@@ -265,11 +219,7 @@ Consider the Cauchy problem
 \[
 y' = 3\sqrt[3]{y^2},
 \]
-$y(0) = 0$. This equation is separable, with
-\[
-g(y) = 3\sqrt[3]{y^2},
-\]
-which fails to be differentiable at $y = 0$. The null constant function $y(t) = 0$, for every $t \in \mathbb{R}$, is one solution of this problem; however, the function $y(t) = t^3$ provides another solution, defined globally on $\mathbb{R}$, distinct from the first.
+$y(0) = 0$. This equation is separable, with $g(y) = 3\sqrt[3]{y^2}$, which fails to be differentiable at $y = 0$. The null constant function $y(t) = 0$, for every $t \in \mathbb{R}$, is one solution of this problem; however, the function $y(t) = t^3$ provides another solution, defined globally on $\mathbb{R}$, distinct from the first.
 \end{example}
 
 In fact, the Cauchy problem of the preceding example admits infinitely many solutions, a phenomenon known as Peano's brush (\emph{Pennello di Peano}); as a further illustration, the function
@@ -282,11 +232,7 @@ y(t) =
 \]
 provides yet another solution of the same Cauchy problem, distinct from both of those exhibited above.
 
-For the initial value problem
-\[
-y'=ty^3,\qquad y(1)=a,
-\]
-the case $a=0$ gives the global solution $y\equiv0$. If $a\neq0$,
+For the initial value problem $y'=ty^3,\qquad y(1)=a$, the case $a=0$ gives the global solution $y\equiv0$. If $a\neq0$,
 separation gives
 \[
 -\frac1{2y^2}=\frac{t^2}{2}+C.
@@ -306,16 +252,10 @@ I_a=\left(-\sqrt{1+\frac1{a^2}},\,
 Its endpoints move toward $\pm1$ as $|a|$ grows and toward infinity as
 $a\to0$, showing explicitly how the initial datum controls the lifespan.
 
-A closely related problem is
-\[
-y' = (1/2)(y^2 - 1),
-\]
-with $y(0)=a$. The constant solutions are $y\equiv1$ and $y\equiv-1$.
-For $a\neq\pm1$,
-\[
+A closely related problem is $y' = (1/2)(y^2 - 1)$, with $y(0)=a$. The constant solutions are $y\equiv1$ and $y\equiv-1$.
+For $a\neq\pm1$, \[
 \int\frac{\dd y}{y^2-1}=\frac12\int\dd t
-\]
-gives
+\] gives
 \[
 \ln\left|\frac{y-1}{y+1}\right|=t+C.
 \]
@@ -345,10 +285,10 @@ Let $I$ be an interval, and assume that $a(t)$ and $f(t)$ are both continuous on
 \[
 \begin{cases}
 y' = a(t) y + f(t), \\
-y(t_0) = y_0,
-\end{cases}
+y(t_0) = y_0
+\end{cases}.
 \]
-admits a unique solution $y(t)$, defined on the whole interval $I$.
+This problem admits a unique solution $y(t)$, defined on the whole interval $I$.
 \end{theorem}
 
 
@@ -356,27 +296,17 @@ admits a unique solution $y(t)$, defined on the whole interval $I$.
 
 Every first-order linear differential equation can be solved explicitly by means of a systematic technique known as the integrating factor method. As a first illustration, one may consider the equation $y' + (1/x) y = 2$, which can be solved by multiplying both sides by the factor $x$; this particular example already suggests the general strategy, which we now describe in full.
 
-To solve the linear differential equation written in the form $y' - a(t) y = f(t)$, one multiplies both sides by the integrating factor
-\[
+To solve the linear differential equation written in the form $y' - a(t) y = f(t)$, one multiplies both sides by the integrating factor \[
 e^{-\int a(t) \, dt}
-\]
-and subsequently integrates both sides with respect to $t$.
+\] and subsequently integrates both sides with respect to $t$.
 
 \begin{proof}
-Let $A(t)$ denote any fixed antiderivative of $a(t)$. Multiplying the equation
-\[
-y' - a(t) y = f(t)
-\]
-by the integrating factor $e^{-A(t)}$, we obtain
+Let $A(t)$ denote any fixed antiderivative of $a(t)$. Multiplying the equation $y' - a(t) y = f(t)$ by the integrating factor $e^{-A(t)}$, we obtain
 \begin{equation*}
 e^{-A(t)} \big[ y' - a(t) y \big] = e^{-A(t)} f(t). \tag{$*$}
 \end{equation*}
 
-Consider now the product function $y(t) e^{-A(t)}$; its derivative, computed by the product rule together with the Chain Rule applied to $e^{-A(t)}$, is precisely
-\[
-\frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} \big[ y'(t) - a(t) y(t) \big],
-\]
-so that equation $(*)$ may be rewritten as
+Consider now the product function $y(t) e^{-A(t)}$; its derivative, computed by the product rule together with the Chain Rule applied to $e^{-A(t)}$, is precisely $\frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} \big[ y'(t) - a(t) y(t) \big]$, so that equation $(*)$ may be rewritten as
 \[
 \frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} f(t).
 \]
@@ -385,11 +315,9 @@ By the definition of the indefinite integral, this identity gives the following 
 \[
 y(t) e^{-A(t)} + c = \int e^{-A(t)} f(t) \, dt.
 \]
-Equivalently, the solution is
-\[
+Equivalently, the solution is \[
 y(t) = C \, e^{A(t)} + e^{A(t)} \int e^{-A(t)} f(t) \, dt,
-\]
-where $C$ denotes an arbitrary real constant, absorbing the constant $-c$ from the previous line. This establishes the desired formula for the general solution.
+\] where $C$ denotes an arbitrary real constant, absorbing the constant $-c$ from the previous line. This establishes the desired formula for the general solution.
 \end{proof}
 
 The proof just given yields an explicit formula for the general solution of any linear first-order equation with continuous coefficients, which we now record for reference.
@@ -422,15 +350,7 @@ This is the general solution of the associated homogeneous equation $y' = a(t) y
 
 \subsection{Second-Order Linear Equations and Initial Data}
 
-We now turn to the study of second-order linear differential equations, which take the general form
-\[
-a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I,
-\]
-where $a$, $b$, and $c$ are continuous functions on the interval $I$, called the coefficient functions, subject to the nondegeneracy condition $a(t) \neq 0$ for every $t \in I$, and where $f$ is a continuous function on $I$, called the forcing term. Equations of this type arise naturally in a wide variety of physical contexts; a particularly simple example is furnished by the equation of motion of a falling body, $m y'' = -mg$, whose general solution is readily found by direct integration to be
-\[
-y(t) = -(1/2) g t^2 + v_0 t + y_0,
-\]
-where $v_0$ and $y_0$ denote the initial velocity and initial position of the body, respectively. As for first-order linear equations, the associated initial value problem for a second-order linear equation is well-posed globally on the interval of continuity of the coefficients, subject now to the specification of two initial conditions, since the equation involves a second derivative.
+We now turn to the study of second-order linear differential equations, which take the general form $a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I$, where $a$, $b$, and $c$ are continuous functions on the interval $I$, called the coefficient functions, subject to the nondegeneracy condition $a(t) \neq 0$ for every $t \in I$, and where $f$ is a continuous function on $I$, called the forcing term. Equations of this type arise naturally in a wide variety of physical contexts; a particularly simple example is furnished by the equation of motion of a falling body, $m y'' = -mg$, whose general solution is readily found by direct integration to be $y(t) = -(1/2) g t^2 + v_0 t + y_0$, where $v_0$ and $y_0$ denote the initial velocity and initial position of the body, respectively. As for first-order linear equations, the associated initial value problem for a second-order linear equation is well-posed globally on the interval of continuity of the coefficients, subject now to the specification of two initial conditions, since the equation involves a second derivative.
 
 \begin{theorem}[Cauchy Theorem for Second-Order Linear Equations]
 Assume that $a$, $b$, $c$, and $f$ are continuous functions on an interval $I$, with $a(t) \neq 0$ throughout $I$. Then, for any given $t_0 \in I$, $y_0 \in \mathbb{R}$, and $v_0 \in \mathbb{R}$, the Cauchy problem
@@ -438,36 +358,28 @@ Assume that $a$, $b$, $c$, and $f$ are continuous functions on an interval $I$, 
 \begin{cases}
 a(t) y'' + b(t) y' + c(t) y = f(t), \\
 y(t_0) = y_0, \\
-y'(t_0) = v_0,
-\end{cases}
+y'(t_0) = v_0
+\end{cases}.
 \]
-has a unique solution $y : I \to \mathbb{R}$.
+This problem has a unique solution $y : I \to \mathbb{R}$.
 \end{theorem}
 
 \subsection{The Homogeneous Equation}
 
-We first study the homogeneous equation associated with the general second-order linear equation, namely
+We first study the homogeneous equation associated with the general second-order linear equation:
 \begin{equation*}
-a(t) y'' + b(t) y' + c(t) y = 0, \qquad t \in I, \tag{$\star$}
+a(t) y'' + b(t) y' + c(t) y = 0, \qquad t \in I. \tag{$\star$}
 \end{equation*}
-where, as above, $a$, $b$, $c$ are continuous on $I$ with $a(t) \neq 0$ throughout. The linear structure of this equation is reflected in the following superposition principle, which shows that the set of solutions is closed under linear combination.
+Here, as above, $a$, $b$, and $c$ are continuous on $I$, with $a(t) \neq 0$ throughout. The linear structure of this equation is reflected in the following superposition principle, which shows that the set of solutions is closed under linear combination.
 
 \begin{theorem}[Superposition Principle for the Homogeneous Equation]
-If $y_1(t)$ and $y_2(t)$ are both solutions of the linear homogeneous equation $(\star)$ on the interval $I$, and $c_1, c_2$ are arbitrary constants, then the function
-\[
-y(t) = c_1 y_1(t) + c_2 y_2(t)
-\]
-is also a solution of $(\star)$ on $I$.
+If $y_1(t)$ and $y_2(t)$ are both solutions of the linear homogeneous equation $(\star)$ on the interval $I$, and $c_1, c_2$ are arbitrary constants, then the function $y(t) = c_1 y_1(t) + c_2 y_2(t)$ is also a solution of $(\star)$ on $I$.
 \end{theorem}
 
 This superposition principle, together with a suitable notion of linear independence, allows one to describe the entire family of solutions of the homogeneous equation in terms of just two particular solutions.
 
 \begin{theorem}[General Integral of the Homogeneous Equation]
-If $y_1(t)$ and $y_2(t)$ are linearly independent solutions of the linear homogeneous equation $(\star)$ on the interval $I$, meaning that the ratio $y_1/y_2$ is not constant on $I$, then the general solution of $(\star)$ is given by
-\[
-y(t) = c_1 y_1(t) + c_2 y_2(t), \qquad t \in I,
-\]
-where $c_1$ and $c_2$ are arbitrary constants.
+If $y_1(t)$ and $y_2(t)$ are linearly independent solutions of the linear homogeneous equation $(\star)$ on the interval $I$, meaning that the ratio $y_1/y_2$ is not constant on $I$, then the general solution of $(\star)$ is given by $y(t) = c_1 y_1(t) + c_2 y_2(t), \qquad t \in I$, where $c_1$ and $c_2$ are arbitrary constants.
 \end{theorem}
 
 This result shows that, once two particular linearly independent solutions of the homogeneous equation are known, every solution of the equation is thereby determined; equivalently, one says that the set of all solutions of the second-order linear homogeneous equation $(\star)$ forms a vector space of dimension two.
@@ -476,18 +388,14 @@ In general, discovering two particular solutions of a second-order linear equati
 
 \subsection{The Nonhomogeneous Equation}
 
-We now turn to the general, nonhomogeneous second-order linear equation,
+We now turn to the general, nonhomogeneous second-order linear equation:
 \begin{equation*}
-a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I, \tag{$\star\star$}
+a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I. \tag{$\star\star$}
 \end{equation*}
-where $a$, $b$, $c$ are continuous on $I$, with $a(t) \neq 0$ throughout, and $f$ is a given continuous external forcing term. As in the homogeneous case, the linear structure of the equation gives rise to a corresponding superposition principle, which in this setting relates solutions of the equation with different forcing terms.
+Here $a$, $b$, and $c$ are continuous on $I$, with $a(t) \neq 0$ throughout, and $f$ is a given continuous external forcing term. As in the homogeneous case, the linear structure of the equation gives rise to a corresponding superposition principle, which in this setting relates solutions of the equation with different forcing terms.
 
 \begin{theorem}[Superposition Principle for the Nonhomogeneous Equation]
-If $y_1(t)$ and $y_2(t)$ are solutions of the linear equation $(\star\star)$ with external forcing terms $f_1$ and $f_2$ respectively, and $c_1, c_2$ are arbitrary constants, then the function
-\[
-y(t) = c_1 y_1(t) + c_2 y_2(t)
-\]
-is a solution of $(\star\star)$ with forcing term
+If $y_1(t)$ and $y_2(t)$ are solutions of the linear equation $(\star\star)$ with external forcing terms $f_1$ and $f_2$ respectively, and $c_1, c_2$ are arbitrary constants, then the function $y(t) = c_1 y_1(t) + c_2 y_2(t)$ is a solution of $(\star\star)$ with forcing term
 \[
 f(t) = c_1 f_1(t) + c_2 f_2(t).
 \]
@@ -502,32 +410,16 @@ The general solution of the nonhomogeneous differential equation $(\star\star)$ 
 
 This theorem shows that, once two linearly independent solutions of the associated homogeneous equation $(\star)$ are known, together with a single particular solution of the nonhomogeneous equation $(\star\star)$, every solution of $(\star\star)$ is thereby determined, exactly as in the analogous situation encountered for first-order linear equations.
 
-As in the homogeneous case, finding a particular solution of a nonhomogeneous second-order linear equation with variable coefficients can be genuinely difficult in general. When the coefficient functions are constant, however, that is, for an equation of the form
-\[
-a y'' + b y' + c y = f(t)
-\]
-with $a, b, c \in \mathbb{R}$ and $a \neq 0$, a systematic technique known as the Method of Undetermined Coefficients is available, which allows one to guess the form of a particular solution directly from the structure of the forcing term $f(t)$, whether polynomial, exponential, or trigonometric in nature; the detailed development of this method, together with the classification of the homogeneous solutions according to the sign of the discriminant $\Delta$ of the characteristic equation, is left to the dedicated material provided for further study.
+As in the homogeneous case, finding a particular solution of a nonhomogeneous second-order linear equation with variable coefficients can be genuinely difficult in general. When the coefficient functions are constant, however, that is, for an equation of the form $a y'' + b y' + c y = f(t)$ with $a, b, c \in \mathbb{R}$ and $a \neq 0$, a systematic technique known as the Method of Undetermined Coefficients is available, which allows one to guess the form of a particular solution directly from the structure of the forcing term $f(t)$, whether polynomial, exponential, or trigonometric in nature; the detailed development of this method, together with the classification of the homogeneous solutions according to the sign of the discriminant $\Delta$ of the characteristic equation, is left to the dedicated material provided for further study.
 
 \section{Existence, Uniqueness, and Maximal Solutions}
 
 \subsection{Initial Data and Local Lipschitz Regularity}
 
-We consider an autonomous system of ODEs in $\R^N$:
-\begin{equation}
-\dot{\bv} = f(\bv), \quad \bv(0) = \bv_0
-\end{equation}
-where $f: \R^N \to \R^N$ is a vector field. A \textit{solution} to this initial value problem is a differentiable function $\bv: I \to \R^N$, defined on some interval $I$ containing $0$, such that
-\[
-(\dd/\dd t)\bv(t) = f(\bv(t))
-\]
-for all $t \in I$, and $\bv(0) = \bv_0$. To guarantee that solutions exist and are unique, we must impose regularity conditions on $f$. The standard condition is local Lipschitz continuity.
+We consider an autonomous system of ODEs in $\R^N$: $\dot{\bv} = f(\bv), \quad \bv(0) = \bv_0$, where $f: \R^N \to \R^N$ is a vector field. A \textit{solution} to this initial value problem is a differentiable function $\bv: I \to \R^N$, defined on some interval $I$ containing $0$, such that $(\dd/\dd t)\bv(t) = f(\bv(t))$ for all $t \in I$, and $\bv(0) = \bv_0$. To guarantee that solutions exist and are unique, we must impose regularity conditions on $f$. The standard condition is local Lipschitz continuity.
 
 \begin{definition}[Locally Lipschitz Continuous]
-A function $f: \R^N \to \R^N$ is \textit{locally Lipschitz continuous} if for every point $\bx \in \R^N$, there exists a neighborhood $U$ of $\bx$ and a constant $L_U > 0$ such that for all $\bx, \by \in U$:
-\begin{equation}
-\|f(\bx) - f(\by)\| \leq L_U \|\bx - \by\|
-\end{equation}
-where $\|\cdot\|$ denotes the standard Euclidean norm.
+A function $f: \R^N \to \R^N$ is \textit{locally Lipschitz continuous} if for every point $\bx \in \R^N$, there exists a neighborhood $U$ of $\bx$ and a constant $L_U > 0$ such that for all $\bx, \by \in U$: $\|f(\bx) - f(\by)\| \leq L_U \|\bx - \by\|$, where $\|\cdot\|$ denotes the standard Euclidean norm.
 \end{definition}
 
 \begin{remark}[Why the Lipschitz Condition?]
@@ -571,11 +463,9 @@ Since $u(t) \leq R(t)$ and $\beta(t) \geq 0$, we can substitute to obtain a diff
 \begin{equation}
 R'(t) \leq \beta(t) R(t) \implies R'(t) - \beta(t) R(t) \leq 0
 \end{equation}
-To solve this differential inequality, we multiply both sides by the integrating factor
-\[
+To solve this differential inequality, we multiply both sides by the integrating factor \[
 e^{-\int_0^t \beta(s) \dd s},
-\]
-which is strictly positive. Using the product rule for differentiation, we recognize the left side as the exact derivative of a product:
+\] which is strictly positive. Using the product rule for differentiation, we recognize the left side as the exact derivative of a product:
 \begin{equation}
 \begin{aligned}
 \frac{\dd}{\dd t} \left[ R(t) e^{-\int_0^t \beta(s) \dd s} \right] &= R'(t) e^{-\int_0^t \beta} + R(t) \left( -\beta(t) e^{-\int_0^t \beta} \right) \\
@@ -593,11 +483,9 @@ Hence the derivative of the product is non-positive:
 \begin{equation}
 \frac{\dd}{\dd t} \left[ R(t) e^{-\int_0^t \beta(s) \dd s} \right] \leq 0
 \end{equation}
-This implies that the function
-\[
+This implies that the function \[
 g(t) = R(t) e^{-\int_0^t \beta(s) \dd s}
-\]
-is monotonically non-increasing. Therefore, for any $t \geq 0$, $g(t) \leq g(0)$. Evaluating at $t=0$:
+\] is monotonically non-increasing. Therefore, for any $t \geq 0$, $g(t) \leq g(0)$. Evaluating at $t=0$:
 \begin{equation}
 \begin{aligned}
 g(0) &= R(0) e^0 \\
@@ -609,11 +497,9 @@ Thus,
 \[
 R(t) e^{-\int_0^t \beta(s) \dd s} \leq C.
 \]
-Multiplying both sides by the positive quantity
-\[
+Multiplying both sides by the positive quantity \[
 e^{\int_0^t \beta(s) \dd s}
-\]
-yields:
+\] yields:
 \begin{equation}
 R(t) \leq C \exp\left( \int_0^t \beta(s) \dd s \right)
 \end{equation}
@@ -631,14 +517,10 @@ If $\bv_1(t)$ and $\bv_2(t)$ are two solutions to $\dot{\bv} = f(\bv)$ on the in
 \[
 \begin{aligned}
 \bv_1(0) &= \bv_2(0) \\
-&= \bv_0,
+&= \bv_0.
 \end{aligned}
 \]
-and if $f$ is globally Lipschitz continuous with constant $L$ (i.e.,
-\[
-\|f(\bx) - f(\by)\| \leq L\|\bx - \by\|
-\]
-for all $\bx, \by \in \R^N$), then $\bv_1(t) = \bv_2(t)$ for all $t \in [0, T]$.
+Moreover, if $f$ is globally Lipschitz continuous with constant $L$ (i.e., $\|f(\bx) - f(\by)\| \leq L\|\bx - \by\|$ for all $\bx, \by \in \R^N$), then $\bv_1(t) = \bv_2(t)$ for all $t \in [0, T]$.
 \end{theorem}
 
 \begin{proof}
@@ -1100,9 +982,9 @@ Let $\Omega\subset\R^N$ be a bounded connected domain with smooth boundary. A \e
 A \emph{Neumann problem} instead prescribes the outward normal derivative:
 \begin{equation}
 \Delta u=0\quad\text{in }\Omega,\qquad
-\frac{\partial u}{\partial\mathbf{n}}=h\quad\text{on }\partial\Omega,
+\frac{\partial u}{\partial\mathbf{n}}=h\quad\text{on }\partial\Omega.
 \end{equation}
-where $\partial u/\partial\mathbf{n}:=\nabla u\cdot\mathbf{n}$. This specifies a quantity proportional to the boundary flux rather than the value of $u$ itself; for a diffusive current $\mathbf{J}=-D\nabla u$, the outward flux is $-D h$.
+Here $\partial u/\partial\mathbf{n}:=\nabla u\cdot\mathbf{n}$. This specifies a quantity proportional to the boundary flux rather than the value of $u$ itself; for a diffusive current $\mathbf{J}=-D\nabla u$, the outward flux is $-D h$.
 \end{definition}
 
 \begin{theorem}[Uniqueness for the Dirichlet Problem]

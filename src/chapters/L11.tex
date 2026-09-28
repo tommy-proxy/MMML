@@ -80,15 +80,9 @@ Thus, $\delta[\varphi_n] \to \delta[\varphi]$.
 Many classical functions can be embedded into the space of distributions.
 
 \begin{definition}[Regular Distributions]
-A function $f: \R \to \C$ is \textit{locally integrable} if
-\[
+A function $f: \R \to \C$ is \textit{locally integrable} if \[
 \int_K |f(t)| \dd t < \infty
-\]
-for every compact set $K \subset \R$. It has \textit{at most polynomial growth} if there exist constants $C > 0$ and $N \in \N$ such that
-\[
-|f(t)| \leq C(1 + |t|)^N
-\]
-for all $t \in \R$.
+\] for every compact set $K \subset \R$. It has \textit{at most polynomial growth} if there exist constants $C > 0$ and $N \in \N$ such that $|f(t)| \leq C(1 + |t|)^N$ for all $t \in \R$.
 Any such function $f$ defines a \textit{regular distribution} $T_f \in \mathcal{S}'(\R)$ via the action:
 \begin{equation}
 T_f[\varphi] = \int_\R f(t) \varphi(t) \dd t
@@ -97,11 +91,9 @@ T_f[\varphi] = \int_\R f(t) \varphi(t) \dd t
 \end{definition}
 
 \begin{remark}[Convergence of the Regular Distribution Integral]
-We must prove that the integral
-\[
+We must prove that the integral \[
 \int_\R f(t) \varphi(t) \dd t
-\]
-converges absolutely. Because $\varphi \in \mathcal{S}(\R)$, the seminorm
+\] converges absolutely. Because $\varphi \in \mathcal{S}(\R)$, the seminorm
 \[
 \|\varphi\|_{N+2, 0} = \sup_t |t^{N+2}\varphi(t)| = M < \infty.
 \]
@@ -113,19 +105,15 @@ Thus, the integrand is bounded by:
 \begin{equation}
 |f(t) \varphi(t)| \leq C(1 + |t|)^N \frac{M}{|t|^{N+2}}
 \end{equation}
-As $|t| \to \infty$, the right side behaves asymptotically as $CM / |t|^2$. Since
-\[
+As $|t| \to \infty$, the right side behaves asymptotically as $CM / |t|^2$. Since \[
 \int_{|t| \geq 1} |t|^{-2} \dd t < \infty,
-\]
-the integral converges absolutely by the comparison test. Continuity of $T_f$ follows similarly by bounding $|T_f[\varphi]|$ using the seminorms of $\varphi$.
+\] the integral converges absolutely by the comparison test. Continuity of $T_f$ follows similarly by bounding $|T_f[\varphi]|$ using the seminorms of $\varphi$.
 \end{remark}
 
 \begin{remark}[Physicist's Notation and Shifted Delta]
-The common physicist notation
-\[
+The common physicist notation \[
 \int_\R \delta(t-t') f(t') \dd t' = f(t)
-\]
-is a formal shorthand. Rigorously, we define the \textit{shifted delta distribution} $\delta_{t_0} \in \mathcal{S}'(\R)$ by its action on a test function:
+\] is a formal shorthand. Rigorously, we define the \textit{shifted delta distribution} $\delta_{t_0} \in \mathcal{S}'(\R)$ by its action on a test function:
 \begin{equation}
 \delta_{t_0}[\varphi] := \varphi(t_0)
 \end{equation}
@@ -140,38 +128,24 @@ The integral notation is merely a symbolic way of writing the action of the func
 Classical differentiation requires a function to be continuous. Distribution theory allows us to differentiate \textit{any} tempered distribution, including discontinuous functions, by transferring the derivative onto the smooth test functions.
 
 \begin{definition}[Distributional Derivative]
-For any tempered distribution $T \in \mathcal{S}'(\R)$, its distributional derivative $T' \in \mathcal{S}'(\R)$ is defined by its action on any test function $\varphi \in \mathcal{S}(\R)$:
-\begin{equation}
-T'[\varphi] := -T[\varphi']
-\end{equation}
-where $\varphi'$ is the classical derivative of the test function. (Note: $\varphi' \in \mathcal{S}(\R)$ because the derivative of a Schwartz function is also a Schwartz function.)
+For any tempered distribution $T \in \mathcal{S}'(\R)$, its distributional derivative $T' \in \mathcal{S}'(\R)$ is defined by its action on any test function $\varphi \in \mathcal{S}(\R)$: $T'[\varphi] := -T[\varphi']$, where $\varphi'$ is the classical derivative of the test function. (Note: $\varphi' \in \mathcal{S}(\R)$ because the derivative of a Schwartz function is also a Schwartz function.)
 \end{definition}
 
 \begin{remark}[Justification via Integration by Parts]
-Why is there a minus sign? This definition is motivated by the behavior of regular distributions. Suppose $T = T_f$ for a continuously differentiable function $f$ with at most polynomial growth. We evaluate
-\[
-T_f'[\varphi]
-\]
-using the definition:
+Why is there a minus sign? This definition is motivated by the behavior of regular distributions. Suppose $T = T_f$ for a continuously differentiable function $f$ with at most polynomial growth. We evaluate $T_f'[\varphi]$ using the definition:
 \begin{equation}
 \begin{aligned}
 T_f'[\varphi] &= -T_f[\varphi'] \\
 &= -\int_\R f(t) \varphi'(t) \dd t
 \end{aligned}
 \end{equation}
-If we were to use classical integration by parts on the integral
-\[
+If we were to use classical integration by parts on the integral \[
 \int_\R f'(t) \varphi(t) \dd t,
-\]
-we would get:
+\] we would get:
 \begin{equation}
 \int_\R f'(t) \varphi(t) \dd t = \Big[ f(t)\varphi(t) \Big]_{-\infty}^\infty - \int_\R f(t) \varphi'(t) \dd t
 \end{equation}
-The boundary term
-\[
-[ f(t)\varphi(t) ]_{-\infty}^\infty
-\]
-vanishes strictly because $\varphi \in \mathcal{S}(\R)$ decays faster than any polynomial, while $f(t)$ grows at most polynomially. Thus, their product approaches zero as $t \to \pm \infty$.
+The boundary term $[ f(t)\varphi(t) ]_{-\infty}^\infty$ vanishes strictly because $\varphi \in \mathcal{S}(\R)$ decays faster than any polynomial, while $f(t)$ grows at most polynomially. Thus, their product approaches zero as $t \to \pm \infty$.
 This leaves
 \[
 \int_\R f'(t) \varphi(t) \dd t = -\int_\R f(t) \varphi'(t) \dd t,
@@ -256,11 +230,9 @@ Then the sequence of regular distributions $T_{\rho_n}$ converges to the Dirac d
 \end{proposition}
 
 \begin{proof}
-We must show that the difference
-\[
+We must show that the difference \[
 D_n = \int_\R \rho_n(t) \varphi(t) \dd t - \varphi(0)
-\]
-approaches zero as $n \to \infty$.
+\] approaches zero as $n \to \infty$.
 
 \textit{Step 1: Algebraic manipulation of the difference.}
 The normalizing identity is
