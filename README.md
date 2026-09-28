@@ -21,7 +21,7 @@ Every result is developed with its assumptions stated, its proof (or a proof ske
 
 ## Why this exists
 
-I am a Medicine and Surgery student with a Bachelor's degree in Biomedical Engineering. Working across those two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the **mathematical prerequisites that the ideas silently assume**.
+I am a Medtech student at Campus Bio-Medico University of Rome, an interdisciplinary programme combining a Master's degree in Medicine and Surgery with a Bachelor's degree in Biomedical Engineering. I previously studied at the Medtec School of Humanitas University and Politecnico di Milano, where I attended the Mathematics course taught by Professor Monica Conti, on which the first part of this compendium is based. Working across these two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the mathematical prerequisites that the ideas silently assume.
 
 Books like Bishop's *Pattern Recognition and Machine Learning*, Dayan & Abbott's *Theoretical Neuroscience*, and Sutton & Barto's *Reinforcement Learning* are wonderful, but they move quickly through measure, operators, distributions, stochastic calculus, and variational arguments. Engineering curricula often stop short of these topics, and medical curricula almost never reach them.
 
@@ -29,7 +29,7 @@ This compendium is my attempt to close that gap in a single, coherent, notation-
 
 - **Engineering, medicine, and computer science students** who want to move into theoretical ML and computational neuroscience without a full mathematics degree.
 - **Self-learners** looking for a structured path from first principles to research-level tools.
-- **Anyone preparing for graduate study** in theoretical neuroscience, probabilistic machine learning, or computational psychiatry. It is also part of my own preparation for the [Gatsby Computational Neuroscience Unit](https://www.ucl.ac.uk/gatsby/) at UCL.
+- **Anyone preparing for graduate study** in theoretical neuroscience, probabilistic machine learning, or computational psychiatry. 
 
 ## Contents
 
@@ -113,7 +113,7 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareA
 
 ## Author
 
-**Tommaso Vescio**: Medicine and Surgery student, B.Sc. in Biomedical Engineering.
+**Tommaso Vescio**: Medicine and Surgery Medtech student.
 Interests: theoretical neuroscience, probabilistic machine learning, computational psychiatry.
 
 *If this helped you, a ⭐ on the repository helps others find it.*
