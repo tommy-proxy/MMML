@@ -88,8 +88,7 @@ cd src
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The compiled output is `src/main.pdf`. From the repository root, `make build`
-runs the same build and `make publish` refreshes the PDF in `pdf/`.
+The compiled output is `src/main.pdf`. 
 
 ## Status and versioning
 
