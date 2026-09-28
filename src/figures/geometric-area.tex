@@ -1,0 +1,21 @@
+Figure~\ref{fig:atlas-geometric-area} gives an area interpretation of a convergent geometric series.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\fill[figblue!28] (0,0) rectangle (2,4);
+\fill[figgreen!28] (2,2) rectangle (4,4);
+\fill[figred!25] (3,0) rectangle (4,2);
+\fill[figblue!50] (2,0) rectangle (3,1);
+\draw[thick] (0,0) rectangle (4,4);
+\draw (2,0) -- (2,4) (2,2) -- (4,2) (3,0) -- (3,2) (2,1) -- (3,1);
+\node at (1,2) {$1/2$};
+\node at (3,3) {$1/4$};
+\node at (3.5,1) {$1/8$};
+\node at (2.5,0.5) {$1/16$};
+\node at (2.5,1.5) {$\cdots$};
+\draw[<->] (0,-0.4) -- (4,-0.4) node[midway,below] {$1$};
+\end{tikzpicture}
+\caption{A unit square is successively partitioned into regions of area $1/2$, $1/4$, $1/8$, and $1/16$. The uncolored remainder has area $1/16$ after four steps; continuing the construction makes the remainder tend to zero and illustrates the sum of the geometric series with ratio $1/2$.}
+\label{fig:atlas-geometric-area}
+\end{figure}

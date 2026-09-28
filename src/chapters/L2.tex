@@ -1,0 +1,1242 @@
+\chapter{Topology of the Real Line, Limits, and Continuity}
+
+\section{Real Functions and Their Properties}
+
+\subsection{Definitions, Graphs, and Qualitative Properties}
+
+A real-valued function $f : D \to \mathbb{R}$, with $D \subseteq \mathbb{R}$, is a rule that assigns to each $x \in D$ exactly one value $f(x) \in \mathbb{R}$. The input variable is called the independent variable, and the domain $D = \operatorname{Dom}(f)$ is the set of all admissible inputs. The output is called the dependent variable, and the range of $f$ is the set of all values actually attained by $f$, that is,
+\[
+\begin{aligned}
+\operatorname{Im}(f) &= f(D) \\
+&= \{ f(x) : x \in \operatorname{Dom}(f) \} \subset \mathbb{R}.
+\end{aligned}
+\]
+
+The most common method for visualizing a function $f : D \to \mathbb{R}$ is its graph, defined as the set of ordered input--output pairs $\{ (x, f(x)) : x \in D \}$. Since the graph of a real-valued function is a curve in the $xy$-plane, it is natural to ask which curves in the plane actually arise as graphs of functions. This question is answered by the following geometric criterion.
+
+\begin{theorem}[Vertical Line Test]
+A curve in the $xy$-plane is the graph of a function of $x$ if and only if no vertical line intersects the curve more than once.
+\end{theorem}
+
+
+Several qualitative features recur throughout the study of elementary functions, the first of which concerns symmetry. If a function $f$ satisfies $f(-x) = f(x)$ for every number $x$ in its domain, then $f$ is called an even function; if instead $f(-x) = -f(x)$ for every such $x$, then $f$ is called an odd function. This algebraic property has a direct geometric significance: the graph of an even function is symmetric with respect to the $y$-axis, so that once the portion of the graph corresponding to $x > 0$ has been plotted, the entire graph is obtained simply by reflecting this portion about the $y$-axis.
+
+A second important qualitative feature is periodicity. A function $f$ is called periodic if there exists a positive constant $T$ such that $f(x + T) = f(x)$ for every value of $x$ in the domain of $f$; the smallest value of $T$ for which this identity holds is called the period of $f$, and the reciprocal $1/T$, called the frequency, measures the number of occurrences of the repeating pattern per unit of the independent variable. Nature abounds with examples of cyclic or recurring behavior that are naturally modeled by periodic functions, ranging from breathing to the beating of the heart.
+
+A third feature, of a rather different nature, concerns the monotone behavior of a function on a given set. A function $f$ is called strictly increasing on a set $I$ if, for all $x_1, x_2 \in I$ such that $x_1 < x_2$, one has $f(x_1) < f(x_2)$; it is called strictly decreasing on $I$ if instead $f(x_1) > f(x_2)$ whenever $x_1 < x_2$ in $I$.
+
+\subsection{Injectivity and Inverse Functions}
+
+Closely related to monotonicity is the notion of injectivity. A function $f$ is called one-to-one, or injective, if it never takes the same value twice, that is, if $f(x_1) \neq f(x_2)$ whenever $x_1 \neq x_2$. As in the case of the Vertical Line Test, this property admits a simple geometric characterization.
+
+\begin{theorem}[Horizontal Line Test]
+A function is one-to-one if and only if no horizontal line intersects its graph more than once.
+\end{theorem}
+
+Injective functions play a distinguished role because they alone admit an inverse. Let $f : A \to B$ be a one-to-one function with domain $A$ and range $B$. Then for every $y \in B$ there exists a unique $x \in A$ such that $f(x) = y$, that is,
+\begin{equation*}
+\forall y \in B \ \exists! \, x \in A : f(x) = y. \tag{1}
+\end{equation*}
+
+This means that if an element $y$ of $B$ is used as input, one obtains one and only one output $x$; in this way it becomes possible to construct a new function, called the inverse function of $f$. A function satisfying condition (1) is said to be invertible on $A$, and one has the general equivalence that $f$ is invertible on $A$ if and only if $f$ is injective on $A$. The reader is encouraged to explore further the connections between injectivity and monotonicity, since a strictly monotone function is automatically injective, although the converse implication does not hold in general.
+
+\begin{definition}[Inverse Function]
+Let $f$ be an injective function with domain $A$ and range $B$, so that $f : A \to B$. The inverse function of $f$, denoted by $f^{-1}$, is the function from $B$ to $A$,
+\[
+f^{-1} : B \to A,
+\]
+defined by the rule that $f^{-1}(y)$ is the unique solution $x$ of the equation $f(x) = y$; equivalently,
+\[
+f^{-1}(y) = x \iff f(x) = y.
+\]
+
+\end{definition}
+
+The graph of the inverse function $f^{-1}$ is obtained from the graph of $f$ by reflecting it about the line $y = x$, since the roles of the input and output variables are exchanged. In practice, given an explicitly defined one-to-one function $f$, the inverse $f^{-1}$ can be computed by means of a simple three-step procedure, which can be illustrated on the example $y = x^3 + 2$. The first step consists of writing the defining relation in the form $y = f(x)$. The second step consists of solving this equation for $x$ in terms of $y$, whenever this is algebraically possible. The third and final step consists of interchanging the roles of $x$ and $y$ in the resulting expression, so as to express $f^{-1}$ as a function of the variable $x$; the equation obtained in this way is precisely $y = f^{-1}(x)$.
+
+\input{figures/inverse-reflection.tex}
+
+\section{A Catalog of Elementary Functions}
+
+\subsection{Power, Root, and Real-Exponent Functions}
+
+We now turn to a systematic review of the elementary functions most frequently encountered in analysis, beginning with power functions. A function of the form $f(x) = x^n$, where $n \in \mathbb{N}$, is called a power function. The general shape of the graph of $f$ depends critically on whether the exponent $n$ is even or odd: if $n$ is even, then $f$ is an even function and its graph resembles the parabola $y = x^2$, whereas if $n$ is odd, then $f$ is an odd function and its graph resembles that of $y = x^3$. A further useful property, valuable for sketching graphs, is that the greater the power $n$, the flatter the graph near the origin and the steeper the graph for $x$ beyond $1$; in other words, close to the origin the functions with lower powers dominate, while far from the origin the functions with higher powers dominate.
+
+The inverse of the power function $y = x^n$, for $n \in \mathbb{N}$, is called a root function and is denoted by
+\[
+f(x) = \sqrt[n]{x} = x^{1/n}, \qquad \text{so that} \qquad y = \sqrt[n]{x} \iff y^n = x.
+\]
+
+When $n$ is odd, the function $y = x^n$ is one-to-one on all of $\mathbb{R}$, and consequently $\operatorname{Dom}(f) = \mathbb{R}$. When $n$ is even, however, the function $y = x^n$ fails to be injective on $\mathbb{R}$, but it becomes injective once the domain is restricted to $[0, \infty)$; since the corresponding range is likewise $[0, \infty)$, one has $\operatorname{Dom}(f) = [0, \infty)$ in this case.
+
+
+Having defined $x^n$ for natural exponents $n$ and its inverse for a fixed natural number $n$, it is natural to ask how the expression $b^\alpha$ can be defined for an arbitrary real exponent $\alpha$, given a fixed base $b \in \mathbb{R}$ with $b > 0$. The construction proceeds in successive stages of generality. If $\alpha = -n$ for some $n \in \mathbb{N}$, one sets $b^{-n} := 1/b^n$. If $\alpha = 1/n$, one sets
+\[
+b^{1/n} := \sqrt[n]{b}.
+\]
+If $\alpha \in \mathbb{Q}$, that is, if $\alpha = m/n$ with $m \in \mathbb{Z}$ and $n > 0$, one sets
+\[
+\begin{aligned}
+b^{\alpha} &:= (b^m)^{1/n} \\
+&= (b^m)^{1/n}.
+\end{aligned}
+\]
+
+The remaining and most delicate case concerns an irrational exponent $\alpha$, which we illustrate by constructing the value
+\[
+3^{\sqrt{2}}.
+\]
+The construction proceeds in four steps. First, one writes the decimal expansion
+\[
+\sqrt{2} = 1.414213562373095048801688724209\ldots.
+\]
+Second, one constructs the sequence of finite decimal truncations approximating $\sqrt{2}$, namely
+\[
+1, 1.4, 1.41, 1.414, 1.4142, \ldots,
+\]
+and defines the corresponding sequence of powers
+\[
+3^1, 3^{1.4}, 3^{1.41}, 3^{1.414}, 3^{1.4142}, \ldots;
+\]
+since each exponent appearing in this sequence is rational, every term is already well defined by the earlier stages of the construction, as in the example
+\[
+\begin{aligned}
+3^{1.4} &= 3^{14/10} \\
+&= (3^7)^{1/5}.
+\end{aligned}
+\]
+Third, one considers the set
+\[
+A = \{3^1, 3^{1.4}, 3^{1.41}, 3^{1.414}, 3^{1.4142}, \ldots\}
+\]
+and observes that $A$ is bounded above, an explicit upper bound being $3^2$. Fourth, by the Axiom of Completeness, the supremum of $A$ exists, and one defines
+\[
+3^{\sqrt{2}} := \sup A.
+\]
+
+The same construction applies verbatim to define quantities such as $2^\pi$, $\pi^e$, and $e^\pi$; more generally, for any irrational number $x$ and any base $b > 1$, one sets
+\[
+b^{\alpha} := \sup \{ b^q : q \in \mathbb{Q}, \ q < \alpha \}.
+\]
+
+Once powers with arbitrary real exponents have been defined in this way, they obey the familiar laws of exponents. For any $a, b > 0$ and any $r, s \in \mathbb{R}$, one has
+\[
+a^0 = 1, \qquad 1^r = 1, \qquad a^{r+s} = a^r a^s, \qquad (ab)^r = a^r b^r, \qquad (a^r)^s = a^{rs}.
+\]
+
+Building on this construction, for any real number $\alpha > 0$ one may define the real power function $f(x) = x^\alpha$ with domain $[0, \infty)$. The general shape of the graph when $\alpha > 1$ resembles that of the parabola $y = x^2$ restricted to $x \geq 0$, whereas the graph takes the form of a root function when $\alpha \in (0,1)$. When the exponent has the form $\alpha = m/n$ with $n$ odd, the function can be further extended by symmetry to the whole real line $\mathbb{R}$.
+
+\subsection{Exponential and Logarithmic Functions}
+
+A function of a fundamentally different kind is obtained by placing the variable in the exponent rather than in the base. Given any real number $b > 0$ with $b \neq 1$, the exponential function with base $b$ is defined by $f(x) = b^x$. Its qualitative behavior falls into two distinct families depending on the value of the base: when $0 < b < 1$, the function is decreasing and decays to $0$, whereas when $b > 1$, the function is increasing and grows rapidly to infinity. All such graphs pass through the common point $(0,1)$, since $b^0 = 1$ for every $b \neq 0$; moreover, as the base $b$ increases, the corresponding exponential function grows more rapidly for $x > 0$.
+
+Since, for $b > 0$ and $b \neq 1$, the exponential function $f(x) = b^x$ is injective, it admits an inverse function defined on its range $(0, \infty)$. This inverse is called the logarithmic function with base $b$, denoted by
+\[
+\log_b x : (0, \infty) \to \mathbb{R}, \qquad y = \log_b x \iff b^y = x \quad (x > 0).
+\]
+
+As an immediate consequence of this definition of inverse function, one has the two identities $\log_b(b^x) = x$ for every $x \in \mathbb{R}$, and $b^{\log_b x} = x$ for every $x > 0$. The laws of powers give the following logarithmic identities. In the first four, take $x, y > 0$ and any $\lambda \in \mathbb{R}$; the change-of-base identity also requires $a > 0$ and $a \neq 1$:
+\[
+\begin{aligned}
+\log_b 1 &= 0, \\
+\log_b(xy) &= \log_b x + \log_b y, \\
+\log_b \frac{x}{y} &= \log_b x - \log_b y, \\
+\log_b(x^\lambda) &= \lambda \log_b x, \\
+\log_b x &= \frac{\log_a x}{\log_a b}.
+\end{aligned}
+\]
+
+Among all possible choices of base $b$, the most convenient and mathematically natural choice is Euler's number $e$; the resulting logarithm is called the natural logarithm and is given the special notation $\log_e x = \ln x$. By definition, one thus has $\ln(e^x) = x$ for every $x \in \mathbb{R}$, and $e^{\ln x} = x$ for every $x > 0$. It is also customary to denote the logarithm with basis ten simply by $\log x$, so that $\log_{10} x = \log x$.
+
+Although $\log_b x$, for $b > 1$, is an increasing function, it is worth emphasizing that it grows extremely slowly once $x > 1$; in fact, $\log_b x$ grows more slowly than any positive power $x^\alpha$, however small the exponent $\alpha$ may be. This extremely slow growth can be illustrated by a striking numerical example. Suppose one attempts to compute the value $\ln n$ recursively, starting from $\ln 2$ and proceeding through the chain
+\[
+\ln 2 \to \ln 3 \to \cdots \to \ln n,
+\]
+so that reaching $\ln n$ requires $n$ elementary steps. The fastest computers currently available can perform approximately $10^{18}$ such computations per second, and one may ask how long such a computer would take to make the natural logarithm reach the value $100$. Since $\ln x$ reaches the value $100$ precisely when
+\[
+\begin{aligned}
+x &= e^{100} \\
+&\approx 10^{43},
+\end{aligned}
+\]
+the computer would require approximately $10^{43-18} = 10^{25}$ seconds to complete the computation. This duration should be compared with the age of the universe, estimated at approximately $14$ billion years, or $14 \times 10^9$ years; converting to seconds using
+\[
+14 \times 10^9 \times 365 \times 24 \times 3600 \approx 4.5 \times 10^{17}
+\]
+seconds, we see that the hypothetical computation would take vastly longer than the age of the universe itself, vividly illustrating the extraordinary slowness of logarithmic growth.
+
+\subsection{Trigonometric Functions and Their Inverses}
+
+The final family of elementary functions to be reviewed consists of the trigonometric functions, namely $y = \sin x$ and $y = \cos x$, together with the tangent function
+\[
+\begin{aligned}
+y &= \tan x \\
+&= \sin x / \cos x,
+\end{aligned}
+\]
+defined for $x \neq \pi/2 + k\pi$ with $k \in \mathbb{Z}$. It is important to recall that in this context the independent variable $x$ represents an angle measured in radians, abbreviated as rad; since $\pi \, \text{rad} = 180^\circ$, one has the approximate conversion $1 \, \text{rad} \approx 57.3^\circ$.
+
+Although the tangent function fails to be injective on its natural domain, it becomes injective once the domain is restricted to the interval $(-\pi/2, \pi/2)$, on which its range is the whole real line $\mathbb{R}$. The inverse of the resulting restriction
+\[
+\tan : \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \to \mathbb{R}
+\]
+is called the arctangent function, denoted by $\arctan$ or $\tan^{-1}$, and is defined as the function
+\[
+\arctan : \mathbb{R} \to \left( -\frac{\pi}{2}, \frac{\pi}{2} \right), \qquad y = \arctan x \iff \tan y = x.
+\]
+
+A similar construction applies to the sine function. Although $\sin x$ is not injective on its natural domain, it becomes injective once restricted to the interval $[-\pi/2, \pi/2]$, on which it defines a one-to-one function onto $[-1, 1]$. The inverse of the restriction
+\[
+\sin : \left[ -\frac{\pi}{2}, \frac{\pi}{2} \right] \to [-1, 1]
+\]
+is called the arcsine function, denoted by $\arcsin$ or $\sin^{-1}$, and is defined as the function
+\[
+\arcsin : [-1, 1] \to \left[ -\frac{\pi}{2}, \frac{\pi}{2} \right], \qquad y = \arcsin x \iff \sin y = x.
+\]
+
+An entirely analogous construction, based on restricting the domain of the cosine function to $[0, \pi]$, defines the arccosine function $\arccos x$ as the inverse of $\cos x$ on that restricted domain.
+
+\section{Topology and the Definition of a Limit}
+
+\subsection{Function Limits: Two Motivating Examples}
+
+The theory of limits of functions is best introduced by contrasting two seemingly similar examples. Consider first the function $(\sin x)/x$, which is not defined at $x = 0$, since the denominator vanishes there; nevertheless, numerical experimentation with a calculator strongly suggests that, intuitively,
+\[
+\lim_{x \to 0} (\sin x)/x = 1.
+\]
+
+Consider next the function $\sin(\pi/x)$, which is likewise undefined at $x = 0$; numerical experimentation in this second case suggests instead that the limit
+\[
+\lim_{x \to 0} \sin(\pi/x)
+\]
+does not exist at all, since the function oscillates increasingly rapidly as $x$ approaches zero. These two examples illustrate the need for a precise mathematical framework capable of distinguishing between such fundamentally different behaviors, and motivate the systematic development of the theory of limits undertaken in this section.
+
+This development pursues two complementary goals. The first goal concerns limits of a function at infinity: given a function $f : (r, \infty) \to \mathbb{R}$ for some real number $r$, one wishes to define the limit of $f(x)$ as $x$ tends to $+\infty$, that is, as $x$ becomes larger and larger, allowing for the three possible outcomes
+\[
+\begin{gathered}
+\lim_{x \to \infty} f(x) = +\infty, \\
+\lim_{x \to \infty} f(x) = L \in \mathbb{R}, \\
+\lim_{x \to \infty} f(x) = -\infty.
+\end{gathered}
+\]
+
+An entirely analogous notion is required when $f : (-\infty, -r) \to \mathbb{R}$, in which case one wishes to define
+\[
+\lim_{x \to -\infty} f(x);
+\]
+and when the limiting value $L$ is finite, it is furthermore of interest to distinguish between the limit taken from above and the limit taken from below. The second goal concerns limits of a function at a finite point: given a function
+\[
+f : (a-r, a) \cup (a, a+r) \to \mathbb{R},
+\]
+defined in a neighborhood of a point $a$ except possibly at $a$ itself, one wishes to define the limit of $f(x)$ as $x$ approaches $a$, again allowing for the three possible outcomes $+\infty$, a finite value $L$, or $-\infty$; in this setting it is likewise of interest to distinguish the one-sided limits
+\[
+\begin{gathered}
+\lim_{x \to a^+} f(x) \\
+\lim_{x \to a^-} f(x).
+\end{gathered}
+\]
+
+\subsection{Neighbourhoods and Accumulation Points}
+
+In order to formulate a single definition of limit capable of covering all of the cases described above, whether the point approached and the limiting value are finite or infinite, it is convenient to introduce a small amount of topological terminology. We call the extended real line the set
+\[
+\overline{\mathbb{R}} = \mathbb{R} \cup \{+\infty\} \cup \{-\infty\},
+\]
+obtained by adjoining to the ordinary real line two ideal points at infinity. A neighborhood of a point $a \in \mathbb{R}$ is an interval of the form
+\[
+U(a) = (a-r, a+r),
+\]
+for some $r > 0$. A neighborhood of $+\infty$ is a semi-line of the form $U(+\infty) = (r, +\infty)$, for some $r > 0$, and a neighborhood of $-\infty$ is a semi-line of the form $U(-\infty) = (-\infty, -r)$, for some $r > 0$. Given a point $x_0 \in \overline{\mathbb{R}}$, it is convenient to introduce the notation $\dot{U}(x_0)$ for the corresponding neighborhood with the point $x_0$ itself removed, namely
+\[
+\dot{U}(x_0) =
+\begin{cases}
+(a-r, a) \cup (a, a+r) & \text{if } x_0 = a \in \mathbb{R}, \\
+(r, +\infty) & \text{if } x_0 = +\infty, \\
+(-\infty, -r) & \text{if } x_0 = -\infty.
+\end{cases}
+\]
+
+Finally, given a finite point $a \in \mathbb{R}$, we call right-neighborhood of $a$ an interval of the form $U^+(a) = (a, a+r)$, for some $r > 0$, and we call left-neighborhood of $a$ an interval of the form $U^-(a) = (a-r, a)$, for some $r > 0$.
+
+\subsection{The Universal Definition of Limit}
+
+Equipped with this topological vocabulary, we can now formulate a single, universal definition of limit that simultaneously covers finite and infinite points, as well as finite and infinite limiting values. The ingredients of the definition are a limiting value $L \in \overline{\mathbb{R}}$, a point $x_0 \in \overline{\mathbb{R}}$ that is approached, and a function $f$ defined in a punctured neighborhood of $x_0$, that is, a function $f : \dot{U}(x_0) \to \mathbb{R}$.
+
+\begin{definition}[Universal Definition of Limit]
+We say that the limit of $f(x)$ as $x$ tends to $x_0$ is $L$, and we write
+\[
+\lim_{x \to x_0} f(x) = L,
+\]
+if $f(x)$ can be made arbitrarily close to $L$ by taking $x$ sufficiently close to $x_0$, namely if for every neighborhood $U(L)$ of $L$ there exists a neighborhood $U(x_0)$ of $x_0$ such that
+\[
+x \in \dot{U}(x_0) \implies f(x) \in U(L).
+\]
+
+\end{definition}
+
+This single definition, once the appropriate neighborhoods are unpacked according to whether $x_0$ and $L$ are finite or infinite, reproduces every one of the classical $\varepsilon$--$\delta$ and $\varepsilon$--$N$ formulations of limit encountered in elementary analysis, as will be verified explicitly in the following subsections.
+
+Two further refinements of the universal definition are frequently useful. When the limiting value is finite, $L \in \mathbb{R}$, one may define the one-sided limits from above and from below, denoted
+\[
+\begin{gathered}
+\lim_{x \to x_0} f(x) = L^+ \\
+\lim_{x \to x_0} f(x) = L^-,
+\end{gathered}
+\]
+by replacing the condition $f(x) \in U(L)$ in the universal definition with $f(x) \in U^+(L)$ and $f(x) \in U^-(L)$, respectively. Analogously, when the point approached is finite, $x_0 \in \mathbb{R}$, one may define the limits from the right and from the left, denoted
+\[
+\begin{gathered}
+\lim_{x \to x_0^+} f(x) = L \\
+\lim_{x \to x_0^-} f(x) = L,
+\end{gathered}
+\]
+by replacing the condition $x \in U(x_0)$ with $x \in U^+(x_0)$ and $x \in U^-(x_0)$, respectively.
+
+\section{Limits at Finite and Infinite Points}
+
+\subsection{Finite and Infinite Limits at Infinity}
+
+
+We now specialize the universal definition to the case of a function $f : (r, \infty) \to \mathbb{R}$, with the aim of describing the behavior of $f(x)$ as $x$ becomes larger and larger, that is, as $x$ tends to $+\infty$. As already anticipated, three qualitatively different outcomes are possible for the limit
+\[
+\lim_{x \to \infty} f(x),
+\]
+namely $+\infty$, a finite value $L \in \mathbb{R}$, or $-\infty$; we now make each of these precise.
+
+\begin{definition}[Finite Limit at Infinity]
+Let $L \in \mathbb{R}$. We say that the limit of $f(x)$ as $x$ tends to $+\infty$ is $L$, and we write
+\[
+\lim_{x \to +\infty} f(x) = L,
+\]
+if the values of $f(x)$ can be made arbitrarily close to $L$ by taking $x$ sufficiently large, that is, if for every $\varepsilon > 0$ there exists $N > 0$ such that
+\[
+x > N \implies |f(x) - L| < \varepsilon.
+\]
+
+\end{definition}
+
+Whenever a function admits a finite limit at $+\infty$, its graph exhibits a characteristic geometric feature, made precise by the following definition.
+
+\begin{definition}[Horizontal Asymptote]
+The line $y = L$ is called a horizontal asymptote of the graph of $y = f(x)$ if
+\[
+\lim_{x \to +\infty} f(x) = L.
+\]
+
+\end{definition}
+
+The complementary case, in which the values of $f(x)$ grow without bound, is described by the following definition.
+
+\begin{definition}[Infinite Limit at Infinity]
+We say that the limit of $f(x)$ as $x$ tends to $+\infty$ is $+\infty$, and we write
+\[
+\lim_{x \to +\infty} f(x) = +\infty,
+\]
+if the values of $f(x)$ can be made arbitrarily large by taking $x$ sufficiently large, that is, if for every $M > 0$ there exists $N > 0$ such that $x > N \implies f(x) > M$.
+\end{definition}
+
+Among functions that diverge to $+\infty$, it is useful to distinguish those that grow faster than a linear function from those that grow more slowly. If
+\[
+\lim_{x \to +\infty} f(x)/x = +\infty,
+\]
+we say that $f$ is superlinear as $x \to +\infty$; the function $f(x) = x^2$ provides a standard example. If instead
+\[
+\lim_{x \to +\infty} f(x)/x = 0,
+\]
+we say that $f$ is sublinear as $x \to +\infty$; the function $f(x) = \sqrt{x}$ provides a standard example of this second behavior.
+
+Functions that are neither superlinear nor sublinear, but instead grow at essentially a linear rate, may possess a slant asymptote, generalizing the notion of horizontal asymptote to the case of nonzero slope.
+
+\begin{definition}[Slant Asymptote]
+We say that the line $y = mx + q$, with $m \neq 0$, is a slant asymptote as $x \to +\infty$ for the function $f$ if
+\[
+\lim_{x \to +\infty} [f(x) - (mx+q)] = 0.
+\]
+
+\end{definition}
+
+\begin{remark}
+There is no slant asymptote when $f$ is either superlinear or sublinear as $x \to +\infty$. Indeed, a necessary condition for the existence of a slant asymptote is that $f(x) \sim mx$ as $x \to +\infty$; however, this asymptotic equivalence alone is not sufficient to guarantee the existence of a slant asymptote, as the definition additionally requires the finite limit of the difference $f(x) - mx$ to exist.
+\end{remark}
+
+The search for a slant asymptote can be organized into a systematic two-step procedure. The first step consists of computing
+\[
+\lim_{x \to +\infty} f(x)/x;
+\]
+if this limit fails to exist, or equals $0$, or is infinite, then $f$ has no slant asymptote. If instead
+\[
+\lim_{x \to +\infty} f(x)/x = m
+\]
+for some nonzero real number $m$, one proceeds to the second step, which consists of computing
+\[
+\lim_{x \to +\infty} [f(x) - mx];
+\]
+if this second limit fails to exist or is infinite, then again $f$ has no slant asymptote, whereas if
+\[
+\lim_{x \to +\infty} [f(x) - mx] = q \in \mathbb{R},
+\]
+then the line $y = mx + q$ is indeed the slant asymptote of $f$ as $x \to +\infty$. As an illustrative exercise, one may formulate the precise definition of
+\[
+\lim_{x \to +\infty} f(x) = -\infty
+\]
+by analogy with the definition given above for $+\infty$, and one may verify, for the function $f(x) = -x + e^{-x}$, that its limit as $x \to +\infty$ equals $-\infty$, while separately investigating whether this function possesses a slant asymptote.
+
+An entirely analogous set of definitions applies to the behavior of a function $f : (-\infty, r) \to \mathbb{R}$ as $x$ tends to $-\infty$, that is, as $x$ becomes larger and larger in absolute value while remaining negative, again allowing for the three possible outcomes
+\[
+\lim_{x \to -\infty} f(x) \in \{+\infty, L, -\infty\}.
+\]
+
+\subsection{Finite and Infinite Limits at a Finite Point}
+
+
+We now turn to the second main class of limits, namely those taken as the argument $x$ approaches a finite point $a \in \mathbb{R}$. Given such a point $a$, we consider a function $f$ defined in a neighborhood of $a$, except possibly at $a$ itself. For some $r > 0$, its domain can be written as
+\[
+f : (a-r, a) \cup (a, a+r) \to \mathbb{R}.
+\]
+We investigate the two-sided limit
+\[
+\lim_{x \to a} f(x)
+\]
+together with the one-sided limits
+\[
+\begin{gathered}
+\lim_{x \to a^+} f(x) \\
+\lim_{x \to a^-} f(x).
+\end{gathered}
+\]
+
+\begin{definition}[Infinite Limit at a Finite Point]
+We write
+\[
+\lim_{x \to a} f(x) = +\infty
+\]
+if the values of $f(x)$ can be made arbitrarily large by taking $x$ sufficiently close to $a$, that is, if for every $M > 0$ there exists $\delta > 0$ such that
+\[
+0 < |x - a| < \delta \implies f(x) > M.
+\]
+
+\end{definition}
+
+An analogous definition, with the inequality reversed, applies to
+\[
+\lim_{x \to a} f(x) = -\infty.
+\]
+In either case, the corresponding geometric feature of the graph is described as follows.
+
+\begin{definition}
+The line $x = a$ is called a vertical asymptote of the curve $y = f(x)$.
+\end{definition}
+
+\begin{remark}
+More precisely, the line $x = a$ is called a vertical asymptote of the curve $y = f(x)$ if at least one of the four possible one-sided infinite limits holds, namely
+\[
+\begin{gathered}
+\lim_{x \to a^+} f(x) = +\infty, \\
+\lim_{x \to a^-} f(x) = +\infty, \\
+\lim_{x \to a^+} f(x) = -\infty, \\
+\lim_{x \to a^-} f(x) = -\infty.
+\end{gathered}
+\]
+
+\end{remark}
+
+We turn now to the case of a finite limiting value at a finite point, which recovers the classical $\varepsilon$--$\delta$ definition familiar from elementary analysis.
+
+\begin{definition}[Finite Limit at a Finite Point]
+Let $L \in \mathbb{R}$. We write
+\[
+\lim_{x \to a} f(x) = L
+\]
+if the values of $f(x)$ can be made arbitrarily close to $L$ by taking $x$ sufficiently close to $a$, but distinct from $a$, that is, if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+\[
+0 < |x - a| < \delta \implies |f(x) - L| < \varepsilon.
+\]
+
+\end{definition}
+
+The corresponding one-sided versions of this definition are obtained by restricting the range of $x$ to one side of $a$. We write
+\[
+\lim_{x \to a^+} f(x) = L
+\]
+if for every $\varepsilon > 0$ there exists $\delta > 0$ such that $a < x < a + \delta$ implies $|f(x) - L| < \varepsilon$, and we write
+\[
+\lim_{x \to a^-} f(x) = L
+\]
+if for every $\varepsilon > 0$ there exists $\delta > 0$ such that $a - \delta < x < a$ implies $|f(x) - L| < \varepsilon$. These one-sided notions are related to the two-sided limit by the following characterization.
+
+\begin{remark}
+
+\[
+\lim_{x \to a} f(x) = L
+\]
+if and only if
+\[
+\begin{aligned}
+\lim_{x \to a^+} f(x) &= \lim_{x \to a^-} f(x) \\
+&= L.
+\end{aligned}
+\]
+
+\end{remark}
+
+\subsection{Continuity at a Point}
+
+The notion of limit at a finite point allows us to state, at this stage in a preliminary form, the definition of continuity, which will be studied in depth subsequently.
+
+\begin{definition}[Continuity]
+Let $f : D \to \mathbb{R}$ be such that $D$ contains an open interval of the form $(a-r, a+r)$ for some $r > 0$. We say that $f$ is continuous at $x = a$ if
+\[
+\lim_{x \to a} f(x) = f(a).
+\]
+We say that $f$ is right-continuous at $a$ if
+\[
+\lim_{x \to a^+} f(x) = f(a),
+\]
+and left-continuous at $a$ if
+\[
+\lim_{x \to a^-} f(x) = f(a).
+\]
+
+\end{definition}
+
+Figure~\ref{fig:ch4-eps-delta} illustrates how the horizontal and vertical neighborhoods enter the definition of a limit.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    width=13cm,height=8cm,
+    axis lines=middle,
+    xlabel={$x$}, ylabel={$f(x)$},
+    xmin=-0.5,xmax=4.3, ymin=-0.5,ymax=4.3,
+    xtick={2},xticklabels={$a$},
+    ytick={2.3},yticklabels={$f(a)=L$},
+    ]
+    \addplot[figblue,thick,domain=0.2:4,samples=100]
+      {0.15*(x-1)^3 - 0.3*(x-1)^2 + 0.9*(x-1) + 2.3};
+    \fill[figgreen,opacity=0.15] (axis cs:1.4,-0.5) rectangle (axis cs:2.6,4.3);
+    \draw[figgreen,dashed] (axis cs:1.4,-0.5) -- (axis cs:1.4,4.3)
+        node[pos=0,below,font=\scriptsize]{$a-\delta$};
+    \draw[figgreen,dashed] (axis cs:2.6,-0.5) -- (axis cs:2.6,4.3)
+        node[pos=0,below,font=\scriptsize]{$a+\delta$};
+    \fill[figred,opacity=0.15] (axis cs:-0.5,1.75) rectangle (axis cs:4.3,2.85);
+    \draw[figred,dashed] (axis cs:-0.5,1.75) -- (axis cs:4.3,1.75)
+        node[pos=0.97,above,font=\scriptsize]{$L-\varepsilon$};
+    \draw[figred,dashed] (axis cs:-0.5,2.85) -- (axis cs:4.3,2.85)
+        node[pos=0.97,below,font=\scriptsize]{$L+\varepsilon$};
+    \draw[black!50,dotted] (axis cs:2,-0.5) -- (axis cs:2,2.3) -- (axis cs:-0.5,2.3);
+    \node[circle,fill=black,inner sep=1.2pt] at (axis cs:2,2.3) {};
+  \end{axis}
+\end{tikzpicture}
+\caption[$\varepsilon$--$\delta$ definition of limit/continuity]{The vertical band
+  $(a-\delta,a+\delta)$ (green) is mapped by $f$ entirely inside the horizontal band
+  $(L-\varepsilon,L+\varepsilon)$ (red).}
+\label{fig:ch4-eps-delta}
+\end{figure}
+
+\subsection{General Theorems for Limits of Functions}
+
+Throughout this section, $x_0$ denotes a point of the extended real line $\overline{\mathbb{R}}$, and $f$ denotes a function defined in a neighborhood of $x_0$, except possibly at $x_0$ itself.
+
+One of the most powerful tools for the study of limits of functions is a theorem that reduces the computation of such limits to the computation of limits of sequences, a theory already developed in detail. This reduction rests on the following equivalence.
+
+\begin{theorem}[Limit by Sequences]
+Let $L \in \overline{\mathbb{R}}$ and $x_0 \in \overline{\mathbb{R}}$. The following two statements are equivalent: first,
+\[
+\lim_{x \to x_0} f(x) = L;
+\]
+second, for every sequence $\{a_n\}$ such that $a_n \to x_0$, one has
+\[
+\lim_{n \to \infty} f(a_n) = L.
+\]
+
+\end{theorem}
+
+A first and immediate consequence of this theorem concerns the nonexistence of limits: in order to show that the limit
+\[
+\lim_{x \to x_0} f(x)
+\]
+does not exist, it suffices to exhibit two sequences $a_n \to x_0$ and $b_n \to x_0$ such that
+\[
+\lim_{n \to \infty} f(a_n) \neq \lim_{n \to \infty} f(b_n).
+\]
+This technique can be applied, for instance, to prove that
+\[
+\lim_{x \to 0} \sin(\pi/x)
+\]
+does not exist, by exhibiting two sequences approaching $0$ along which the sine function takes different limiting values, in line with the motivating example discussed at the outset.
+
+The principal significance of the Theorem on Limits by Sequences is that it shows the computation of limits of real functions to be, in essence, the same problem as the computation of limits of sequences. As a consequence, every result already established for limits of sequences carries over, essentially without modification, to limits of functions; we now list the corresponding theorems for functions, each obtained as a direct transcription of its counterpart for sequences.
+
+We now prove the equivalence stated above between limits of functions and limits of sequences. We restrict attention, for definiteness, to the finite case $x_0 = a \in \mathbb{R}$ and $L \in \mathbb{R}$; the remaining cases, involving infinite points or infinite limiting values, are established by entirely analogous arguments and are left as exercises.
+
+\begin{proof}[Proof of the Sequential Characterization]
+We first prove that the second statement implies the first. We argue by contradiction, assuming that $f(x) \not\to L$ as $x \to a$. This means that there exists $\varepsilon > 0$ such that, for every $\delta > 0$, there exists a point $x = x_\delta$ satisfying $0 < |x - a| < \delta$ and $|f(x) - L| \geq \varepsilon$. Choosing $\delta = 1/n$ for each $n \in \mathbb{N}$, we obtain in this way a sequence $\{x_n\} \subset D$ such that
+\[
+\begin{gathered}
+|x_n - a| < \frac{1}{n} \\
+|f(x_n) - L| \geq \varepsilon.
+\end{gathered}
+\]
+
+This construction produces a sequence satisfying $x_n \to a$ but $f(x_n) \not\to L$, in direct contradiction with the second statement, thereby completing the proof of this implication.
+
+We now prove the converse implication, namely that the first statement implies the second. Assume that
+\[
+\lim_{x \to a} f(x) = L,
+\]
+and let $\{x_n\} \subset D$ be an arbitrary sequence such that $x_n \to a$; we must show that $f(x_n) \to L$. Fix $\varepsilon > 0$. By the first statement, there exists $\delta > 0$ such that, for every $x \in D$,
+\[
+|x - a| < \delta \implies |f(x) - L| < \varepsilon.
+\]
+
+Since $x_n \to a$, there exists $N \in \mathbb{N}$ such that $|x_n - a| < \delta$ for every $n > N$, and consequently $|f(x_n) - L| < \varepsilon$ for every $n > N$. Since $\varepsilon > 0$ was arbitrary, this shows that $f(x_n) \to L$, as claimed, and completes the proof of the theorem.
+\end{proof}
+
+\begin{theorem}[Uniqueness]
+If $f$ has a limit at $x_0$, then the value of this limit is unique.
+\end{theorem}
+
+\begin{theorem}[Sign Preserving Property]
+Suppose that $L > 0$ or $L = +\infty$, and that
+\[
+\lim_{x \to x_0} f(x) = L.
+\]
+Then there exists a neighborhood $U(x_0)$ such that $f(x) > 0$ for every $x \in \dot{U}(x_0)$.
+\end{theorem}
+
+\begin{theorem}[Comparison Theorem I]
+If $f(x) \geq g(x)$ throughout $\dot{U}(x_0)$, then
+\[
+\lim_{x \to x_0} f(x) \geq \lim_{x \to x_0} g(x).
+\]
+In particular,
+\[
+\begin{gathered}
+\lim_{x \to x_0} g(x) = +\infty\quad\text{implies}\quad \lim_{x \to x_0} f(x) = +\infty, \\
+\lim_{x \to x_0} f(x) = -\infty\quad\text{implies}\quad \lim_{x \to x_0} g(x) = -\infty.
+\end{gathered}
+\]
+
+\end{theorem}
+
+\begin{theorem}[Comparison Theorem II, Squeeze Theorem]
+Suppose that the following inequalities hold throughout $\dot{U}(x_0)$:
+\[
+\begin{aligned}
+f(x) &\leq h(x) \\
+&\leq g(x).
+\end{aligned}
+\]
+Assume also that the bounding functions have the same limit:
+\[
+\begin{aligned}
+\lim_{x \to x_0} f(x) &= \lim_{x \to x_0} g(x) \\
+&= L.
+\end{aligned}
+\]
+Then the middle function has that limit as well:
+\[
+\lim_{x \to x_0} h(x) = L.
+\]
+
+\end{theorem}
+
+As an application of the Squeeze Theorem, one may compute the limit
+\[
+\lim_{x \to 0} x^2 \sin(1/x):
+\]
+since the sine function is bounded between $-1$ and $1$, the product $x^2 \sin(1/x)$ is squeezed between $-x^2$ and $x^2$, both of which tend to $0$ as $x \to 0$, so that the limit equals $0$.
+
+A further essential tool concerns the interchange of limits with the application of an elementary function, generalizing the Composition Rule already established for sequences.
+
+\begin{theorem}[Composition Rule]
+Let $g$ be an elementary function, and suppose that
+\[
+\lim_{x \to x_0} f(x) = L \in \mathbb{R}.
+\]
+The limit of the composition is given by
+\[
+\begin{aligned}
+\lim_{x \to x_0} g(f(x)) &= g\left( \lim_{x \to x_0} f(x) \right) \\
+&= g(L).
+\end{aligned}
+\]
+
+\end{theorem}
+
+In particular, as $x \to x_0$, one has $\sin f(x) \to \sin L$, $e^{f(x)} \to e^L$, $\ln f(x) \to \ln L$, and $[f(x)]^\alpha \to L^\alpha$. It is worth noting that the last three of these rules extend naturally to the case $L = \pm \infty$, adopting the conventions $e^{+\infty} = +\infty$, $e^{-\infty} = 0$, $\ln(+\infty) = +\infty$, and $\ln 0 = -\infty$.
+
+The algebraic operations of sum, product, and quotient likewise behave well under limits, exactly as in the theory of sequences, subject to the usual restrictions concerning indeterminate forms.
+
+\begin{theorem}[Algebraic Limit Laws]
+Let $f$ and $g$ be two functions having a limit at $x_0$, say
+\[
+\begin{gathered}
+\lim_{x \to x_0} f(x) = a \\
+\lim_{x \to x_0} g(x) = b,
+\end{gathered}
+\]
+with $a, b \in \mathbb{R}$. Then, as $x \to x_0$,
+\[
+f(x) \pm g(x) \to a \pm b, \qquad f(x) \cdot g(x) \to a \cdot b, \qquad \frac{f(x)}{g(x)} \to \frac{a}{b},
+\]
+unless one falls into one of the indeterminate forms $+\infty - \infty$, $0 \cdot \infty$, $0/0$, or $\infty/\infty$.
+\end{theorem}
+
+\section{Asymptotic Methods and Special Limits}
+
+\subsection{Infinities, Infinitesimals, and Order of Growth}
+
+Let $f$ and $g$ be two functions such that, as $x \to x_0$, either both $f(x) \to +\infty$ and $g(x) \to +\infty$, or both $f(x) \to 0$ and $g(x) \to 0$. As in the theory of sequences, it is useful to compare the relative rates at which $f$ and $g$ approach their common limiting behavior.
+
+\begin{definition}
+If
+\[
+\lim_{x \to x_0} f(x)/g(x) = 1,
+\]
+we say that $f$ is asymptotically equivalent to $g$ as $x \to x_0$, and we write $f \sim g$ as $x \to x_0$; in this case $f$ and $g$ are said to be infinities, respectively infinitesimals, of the same order. If the limit in question equals $+\infty$, we say that $f$ is an infinite of higher order than $g$ as $x \to x_0$, and we write $g \prec f$. If instead the limit equals $0$, we say that $f$ is an infinitesimal of higher order than $g$ as $x \to x_0$.
+\end{definition}
+
+As a first illustration of this comparison, one may examine how the family of test functions $x^\alpha$ compares with itself for different values of $\alpha$, thereby recovering the hierarchy of powers familiar from the theory of infinities of sequences.
+
+A more refined classification assigns to each infinity, respectively infinitesimal, a definite order, together with an explicit leading term.
+
+\begin{definition}[Order of Infinity]
+Let $f(x) \to +\infty$ as $x \to +\infty$. We say that $f$ is an infinity of order $\beta$ as $x \to +\infty$ if
+\[
+\lim_{x \to +\infty} \frac{f(x)}{k x^\beta} = 1, \qquad \text{equivalently} \qquad f(x) \sim k x^\beta,
+\]
+for suitable numbers $k > 0$ and $\beta > 0$. The expression $k x^\beta$ is then called the leading part of $f$ as $x \to +\infty$.
+\end{definition}
+
+As an exercise illustrating this definition, one may determine the leading part, as $x \to +\infty$, of the function $f(x) = x^2 - 2x^3$; since the cubic term dominates the quadratic term for large $x$, the leading part is $-2x^3$.
+
+\begin{definition}[Order of Infinitesimal]
+Let $a \in \mathbb{R}$, and let $f$ be infinitesimal as $x \to a$, that is,
+\[
+\lim_{x \to a} f(x) = 0.
+\]
+We say that $f$ is infinitesimal of order $\gamma$ as $x \to a$ if
+\[
+\lim_{x \to a} \frac{f(x)}{h (x-a)^\gamma} = 1, \qquad \text{equivalently} \qquad f(x) \sim h (x-a)^\gamma,
+\]
+for suitable numbers $h \neq 0$ and $\gamma > 0$. The expression $h(x-a)^\gamma$ is then called the leading part of $f$ as $x \to a$.
+\end{definition}
+
+As a companion exercise to the one given above, one may determine the leading part, as $x \to 0$, of the same function $f(x) = x^2 - 2x^3$; in this case the quadratic term dominates near the origin, so the leading part as $x \to 0$ is $x^2$, in contrast with the leading part $-2x^3$ found earlier as $x \to +\infty$.
+
+\subsection{Indeterminate Forms, Substitution, and Euler's Number}
+
+The comparison of orders of growth is greatly facilitated by a collection of special limits, which we now record, organized according to the type of indeterminate form to which they apply.
+
+We first consider indeterminate forms of type $\infty/\infty$. For every value of the real constants $\alpha, \beta > 0$ and $b > 1$, one has
+\[
+\lim_{x \to +\infty} \frac{(\ln x)^\beta}{x^\alpha} = 0, \qquad \lim_{x \to +\infty} \frac{x^\alpha}{b^x} = 0,
+\]
+which together yield the hierarchy of infinities as $x \to +\infty$,
+\[
+(\ln x)^\beta \prec x^\alpha \prec b^x.
+\]
+
+It is furthermore useful to record that $x^a \prec x^b$ whenever $a < b$, extending the comparison of powers already familiar from the theory of sequences. We next consider indeterminate forms of type $0/0$, all valid as $x \to 0$. These are
+\[
+\frac{\ln(1+x)}{x} \to 1 \ \longleftrightarrow\ \ln(1+x) \sim x, \qquad \frac{e^x - 1}{x} \to 1 \ \longleftrightarrow\ e^x - 1 \sim x,
+\]
+and, for every $\alpha \in \mathbb{R}$,
+\[
+\frac{(1+x)^\alpha - 1}{x} \to \alpha \ \longleftrightarrow\ (1+x)^\alpha - 1 \sim \alpha x,
+\]
+together with
+\[
+\frac{\sin x}{x} \to 1 \ \longleftrightarrow\ \sin x \sim x, \qquad \frac{1 - \cos x}{x^2} \to \frac{1}{2} \ \longleftrightarrow\ 1 - \cos x \sim \frac{1}{2} x^2.
+\]
+
+Finally, we record a useful family of limits of the indeterminate form $0 \cdot \infty$, valid as $x \to 0^+$: for every $\alpha > 0$ one has
+\[
+\lim_{x \to 0^+} x^\alpha \ln x = 0,
+\]
+and more generally, for every pair of constants $\alpha, \beta > 0$,
+\[
+\lim_{x \to 0^+} x^\alpha |\ln x|^\beta = 0.
+\]
+
+These special limits, together with the hierarchy of infinities, provide the essential building blocks for resolving a wide range of indeterminate forms, as may be illustrated by computing the limits
+\[
+\lim_{x \to +\infty} \frac{e^x - x^2 + 1}{\sqrt{x} + x^{100}}, \qquad \lim_{x \to 0} \frac{x^3 + 7x^2 + 4x}{x^5 - x}, \qquad \lim_{x \to 0} \frac{\sin x^2}{\sin^2 x}, \qquad \lim_{x \to 0} \frac{\ln(1+3x)}{x^2 + 2x}.
+\]
+
+
+A particularly efficient method for evaluating limits involving products and quotients of asymptotically equivalent functions is furnished by the Substitution Principle, entirely analogous to the corresponding result already established for sequences.
+
+\begin{theorem}[Substitution Principle]
+If, as $x \to x_0$, one has $f(x) \sim F(x)$, $g(x) \sim G(x)$, and $h(x) \sim H(x)$, then
+\[
+\lim_{x \to x_0} \frac{f(x) \cdot g(x)}{h(x)} = \lim_{x \to x_0} \frac{F(x) \cdot G(x)}{H(x)},
+\]
+provided that the limit on the right-hand side exists.
+\end{theorem}
+
+A further class of indeterminate forms arises when studying limits of the type
+\[
+\lim_{x \to x_0} [f(x)]^{g(x)}.
+\]
+
+As in the corresponding treatment for sequences, it is convenient to take the logarithm, writing
+\[
+\begin{aligned}
+f(x)^{g(x)} &= e^{\ln [f(x)]^{g(x)}} \\
+&= e^{g(x) \ln f(x)}.
+\end{aligned}
+\]
+If it can be shown that $g(x) \ln f(x) \to L$, possibly with $L = \pm \infty$, then one concludes that
+\[
+[f(x)]^{g(x)} = e^{g(x) \ln f(x)} \to e^L.
+\]
+
+The indeterminate forms to which this technique applies are precisely $1^\infty$, $0^0$, and $\infty^0$; as an illustrative example, one may compute the limit
+\[
+\lim_{x \to 0^+} ((1+x)^{1/2})^{1/\sin x}
+\]
+by this method. A particularly important special case of the indeterminate form $1^\infty$ generalizes the definition of Euler's number already encountered in the theory of sequences.
+
+\begin{theorem}[Special Limit of Type $1^\infty$]
+For every $k \in \mathbb{R}$,
+\[
+\lim_{x \to \infty} \left( 1 + \frac{k}{x} \right)^x = e^k.
+\]
+
+\end{theorem}
+
+As a related pair of limits, one also has
+\[
+\lim_{x \to -\infty} (1 + 1/x)^x = e,
+\]
+in perfect analogy with the case $x \to +\infty$, together with the equivalent formulation obtained by the substitution $x = 1/t$, namely
+\[
+\lim_{x \to 0} (1+x)^{1/x} = e.
+\]
+
+The mathematical constant $e$ is fundamentally defined as the limit of a specific sequence, and this definition serves as the foundation for a broader family of convergence results involving exponential functions and indeterminate forms. Recall that
+\[
+e := \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n.
+\]
+
+This definition, originally stated for the sequence of natural numbers $n$, extends naturally to any sequence diverging to positive infinity, as the following theorem shows.
+
+\begin{theorem}
+Let $\{b_n\}$ be a sequence of real numbers such that $b_n \to +\infty$ as $n \to \infty$. Then
+\[
+\lim_{n \to \infty} \left( 1 + \frac{1}{b_n} \right)^{b_n} = e.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Since $b_n \to +\infty$, for every $n \in \mathbb{N}$ one may identify an integer $k = k(n)$, depending on $n$, such that $k < b_n \leq k+1$. From this inequality one derives corresponding bounds on the reciprocal term, namely
+\[
+\frac{1}{k+1} \leq \frac{1}{b_n} < \frac{1}{k}.
+\]
+
+Observe that, as $n \to \infty$, one has $k \to \infty$ as well, since $b_n$ diverges. Using the monotonicity of the function $x \mapsto (1+x)^y$ with respect to positive bases and exponents, one obtains the two-sided bound
+\[
+\begin{aligned}
+\left( 1 + \frac{1}{k+1} \right)^k &\leq \left( 1 + \frac{1}{b_n} \right)^{b_n} \\
+&\leq \left( 1 + \frac{1}{k} \right)^{k+1}.
+\end{aligned}
+\]
+
+We analyze the limits of the lower and upper bounds separately. For the lower bound, we write
+\[
+\left( 1 + \frac{1}{k+1} \right)^k = \left( 1 + \frac{1}{k+1} \right)^{k+1} \cdot \left( 1 + \frac{1}{k+1} \right)^{-1}.
+\]
+
+As $n \to \infty$, and hence $k \to \infty$, the first factor converges to $e$ by the standard definition, while the second factor converges to $1$; consequently,
+\[
+\begin{aligned}
+\lim_{n \to \infty} (1+(1/(k+1)))^k &= e \cdot 1 \\
+&= e.
+\end{aligned}
+\]
+Analogously, for the upper bound, we write
+\[
+\left( 1 + \frac{1}{k} \right)^{k+1} = \left( 1 + \frac{1}{k} \right)^k \cdot \left( 1 + \frac{1}{k} \right),
+\]
+and, as $k \to \infty$, the first factor converges to $e$ while the second converges to $1$, so that
+\[
+\begin{aligned}
+\lim_{n \to \infty} (1+(1/k))^{k+1} &= e \cdot 1 \\
+&= e.
+\end{aligned}
+\]
+
+Since both the lower and upper bounds converge to the common value $e$, the Squeeze Theorem guarantees that the sequence $(1+1/b_n)^{b_n}$ likewise converges to $e$, which proves the theorem.
+\end{proof}
+
+More generally, for any real number $x \in \mathbb{R}$, the exponential function $e^x$ can itself be defined by means of the analogous limit
+\[
+e^x := \lim_{n \to \infty} \left( 1 + \frac{x}{n} \right)^n.
+\]
+
+\subsection{Fundamental Notable Limits and Operational Rules}
+
+\begin{remark}[The logarithmic limit]
+
+Let $\{\varepsilon_n\}$ be a sequence of real numbers such that $\varepsilon_n \to 0$ as $n \to \infty$. We now present five fundamental limits, involving trigonometric, logarithmic, and exponential functions evaluated at $\varepsilon_n$, all of which present the indeterminate form $0/0$ and are of crucial importance for evaluating derivatives and analyzing asymptotic behavior throughout analysis. These limits establish that the natural logarithm of $1+\varepsilon_n$ is asymptotically equivalent to $\varepsilon_n$ itself; that $e^{\varepsilon_n}-1$ is likewise asymptotically equivalent to $\varepsilon_n$; that, for any $\alpha > 0$, the expression $(1+\varepsilon_n)^\alpha - 1$ is asymptotically equivalent to $\alpha \varepsilon_n$; that $\sin(\varepsilon_n)$ is asymptotically equivalent to $\varepsilon_n$; and that $1-\cos(\varepsilon_n)$ is asymptotically equivalent to $\varepsilon_n^2/2$. We now provide a rigorous proof of each of these five statements in turn, building each proof on the results already established.
+
+
+We aim to prove that
+\[
+\lim_{n \to \infty} \frac{\ln(1+\varepsilon_n)}{\varepsilon_n} = 1.
+\]
+
+Setting $b_n := 1/\varepsilon_n$, and assuming that $\varepsilon_n > 0$ for $n$ sufficiently large, so that $b_n \to +\infty$, the generalized limit established in the preceding subsection gives
+\[
+\lim_{n \to \infty} (1+\varepsilon_n)^{1/\varepsilon_n} = e.
+\]
+
+Taking the natural logarithm of both sides, and invoking the continuity of the logarithm, we obtain
+\[
+\begin{aligned}
+\lim_{n \to \infty} \ln\!\left( (1+\varepsilon_n)^{1/\varepsilon_n} \right)
+&= \ln\!\left( \lim_{n \to \infty} (1+\varepsilon_n)^{1/\varepsilon_n} \right) \\
+&= \ln(e) = 1.
+\end{aligned}
+\]
+
+Using the logarithmic identity $\ln(a^b) = b \ln(a)$, the expression inside the limit on the left-hand side may be rewritten as
+\[
+\begin{aligned}
+\ln\!\left( (1+\varepsilon_n)^{1/\varepsilon_n} \right) &= \frac{1}{\varepsilon_n} \ln(1+\varepsilon_n) \\
+&= \frac{\ln(1+\varepsilon_n)}{\varepsilon_n},
+\end{aligned}
+\]
+from which the desired conclusion follows immediately.
+
+\end{remark}
+
+\begin{remark}[The exponential limit]
+
+We aim to prove that
+\[
+\lim_{n \to \infty} \frac{e^{\varepsilon_n} - 1}{\varepsilon_n} = 1.
+\]
+
+Setting $\delta_n := e^{\varepsilon_n} - 1$, we observe that, since $\varepsilon_n \to 0$, one has $e^{\varepsilon_n} \to 1$, and consequently $\delta_n \to 0$. Taking the natural logarithm of the relation $e^{\varepsilon_n} = 1 + \delta_n$ yields $\varepsilon_n = \ln(1+\delta_n)$, and substituting into the original quotient gives
+\[
+\frac{e^{\varepsilon_n} - 1}{\varepsilon_n} = \frac{\delta_n}{\ln(1+\delta_n)}.
+\]
+
+This expression is precisely the reciprocal of the quotient analyzed in the proof of the Logarithmic Limit; since that limit was shown to equal $1$, we conclude that
+\[
+\begin{aligned}
+\lim_{n \to \infty} \frac{e^{\varepsilon_n} - 1}{\varepsilon_n}
+&= \lim_{n \to \infty} \frac{\delta_n}{\ln(1+\delta_n)} \\
+&= \frac{1}{\displaystyle \lim_{n \to \infty} \frac{\ln(1+\delta_n)}{\delta_n}}
+= \frac{1}{1} = 1.
+\end{aligned}
+\]
+
+\end{remark}
+
+\begin{remark}[The power-function limit]
+
+We aim to prove that, for every $\alpha > 0$,
+\[
+\lim_{n \to \infty} \frac{(1+\varepsilon_n)^\alpha - 1}{\varepsilon_n} = \alpha.
+\]
+Rewriting the power in terms of the exponential and logarithmic functions,
+\[
+(1+\varepsilon_n)^\alpha = e^{\alpha \ln(1+\varepsilon_n)},
+\]
+and setting $u_n := \alpha \ln(1+\varepsilon_n)$, we observe that $u_n \to 0$ as $\varepsilon_n \to 0$, since $\ln(1+\varepsilon_n) \to 0$. Multiplying and dividing the quotient of interest by $u_n$, for $n$ large enough that $u_n \neq 0$, we obtain
+\[
+\begin{aligned}
+\frac{(1+\varepsilon_n)^\alpha - 1}{\varepsilon_n} &= \frac{e^{u_n}-1}{\varepsilon_n} \\
+&= \frac{e^{u_n}-1}{u_n} \cdot \frac{u_n}{\varepsilon_n},
+\end{aligned}
+\]
+and, substituting back the definition of $u_n$, the second factor becomes
+\[
+\begin{aligned}
+\frac{u_n}{\varepsilon_n} &= \frac{\alpha \ln(1+\varepsilon_n)}{\varepsilon_n} \\
+&= \alpha \cdot \frac{\ln(1+\varepsilon_n)}{\varepsilon_n}.
+\end{aligned}
+\]
+
+As $n \to \infty$, the first factor $(e^{u_n}-1)/u_n$ converges to $1$ by the Exponential Limit, since $u_n \to 0$, while the second factor converges to $\alpha$ by the Logarithmic Limit. Multiplying these two limits together, we conclude that
+\[
+\begin{aligned}
+\lim_{n \to \infty} \frac{(1+\varepsilon_n)^\alpha - 1}{\varepsilon_n} &= 1 \cdot \alpha \\
+&= \alpha.
+\end{aligned}
+\]
+
+\end{remark}
+
+\begin{remark}[The sine limit]
+
+We aim to prove that
+\[
+\lim_{n \to \infty} \frac{\sin(\varepsilon_n)}{\varepsilon_n} = 1.
+\]
+
+Assume, without loss of generality, that $\varepsilon_n \in (0, \pi/2)$ for $n$ sufficiently large. A classical geometric argument, comparing the areas of a triangle, a circular sector, and a larger triangle inscribed in the unit circle, establishes the inequality $\sin(\theta) < \theta < \tan(\theta)$ for every $\theta \in (0,\pi/2)$. Substituting $\theta = \varepsilon_n$ and dividing throughout by $\sin(\varepsilon_n)$, which is positive on this interval, yields
+\[
+1 < \frac{\varepsilon_n}{\sin(\varepsilon_n)} < \frac{1}{\cos(\varepsilon_n)}.
+\]
+Taking reciprocals, which reverses the direction of both inequalities, gives
+\[
+\cos(\varepsilon_n) < \frac{\sin(\varepsilon_n)}{\varepsilon_n} < 1.
+\]
+
+As $n \to \infty$, we have $\varepsilon_n \to 0$, and hence $\cos(\varepsilon_n) \to 1$; since both the lower bound $\cos(\varepsilon_n)$ and the upper bound $1$ converge to the common value $1$, the Squeeze Theorem yields the desired conclusion,
+\[
+\lim_{n \to \infty} \sin(\varepsilon_n)/\varepsilon_n = 1.
+\]
+
+\end{remark}
+
+\begin{remark}[The cosine limit]
+
+We aim to prove that
+\[
+\lim_{n \to \infty} \frac{1-\cos(\varepsilon_n)}{\varepsilon_n^2} = \frac{1}{2}.
+\]
+
+Using the Pythagorean identity $\sin^2\theta + \cos^2\theta = 1$, which yields $1-\cos^2\theta = \sin^2\theta$, we rewrite the numerator $1-\cos(\varepsilon_n)$ by multiplying and dividing by the conjugate expression $1+\cos(\varepsilon_n)$,
+\[
+\begin{aligned}
+1 - \cos(\varepsilon_n)
+&= \frac{\big(1-\cos(\varepsilon_n)\big)\big(1+\cos(\varepsilon_n)\big)}{1+\cos(\varepsilon_n)} \\
+&= \frac{1-\cos^2(\varepsilon_n)}{1+\cos(\varepsilon_n)}
+= \frac{\sin^2(\varepsilon_n)}{1+\cos(\varepsilon_n)}.
+\end{aligned}
+\]
+Substituting this expression into the original quotient, we obtain
+\[
+\begin{aligned}
+\frac{1-\cos(\varepsilon_n)}{\varepsilon_n^2} &= \frac{\sin^2(\varepsilon_n)}{\varepsilon_n^2 \big(1+\cos(\varepsilon_n)\big)} \\
+&= \left( \frac{\sin(\varepsilon_n)}{\varepsilon_n} \right)^2 \cdot \frac{1}{1+\cos(\varepsilon_n)}.
+\end{aligned}
+\]
+
+By the Sine Limit established above, the first factor converges to $1^2 = 1$; and, since $\varepsilon_n \to 0$ implies $\cos(\varepsilon_n) \to 1$, the second factor converges to $1/(1+1) = 1/2$. Multiplying these two limits together yields the final result,
+\[
+\begin{aligned}
+\lim_{n \to \infty} \frac{1-\cos(\varepsilon_n)}{\varepsilon_n^2} &= 1 \cdot \frac{1}{2} \\
+&= \frac{1}{2}.
+\end{aligned}
+\]
+
+\end{remark}
+
+\section{Continuity and Continuous Functions on Intervals}
+
+\subsection{Continuity and Types of Discontinuity}
+
+We now turn from the classification of elementary functions to the fundamental analytic property of continuity. Let $f : D \to \mathbb{R}$ be a function such that the domain $D$ contains an open interval of the form $(a-r, a+r)$ for some $r > 0$; in other words, $D$ contains a full neighborhood of the point $a$.
+
+\begin{definition}
+We say that $f$ is continuous at $x = a$ if
+\[
+\lim_{x \to a} f(x) = f(a).
+\]
+
+\end{definition}
+
+Unwinding the definition of limit, this condition can be restated in an equivalent, purely quantitative form: $f$ is continuous at $x = a$ if and only if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+\[
+|x - a| < \delta \implies |f(x) - f(a)| < \varepsilon.
+\]
+
+This equivalence relies on the notion of one-sided limits, and it is useful to recall the precise relationship between the two-sided limit and its one-sided counterparts. Recalling that
+\[
+\lim_{x \to a} f(x) = L
+\]
+means that for every $\varepsilon > 0$ there exists $\delta > 0$ such that $0 < |x-a| < \delta$ implies $|f(x) - L| < \varepsilon$, one has the following characterization.
+
+\begin{remark}
+
+\[
+\lim_{x \to a} f(x) = L
+\]
+if and only if
+\[
+\begin{aligned}
+\lim_{x \to a^+} f(x) &= \lim_{x \to a^-} f(x) \\
+&= L.
+\end{aligned}
+\]
+
+\end{remark}
+
+Combining this remark with the definition of continuity yields a practical four-part test for continuity at a point, which is often more convenient to apply than the $\varepsilon$--$\delta$ definition directly. A function $f$ is continuous at $x = a$ if and only if the right-hand limit
+\[
+\lim_{x \to a^+} f(x)
+\]
+is finite, the left-hand limit
+\[
+\lim_{x \to a^-} f(x)
+\]
+is finite, the two one-sided limits coincide, say
+\[
+\begin{aligned}
+\lim_{x \to a^+} f(x) &= \lim_{x \to a^-} f(x) \\
+&= : L,
+\end{aligned}
+\]
+and this common value $L$ coincides exactly with $f(a)$.
+
+
+When one or more of the conditions in the continuity test fail, the function is said to be discontinuous at the point in question, and it is useful to classify the resulting types of discontinuity according to which condition fails. A removable discontinuity occurs when the one-sided limits are finite and equal to one another, but the common value differs from $f(a)$, the value of the function at the point itself. A jump discontinuity occurs when the one-sided limits are both finite but fail to coincide. An infinite discontinuity occurs when the one-sided limits exist, in the extended sense, but are infinite. Finally, a discontinuity is said to be of the second type whenever at least one of the one-sided limits fails to exist even in the extended real sense.
+
+\input{figures/discontinuities.tex}
+
+\subsection{Continuity of Elementary Functions}
+
+Having classified the possible failures of continuity, we turn to establishing that continuity is, in fact, the typical behavior exhibited by elementary functions. This is a consequence of a small number of general theorems governing how continuity is preserved under algebraic operations, composition, and inversion.
+
+\begin{theorem}[Algebra of Continuous Functions]
+Let $f$ and $g$ be continuous at the point $a$. Then the functions $f + g$, $f \cdot g$, and, provided $g(a) \neq 0$, the quotient $f/g$ are all continuous at $a$.
+\end{theorem}
+
+\begin{theorem}[Continuity of Compositions]
+If $f$ is continuous at $a$ and $g$ is continuous at $f(a)$, then the composition $g \circ f$, defined by
+\[
+(g \circ f)(x) = g(f(x)),
+\]
+is continuous at $a$.
+\end{theorem}
+
+\begin{theorem}[Continuity of the Inverse]
+Let $I$ be an interval and let $f : I \to J$ be continuous and injective on $I$, with range $J$. Then the inverse function $f^{-1} : J \to I$ is continuous on $J$.
+\end{theorem}
+
+Starting from the elementary facts that the constant function, the identity function $f(x) = x$, the exponential function $f(x) = e^x$, and the sine function $f(x) = \sin x$ are all continuous, the three theorems above allow one to deduce that essentially every elementary function encountered in analysis is continuous on its natural domain. This far-reaching consequence can be organized according to the following chain of deductions.
+
+\begin{itemize}
+\item \textit{Power functions}: the continuity of $x^n$ for $n \in \mathbb{N}$ follows from repeated application of the product rule for continuous functions.
+\item \textit{Rational functions}: the continuity of polynomial functions follows from the sum and product rules, while the continuity of rational functions additionally requires the quotient rule.
+\item \textit{Root and fractional power functions}: the continuity of the root functions $x^{1/n}$ follows from the Inverse Theorem applied to the power function $x^n$, and the continuity of $x^{m/n}$ follows by composition of a power function with a root function.
+\item \textit{Logarithmic and hyperbolic functions}: the continuity of the exponential function implies, via the Inverse Theorem, the continuity of the logarithmic functions, and consequently also the continuity of the hyperbolic functions, which are defined in terms of exponentials.
+\item \textit{Real power functions}: the continuity of $x^\alpha$ for an arbitrary real exponent $\alpha \in \mathbb{R}$ follows by composition, using the representation $x^\alpha = e^{\alpha \ln x}$.
+\item \textit{Trigonometric functions}: the continuity of $\sin x$ implies, by composition, the continuity of $\cos x$; the continuity of $\tan x$ then follows from the quotient rule, and the continuity of the inverse trigonometric functions follows from the Inverse Theorem.
+\end{itemize}
+
+A further useful reformulation of continuity, particularly convenient when working with compositions of continuous functions, concerns the interchange of limits and function evaluation. If $f$ and $g$ are two continuous functions, then the limit may be taken inside the function, in the sense that
+\[
+\begin{aligned}
+\lim_{x \to a} f(g(x)) &= f(g(a)) \\
+&= f\left( \lim_{x \to a} g(x) \right).
+\end{aligned}
+\]
+
+Recalling the characterization of limits by means of sequences, this property admits an equivalent sequential formulation: $f$ is continuous at $x = a$ if and only if, for every sequence $\{x_n\} \subset D$ such that $x_n \to a$, one has
+\[
+\lim_{n \to \infty} f(x_n) = f\left( \lim_{n \to \infty} x_n \right).
+\]
+
+\subsection{Extreme and Intermediate Value Theorems on Compact Intervals}
+
+
+We now turn to a collection of results that reveal the particularly rich structure enjoyed by continuous functions when their domain is a closed and bounded interval. The first such result guarantees both the boundedness of the function and the attainment of its extreme values.
+
+\begin{theorem}[Weierstrass' Theorem]
+Let $f$ be continuous on a closed bounded interval $[a,b]$. Then $f$ is bounded on $[a,b]$, and $f$ attains its extreme values; that is, there exist two points $c, d \in [a,b]$ for which the following bounds hold for every $x \in [a,b]$:
+\[
+f(d) \leq f(x) \leq f(c).
+\]
+
+\end{theorem}
+
+The hypotheses of this theorem, namely continuity together with a closed and bounded domain, are all essential, as illustrated by several simple examples of functions that fail to attain extreme values once one of these hypotheses is dropped. The function $f(x) = x$ on $[0, \infty)$ is not even bounded, since the domain is unbounded. The function $f(x) = x/(1+x)$ on $[0, \infty)$ is bounded but never attains its least upper bound, which equals $1$ but is only approached asymptotically as $x \to \infty$. The function $f(x) = 1/x$ on $(0,1]$ is not bounded, since it diverges as $x \to 0^+$, reflecting the fact that the domain is not closed. Finally, the function $f(x) = 1 - x$ on $(0,1]$ is bounded but never attains its least upper bound, which equals $1$ but is only approached as $x \to 0^+$, again because the domain fails to be closed. These examples show precisely why Weierstrass' Theorem requires both continuity and a closed bounded interval: only under these combined hypotheses is the attainment of extreme values guaranteed.
+
+
+A second fundamental property of continuous functions on closed bounded intervals concerns the existence of roots whenever the function changes sign.
+
+\begin{theorem}[Bolzano's Theorem]
+Let $f$ be a continuous function on a closed bounded interval $[a,b]$. Then
+\[
+f(a) \cdot f(b) < 0 \implies \exists c \in (a,b) : f(c) = 0.
+\]
+
+\end{theorem}
+
+\begin{remark}
+Bolzano's Theorem depends crucially on, and is in fact equivalent to, the completeness of the real number system.
+\end{remark}
+
+This result admits a natural generalization, known as the Intermediate Value Theorem, which asserts that a continuous function on a closed bounded interval attains every value lying between its minimum and its maximum.
+
+\begin{theorem}[Intermediate Value Theorem]
+Let $f$ be a continuous function on a closed bounded interval $[a,b]$. Then $f$ takes on every value between its maximum value $M$ and its minimum value $m$; that is,
+\[
+\forall k \in [m, M] \ \exists c \in [a,b] : f(c) = k.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Since $f$ is continuous on $[a,b]$, Weierstrass' Theorem guarantees that $f$ attains its extreme values $m$ and $M$ at certain points $x_m, x_M \in [a,b]$. For every $x \in [a,b]$, this gives
+\[
+m = f(x_m) \leq f(x) \leq f(x_M) = M.
+\]
+
+Given any $k \in (m, M)$, consider the auxiliary function $g(x) = f(x) - k$ on the interval with endpoints $x_m$ and $x_M$. This function is continuous, being the difference of a continuous function and a constant, and satisfies $g(x_m) < 0$ and $g(x_M) > 0$. Applying Bolzano's Theorem to $g$, we obtain a point $c$ such that $g(c) = 0$, that is, $f(c) = k$, which completes the proof.
+\end{proof}
+
+We conclude this section by presenting a constructive proof of Bolzano's Theorem, based on the classical bisection method, which iteratively narrows down an interval containing a root of $f$.
+
+\begin{proof}[Proof of Bolzano's Theorem by Bisection]
+Set $a_0 = a$, $b_0 = b$, and $L = b_0 - a_0$, and assume without loss of generality that $f(a_0) < 0$ and $f(b_0) > 0$. The starting configuration therefore consists of an interval $[a_0, b_0]$ satisfying $f(a_0) < 0$, $f(b_0) > 0$, and $b_0 - a_0 = L$. Consider the midpoint $(a_0 + b_0)/2$ of this interval, and distinguish three possibilities. If
+\[
+f( (a_0+b_0)/2 ) = 0,
+\]
+then $c = (a_0+b_0)/2$ is a root of $f$, and the proof is complete. If instead $f( (a_0+b_0)/2 ) < 0$, set $a_1 = (a_0+b_0)/2$ and $b_1 = b_0$. Finally, if $f( (a_0+b_0)/2 ) > 0$, set $a_1 = a_0$ and $b_1 = (a_0+b_0)/2$. In either of the latter two cases, one obtains a new interval $[a_1, b_1] \subset [a_0, b_0]$ satisfying
+\[
+f(a_1) < 0, \qquad f(b_1) > 0, \qquad b_1 - a_1 = \frac{L}{2}.
+\]
+
+This bisection procedure can be iterated: applying the same construction to the interval $[a_1, b_1]$ produces a further interval $[a_2, b_2] \subset [a_1, b_1]$ satisfying $f(a_2) < 0$, $f(b_2) > 0$, and $b_2 - a_2 = L/2^2$. Repeating the procedure $n$ times yields a subinterval $[a_n, b_n]$ such that
+\[
+f(a_n) < 0, \qquad f(b_n) > 0, \qquad b_n - a_n = \frac{L}{2^n},
+\]
+and, by construction, the resulting intervals are nested,
+\[
+[a_n, b_n] \subset [a_{n-1}, b_{n-1}] \subset \cdots \subset [a_1, b_1] \subset [a_0, b_0].
+\]
+
+We now analyze the sequences $\{a_n\}$ and $\{b_n\}$ separately. The sequence $\{a_n\}$ is monotone increasing and bounded above, since $a_n \leq b$ for every $n$; by the Monotone Convergence Theorem for real sequences, it therefore converges to a finite limit $\alpha \in \mathbb{R}$, and moreover $\alpha \leq b$. Similarly, the sequence $\{b_n\}$ is monotone decreasing and bounded below, since $b_n \geq a$ for every $n$; again by the Monotone Convergence Theorem, it converges to a finite limit $\beta \in \mathbb{R}$, with $\beta \geq a$. Consider now the sequence $b_n - a_n$. On one hand, by the algebra of limits,
+\[
+\lim_{n \to \infty} (b_n - a_n) = \beta - \alpha.
+\]
+On the other hand, by construction,
+\[
+\begin{aligned}
+\lim_{n \to \infty} (b_n - a_n) &= \lim_{n \to \infty} L / 2^n \\
+&= 0.
+\end{aligned}
+\]
+
+Since the limit of a sequence is unique, these two expressions must coincide, so that $\beta - \alpha = 0$, that is, $\alpha = \beta$. Set
+\[
+\begin{aligned}
+c &= \alpha \\
+&= \beta,
+\end{aligned}
+\]
+and note that $c \in [a,b]$, since $\alpha \leq b$ and $\beta \geq a$. Since $f$ is continuous, the sequential characterization of continuity gives
+\[
+\lim_{n \to \infty} a_n = c \implies \lim_{n \to \infty} f(a_n) = f(c).
+\]
+Because $f(a_n) < 0$ for every $n$, the Sign Preserving Property implies $f(c) \leq 0$. Analogously,
+\[
+\lim_{n \to \infty} b_n = c \implies \lim_{n \to \infty} f(b_n) = f(c),
+\]
+and since $f(b_n) > 0$ for every $n$, the same property implies $f(c) \geq 0$. Combining the two inequalities, we obtain
+\[
+0 \leq f(c) \leq 0 \implies f(c) = 0,
+\]
+which shows that $c$ is a root of $f$ in $[a,b]$ and completes the proof.
+\end{proof}

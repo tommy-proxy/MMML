@@ -1,0 +1,18 @@
+Figure~\ref{fig:atlas-kernel-image} separates the directions preserved by a projection from those annihilated by it.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.5,>=Stealth]
+\draw[->,figblue,thick] (-1,0) -- (4,0) node[right] {$\operatorname{Im}P$};
+\draw[->,figred,thick] (0,-0.6) -- (0,2.8) node[above] {$\ker P$};
+\draw[->,black!70,thick] (0,0) -- (2.7,2.1);
+\draw[->,figgreen,thick,dashed] (2.7,2.1) -- (2.7,0.05);
+\fill (2.7,2.1) circle (2pt);
+\fill[figblue] (2.7,0) circle (2pt);
+\node[above right] at (2.7,2.1) {$(x,y)$};
+\node[below] at (2.7,0) {$(x,0)$};
+\node[below left] at (0,0) {$0$};
+\end{tikzpicture}
+\caption{For the projection $P(x,y)=(x,0)$, the horizontal axis is the image and the vertical axis is the kernel. A point and its projection differ by a vertical vector in the kernel. Both subspaces have dimension one, in agreement with rank plus nullity equaling two.}
+\label{fig:atlas-kernel-image}
+\end{figure}

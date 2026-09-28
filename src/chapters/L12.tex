@@ -1,0 +1,624 @@
+\section{Harmonic Analysis and Fourier Transforms}
+
+\subsection{Fourier Transform and Inversion}
+
+\begin{definition}[Fourier Transform]
+Let $f \in L^1(\R)$ be a complex-valued, Lebesgue-integrable function. The Fourier transform of $f$, denoted $\hat{f}$, is defined as the function $\hat{f}: \R \to \C$ given by:
+\begin{equation}
+\hat{f}(\omega) = \int_\R f(t) e^{i\omega t} \dd t
+\end{equation}
+
+\end{definition}
+
+\begin{remark}[Why $L^1(\R)$?]
+The requirement that $f \in L^1(\R)$ is strictly necessary to guarantee that the integral converges absolutely for every $\omega \in \R$. Because the complex exponential is bounded by unity ($|e^{i\omega t}| = 1$), we have:
+\begin{equation}
+\int_\R |f(t) e^{i\omega t}| \dd t = \int_\R |f(t)| \dd t = \|f\|_{L^1} < \infty
+\end{equation}
+Absolute convergence ensures that $\hat{f}(\omega)$ is a well-defined, finite complex number for all $\omega$.
+\end{remark}
+
+\begin{lemma}[Riemann--Lebesgue Lemma]
+If $f \in L^1(\R)$, then its Fourier transform $\hat{f}$ is continuous, bounded, and vanishes at infinity:
+\[
+\lim_{|\omega| \to \infty} \hat{f}(\omega) = 0.
+\]
+
+\end{lemma}
+
+\begin{proof}
+We prove the three properties sequentially.
+
+\textit{1. Boundedness:}
+By the triangle inequality for integrals:
+\begin{equation}
+\begin{aligned}
+|\hat{f}(\omega)| &= \left| \int_\R f(t) e^{i\omega t} \dd t \right| \\
+&\leq \int_\R |f(t)| |e^{i\omega t}| \dd t \\
+&= \int_\R |f(t)| \dd t \\
+&= \|f\|_{L^1}
+\end{aligned}
+\end{equation}
+Thus, $\hat{f}$ is bounded by the $L^1$ norm of $f$.
+
+\textit{2. Continuity:}
+Let $\omega_n$ be a sequence converging to $\omega$. The integrand $f(t) e^{i\omega_n t}$ converges pointwise to $f(t) e^{i\omega t}$ for every $t$. Furthermore, the absolute value of the integrand is bounded by $|f(t)|$, which is an integrable dominating function since $f \in L^1(\R)$. By the \textit{Dominated Convergence Theorem}, we can pass the limit inside the integral:
+\begin{equation}
+\begin{aligned}
+    \lim_{n \to \infty} \hat{f}(\omega_n)
+    &= \int_\R \lim_{n \to \infty} \left( f(t) e^{i\omega_n t} \right) \dd t \\
+    &= \int_\R f(t) e^{i\omega t} \dd t = \hat{f}(\omega)
+    \end{aligned}
+\end{equation}
+This proves $\hat{f}$ is continuous.
+
+\textit{3. Decay at Infinity:}
+We use a phase-shift trick. Let $\omega \neq 0$. We perform the change of variables $s = t + \pi/\omega$, which implies $t = s - \pi/\omega$ and $\dd t = \dd s$. Notice that
+\[
+\begin{aligned}
+e^{i\omega(s - \pi/\omega)} &= e^{i\omega s} e^{-i\pi} \\
+&= -e^{i\omega s}.
+\end{aligned}
+\]
+Substituting this into the definition:
+\begin{equation}
+\begin{aligned}
+\hat{f}(\omega) &= \int_\R f(s - \pi/\omega) e^{i\omega (s - \pi/\omega)} \dd s \\
+&= -\int_\R f(s - \pi/\omega) e^{i\omega s} \dd s
+\end{aligned}
+\end{equation}
+
+Adding this expression to the original definition of $\hat{f}(\omega)$ (and renaming the dummy variable $s$ back to $t$):
+\begin{equation}
+2\hat{f}(\omega) = \int_\R \left[ f(t) - f(t - \pi/\omega) \right] e^{i\omega t} \dd t
+\end{equation}
+Taking the absolute value and applying the triangle inequality:
+\begin{equation}
+\begin{aligned}
+2|\hat{f}(\omega)| &\leq \int_\R \left| f(t) - f(t - \pi/\omega) \right| \dd t \\
+&= \left\| f(\cdot) - f(\cdot - \pi/\omega) \right\|_{L^1}
+\end{aligned}
+\end{equation}
+
+To show this goes to zero as $|\omega| \to \infty$, we must explicitly prove that translation is continuous in the $L^1$ norm. Let $\tau = \pi/\omega$. We want to show
+\[
+\lim_{\tau \to 0} \|f - f_\tau\|_{L^1} = 0,
+\]
+where $f_\tau(t) = f(t-\tau)$.
+Let $\varepsilon > 0$. The space of continuous functions with compact support, $C_c(\R)$, is dense in $L^1(\R)$. Thus, there exists a function $g \in C_c(\R)$ such that $\|f - g\|_{L^1} < \varepsilon/3$. By the triangle inequality:
+\begin{equation}
+\|f - f_\tau\|_{L^1} \leq \|f - g\|_{L^1} + \|g - g_\tau\|_{L^1} + \|g_\tau - f_\tau\|_{L^1}
+\end{equation}
+Because the Lebesgue measure is translation-invariant,
+\[
+\|g_\tau - f_\tau\|_{L^1} = \|g - f\|_{L^1} < \varepsilon/3.
+\]
+
+Since $g$ is continuous and has compact support, it is uniformly continuous. Let $K$ be a compact set containing the support of $g$ and $g_\tau$ for small $\tau$. For sufficiently small $|\tau|$,
+\[
+|g(t) - g(t-\tau)| < (\varepsilon/(3 \mu(K)))
+\]
+for all $t$. Thus:
+\begin{equation}
+\|g - g_\tau\|_{L^1} = \int_K |g(t) - g(t-\tau)| \dd t < \mu(K) \frac{\varepsilon}{3 \mu(K)} = \varepsilon/3
+\end{equation}
+
+Combining these, $\|f - f_\tau\|_{L^1} < \varepsilon$. Since $\pi/\omega \to 0$ as $|\omega| \to \infty$, we conclude that $\|f - f_{\pi/\omega}\|_{L^1} \to 0$, which forces $\hat{f}(\omega) \to 0$.
+\end{proof}
+
+\begin{theorem}[Fourier Inversion]
+If $f \in L^1(\R)$ and its Fourier transform $\hat{f} \in L^1(\R)$, then for almost every $t \in \R$:
+\begin{equation}
+f(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-i\omega t} \dd \omega
+\end{equation}
+If $f$ is continuous, this equality holds for all $t \in \R$.
+\end{theorem}
+
+\begin{proof}
+The integral
+\[
+\int \hat{f}(\omega) e^{-i\omega t} \dd \omega
+\]
+might not converge absolutely if we merely know $\hat{f} \in L^1$ and attempt to substitute the definition of $\hat{f}$ directly, because the resulting double integral may fail Fubini's conditions. To bypass this, we introduce a regularization factor $e^{-\varepsilon \omega^2}$ (Gaussian damping) and take the limit as $\varepsilon \to 0^+$. Define the regularized integral:
+\begin{equation}
+I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-\varepsilon \omega^2} e^{-i\omega t} \dd \omega
+\end{equation}
+The two facts needed for dominated convergence are
+\[
+\begin{gathered}
+\hat{f} \in L^1 \\
+|e^{-\varepsilon \omega^2} e^{-i\omega t}| \leq 1,
+\end{gathered}
+\]
+
+Together, they show that the integrand is dominated by $|\hat{f}(\omega)| \in L^1$. By the Dominated Convergence Theorem, as $\varepsilon \to 0^+$:
+\begin{equation}
+\lim_{\varepsilon \to 0^+} I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \hat{f}(\omega) e^{-i\omega t} \dd \omega
+\end{equation}
+Now, substitute the definition of
+\[
+\hat{f}(\omega) = \int_\R f(s) e^{i\omega s} \dd s
+\]
+into $I_\varepsilon(t)$:
+\begin{equation}
+I_\varepsilon(t) = \frac{1}{2\pi} \int_\R \left[ \int_\R f(s) e^{i\omega s} \dd s \right] e^{-\varepsilon \omega^2} e^{-i\omega t} \dd \omega
+\end{equation}
+
+We must justify swapping the order of integration. The absolute value of the integrand is $|f(s)| e^{-\varepsilon \omega^2}$. The double integral of the absolute value is:
+\begin{equation}
+\begin{aligned}
+    \int_\R \int_\R |f(s)| e^{-\varepsilon \omega^2} \dd s \dd \omega
+    &= \|f\|_{L^1} \int_\R e^{-\varepsilon \omega^2} \dd \omega \\
+    &= \|f\|_{L^1} \sqrt{\frac{\pi}{\varepsilon}} < \infty
+    \end{aligned}
+\end{equation}
+
+Since the double integral is absolutely convergent, the \textit{Fubini--Tonelli Theorem} permits us to swap the integrals:
+\begin{equation}
+\begin{aligned}
+I_\varepsilon(t)
+    &= \int_\R f(s) \underbrace{ \left[ \frac{1}{2\pi} \int_\R e^{-\varepsilon \omega^2} e^{i\omega(s-t)} \dd \omega \right] }_{g_\varepsilon(s-t)} \dd s \\
+    &= (f * g_\varepsilon)(t)
+    \end{aligned}
+\end{equation}
+where $*$ denotes convolution. We now explicitly evaluate the inner integral $g_\varepsilon(u)$ by completing the square in the exponent:
+\begin{equation}
+\begin{aligned}
+    -\varepsilon \omega^2 + i\omega u
+    &= -\varepsilon \left( \omega^2 - \frac{i\omega u}{\varepsilon} \right) \\
+    &= -\varepsilon \left( \left(\omega - \frac{iu}{2\varepsilon}\right)^2 + \frac{u^2}{4\varepsilon^2} \right) \\
+    &= -\varepsilon \left(\omega - \frac{iu}{2\varepsilon}\right)^2 - \frac{u^2}{4\varepsilon}
+    \end{aligned}
+\end{equation}
+
+Substituting $z = \omega - iu/(2\varepsilon)$ and shifting the contour of integration (justified by Cauchy's Integral Theorem, since $e^{-\varepsilon z^2}$ is entire and decays rapidly in horizontal strips):
+\begin{equation}
+\begin{aligned}
+g_\varepsilon(u)
+    &= \frac{1}{2\pi} e^{-u^2 / 4\varepsilon} \int_\R e^{-\varepsilon z^2} \dd z \\
+    &= \frac{1}{2\pi} e^{-u^2 / 4\varepsilon} \sqrt{\frac{\pi}{\varepsilon}}
+    = \frac{1}{\sqrt{4\pi\varepsilon}} e^{-u^2 / 4\varepsilon}
+    \end{aligned}
+\end{equation}
+
+The family of functions $\{g_\varepsilon\}_{\varepsilon > 0}$ forms a \textit{nascent delta sequence}. We explicitly verify the three required conditions:
+\begin{enumerate}
+\item \textit{Non-negativity}: $g_\varepsilon(u) > 0$ for all $u \in \R$.
+\item \textit{Normalization}: the following identity holds:
+
+\[
+\int_\R g_\varepsilon(u) \dd u = 1
+\]
+
+(which follows from evaluating the Gaussian integral or noting it is the inverse Fourier transform of $e^{-\varepsilon \omega^2}$ at $t=0$).
+\item \textit{Concentration}: for any $\eta > 0$, let $v = u/(4\varepsilon)^{1/2}$. Then:
+
+\begin{equation}
+\int_{|u| > \eta} g_\varepsilon(u) \dd u = \frac{2}{\sqrt{\pi}} \int_{|v| > \eta/\sqrt{4\varepsilon}} e^{-v^2} \dd v
+\end{equation}
+As $\varepsilon \to 0^+$, the lower limit $\eta/(4\varepsilon)^{1/2} \to \infty$, so the integral approaches 0.
+\end{enumerate}
+By the properties of nascent delta sequences, the convolution $(f * g_\varepsilon)(t)$ converges to $f(t)$ at every point of continuity of $f$. Equating the two limits ($\varepsilon \to 0^+$) yields the inversion formula.
+\end{proof}
+
+\subsection{\texorpdfstring{$L^2$}{L2} Theory and Convolution}
+
+\begin{theorem}[Plancherel Theorem]
+The Fourier transform extends uniquely to a unitary operator (up to a scaling factor) on $L^2(\R)$. For all $f, g \in L^2(\R)$:
+\begin{equation}
+\int_\R f(t) \overline{g(t)} \dd t = \frac{1}{2\pi} \int_\R \hat{f}(\omega) \overline{\hat{g}(\omega)} \dd \omega
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+We first prove the identity for $f, g \in \mathcal{S}(\R)$ (the Schwartz space), and then extend it to $L^2(\R)$.
+
+\textit{Step 1: Setup for Schwartz functions.}
+Define the time-reversed, complex-conjugated function $\tilde{g}(t) = \overline{g(-t)}$. Since $g \in \mathcal{S}(\R)$, it is clear that $\tilde{g} \in \mathcal{S}(\R)$. Let $h = f * \tilde{g}$. Because $\mathcal{S}(\R)$ is closed under convolution, $h \in \mathcal{S}(\R)$.
+
+\textit{Step 2: Evaluate $h(0)$ in the time domain.}
+
+\begin{equation}
+h(0) = (f * \tilde{g})(0) = \int_\R f(t) \tilde{g}(-t) \dd t = \int_\R f(t) \overline{g(t)} \dd t = \langle f, g \rangle_{L^2}
+\end{equation}
+
+\textit{Step 3: Evaluate $\hat{h}(\omega)$ in the frequency domain.}
+By the Convolution Theorem (proven below),
+\[
+\hat{h}(\omega) = \hat{f}(\omega) \hat{\tilde{g}}(\omega).
+\]
+We compute $\hat{\tilde{g}}(\omega)$:
+\begin{equation}
+\hat{\tilde{g}}(\omega) = \int_\R \overline{g(-t)} e^{i\omega t} \dd t
+\end{equation}
+Substitute $s = -t$, so $\dd t = -\dd s$:
+\begin{equation}
+\begin{aligned}
+    \hat{\tilde{g}}(\omega)
+    &= \int_\R \overline{g(s)} e^{-i\omega s} \dd s \\
+    &= \overline{ \left( \int_\R g(s) e^{i\omega s} \dd s \right) }
+    = \overline{\hat{g}(\omega)}
+    \end{aligned}
+\end{equation}
+Thus,
+\[
+\hat{h}(\omega) = \hat{f}(\omega) \overline{\hat{g}(\omega)}.
+\]
+
+\textit{Step 4: Apply the Inversion Theorem.}
+Since $h \in \mathcal{S}(\R)$, both $h$ and $\hat{h}$ are in $L^1(\R)$. Applying the Fourier Inversion Theorem at $t=0$:
+\begin{equation}
+\begin{aligned}
+h(0) &= \frac{1}{2\pi} \int_\R \hat{h}(\omega) e^{0} \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R \hat{f}(\omega) \overline{\hat{g}(\omega)} \dd \omega \\
+    &= \frac{1}{2\pi} \langle \hat{f}, \hat{g} \rangle_{L^2}
+    \end{aligned}
+\end{equation}
+Equating the results from Step 2 and Step 4 yields
+\[
+\langle f, g \rangle_{L^2} = (1/(2\pi)) \langle \hat{f}, \hat{g} \rangle_{L^2}.
+\]
+
+\textit{Step 5: Extension to $L^2(\R)$.}
+The Schwartz space $\mathcal{S}(\R)$ is dense in $L^2(\R)$. On this dense subset, the Fourier transform is a linear isometry (up to the $1/(2\pi)^{1/2}$ factor). By the \textit{Bounded Linear Transformation (BLT) Theorem}, any uniformly continuous linear map from a dense subset of a metric space to a complete metric space extends uniquely to the entire space. Since $L^2(\R)$ is complete, the Fourier transform extends uniquely to a bounded linear operator on all of $L^2(\R)$. Because the isometry property holds on the dense subset, it holds on the entire space by the continuity of the norm.
+\end{proof}
+
+\begin{corollary}[Parseval's Identity]
+Setting $f=g$ in Plancherel's theorem yields the conservation of energy:
+\begin{equation}
+\int_\R |f(t)|^2 \dd t = \frac{1}{2\pi} \int_\R |\hat{f}(\omega)|^2 \dd \omega
+\end{equation}
+
+\end{corollary}
+
+\begin{theorem}[Convolution Theorem]
+If $f, g \in L^1(\R)$, then their convolution $f*g \in L^1(\R)$ and the Fourier transform of the convolution is the pointwise product of their Fourier transforms:
+\begin{equation}
+\widehat{f*g}(\omega) = \hat{f}(\omega) \hat{g}(\omega)
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+By definition,
+\[
+(f*g)(t) = \int_\R f(\tau) g(t-\tau) \dd \tau.
+\]
+We evaluate its Fourier transform:
+\begin{equation}
+\widehat{f*g}(\omega) = \int_\R e^{i\omega t} \left( \int_\R f(\tau) g(t-\tau) \dd \tau \right) \dd t
+\end{equation}
+To swap the order of integration, we verify absolute integrability via Fubini--Tonelli:
+\begin{equation}
+\int_\R \int_\R |f(\tau)| |g(t-\tau)| \dd \tau \dd t = \int_\R |f(\tau)| \left( \int_\R |g(t-\tau)| \dd t \right) \dd \tau = \|f\|_{L^1} \|g\|_{L^1} < \infty
+\end{equation}
+Since the double integral is absolutely convergent, we swap the integrals:
+\begin{equation}
+\widehat{f*g}(\omega) = \int_\R f(\tau) \left( \int_\R g(t-\tau) e^{i\omega t} \dd t \right) \dd \tau
+\end{equation}
+
+In the inner integral, we perform the substitution $u = t-\tau$, which implies $t = u+\tau$ and $\dd t = \dd u$. The limits of integration remain $-\infty$ to $\infty$:
+\begin{equation}
+\begin{aligned}
+\int_\R g(u) e^{i\omega (u+\tau)} \dd u &= e^{i\omega \tau} \int_\R g(u) e^{i\omega u} \dd u \\
+&= e^{i\omega \tau} \hat{g}(\omega)
+\end{aligned}
+\end{equation}
+Substituting this back into the outer integral:
+\begin{equation}
+\begin{aligned}
+    \widehat{f*g}(\omega)
+    &= \int_\R f(\tau) e^{i\omega \tau} \hat{g}(\omega) \dd \tau \\
+    &= \hat{g}(\omega) \int_\R f(\tau) e^{i\omega \tau} \dd \tau
+    = \hat{g}(\omega) \hat{f}(\omega)
+    \end{aligned}
+\end{equation}
+
+\end{proof}
+
+\input{figures/box-convolution.tex}
+
+\subsection{The Heisenberg Uncertainty Principle}
+
+
+\begin{theorem}[Heisenberg Uncertainty Principle]
+For $f \in L^2(\R)$ with $\|f\|_{L^2}=1$, assuming $tf(t)$ and $\omega \hat{f}(\omega)$ are in $L^2(\R)$:
+\begin{equation}
+\left( \int_\R t^2 |f(t)|^2 \dd t \right) \left( \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega \right) \geq \frac{1}{4}
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+Define the time and frequency second moments by
+\[
+\begin{gathered}
+\Delta t^2 = \int_\R t^2 |f(t)|^2 \dd t \\
+\Delta \omega^2 = \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega.
+\end{gathered}
+\]
+
+For the derivation, we assume $f \in \mathcal{S}(\R)$ to ensure all boundary terms vanish and derivatives are well-behaved; the result extends to the specified domain in $L^2$ by a standard density argument.
+
+\textit{Step 1: Relate $\Delta \omega^2$ to the time-domain derivative.}
+First, we establish the derivative property of the Fourier transform. Using integration by parts on $\widehat{f'}(\omega)$:
+\begin{equation}
+\begin{aligned}
+    \widehat{f'}(\omega)
+    &= \int_\R f'(t) e^{i\omega t} \dd t \\
+    &= \left[ f(t) e^{i\omega t} \right]_{-\infty}^\infty
+    - \int_\R f(t) (i\omega) e^{i\omega t} \dd t
+    \end{aligned}
+\end{equation}
+Because $f \in \mathcal{S}(\R)$, $f(t) \to 0$ as $|t| \to \infty$, so the boundary term vanishes. Thus,
+\[
+\widehat{f'}(\omega) = -i\omega \hat{f}(\omega).
+\]
+Applying Plancherel's theorem to the function $f'$:
+\begin{equation}
+\begin{aligned}
+    \int_\R |f'(t)|^2 \dd t
+    &= \frac{1}{2\pi} \int_\R |\widehat{f'}(\omega)|^2 \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R |-i\omega \hat{f}(\omega)|^2 \dd \omega \\
+    &= \frac{1}{2\pi} \int_\R \omega^2 |\hat{f}(\omega)|^2 \dd \omega
+    = \Delta \omega^2
+    \end{aligned}
+\end{equation}
+
+\textit{Step 2: Integration by parts on the time second moment.}
+We evaluate the integral of $t (d/dt) |f(t)|^2$. Note that by the product rule:
+\begin{equation}
+\begin{aligned}
+\frac{d}{dt} |f(t)|^2 &= \frac{d}{dt} (f(t) \overline{f(t)}) \\
+&= f'(t) \overline{f(t)} + f(t) \overline{f'(t)} \\
+&= 2 \Re\left( f'(t) \overline{f(t)} \right)
+\end{aligned}
+\end{equation}
+Integrating by parts over $\R$:
+\begin{equation}
+\int_\R t \frac{d}{dt} |f(t)|^2 \dd t = \left[ t |f(t)|^2 \right]_{-\infty}^\infty - \int_\R |f(t)|^2 \dd t
+\end{equation}
+
+Since $f \in \mathcal{S}(\R)$, the boundary term vanishes. The remaining integral is $-\|f\|_{L^2}^2 = -1$. Equating the two expressions for the integral:
+\begin{equation}
+\begin{aligned}
+-1 &= \int_\R t \left( f'(t) \overline{f(t)} + f(t) \overline{f'(t)} \right) \dd t \\
+&= 2 \Re \int_\R t f'(t) \overline{f(t)} \dd t
+\end{aligned}
+\end{equation}
+
+\textit{Step 3: Apply the Cauchy--Schwarz inequality.}
+Taking the absolute value of both sides:
+\begin{equation}
+\begin{aligned}
+1 &= \left| 2 \Re \int_\R t f'(t) \overline{f(t)} \dd t \right| \\
+&\leq 2 \left| \int_\R t f'(t) \overline{f(t)} \dd t \right| \\
+&\leq 2 \int_\R |t f(t)| |f'(t)| \dd t
+\end{aligned}
+\end{equation}
+
+We apply the Cauchy--Schwarz inequality to the functions $A(t) = t f(t)$ and $B(t) = f'(t)$ in $L^2(\R)$:
+\begin{equation}
+\begin{aligned}
+\int_\R |A(t) B(t)| \dd t &\leq \|A\|_{L^2} \|B\|_{L^2} \\
+&= \left( \int_\R t^2 |f(t)|^2 \dd t \right)^{1/2} \left( \int_\R |f'(t)|^2 \dd t \right)^{1/2} \\
+&= \sqrt{\Delta t^2 \Delta \omega^2}
+\end{aligned}
+\end{equation}
+Substituting this bound back into the inequality:
+\begin{equation}
+1 \leq 2 \sqrt{\Delta t^2 \Delta \omega^2}
+\end{equation}
+Squaring both sides and dividing by 4 yields the uncertainty principle: $\Delta t^2 \Delta \omega^2 \geq 1/4$.
+
+\textit{Step 4: Determine the equality condition.}
+Equality in the Cauchy--Schwarz inequality holds if and only if $B(t) = c A(t)$ for some constant $c \in \C$, meaning $f'(t) = c t f(t)$.
+Furthermore, equality in the bound $\Re(z) \leq |z|$ requires $z$ to be a nonnegative real number. Here,
+\[
+\begin{aligned}
+z &= \int t f' \bar{f} \\
+&= c \int t^2 |f|^2 \\
+&= c \Delta t^2.
+\end{aligned}
+\]
+
+Since $1 = -2 \Re(z)$, $z$ must be real and strictly negative, which implies $c$ is a negative real number. Let $c = -\alpha$ with $\alpha > 0$.
+Solving the differential equation
+\[
+f'(t) = -\alpha t f(t):
+\]
+
+\begin{equation}
+\frac{f'(t)}{f(t)} = -\alpha t \implies \ln f(t) = -\frac{\alpha}{2} t^2 + C \implies f(t) = A e^{-\frac{\alpha}{2} t^2}
+\end{equation}
+This explicitly proves that the lower bound is achieved if and only if $f$ is a Gaussian function.
+\end{proof}
+
+Figure~\ref{fig:ch14-uncertainty} illustrates the trade-off between localization in time and in frequency.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$t$}, ylabel={$f(t)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figblue,very thick,domain=-3:3,samples=150] {exp(-4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(7.2cm,0)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$\xi$}, ylabel={$\hat f(\xi)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figred,very thick,domain=-3:3,samples=150] {exp(-0.4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(0,-5.2cm)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$t$}, ylabel={$f(t)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figgreen,very thick,domain=-3:3,samples=150] {exp(-0.4*x^2)};
+\end{axis}
+\begin{axis}[
+  at={(7.2cm,-5.2cm)}, width=6.5cm,height=5.8cm, axis lines=middle,
+  xlabel={$\xi$}, ylabel={$\hat f(\xi)$},
+  xmin=-3,xmax=3,ymin=0,ymax=1.3, xtick=\empty,ytick=\empty,
+  ]
+  \addplot[figblue,very thick,domain=-3:3,samples=150] {exp(-4*x^2)};
+\end{axis}
+\end{tikzpicture}
+\caption[Uncertainty principle: time vs frequency]{Schematic time--frequency localization using Gaussian profiles. Left column: signals in time. Right column: frequency profiles. A narrow signal corresponds to a broad frequency profile (top row), while a broad signal corresponds to a narrow frequency profile (bottom row), illustrating the uncertainty bound discussed in the text.}
+\label{fig:ch14-uncertainty}
+\end{figure}
+
+\section{Holomorphic Functions, Singularities, and Residues}
+\label{sec:complex-analysis}
+
+Complex differentiation and contour integration complement the preceding Fourier methods. They also connect the planar integral theorems to harmonic functions and provide tools for evaluating real integrals and Fourier transforms.
+
+\subsection{Holomorphic Functions and the Cauchy--Riemann Equations}
+
+\begin{definition}[Complex Differentiability and Holomorphy]
+Let $U\subset\C$ be open. A function $f:U\to\C$ is \emph{complex differentiable} at $z_0\in U$ if the limit
+\begin{equation}
+f'(z_0):=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}{h}
+\end{equation}
+exists independently of how the complex increment $h$ approaches zero. The function is \emph{holomorphic} on $U$ if it is complex differentiable at every point of $U$; it is holomorphic near $z_0$ if this holds in a neighborhood of $z_0$.
+\end{definition}
+
+This condition is stronger than real differentiability of a map $\R^2\to\R^2$. Writing
+\[
+\begin{gathered}
+z=x+iy \\
+f(z)=u(x,y)+iv(x,y),
+\end{gathered}
+\]
+the difference quotient must have the same limit along the real and imaginary directions. This imposes relations between the partial derivatives of $u$ and $v$.
+
+\begin{theorem}[Cauchy--Riemann Equations]
+If $f=u+iv$ is complex differentiable at $z_0=x_0+iy_0$, then the partial derivatives of $u,v$ exist at $(x_0,y_0)$ and satisfy
+\begin{equation}
+\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},
+\qquad
+\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}.
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+\textit{Step 1: approach along the real direction.} Taking $h=\Delta x\in\R$ gives
+
+\begin{align}
+f'(z_0)
+&=\lim_{\Delta x\to0}\left[
+\frac{u(x_0+\Delta x,y_0)-u(x_0,y_0)}{\Delta x}\right.\notag\\
+&\hspace{35mm}\left.+i\frac{v(x_0+\Delta x,y_0)-v(x_0,y_0)}{\Delta x}\right]\notag\\
+&=u_x(x_0,y_0)+iv_x(x_0,y_0).
+\end{align}
+
+\textit{Step 2: approach along the imaginary direction.} Taking $h=i\Delta y$ with $\Delta y\in\R$ gives
+
+\begin{align}
+f'(z_0)
+&=\lim_{\Delta y\to0}\left[
+\frac{u(x_0,y_0+\Delta y)-u(x_0,y_0)}{i\Delta y}\right.\notag\\
+&\hspace{35mm}\left.+\frac{v(x_0,y_0+\Delta y)-v(x_0,y_0)}{\Delta y}\right]\notag\\
+&=-iu_y(x_0,y_0)+v_y(x_0,y_0),
+\end{align}
+because $1/i=-i$.
+
+\textit{Step 3: compare the two limits.} Independence of the approach direction implies
+
+\[
+u_x+iv_x=v_y-iu_y.
+\]
+Equality of the real and imaginary parts gives $u_x=v_y$ and $v_x=-u_y$, as required.
+\end{proof}
+
+\begin{remark}[Sufficiency and Harmonic Functions]
+If $u,v$ have continuous first partial derivatives on an open set and satisfy the Cauchy--Riemann equations there, then $f=u+iv$ is holomorphic. Moreover, the real and imaginary parts of a holomorphic function are harmonic. To see the differential mechanism, assuming $u,v\in C^2$, differentiate $u_x=v_y$ in $x$ and $u_y=-v_x$ in $y$:
+\[
+\begin{aligned}
+\Delta u &= u_{xx}+u_{yy} \\
+&= v_{yx}-v_{xy} \\
+&= 0.
+\end{aligned}
+\]
+
+Equality of mixed partial derivatives gives the cancellation; the argument for $\Delta v=0$ is analogous. Holomorphic functions in fact possess the required higher regularity, a result not proved here. This connects complex analysis to the Laplace equation and to the Dirichlet and Neumann problems discussed in Section~\ref{sec:pde-boundary-problems}.
+\end{remark}
+
+\subsection{Singularities, Residues, and the Residue Theorem}
+
+\begin{definition}[Isolated Singularity and Residue]
+An \emph{isolated singularity} of $f$ is a point $z_0$ around which $f$ is holomorphic on a punctured disk $0<|z-z_0|<r$, while its value at $z_0$ may be undefined or fail to give a holomorphic extension. On this punctured disk, $f$ has a \emph{Laurent expansion}
+\begin{equation}
+f(z)=\sum_{n=-\infty}^{\infty}c_n(z-z_0)^n.
+\end{equation}
+The coefficient of $(z-z_0)^{-1}$ is the \emph{residue}, denoted by
+\[
+\operatorname{Res}(f,z_0):=c_{-1}.
+\]
+The existence of the Laurent expansion is a standard result whose proof we omit.
+\end{definition}
+
+\begin{theorem}[Residue Theorem]
+\label{thm:residue}
+Let $\gamma$ be a positively oriented piecewise smooth simple closed curve. Suppose that $f$ is holomorphic on an open neighborhood of $\gamma$ and its interior, except for finitely many isolated singularities $z_1,\dots,z_k$ strictly inside $\gamma$. Then
+\begin{equation}
+\oint_\gamma f(z)\,\dd z
+=2\pi i\sum_{j=1}^k\operatorname{Res}(f,z_j).
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing
+\[
+f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y),
+\]
+the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
+\begin{equation}
+\oint_{|z-z_0|=\varepsilon}(z-z_0)^n\,\dd z
+=\begin{cases}2\pi i,&n=-1,\\0,&n\in\Z,\ n\ne-1.\end{cases}
+\end{equation}
+
+Remove disjoint small disks around the singularities and apply Cauchy's theorem to the remaining region. The integral along $\gamma$ equals the sum of the counterclockwise integrals around the small circles. Integrating each Laurent expansion term by term selects only its coefficient $c_{-1}$, yielding the stated formula.
+\end{proof}
+
+\begin{example}[Evaluating a Real Integral by Residues]
+Consider
+\[
+\int_{-\infty}^{\infty}\frac{\dd x}{1+x^2}.
+\]
+
+Its value is already accessible through the arctangent, but it illustrates a method that also applies when elementary antiderivatives are unavailable. The complex function $f(z)=1/(1+z^2)$ has simple poles at $z=\pm i$. For $R>1$, let $\gamma_R$ consist of the segment $[-R,R]$ followed by the upper semicircle
+\[
+C_R = \{Re^{i\theta}:0 \leq \theta \leq \pi\}.
+\]
+Only the pole at $i$ is enclosed, and
+\begin{equation}
+\operatorname{Res}(f,i)
+=\lim_{z\to i}(z-i)f(z)
+=\left.\frac{1}{z+i}\right|_{z=i}=\frac{1}{2i}.
+\end{equation}
+The residue theorem gives
+\[
+\oint_{\gamma_R}f(z)\,\dd z=\pi.
+\]
+On the semicircle, $|1+z^2|\geq R^2-1$, so
+\begin{equation}
+\left|\int_{C_R}f(z)\,\dd z\right|
+\leq\frac{\pi R}{R^2-1}\longrightarrow0.
+\end{equation}
+Letting $R\to\infty$ therefore yields
+\begin{equation}
+\int_{-\infty}^{\infty}\frac{\dd x}{1+x^2}=\pi.
+\end{equation}
+
+Closing a real contour with an arc whose integral vanishes is also useful for explicit Fourier-transform calculations. For integrals containing $f(x)e^{i\omega x}$, the choice of half-plane must account for the exponential decay as well as the poles of $f$.
+\end{example}
+
+\input{figures/residue-contour.tex}

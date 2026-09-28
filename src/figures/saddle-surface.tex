@@ -1,0 +1,14 @@
+Figure~\ref{fig:atlas-saddle-surface} makes the opposite curvatures at a saddle point visible.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=7cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},view={45}{28},xlabel={$x$},ylabel={$y$},zlabel={$z$},colormap={soft}{color=(white);color=(figblue!45)},xtick={-1,0,1},ytick={-1,0,1},ztick={-1,0,1}]
+\addplot3[surf,shader=interp,opacity=0.65,domain=-1.2:1.2,y domain=-1.2:1.2,samples=19,samples y=19] {x^2-y^2};
+\addplot3[figblue,very thick,domain=-1.2:1.2,samples=60,samples y=1] ({x},{0},{x^2});
+\addplot3[figred,very thick,domain=-1.2:1.2,samples=60,samples y=1] ({0},{x},{-x^2});
+\end{axis}
+\end{tikzpicture}
+\caption{The surface $z=x^2-y^2$ rises along the $x$-axis and falls along the $y$-axis. The origin is stationary but is neither a local minimum nor a local maximum. The blue and red section curves display the two opposing behaviors.}
+\label{fig:atlas-saddle-surface}
+\end{figure}

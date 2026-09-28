@@ -1,0 +1,561 @@
+\chapter{Mathematical Optimization and Convex Programming}
+
+\section{Equality and Inequality Constraints}
+
+\subsection{Equality-Constrained Extrema and Lagrange Multipliers}
+
+The extremum tests developed for functions of several variables locate critical points of $f$ over its entire domain, but many optimization problems require $\mathbf{x}$ to satisfy one or more equality constraints, restricting the search to a lower-dimensional subset of the domain. The method of Lagrange multipliers reduces such constrained problems to an unconstrained search for critical points of an auxiliary function.
+
+\begin{definition}[Lagrangian]
+Given $f : \mathbb{R}^n \to \mathbb{R}$ and constraints
+\[
+g_1(\mathbf{x}) = \cdots = g_k(\mathbf{x}) = 0,
+\]
+the Lagrangian associated with the problem of extremizing $f$ subject to these constraints is the function
+\[
+\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) - \sum_{i=1}^{k} \lambda_i g_i(\mathbf{x}),
+\]
+where $\boldsymbol{\lambda} = (\lambda_1, \dots, \lambda_k) \in \mathbb{R}^k$ are called the Lagrange multipliers.
+\end{definition}
+
+The central result justifying this construction asserts that constrained extrema of $f$ occur precisely where the gradient of $f$ lies in the span of the gradients of the constraint functions, provided the constraints themselves are nondegenerate at the point in question.
+
+\begin{theorem}[Lagrange Multiplier Theorem]
+Let $f, g_1, \dots, g_k$ be continuously differentiable, and suppose $\mathbf{x}^* \in \mathbb{R}^n$ is a local extremum of $f$ subject to $g_i(\mathbf{x}) = 0$ for $i = 1, \dots, k$, at which the gradients
+\[
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)
+\]
+are linearly independent. Then there exists $\boldsymbol{\lambda}^* \in \mathbb{R}^k$ such that
+\[
+\nabla f(\mathbf{x}^*) = \sum_{i=1}^{k} \lambda_i^* \nabla g_i(\mathbf{x}^*),
+\]
+equivalently
+\[
+\nabla_{\mathbf{x}} \mathcal{L}(\mathbf{x}^*, \boldsymbol{\lambda}^*) = \vec{0}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Define the constraint set by
+\[
+M = \{\mathbf{x} \in \mathbb{R}^n : g_i(\mathbf{x}) = 0, \, i=1,\dots,k\}
+\]
+Since the gradients
+\[
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)
+\]
+are linearly independent, the Implicit Function Theorem guarantees that $M$ is, near $\mathbf{x}^*$, an $(n-k)$-dimensional smooth surface whose tangent space $T_{\mathbf{x}^*}M$ coincides with $\operatorname{Ker}(J),$ where $J \in M_{k,n}$ is the matrix with rows
+\[
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*);
+\]
+equivalently, $T_{\mathbf{x}^*}M$ is the orthogonal complement of
+\[
+\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*))
+\]
+in $\mathbb{R}^n$. Let $\mathbf{v} \in T_{\mathbf{x}^*}M$ be an arbitrary tangent vector, and let $\boldsymbol{\gamma}(t)$ be a smooth curve lying in $M$ with $\boldsymbol{\gamma}(0)=\mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{v}$, whose existence is again guaranteed by the Implicit Function Theorem. Since $\mathbf{x}^*$ is a local extremum of $f$ restricted to $M$, the composite function $t \mapsto f(\boldsymbol{\gamma}(t))$ has a local extremum at $t=0$, so its derivative there vanishes; by the Chain Rule, this derivative equals
+\[
+\nabla f(\mathbf{x}^*) \cdot \boldsymbol{\gamma}'(0) = \nabla f(\mathbf{x}^*) \cdot \mathbf{v}.
+\]
+
+Since $\mathbf{v} \in T_{\mathbf{x}^*}M$ was arbitrary, $\nabla f(\mathbf{x}^*)$ is orthogonal to every vector in $T_{\mathbf{x}^*}M$, that is, $\nabla f(\mathbf{x}^*)$ lies in the orthogonal complement of $T_{\mathbf{x}^*}M$, which is exactly
+\[
+\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)).
+\]
+Hence there exist scalars $\lambda_1^*, \dots, \lambda_k^*$ such that
+\[
+\nabla f(\mathbf{x}^*) = \sum_i \lambda_i^* \nabla g_i(\mathbf{x}^*),
+\]
+as claimed.
+\end{proof}
+
+\begin{example}
+To maximize $f(x,y) = xy$ subject to the constraint
+\[
+g(x,y) = x+y-1 = 0,
+\]
+the Lagrange condition $\nabla f = \lambda \nabla g$ reads $(y,x) = \lambda(1,1)$, forcing $x=y$, which combined with $x+y=1$ gives
+\[
+\begin{aligned}
+x &= y \\
+&= 1/2,
+\end{aligned}
+\]
+with $\lambda = 1/2$. Since $\nabla g = (1,1) \neq \vec{0}$ everywhere, the constraint qualification of the theorem holds at every point of the constraint line, and the constrained maximum value is
+\[
+f(1/2,1/2) = 1/4.
+\]
+
+\end{example}
+
+Figure~\ref{fig:ch11-lagrange} illustrates tangency between a constraint and a level curve at a constrained extremum.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.05,>=Stealth]
+  \draw[->] (-3.3,0) -- (3.3,0) node[right,font=\scriptsize]{$x$};
+  \draw[->] (0,-3.3) -- (0,3.3) node[above,font=\scriptsize]{$y$};
+  % level curves of f(x,y)=x^2+2y^2=c : ellipses semi-axes sqrt(c), sqrt(c/2)
+  \foreach \c/\col in {1/figblue!25,2/figblue!45,3.2/figblue!65,4.5/figblue!85}{
+    \pgfmathsetmacro{\ax}{sqrt(\c)}
+    \pgfmathsetmacro{\ay}{sqrt(\c/2)}
+    \draw[\col,thick,domain=0:360,samples=100,smooth,variable=\t]
+      plot ({\ax*cos(\t)},{\ay*sin(\t)});
+  }
+  % constraint g(x,y)=x^2+y^2-4=0 : circle radius 2
+  \draw[figred,very thick,domain=0:360,samples=100,smooth,variable=\t]
+    plot ({2*cos(\t)},{2*sin(\t)});
+  \node[figred,font=\scriptsize,anchor=west] at (-2.9,2.6) {$g(x,y)=x^2+y^2-4=0$};
+  \node[circle,fill=black,inner sep=1.3pt] at (1.633,1.155) {};
+  \draw[vecA] (1.633,1.155) -- (2.4,2.5) node[above,font=\scriptsize]{$\nabla f$};
+  \draw[vecC] (1.633,1.155) -- (2.45,1.73) node[below right,xshift=1pt,font=\scriptsize]{$\nabla g$};
+\end{tikzpicture}
+\caption[Lagrange multipliers]{Level curves of $f(x,y)=x^2+2y^2$ (blue) and constraint
+  $g(x,y)=0$ (red); at the constrained optimum, the level curve is tangent to the constraint,
+  i.e., $\nabla f = \lambda \nabla g$ (parallel gradients).}
+\label{fig:ch11-lagrange}
+\end{figure}
+
+\subsection{Karush--Kuhn--Tucker Conditions}
+
+Many optimization problems of practical interest involve, in addition to equality constraints, inequality constraints of the form $g_i(\mathbf{x}) \leq 0$, which restrict the feasible region without forcing $\mathbf{x}$ onto a lower-dimensional surface everywhere. The Karush--Kuhn--Tucker conditions extend the Lagrange multiplier framework to this more general setting.
+
+\begin{definition}[Active Constraint]
+Given a feasible point $\mathbf{x}$, that is, a point satisfying $g_i(\mathbf{x}) \leq 0$ for every $i$, a constraint $g_i$ is called active at $\mathbf{x}$ if $g_i(\mathbf{x}) = 0$, and inactive if $g_i(\mathbf{x}) < 0$.
+\end{definition}
+
+\begin{definition}[KKT Conditions]
+Consider the problem of minimizing $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) \leq 0$ for $i=1,\dots,k$ and $h_j(\mathbf{x}) = 0$ for $j=1,\dots,l$. A point $\mathbf{x}^*$, together with multipliers $\boldsymbol{\mu}^* \in \mathbb{R}^k$ and $\boldsymbol{\lambda}^* \in \mathbb{R}^l$, is said to satisfy the KKT conditions if four requirements hold simultaneously: \textit{Stationarity}, requiring
+\[
+\nabla f(\mathbf{x}^*) + \sum_i \mu_i^* \nabla g_i(\mathbf{x}^*) + \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*) = \vec{0};
+\]
+
+\textit{primal feasibility}, requiring $g_i(\mathbf{x}^*) \leq 0$ and $h_j(\mathbf{x}^*) = 0$ for every $i,j$; \textit{dual feasibility}, requiring $\mu_i^* \geq 0$ for every $i$; and \textit{complementary slackness}, requiring $\mu_i^* g_i(\mathbf{x}^*) = 0$ for every $i$.
+\end{definition}
+
+Complementary slackness expresses a natural economic and geometric intuition: a multiplier $\mu_i^*$ is permitted to be nonzero only when the corresponding constraint $g_i(\mathbf{x}^*) \leq 0$ is active; constraints that are strictly satisfied, being inactive, contribute nothing to the stationarity condition, exactly as one would expect of a constraint that plays no binding role near $\mathbf{x}^*$.
+
+\begin{theorem}[Necessity of the KKT Conditions]
+Suppose $\mathbf{x}^*$ is a local minimum of $f$ subject to $g_i(\mathbf{x}) \leq 0$, $i=1,\dots,k$, and $h_j(\mathbf{x})=0$, $j=1,\dots,l$, and suppose the gradients of the active inequality constraints together with the gradients of all the equality constraints, evaluated at $\mathbf{x}^*$, are linearly independent. Then there exist multipliers $\boldsymbol{\mu}^* \geq \vec{0}$ and $\boldsymbol{\lambda}^*$ satisfying the KKT conditions at $\mathbf{x}^*$.
+\end{theorem}
+
+\begin{proof}
+Denote the active inequality constraints at $\mathbf{x}^*$ by
+\[
+I = \{i : g_i(\mathbf{x}^*) = 0\}
+\]
+
+We first argue that $\nabla f(\mathbf{x}^*)$ must lie in the cone generated nonnegatively by $\{\nabla g_i(\mathbf{x}^*)\}_{i \in I}$ together with the span of $\{\nabla h_j(\mathbf{x}^*)\}_{j=1}^l$. Suppose, for the sake of contradiction, that this were not the case; a standard separation argument for convex cones then produces a direction $\mathbf{d} \in \mathbb{R}^n$ satisfying $\nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0$, $\nabla g_i(\mathbf{x}^*) \cdot \mathbf{d} < 0$ for every $i \in I$, and $\nabla h_j(\mathbf{x}^*) \cdot \mathbf{d} = 0$ for every $j$. Since the gradients of the active and equality constraints are linearly independent by hypothesis, the Implicit Function Theorem allows one to construct a feasible curve $\boldsymbol{\gamma}(t)$ with $\boldsymbol{\gamma}(0) = \mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{d}$, remaining feasible for the equality constraints exactly and for the active inequality constraints to first order, while inactive inequality constraints remain strictly satisfied for $t$ small by continuity. Along this curve,
+\[
+(d/dt)|_{t=0} f(\boldsymbol{\gamma}(t)) = \nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0,
+\]
+so $f$ strictly decreases for small $t>0$ while remaining feasible, contradicting the local minimality of $\mathbf{x}^*$. Hence
+\[
+\nabla f(\mathbf{x}^*) = -\sum_{i \in I} \mu_i^* \nabla g_i(\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*)
+\]
+for some $\mu_i^* \geq 0$, $i \in I$, and some $\lambda_j^* \in \mathbb{R}$. Setting $\mu_i^* = 0$ for every inactive constraint $i \notin I$, the stationarity condition
+\[
+\nabla f(\mathbf{x}^*) + \sum_{i=1}^k \mu_i^* \nabla g_i(\mathbf{x}^*) + \sum_j \lambda_j^*\nabla h_j(\mathbf{x}^*) = \vec{0}
+\]
+holds by construction, dual feasibility $\mu_i^* \geq 0$ holds by construction for $i \in I$ and trivially for $i \notin I$, primal feasibility holds since $\mathbf{x}^*$ is feasible by hypothesis, and complementary slackness holds since $\mu_i^* g_i(\mathbf{x}^*) = 0$ automatically, either because $\mu_i^*=0$ for $i \notin I$ or because $g_i(\mathbf{x}^*)=0$ for $i \in I$.
+\end{proof}
+
+\begin{example}
+Minimize $f(x,y) = x^2+y^2$ subject to
+\[
+g(x,y) = 1 - x - y \leq 0.
+\]
+The stationarity condition reads
+\[
+(2x,2y) + \mu(-1,-1) = \vec{0},
+\]
+giving
+\[
+\begin{aligned}
+x &= y \\
+&= \mu/2.
+\end{aligned}
+\]
+If the constraint is active, $x+y=1$ forces
+\[
+\begin{gathered}
+\begin{aligned}
+x &= y \\
+&= 1/2
+\end{aligned} \\
+\begin{aligned}
+\mu &= 1 \\
+&\geq 0,
+\end{aligned}
+\end{gathered}
+\]
+satisfying dual feasibility; complementary slackness is automatic since the constraint is active, and primal feasibility holds since
+\[
+g(1/2,1/2)=0 \leq 0.
+\]
+
+Since $\nabla g = (-1,-1) \neq \vec{0}$, the constraint qualification holds, and $(1/2,1/2)$ with $\mu^*=1$ satisfies the KKT conditions; as the feasible region $\{x+y\geq 1\}$ is convex and $f$ is convex, the discussion below confirms that this point is indeed the global constrained minimizer.
+\end{example}
+
+\input{figures/active-constraint.tex}
+
+\section{Convex Optimization and Duality}
+
+\subsection{Definitions and Differential Characterizations of Convexity}
+
+
+The KKT conditions are, in general, only necessary for a local minimum, and a point satisfying them need not be a global minimizer. Under an
+additional structural hypothesis, however, this gap disappears entirely, and every stationary point becomes automatically a global optimum. This
+hypothesis is \textit{convexity}.
+
+\begin{definition}[Convex Set and Convex Function]
+A set $C \subseteq \mathbb{R}^n$ is convex if $t\mathbf{x} + (1-t)\mathbf{y} \in C$ for every $\mathbf{x}, \mathbf{y} \in C$ and every $t \in [0,1]$. A function $f : C \to \mathbb{R}$, defined on a convex set $C$, is convex if
+\[
+f(t\mathbf{x}+(1-t)\mathbf{y}) \leq t f(\mathbf{x}) + (1-t) f(\mathbf{y})
+\]
+for every $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$; $f$ is strictly convex if this inequality is strict whenever $\mathbf{x} \neq \mathbf{y}$ and $t \in (0,1)$.
+\end{definition}
+
+For differentiable functions, convexity admits two further characterizations, one in terms of the gradient and one in terms of the Hessian, both of which considerably simplify its verification in practice.
+
+\begin{theorem}[First-Order Characterization of Convexity]
+A differentiable function $f$ on a convex open set $C$ is convex if and only if
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})
+\]
+for every $\mathbf{x}, \mathbf{y} \in C$.
+\end{theorem}
+
+\begin{proof}
+Suppose $f$ is convex. For $t \in (0,1]$, convexity gives
+\[
+\begin{aligned}
+f(\mathbf{x}+t(\mathbf{y}-\mathbf{x})) &= f((1-t)\mathbf{x}+t\mathbf{y}) \\
+&\leq (1-t)f(\mathbf{x}) + tf(\mathbf{y}),
+\end{aligned}
+\]
+so that
+\[
+\frac{f(\mathbf{x}+t(\mathbf{y}-\mathbf{x})) - f(\mathbf{x})}{t} \leq f(\mathbf{y}) - f(\mathbf{x}).
+\]
+
+Letting $t \to 0^+$, the left-hand side converges to the directional derivative $\nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})$, giving
+\[
+\nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}) \leq f(\mathbf{y})-f(\mathbf{x}),
+\]
+which is the claimed inequality. Conversely, suppose the inequality holds for every $\mathbf{x},\mathbf{y} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$, and let $\mathbf{z} = t\mathbf{x}+(1-t)\mathbf{y}$. Applying the hypothesis twice, once with the pair $(\mathbf{z},\mathbf{x})$ and once with the pair $(\mathbf{z},\mathbf{y})$, gives
+\[
+\begin{gathered}
+f(\mathbf{x}) \geq f(\mathbf{z}) + \nabla f(\mathbf{z})\cdot(\mathbf{x}-\mathbf{z}) \\
+f(\mathbf{y}) \geq f(\mathbf{z}) + \nabla f(\mathbf{z})\cdot(\mathbf{y}-\mathbf{z}).
+\end{gathered}
+\]
+Multiplying the first by $t$, the second by $1-t$, and adding, the gradient terms combine to
+\[
+\begin{aligned}
+\nabla f(\mathbf{z}) \cdot (t\mathbf{x}+(1-t)\mathbf{y} - \mathbf{z}) &= \nabla f(\mathbf{z}) \cdot \vec{0} \\
+&= 0,
+\end{aligned}
+\]
+yielding
+\[
+\begin{aligned}
+tf(\mathbf{x}) + (1-t)f(\mathbf{y}) &\geq f(\mathbf{z}) \\
+&= f(t\mathbf{x}+(1-t)\mathbf{y}),
+\end{aligned}
+\]
+which is exactly convexity.
+\end{proof}
+
+\begin{theorem}[Second-Order Characterization of Convexity]
+A twice continuously differentiable function $f$ on a convex open set $C$ is convex if and only if $\nabla^2 f(\mathbf{x})$ is positive semidefinite for every $\mathbf{x} \in C$.
+\end{theorem}
+
+\begin{proof}
+Suppose $\nabla^2 f(\mathbf{x})$ is positive semidefinite for every $\mathbf{x} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$; by Taylor's theorem with Lagrange remainder, applied to the function $t \mapsto f(\mathbf{x}+t(\mathbf{y}-\mathbf{x}))$, there exists $\xi \in (0,1)$ such that, writing $\mathbf{z} = \mathbf{x}+\xi(\mathbf{y}-\mathbf{x})$,
+\[
+f(\mathbf{y}) = f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x}) + \tfrac{1}{2}(\mathbf{y}-\mathbf{x})^{\top} \nabla^2 f(\mathbf{z}) (\mathbf{y}-\mathbf{x}).
+\]
+Since $\nabla^2 f(\mathbf{z})$ is positive semidefinite, the final term is nonnegative, giving
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}),
+\]
+which is the first-order characterization above; hence $f$ is convex. Conversely, suppose $f$ is convex but, for contradiction, $\nabla^2 f(\mathbf{x}_0)\mathbf{v} \cdot \mathbf{v} < 0$ for some $\mathbf{x}_0 \in C$ and some $\mathbf{v} \neq \vec{0}$. By continuity of $\nabla^2 f$, this negative quantity persists on a neighborhood of $\mathbf{x}_0$, so for $t$ sufficiently small, the same Taylor expansion as above, applied to $\mathbf{y} = \mathbf{x}_0+t\mathbf{v}$, gives
+\[
+f(\mathbf{x}_0+t\mathbf{v}) < f(\mathbf{x}_0) + t\nabla f(\mathbf{x}_0)\cdot \mathbf{v}
+\]
+for small $t \neq 0$, contradicting the first-order characterization of convexity established above, which is equivalent to convexity itself.
+\end{proof}
+
+\subsection{Global Optimality and Convex KKT Conditions}
+
+The decisive advantage of convexity is that it eliminates the possibility of misleading local optima that are not globally optimal, a phenomenon that plagues general nonlinear optimization.
+
+\begin{theorem}[Local Minima are Global for Convex Functions]
+If $f : C \to \mathbb{R}$ is convex on a convex set $C$, then every local minimum of $f$ on $C$ is also a global minimum.
+\end{theorem}
+
+\begin{proof}
+Suppose $\mathbf{x}^*$ is a local minimum but not a global one, so that some $\mathbf{y} \in C$ satisfies $f(\mathbf{y}) < f(\mathbf{x}^*)$. For $t \in (0,1]$, the point
+\[
+\mathbf{x}_t = (1-t)\mathbf{x}^* + t\mathbf{y}
+\]
+lies in $C$, by convexity of $C$, and $\mathbf{x}_t \to \mathbf{x}^*$ as $t \to 0^+$. By convexity of $f$,
+\[
+f(\mathbf{x}_t) \leq (1-t)f(\mathbf{x}^*) + t f(\mathbf{y}) = f(\mathbf{x}^*) + t(f(\mathbf{y})-f(\mathbf{x}^*)) < f(\mathbf{x}^*)
+\]
+for every $t \in (0,1]$, since $f(\mathbf{y}) < f(\mathbf{x}^*)$; this contradicts the assumption that $\mathbf{x}^*$ is a local minimum, since points $\mathbf{x}_t$ arbitrarily close to $\mathbf{x}^*$ achieve strictly smaller values of $f$.
+\end{proof}
+
+\begin{theorem}[Sufficiency of the KKT Conditions under Convexity]
+Suppose $f$ and $g_1, \dots, g_k$ are convex and differentiable, and $h_1, \dots, h_l$ are affine. If $\mathbf{x}^*$, $\boldsymbol{\mu}^*$, $\boldsymbol{\lambda}^*$ satisfy the KKT conditions, then $\mathbf{x}^*$ is a global minimizer of $f$ over the feasible set.
+\end{theorem}
+
+\begin{proof}
+Let $\mathbf{x}$ be any feasible point. By the first-order characterization of convexity applied to $f$ at $\mathbf{x}^*$,
+\[
+f(\mathbf{x}) \geq f(\mathbf{x}^*) + \nabla f(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*).
+\]
+By stationarity,
+\[
+\nabla f(\mathbf{x}^*) = -\sum_i \mu_i^* \nabla g_i(\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*),
+\]
+so
+\[
+f(\mathbf{x}) - f(\mathbf{x}^*) \geq -\sum_i \mu_i^* \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*).
+\]
+Since each $h_j$ is affine,
+\[
+h_j(\mathbf{x}) - h_j(\mathbf{x}^*) = \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*)
+\]
+exactly, and this vanishes since both $\mathbf{x}$ and $\mathbf{x}^*$ are feasible, hence satisfy $h_j = 0$; the second sum therefore vanishes entirely. By the first-order characterization applied to each convex $g_i$ at $\mathbf{x}^*$,
+\[
+g_i(\mathbf{x}) \geq g_i(\mathbf{x}^*) + \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*),
+\]
+Rearranging gives
+\[
+\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) \leq g_i(\mathbf{x}) - g_i(\mathbf{x}^*).
+\]
+Since $\mu_i^* \geq 0$ by dual feasibility, multiplying preserves the inequality direction, so
+\[
+\begin{aligned}
+-\mu_i^*\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) &\geq -\mu_i^*(g_i(\mathbf{x})-g_i(\mathbf{x}^*)) \\
+&= -\mu_i^* g_i(\mathbf{x}) + \mu_i^*g_i(\mathbf{x}^*).
+\end{aligned}
+\]
+
+By complementary slackness, $\mu_i^*g_i(\mathbf{x}^*)=0$, and by primal feasibility of $\mathbf{x}$, $g_i(\mathbf{x}) \leq 0$, so together with $\mu_i^* \geq 0$ one has $-\mu_i^*g_i(\mathbf{x}) \geq 0$. Combining,
+\[
+-\mu_i^*\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) \geq 0
+\]
+for every $i$. Substituting back, $f(\mathbf{x}) - f(\mathbf{x}^*) \geq 0$, that is, $f(\mathbf{x}) \geq f(\mathbf{x}^*)$ for every feasible $\mathbf{x}$, establishing global optimality of $\mathbf{x}^*$.
+\end{proof}
+
+\input{figures/convex-chord.tex}
+
+\subsection{Lagrangian Duality}
+
+This class of problems, encompassing linear programs, quadratic programs with positive semidefinite objective, and many others, forms the subject of convex optimization; its tractability in both theory and practice is closely tied to an associated dual problem, obtained by relaxing the constraints into the objective via their multipliers.
+
+\begin{definition}[Lagrangian Dual Function]
+Given the optimization problem of minimizing $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) \leq 0$, $i=1,\dots,k$, and $h_j(\mathbf{x})=0$, $j=1,\dots,l$, over $\mathbf{x} \in D \subseteq \mathbb{R}^n$, the Lagrangian dual function is
+\[
+q(\boldsymbol{\mu}, \boldsymbol{\lambda}) = \inf_{\mathbf{x} \in D} \left( f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \right).
+\]
+
+\end{definition}
+
+\begin{theorem}[Weak Duality]
+For every feasible $\mathbf{x}$ and every $\boldsymbol{\mu} \geq \vec{0}$, $q(\boldsymbol{\mu},\boldsymbol{\lambda}) \leq f(\mathbf{x})$.
+\end{theorem}
+
+\begin{proof}
+Since $\mathbf{x}$ is feasible, $g_i(\mathbf{x}) \leq 0$ and $h_j(\mathbf{x})=0$ for every $i,j$; since $\mu_i \geq 0$, $\mu_i g_i(\mathbf{x}) \leq 0$, so
+\[
+f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \leq f(\mathbf{x}).
+\]
+
+Taking the infimum over all $\mathbf{x} \in D$ on the left-hand side, in particular over the feasible $\mathbf{x}$ under consideration, gives
+\[
+q(\boldsymbol{\mu},\boldsymbol{\lambda}) \leq f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \leq f(\mathbf{x}).
+\]
+
+\end{proof}
+
+Weak duality shows that the dual function always provides a lower bound on the optimal value of the original, or primal, problem, regardless of any convexity assumption; when the primal problem is convex and a mild regularity condition, known as Slater's condition, holds, this gap between the two problems closes entirely.
+
+\begin{definition}[Slater's Condition]
+The convex problem above satisfies Slater's condition if there exists a feasible point $\hat{\mathbf{x}} \in D$ with $g_i(\hat{\mathbf{x}}) < 0$ strictly for every $i$, and $h_j(\hat{\mathbf{x}}) = 0$ for every $j$.
+\end{definition}
+
+\begin{theorem}[Strong Duality]
+If $f, g_1, \dots, g_k$ are convex, $h_1, \dots, h_l$ are affine, and Slater's condition holds, then the optimal value of the primal problem equals
+\[
+\sup_{\boldsymbol{\mu}\geq \vec{0}, \boldsymbol{\lambda}} q(\boldsymbol{\mu},\boldsymbol{\lambda}),
+\]
+and this supremum is attained.
+\end{theorem}
+
+The proof of strong duality proceeds by a separation argument entirely analogous in spirit to the one used to establish the necessity of the KKT conditions, applied this time to a suitably constructed convex set encoding the achievable values of the objective and constraint functions; we omit the details, referring the reader to the specialized literature on convex analysis, and record only the important consequence that, under the hypotheses above, solving the dual problem, which is always a convex problem regardless of the primal, is equivalent to solving the original primal problem itself.
+
+\section{Calculus of Variations}
+\label{sec:calculus-variations}
+
+\subsection{Functionals and the Euler--Lagrange Equation}
+
+\begin{definition}[Functional]
+A \emph{functional} assigns a real number to a function in a specified admissible class. A typical example is
+\begin{equation}
+J[y]:=\int_a^b L\big(x,y(x),y'(x)\big)\,\dd x,
+\end{equation}
+where the prescribed function $L$, called the \emph{Lagrangian}, depends on position, function value, and derivative. A \emph{variational problem} seeks a function $y$ that minimizes $J[y]$, or more generally makes it stationary, subject to conditions such as $y(a)=y_a$ and $y(b)=y_b$.
+\end{definition}
+
+The optimization problems studied earlier in this chapter involve finitely many variables, with stationarity expressed by $\nabla f(\bv^*)=\mathbf{0}$, or by vanishing derivatives in all admissible directions when constraints are present. Here the variable is an entire function $y(\cdot)$, so the problem is infinite-dimensional. We seek the analogue of the zero-gradient condition for this setting.
+
+
+\begin{theorem}[Euler--Lagrange Equation]
+\label{thm:euler-lagrange}
+Let $L$ be $C^2$ in its arguments, and let $y^*\in C^2([a,b])$ be a stationary point of
+\[
+J[y]=\int_a^b L(x,y,y')\,\dd x
+\]
+among functions with fixed endpoint values $y(a)=y_a$ and $y(b)=y_b$. In particular, this applies to a smooth local minimizer. Then $y^*$ satisfies
+\begin{equation}
+\frac{\partial L}{\partial y}
+-\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)=0,
+\end{equation}
+with the derivatives evaluated along $(x,y^*(x),{y^*}'(x))$.
+\end{theorem}
+
+\begin{proof}
+\textit{Step 1: introduce a variation.} Choose any $\eta\in C^2([a,b])$ with
+
+\[
+\begin{aligned}
+\eta(a) &= \eta(b) \\
+&= 0,
+\end{aligned}
+\]
+and set
+\[
+y_\varepsilon(x)=y^*(x)+\varepsilon\eta(x),\qquad g(\varepsilon)=J[y_\varepsilon].
+\]
+
+Every $y_\varepsilon$ satisfies the endpoint conditions. Stationarity of $y^*$ therefore implies $g'(0)=0$. This is precisely the requirement that the directional derivative vanish in every admissible direction.
+
+\textit{Step 2: compute the first variation.} By definition,
+
+\begin{equation}
+g(\varepsilon)=\int_a^b L\big(x,y^*(x)+\varepsilon\eta(x),{y^*}'(x)+\varepsilon\eta'(x)\big)\,\dd x.
+\end{equation}
+
+Differentiation under the integral, justified by the smoothness assumptions, and the chain rule give
+\begin{equation}
+g'(\varepsilon)=\int_a^b\left[
+\left.\frac{\partial L}{\partial y}\right|_{y_\varepsilon}\eta(x)
++\left.\frac{\partial L}{\partial y'}\right|_{y_\varepsilon}\eta'(x)\right]\dd x.
+\end{equation}
+At $\varepsilon=0$, this becomes
+\begin{equation}
+g'(0)=\int_a^b\left[\frac{\partial L}{\partial y}\eta(x)
++\frac{\partial L}{\partial y'}\eta'(x)\right]\dd x,
+\end{equation}
+where both partial derivatives are now evaluated along $y^*$.
+
+\textit{Step 3: integrate by parts.} The term containing $\eta'$ satisfies
+
+\begin{equation}
+\int_a^b\frac{\partial L}{\partial y'}\eta'\,\dd x
+=\left[\frac{\partial L}{\partial y'}\eta\right]_a^b
+-\int_a^b\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)\eta\,\dd x.
+\end{equation}
+The boundary term vanishes because
+\[
+\begin{aligned}
+\eta(a) &= \eta(b) \\
+&= 0.
+\end{aligned}
+\]
+Hence
+\begin{equation}
+g'(0)=\int_a^b\left[\frac{\partial L}{\partial y}
+-\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)\right]\eta(x)\,\dd x=0
+\end{equation}
+for every admissible $\eta$.
+
+\textit{Step 4: apply the fundamental lemma of the calculus of variations.} If a continuous function $h$ satisfies
+
+\[
+\int_a^b h\eta\,\dd x=0
+\]
+for every such variation, then $h\equiv0$. Indeed, if $h(x_0)>0$ at an interior point, continuity gives an interval $(x_0-\delta,x_0+\delta)\subset(a,b)$ where $h>0$. Choosing
+\[
+\eta(x)=
+\begin{cases}
+\big[\delta^2-(x-x_0)^2\big]^3,& |x-x_0|<\delta,\\
+0,& |x-x_0|\geq\delta,
+\end{cases}
+\]
+gives a nonnegative $C^2$ variation with
+\[
+\int_a^b h\eta\,\dd x>0,
+\]
+a contradiction. The negative case is analogous, and continuity gives the conclusion at the endpoints as well. Apply this lemma to
+\[
+h=\partial L/\partial y-\dd(\partial L/\partial y')/\dd x
+\]
+to obtain the Euler--Lagrange equation.
+\end{proof}
+
+\subsection{Applications: Geodesics and Stationary Action}
+
+\begin{example}[Geodesics in the Plane: The Shortest Path Is Straight]
+For the arc length of a graph,
+\begin{equation}
+J[y]=\int_a^b\sqrt{1+y'(x)^2}\,\dd x,
+\end{equation}
+the Lagrangian does not depend explicitly on $x$ or $y$. Thus the Euler--Lagrange equation reduces to
+\[
+\frac{\dd}{\dd x}\left(\frac{y'}{\sqrt{1+y'^2}}\right)=0.
+\]
+
+Since the map $t\mapsto t/(1+t^2)^{1/2}$ is strictly increasing, $y'$ must be constant, giving $y(x)=mx+q$. To verify that this stationary path really minimizes length, set
+\[
+m=(y_b-y_a)/(b-a)
+\]
+and use the convexity of
+\[
+\ell(t)=(1+t^2)^{1/2}:
+\]
+
+\[
+\ell(y')\geq\ell(m)+\ell'(m)(y'-m).
+\]
+Integrating and using the endpoint values makes the last term vanish, so
+\[
+J[y]\geq(b-a)(1+m^2)^{1/2},
+\]
+with equality for the straight segment. The Euler--Lagrange equation alone is a stationarity condition, not a general guarantee of minimality.
+\end{example}
+
+\begin{example}[The Principle of Stationary Action]
+In classical mechanics, a physical trajectory $\bx(t)$ with fixed endpoint positions makes the \emph{action}
+\begin{equation}
+S[\bx]=\int_{t_1}^{t_2}\mathcal{L}(\bx,\dot{\bx})\,\dd t
+\end{equation}
+stationary, where $\mathcal{L}=T-V$ is kinetic energy minus potential energy. Applying the Euler--Lagrange equation to each component yields
+\[
+\frac{\partial\mathcal{L}}{\partial\bx}
+-\frac{\dd}{\dd t}\left(\frac{\partial\mathcal{L}}{\partial\dot{\bx}}\right)=\mathbf{0}.
+\]
+For
+\[
+\mathcal{L}=(1/2)m|\dot{\bx}|^2-V(\bx),
+\]
+the two derivatives are $-\nabla V$ and $m\dot{\bx}$, respectively. Therefore
+\begin{equation}
+m\ddot{\bx}=-\nabla V(\bx),
+\end{equation}
+which is Newton's second law. The variational viewpoint provides an alternative route to the equations of motion and extends naturally to constrained systems and field theories.
+\end{example}

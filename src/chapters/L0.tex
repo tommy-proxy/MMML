@@ -1,0 +1,887 @@
+\chapter{Real and Complex Numbers: Foundations of Analysis}
+
+\section{Real Number Systems and the Real Line}
+
+\subsection{Natural Numbers, Integers, and Rational Numbers}
+
+The real number system, $\mathbb{R}$, can be approached through a sequence of progressively larger number systems, each containing the preceding one.
+The natural numbers form the starting point:
+\[
+\mathbb{N} = \{0, 1, 2, 3, \dots\}.
+\]
+Including their negatives gives the integers:
+\[
+\mathbb{Z} = \{0, 1, -1, 2, -2, \dots\}.
+\]
+Allowing quotients of integers with nonzero denominators then gives the rational numbers, $\mathbb{Q}$:
+\[
+\mathbb{Q} = \left\{ \pm \frac{p}{q} : p \in \mathbb{N}, \ q \in \mathbb{N}, \ q \neq 0 \right\}.
+\]
+
+\subsection{Irrational, Algebraic, and Transcendental Numbers}
+
+The rational numbers do not exhaust the real line. Real numbers that cannot be expressed as ratios of integers are called irrational numbers.
+The following theorem provides a fundamental example.
+
+\begin{theorem}[Irrationality of the Square Root of Two]
+The square root of $2$ is irrational.
+\end{theorem}
+
+\begin{proof}
+Suppose, for a contradiction, that $\sqrt{2}$ is rational. Then we can write $\sqrt{2} = p/q$, for integers $p, q$ with $q \neq 0$. Assume that $p/q$ is in lowest terms; in particular, $p$ and $q$ cannot both be even.
+Squaring both sides gives $2 q^2 = p^2$. Thus $p^2$ is even. Since the square of an odd integer is odd, $p$ must also be even.
+Writing $p = 2k$ for an integer $k$ and substituting gives
+\[
+\begin{aligned}
+2q^2 &= 4k^2  \\
+\Rrightarrow\quad  q^2 &= 2k^2.
+\end{aligned}
+\]
+
+Hence $q^2$ is even, so $q$ is even as well. Both $p$ and $q$ are therefore even, contradicting the assumption that $p/q$ is in lowest terms.
+This proves the theorem.
+\end{proof}
+
+The real numbers comprise both rational and irrational numbers. Familiar irrational numbers include $\sqrt{2}$, $\pi$, Euler's number $e$,
+and the golden ratio $\varphi$. For two lengths $a$ and $b$ in that ratio, the defining proportion is
+\[
+\begin{aligned}
+\varphi &= \frac{a+b}{a} \\
+&= \frac{a}{b}.
+\end{aligned}
+\]
+
+The numbers $\sqrt{2}$ and $\varphi$ also belong to the class of algebraic numbers. A real number $x$ is algebraic if it is a root of a
+nonzero polynomial with integer coefficients $a_k \in \mathbb{Z}$, for $k = 0, \dots, n$:
+\[
+\sum_{k=0}^{n} a_k x^k = 0.
+\]
+
+Both $\sqrt{2}$ and $\varphi$ satisfy this definition. By contrast, $\pi$ is transcendental: it is not algebraic.
+The historical results on $\pi$ established between 1794 and 1882 illustrate the distinction between irrationality and transcendence.
+In particular, irrational algebraic numbers form a proper subclass of the irrational numbers.
+
+\subsection{The Real Line and Interval Notation}
+
+The real line represents $\mathbb{R}$ geometrically: each real number corresponds to a point, and each point corresponds to a real number.
+Its absence of gaps reflects the completeness property discussed below. Intervals are particularly important subsets of the real line;
+the following notation will be used throughout the text.
+\[
+\begin{aligned}
+\relax
+[a,b] &= \{x \in \mathbb{R} : a \leq x \leq b\}, \\
+(a,b) &= \{x \in \mathbb{R} : a < x < b\}, \\
+[a,b) &= \{x \in \mathbb{R} : a \leq x < b\}, \\
+(a, \infty) &= \{x \in \mathbb{R} : x > a\}, \\
+(-\infty, b] &= \{x \in \mathbb{R} : x \leq b\}.
+\end{aligned}
+\]
+
+\begin{remark}
+The symbol $\infty$ is not a real number. In interval notation, it indicates that an interval is unbounded in the corresponding direction.
+\end{remark}
+
+Figure~\ref{fig:real-intervals} distinguishes included and excluded endpoints and shows how rays represent unbounded intervals.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[x=1.3cm,y=1cm,>=Stealth]
+  \foreach \rowheight in {0,-1.2,-2.4,-3.6,-4.8} {
+    \draw[->,black!35] (0,\rowheight) -- (6,\rowheight);
+  }
+  \node[left] at (-0.3,0) {$[a,b]$};
+  \node[left] at (-0.3,-1.2) {$(a,b)$};
+  \node[left] at (-0.3,-2.4) {$[a,b)$};
+  \node[left] at (-0.3,-3.6) {$(a,\infty)$};
+  \node[left] at (-0.3,-4.8) {$(-\infty,b]$};
+  \foreach \rowheight in {0,-1.2,-2.4} {
+    \draw[figblue,very thick] (1,\rowheight) -- (4.5,\rowheight);
+    \node[below=5pt] at (1,\rowheight) {$a$};
+    \node[below=5pt] at (4.5,\rowheight) {$b$};
+  }
+  \fill[figblue] (1,0) circle (2.5pt) (4.5,0) circle (2.5pt);
+  \draw[figblue,thick,fill=white] (1,-1.2) circle (2.5pt) (4.5,-1.2) circle (2.5pt);
+  \fill[figblue] (1,-2.4) circle (2.5pt);
+  \draw[figblue,thick,fill=white] (4.5,-2.4) circle (2.5pt);
+  \draw[figgreen,very thick,->] (1,-3.6) -- (5.8,-3.6);
+  \draw[figgreen,thick,fill=white] (1,-3.6) circle (2.5pt);
+  \node[below=5pt] at (1,-3.6) {$a$};
+  \draw[figgreen,very thick,->] (4.5,-4.8) -- (0.2,-4.8);
+  \fill[figgreen] (4.5,-4.8) circle (2.5pt);
+  \node[below=5pt] at (4.5,-4.8) {$b$};
+\end{tikzpicture}
+\caption[Intervals on the real line]{Closed, open, and half-open intervals, followed by two unbounded rays. Filled endpoints belong to the set; hollow endpoints do not. Colored arrows indicate continuation without bound, rather than an endpoint at infinity.}
+\label{fig:real-intervals}
+\end{figure}
+
+\section{Field Structure, Order, and Completeness}
+
+The real number system can also be characterized axiomatically. Three groups of properties describe its algebraic operations, order, and completeness.
+
+\begin{definition}[The Real Number System]
+$\mathbb{R}$ is a complete ordered field.
+\end{definition}
+
+\subsection{Axioms of Addition and Multiplication}
+
+We begin with the notion of a field. Addition and multiplication are binary operations on $\mathbb{R}$ satisfying the following laws.
+\begin{itemize}
+\item \textit{Associative laws}: for all real numbers $a$, $b$, and $c$, both identities hold:
+
+\[
+\begin{aligned}
+a + (b+c) &= (a+b) + c \\
+a(bc) &= (ab)c.
+\end{aligned}
+\]
+
+\item \textit{Commutative laws}: for all real numbers $a$, $b$, and $c$, both identities hold:
+
+\[
+\begin{aligned}
+a + b &= b + a \\
+ab &= ba.
+\end{aligned}
+\]
+
+\item \textit{Identity laws}: for every real number $a$, the additive and multiplicative identities satisfy
+
+\[
+\begin{aligned}
+a + 0 &= a \\
+a \cdot 1 &= a.
+\end{aligned}
+\]
+
+\item \textit{Inverse laws}: for every real number $a$, there is a unique real number $-a$ such that $a + (-a) = 0$, and, if $a \neq 0$, a unique real number $a^{-1}$ such that $a \, a^{-1} = 1$.
+
+\item \textit{Distributive law}: for all real numbers $a$, $b$, and $c$, multiplication distributes over addition:
+
+\[
+a(b+c) = ab + ac.
+\]
+
+\end{itemize}
+
+\subsection{Order and Compatibility with Arithmetic}
+
+The field $\mathbb{R}$ is ordered: its strict order relation $<$ compares any two distinct real numbers and is compatible with addition and multiplication.
+The order satisfies the following properties.
+\begin{itemize}
+\item \textit{Transitivity}: if $x < y$ and $y < z$ for real numbers $x, y, z$, then $x < z$.
+\item \textit{Trichotomy}: for any two real numbers $x, y$, exactly one of the following relations holds:
+
+\[
+x < y, \quad x = y, \quad y < x.
+\]
+
+\end{itemize}
+
+Compatibility with the field operations means that:
+\begin{itemize}
+\item \textit{Addition}: if $x < y$, then $x + z < y + z$ for every real number $z$.
+\item \textit{Multiplication}: if $x < y$ and $z > 0$, then $xz < yz$.
+\end{itemize}
+
+\subsection{Completeness and the Least Upper Bound Property}
+
+Completeness is expressed by the \emph{Axiom of Continuity}. Among its equivalent formulations, we use the least upper bound property.
+To state it, we first introduce the notion of an upper bound. Let $A \subset \mathbb{R}$ be nonempty.
+
+\begin{definition}[Upper Bounds]
+A real number $b$ is an upper bound of $A$ if $x \leq b$ for every $x \in A$. A set with an upper bound is said to be bounded above.
+\end{definition}
+
+The Axiom of Continuity can now be stated precisely.
+
+\begin{theorem}[Axiom of Continuity: Existence of the Least Upper Bound]
+Every nonempty subset $A \subset \mathbb{R}$ that admits an upper bound has a least upper bound in $\mathbb{R}$.
+\end{theorem}
+
+This property distinguishes the real numbers from the rational numbers: it does not hold in $\mathbb{Q}$. For example, the set
+\[
+A = \{ x \in \mathbb{Q} : x \geq 0, \ x^2 < 2 \} \subset \mathbb{Q}
+\]
+is bounded above in $\mathbb{Q}$, for example by $2$, but has no least upper bound in $\mathbb{Q}$. Such a bound would have to be $\sqrt{2}$,
+which is irrational. In $\mathbb{R}$, the least upper bound guaranteed by the Axiom of Continuity has a special name and notation.
+
+\subsection{Suprema, Maxima, and Infima}
+
+\begin{definition}[The Supremum]
+Let $A \subset \mathbb{R}$ be nonempty and bounded above. Its supremum, denoted $b = \sup A$, is its least upper bound.
+Equivalently, $b = \sup A$ if and only if $x \leq b$ for every $x \in A$ and, for every $\varepsilon > 0$, there exists
+$x_\varepsilon \in A$ such that $x_\varepsilon > b - \varepsilon$. The first condition makes $b$ an upper bound; the second ensures that no smaller number is an upper bound.
+\end{definition}
+
+Two distinctions are useful.
+\begin{enumerate}
+\item \textit{Maximum}: a real number $b$ is the maximum of $A$, denoted $b = \max A$, if $x \leq b$ for every $x \in A$ and $b \in A$.
+A supremum need not belong to the set. For example, $A = [0,1)$ has supremum $1$ but no maximum, since $1 \notin A$.
+Whenever a maximum exists, it equals the supremum: $\max A = \sup A$.
+\item \textit{Unbounded sets}: for a set $A \subset \mathbb{R}$ that is not bounded above, the convention is to write $+\infty := \sup A$.
+This extends the notation beyond sets with a finite supremum.
+\end{enumerate}
+
+Reversing the inequalities gives the equivalent greatest lower bound formulation of the Axiom of Continuity.
+
+\begin{theorem}[Axiom of Continuity: Existence of the Greatest Lower Bound]
+Every nonempty subset $A \subset \mathbb{R}$ that admits a lower bound has a greatest lower bound, called the infimum of $A$, in $\mathbb{R}$.
+\end{theorem}
+
+In summary, $\mathbb{R}$ is a field because its arithmetic operations satisfy the field axioms. It is ordered because these operations are compatible
+with its order. In particular, addition preserves order for every $z$:
+\[
+x < y \quad \text{implies} \quad x+z < y+z.
+\]
+Likewise, the product of nonnegative numbers is nonnegative:
+\[
+x \geq 0 \quad \text{together with} \quad y \geq 0 \quad \text{implies} \quad xy \geq 0.
+\]
+
+Finally, $\mathbb{R}$ is complete because it satisfies the Axiom of Continuity.
+Together, these properties characterize the real number system.
+
+\input{figures/supremum.tex}
+
+\section{Decimal Expansions and Geometric Series}
+
+\subsection{Decimal Representations as Infinite Series}
+
+Real numbers can also be represented in decimal notation. Every real number $x$ can be written in the form $x = \pm b_0.b_1 b_2 \ldots$, where $b_0 \in \mathbb{N}$ gives the digits before the decimal point, and the digits $b_i \in \{0, 1, \dots, 9\}$ form the fractional part.
+A decimal expansion may terminate, repeat periodically, or continue indefinitely without repeating. The first two examples below are repeating decimals; the third is the nonrepeating expansion of $\pi$, which has been computed to more than thirty-one trillion digits:
+\[
+\begin{aligned}
+0.33333\ldots &= 0.\overline{3}, \\
+0.142857142857\ldots &= 0.\overline{142857}, \\
+\pi &= 3.1415926535897\ldots.
+\end{aligned}
+\]
+Thus, real numbers admit finite, repeating, or nonrepeating decimal representations. To give this notation a precise meaning, we interpret a decimal expansion as the value of an infinite series, defined as the limit of its partial sums:
+\[
+\begin{aligned}
+x &= b_0.b_1 b_2 \ldots \\
+&= b_0 + \frac{b_1}{10} + \frac{b_2}{100} + \cdots + \frac{b_n}{10^n} + \cdots \\
+&= \sum_{k=0}^{\infty} \frac{b_k}{10^k} \\
+&:= \lim_{n \to \infty} \sum_{k=0}^{n} \frac{b_k}{10^k}.
+\end{aligned}
+\]
+
+\subsection{Finite Geometric Sums}
+
+The treatment of repeating decimals relies on the formula for the sum of a finite geometric progression.
+
+\begin{theorem}[Geometric Sum Formula]
+Given any $q \neq 1$,
+\[
+\sum_{k=0}^{n-1} q^k = \frac{1 - q^n}{1-q}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Multiplying both sides of the identity
+\[
+\sum_{k=0}^{n-1} q^k = q^0 + q^1 + q^2 + \cdots + q^{n-1}
+\]
+by $1-q$, we obtain
+\[
+\begin{aligned}
+(1-q) \sum_{k=0}^{n-1} q^k &= (1-q)(q^0 + q^1 + q^2 + \cdots + q^{n-1}) \\
+&= (q^0 + q^1 + \cdots + q^{n-1}) - (q^1 + q^2 + \cdots + q^n).
+\end{aligned}
+\]
+All of the intermediate terms cancel in pairs, leaving only
+\[
+q^0 - q^n = 1 - q^n,
+\]
+which proves the formula.
+\end{proof}
+
+\subsection{Infinite Geometric Series}
+
+When $|q| < 1$, taking the limit $n \to \infty$ in the finite sum gives the corresponding infinite geometric series.
+
+\begin{theorem}[Geometric Series Formula]
+Given any $q \in \mathbb{R}$ with $|q| < 1$,
+\[
+\sum_{k=0}^{\infty} q^k = \frac{1}{1-q}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+By definition,
+\[
+\sum_{k=0}^{\infty} q^k = \lim_{n \to \infty} \sum_{k=0}^{n-1} q^k.
+\]
+By the Geometric Sum Formula,
+\[
+\sum_{k=0}^{n-1} q^k = (1 - q^n)/(1-q).
+\]
+Since $|q| < 1$, the geometric sequence satisfies
+\[
+\lim_{n \to \infty} q^n = 0,
+\]
+and the result follows by taking the limit in the finite-sum formula.
+\end{proof}
+
+\input{figures/geometric-area.tex}
+
+\subsection{Why Repeating Nines Equal One}
+
+The Geometric Series Formula resolves a familiar question about decimal notation: whether $0.\overline{9}$ is equal to $1$.
+
+\begin{theorem}[Repeating Nines]
+The repeating decimal $0.\overline{9}$ is equal to $1$, that is, $0.\overline{9} = 1$.
+\end{theorem}
+
+\begin{proof}
+By the definition of decimal notation given above, we may write
+\[
+\begin{aligned}
+0.\overline{9} &= 0 + \frac{9}{10} + \frac{9}{100} + \cdots + \frac{9}{10^n} + \cdots \\
+&= \frac{9}{10} \sum_{k=0}^{\infty} \frac{1}{10^k}.
+\end{aligned}
+\]
+Applying the Geometric Series Formula with $q = 1/10$, we obtain
+\[
+\begin{aligned}
+\sum_{k=0}^{\infty} (1/10)^k &= 1/(1 - 1/10) \\
+&= 10/9,
+\end{aligned}
+\]
+and hence
+\[
+\begin{aligned}
+0.\overline{9} &= \frac{9}{10} \cdot \frac{10}{9} \\
+&= 1.
+\end{aligned}
+\]
+
+\end{proof}
+
+\section{Rational Approximation and Uncountability}
+
+\subsection{Density of the Rational Numbers}
+
+Decimal expansions show that every real number can be approximated arbitrarily well by rational numbers with finite decimal representations.
+
+\begin{theorem}[Density of $\mathbb{Q}$ in $\mathbb{R}$]
+Every real number can be approximated to any desired degree of accuracy by rational numbers with finite decimal representations.
+\end{theorem}
+
+\begin{proof}
+Given a real number
+\[
+x = b_0.b_1 b_2 \ldots
+\]
+with $b_0 > 0$, we construct the sequence of rational numbers
+\[
+r_1, r_2, r_3, \ldots,
+\]
+each having a
+finite decimal representation, by successively truncating the decimal expansion of $x$,
+\[
+\begin{aligned}
+r_1 &= b_0.b_1, \\
+r_2 &= b_0.b_1 b_2, \\
+r_3 &= b_0.b_1 b_2 b_3, \\
+&\ldots, \\
+r_n &= b_0.b_1 b_2 b_3 \cdots b_n, \\
+&\ldots
+\end{aligned}
+\]
+
+Observe that $r_n < x$ for every integer $n$, since $r_n$ omits all the digits of $x$ beyond the $n$-th decimal place, each of which is nonnegative.
+We then estimate the resulting error as
+\[
+\begin{aligned}
+x - r_n &= \sum_{k=n+1}^{\infty} \frac{b_k}{10^k}
+< 9 \sum_{k=n+1}^{\infty} \frac{1}{10^k} \\
+&= \frac{9}{10^{n+1}} \sum_{k=0}^{\infty} \frac{1}{10^k} \\
+&= \frac{9}{10^{n+1}} \cdot \frac{1}{1 - \frac{1}{10}}\\
+&= \frac{1}{10^n},
+\end{aligned}
+\]
+
+Here we have used the bound $b_k \leq 9$ for every digit and the Geometric Series Formula. Thus, $0 < x - r_n < 1/10^n$, for every $n$. Taking $n$ sufficiently large makes the upper bound arbitrarily small, so $r_n$ approximates $x$ to any desired accuracy.
+\end{proof}
+
+The same series methods show that the repeating decimal $8.4\overline{35}$ equals
+\[
+(8435 - 84)/990.
+\]
+
+More generally, every repeating decimal represents a rational number, as can be shown by extending the calculation used for $0.\overline{9}$.
+
+\subsection{Countability and Cantor's Diagonal Argument}
+
+Although both $\mathbb{Q}$ and $\mathbb{R}$ are infinite, they differ in size, or \emph{cardinality}.
+The rational numbers are countable: there is a bijection, a function that is both one-to-one and onto, from $\mathbb{N}$ to $\mathbb{Q}$.
+Consequently, the rational numbers can be listed in an infinite sequence.
+
+The real numbers, by contrast, are uncountable. No one-to-one function from $\mathbb{R}$ to $\mathbb{N}$ exists, so no sequence can list all real numbers.
+Even the interval $[0,1]$ is uncountable.
+
+\begin{theorem}[Cantor's Uncountability Theorem]
+The set $[0,1]$ is uncountable.
+\end{theorem}
+
+\textit{Cantor's diagonal argument}, introduced in 1891, explains the underlying idea.
+Consider the set $T$ of infinite binary sequences, whose entries are either zero or one, and suppose that all its elements have been listed.
+Construct a new sequence by choosing its $n$-th digit to differ from the $n$-th digit of the $n$-th listed sequence, for every $n$.
+The new sequence differs from every entry in the list, contradicting the assumed enumeration.
+The full details connecting this construction to the interval are beyond the scope of this discussion.
+
+\section{Complex Numbers and Polynomial Equations}
+
+\subsection{Cartesian Representation and Arithmetic}
+
+Complex numbers extend the real number system to allow solutions of polynomial equations such as $x^2 + 1 = 0$, which has no solution in $\mathbb{R}$.
+
+\begin{definition}[Complex Numbers in Cartesian Form]
+A complex number is an expression of the form $a + bi$, where $a$ and $b$ are real numbers, and $i$ is a symbol satisfying $i^2 = -1$. The complex
+number $a+bi$ can also be represented by the ordered pair $(a,b)$ and plotted as a point in the \emph{Argand plane}.
+In particular, the complex number $i = 0 + 1 \cdot i$ is identified with the point $(0,1)$.
+\end{definition}
+
+For $a+bi$, the number $a$ is the real part and $b$ is the imaginary part. For example, $4 - 3i$ has real part $4$ and imaginary part $-3$.
+Two complex numbers $a+bi$ and $c+di$ are equal exactly when $a = c$ and $b = d$.
+In the Argand plane, the horizontal axis is the real axis and the vertical axis is the imaginary axis. Addition and subtraction are performed separately on the real and imaginary parts:
+\[
+\begin{aligned}
+(a+bi) + (c+di) &= (a+c) + (b+d)i, \\
+(a+bi) - (c+di) &= (a-c) + (b-d)i.
+\end{aligned}
+\]
+For instance,
+\[
+(1-i) + (4+7i) = 5 + 6i.
+\]
+
+The product of two complex numbers is defined in such a way that the usual commutative and distributive laws continue to hold, together with the
+defining relation $i^2 = -1$; expanding the product $(a+bi)(c+di)$ using distributivity and substituting $i^2 = -1$ yields
+\[
+(a+bi)(c+di) = (ac - bd) + (ad+bc) i.
+\]
+As an illustration,
+\[
+\begin{aligned}
+(-1+3i)(2-5i) &= (-1)(2-5i) + 3i(2-5i) \\
+&= -2 + 5i + 6i - 15 i^2 \\
+&= 13 + 11i,
+\end{aligned}
+\]
+where the last equality uses $i^2 = -1$.
+
+\subsection{Conjugation, Modulus, and Division}
+
+Division uses the complex conjugate to make the denominator real, much as rationalization removes a square root from a denominator.
+
+\begin{definition}[Complex Conjugation]
+For a complex number $z = a+bi$, its complex conjugate is defined to be $\overline{z} = a - bi$.
+\end{definition}
+
+To divide by a nonzero complex number, multiply the numerator and denominator by the conjugate of the denominator. For example, to express $(-1+3i)/(2+5i)$ in the form $a+bi$, use the conjugate $2-5i$. The numerator becomes
+\[
+(-1+3i)(2-5i),
+\]
+which was evaluated above. Dividing by the resulting real denominator gives $13/29 + 11i/29$. Geometrically, the complex conjugate $\overline{z}$ is the reflection of $z$ in the real axis. The complex conjugate obeys several elementary
+algebraic properties, namely
+\[
+\begin{aligned}
+\overline{z+w} &= \overline{z} + \overline{w} \\
+\overline{zw} &= \overline{z}\,\overline{w},
+\end{aligned}
+\]
+both of which follow directly from the definitions of the sum and product of complex numbers. The modulus, or absolute value, $|z|$ of a complex
+number $z = a+bi$ is defined as its distance from the origin in the Argand plane, that is,
+\[
+|z| = \sqrt{a^2+b^2}.
+\]
+It is a direct consequence of the definitions that
+\[
+\begin{aligned}
+z \overline{z} &= (a+bi)(a-bi) \\
+&= a^2 + abi - abi - b^2 i^2 \\
+&= a^2 + b^2,
+\end{aligned}
+\]
+so that $z\overline{z} = |z|^2$, which explains the division rule. For a nonzero divisor, it can be written as
+\[
+\begin{aligned}
+z/w &= z\overline{w}/(w\overline{w}) \\
+&= z\overline{w}/|w|^2.
+\end{aligned}
+\]
+
+Figure~\ref{fig:complex-conjugation} illustrates why conjugation preserves the modulus while reversing the sign of the imaginary part.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.2,>=Stealth]
+  \draw[->,black!65] (-0.6,0) -- (4.7,0) node[right] {$\mathrm{Re}$};
+  \draw[->,black!65] (0,-2.1) -- (0,2.1) node[above] {$\mathrm{Im}$};
+  \draw[gridline,dashed] (0,1.6) -- (3,1.6) -- (3,-1.6) -- (0,-1.6);
+  \draw[vecA] (0,0) -- (3,1.6);
+  \draw[vecB] (0,0) -- (3,-1.6);
+  \fill[figblue] (3,1.6) circle (2pt);
+  \fill[figred] (3,-1.6) circle (2pt);
+  \node[above right,figblue] at (3,1.6) {$z=a+bi$};
+  \node[below right,figred] at (3,-1.6) {$\overline{z}=a-bi$};
+  \node[below left] at (0,0) {$0$};
+  \node[below right] at (3,0) {$a$};
+  \node[left] at (0,1.6) {$b$};
+  \node[left] at (0,-1.6) {$-b$};
+\end{tikzpicture}
+\caption[Complex conjugation as reflection]{A complex number and its conjugate are mirror images across the real axis. They have the same real component and opposite imaginary components; their equal distances from the origin express the identity $|\overline{z}|=|z|$.}
+\label{fig:complex-conjugation}
+\end{figure}
+
+\subsection{Quadratic Equations and Complex Roots}
+
+Since $i^2 = -1$, one may regard $i$ as a square root of $-1$; however, one also has
+\[
+\begin{aligned}
+(-i)^2 &= i^2 \\
+&= -1,
+\end{aligned}
+\]
+so that $-i$ is likewise a square root of $-1$. By convention, $i$ is designated the principal square root of $-1$, and one writes $\sqrt{-1} = i$;
+more generally, for any positive number $c$, one writes $\sqrt{-c} = \sqrt{c}\, i$.
+
+With this convention, the usual derivation of the quadratic formula for an equation with a nonzero leading coefficient, $ax^2 + bx + c = 0$, remains valid even when the discriminant $b^2 - 4ac$ is negative. The roots are
+\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+\]
+
+\begin{example}
+The quadratic formula gives the roots of $x^2 + x + 1 = 0$ as $x = (-1 \pm \sqrt{3}\, i)/2$. \end{example}
+
+The two roots in this example are complex conjugates. In general, the nonreal roots of a quadratic equation with real coefficients $a$, $b$, $c$
+occur in conjugate pairs, while each real root coincides with its own conjugate.
+
+Allowing complex solutions ensures that every quadratic equation has a solution. More generally, every polynomial equation of degree at least one,
+\[
+a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0 = 0,
+\]
+has a complex solution. This result, proved by Gauss, is known as the \textit{Fundamental Theorem of Algebra}.
+
+\section{Polar Representation and the Complex Exponential}
+
+\subsection{Polar Coordinates: Modulus and Argument}
+
+A complex number $z = a+bi$ corresponds to the point $(a,b)$ in the Argand plane. This point can also be described by polar coordinates
+$(r,\theta)$, with $r \geq 0$, related to the Cartesian coordinates by
+\[
+\begin{aligned}
+a &= r \cos \theta \\
+b &= r \sin \theta,
+\end{aligned}
+\]
+giving the \emph{polar form} of $z$:
+\[
+\begin{aligned}
+z &= a+bi \\
+&= (r\cos\theta) + (r\sin\theta) i \\
+&= r(\cos\theta + i \sin\theta),
+\end{aligned}
+\]
+The modulus is given by
+\[
+\begin{aligned}
+r &= |z| \\
+&= (a^2+b^2)^{1/2}.
+\end{aligned}
+\]
+
+When the real part is nonzero, the argument also satisfies $\tan \theta = b/a$.
+For a nonzero complex number, the angle $\theta$ is called its \emph{argument}, written $\theta = \arg(z)$.
+The argument is determined only up to an integer multiple of $2\pi$.
+
+\begin{example}
+We express $z = 1+i$ and $w = \sqrt{3} - i$ in polar form.
+For $z$, we have
+\[
+\begin{gathered}
+\begin{aligned}
+r &= |z| \\
+&= (1^2+1^2)^{1/2} \\
+&= \sqrt{2}
+\end{aligned} \\
+\tan \theta = 1.
+\end{gathered}
+\]
+Since $z$ lies in the first quadrant, we take $\theta = \pi/4$, giving
+\[
+z = \sqrt{2} ( \cos(\pi/4) + i \sin(\pi/4) ).
+\]
+For $w$, we have
+\[
+\begin{gathered}
+\begin{aligned}
+r &= |w| \\
+&= (3+1)^{1/2} \\
+&= 2
+\end{aligned} \\
+\tan \theta = -1/\sqrt{3}.
+\end{gathered}
+\]
+Since $w$ lies in the fourth quadrant, we take $\theta = -\pi/6$, giving
+\[
+w = 2 ( \cos(-\pi/6) + i \sin(-\pi/6) ).
+\]
+
+\end{example}
+
+Figure~\ref{fig:ch2-polar-form} shows the geometric meaning of modulus, argument, and Cartesian components.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.3, >=Stealth]
+  \draw[->] (-0.5,0) -- (3.6,0) node[right] {$\mathrm{Re}$};
+  \draw[->] (0,-0.5) -- (0,3.1) node[above] {$\mathrm{Im}$};
+  \draw[figblue, thick, dashed] (0,0) circle (2.5cm);
+  \node[figblue] at (2.9,2.15) {$|z|=r$};
+  \coordinate (Z) at (50:2.5);
+  \draw[vecB] (0,0) -- (Z) node[right, xshift=2pt] {$z = a+bi = r\,e^{i\theta}$};
+  \draw[black!60, dashed] (Z) -- (Z |- 0,0) node[below] {$a = r\cos\theta$};
+  \draw[black!60, dashed] (Z) -- (0,0 |- Z) node[left] {$b = r\sin\theta$};
+  \draw[figgreen, thick] (0.6,0) arc (0:50:0.6);
+  \node[figgreen] at (0.88,0.4) {$\theta$};
+  \node[circle,fill=figred,inner sep=1.3pt] at (Z) {};
+\end{tikzpicture}
+\caption[Polar representation of a complex number]{Polar representation of
+  $z = a+bi = r e^{i\theta} \in \C$ in the Argand--Gauss plane: modulus $r=|z|$,
+  argument $\theta$, and Cartesian projections $a=r\cos\theta$, $b=r\sin\theta$.}
+\label{fig:ch2-polar-form}
+\end{figure}
+
+\subsection{Arithmetic, Powers, and Roots in Polar Form}
+
+Polar form reveals the geometry of multiplication and division. Given two complex numbers in polar form,
+\[
+\begin{aligned}
+z_1 &= r_1(\cos\theta_1 + i\sin\theta_1) \\
+z_2 &= r_2(\cos\theta_2 + i\sin\theta_2),
+\end{aligned}
+\]
+expanding their product and applying the addition formulas for sine and cosine yields
+\[
+z_1 z_2 = r_1 r_2 \big[ \cos(\theta_1+\theta_2) + i \sin(\theta_1+\theta_2) \big],
+\]
+so multiplication multiplies the moduli and adds the arguments. Similarly, the subtraction formulas for sine and cosine show that division
+divides the moduli and subtracts the arguments. For $z_2 \neq 0$, the quotient is
+\[
+\frac{z_1}{z_2} = \frac{r_1}{r_2} \big[ \cos(\theta_1-\theta_2) + i \sin(\theta_1-\theta_2) \big].
+\]
+
+Taking $z_1 = 1$, so that $r_1 = 1$ and $\theta_1 = 0$, and writing $z_2 = z$, gives the reciprocal formula. Any nonzero complex number in the following polar form has the reciprocal shown alongside it:
+\[
+\begin{aligned}
+z &= r(\cos\theta + i \sin \theta), \\
+\frac{1}{z} &= \frac{1}{r} \big( \cos\theta - i \sin\theta \big).
+\end{aligned}
+\]
+
+\begin{example}
+Using the polar representations of $1+i$ and $\sqrt{3}-i$ found above, the multiplication formula gives
+\[
+\begin{aligned}
+(1+i)(\sqrt{3}-i) &= 2\sqrt{2} \left[ \cos(\pi/4 - \pi/6) + i \sin(\pi/4-\pi/6) \right] \\
+&= 2\sqrt{2} \left[ \cos(\pi/12) + i \sin(\pi/12) \right].
+\end{aligned}
+\]
+
+\end{example}
+
+Repeated multiplication in polar form gives a rule for powers. Consider a complex number in polar form:
+\[
+z = r(\cos\theta + i\sin\theta).
+\]
+Its square and cube are given by the following identities:
+\[
+\begin{aligned}
+z^2 &= r^2(\cos 2\theta + i \sin 2\theta) \\
+z^3 &= z^2 z \\
+&= r^3(\cos 3\theta + i \sin 3\theta).
+\end{aligned}
+\]
+The general result is named after the French mathematician Abraham de Moivre.
+
+\begin{theorem}[De Moivre's Theorem]
+Let $n$ be a positive integer. For a complex number in polar form, its $n$-th power is given by
+\[
+\begin{aligned}
+z &= r(\cos\theta + i\sin\theta), \\
+z^n &= \big[ r (\cos\theta + i \sin \theta) \big]^n \\
+&= r^n \big( \cos n\theta + i \sin n\theta \big).
+\end{aligned}
+\]
+
+\end{theorem}
+
+Thus, taking the $n$-th power raises the modulus to the $n$-th power and multiplies the argument by $n$.
+
+\begin{example}
+We compute
+\[
+\left( \frac{1}{2} + \frac{1}{2}i \right)^{10}.
+\]
+The calculation uses the following factorization and the polar form of $1+i$ found above:
+\[
+\begin{aligned}
+\frac{1}{2} + \frac{1}{2}i &= \frac{1}{2}(1+i), \\
+1+i &= \sqrt{2}\big(\cos(\pi/4) + i\sin(\pi/4)\big).
+\end{aligned}
+\]
+De Moivre's Theorem gives the tenth power from this modulus and argument.
+\end{example}
+
+De Moivre's Theorem also gives the $n$-th roots of a complex number. An $n$-th root of $z$ is a complex number $w$ satisfying $w^n = z$.
+For nonzero $z$, write both numbers in polar form:
+\[
+\begin{aligned}
+w &= s(\cos\varphi + i\sin\varphi) \\
+z &= r(\cos\theta + i\sin\theta).
+\end{aligned}
+\]
+Applying De Moivre's Theorem to $w^n$, the equation $w^n = z$ becomes
+\[
+s^n(\cos n\varphi + i \sin n\varphi) = r(\cos\theta + i \sin\theta).
+\]
+
+Comparing moduli and arguments on both sides, and recalling that sine and cosine have period $2\pi$, gives the following relations for some integer $k$:
+\[
+\begin{aligned}
+s &= r^{1/n} \\
+n\varphi &= \theta + 2k\pi.
+\end{aligned}
+\]
+
+This gives $\varphi = (\theta + 2k\pi)/n$. Each index $k = 0, 1, 2, \dots, n-1$ yields a distinct value of $w$, giving the following description of the $n$-th roots of a complex number.
+
+\begin{theorem}[Roots of a Complex Number]
+Let $n$ be a positive integer and let $z$ be a nonzero complex number with the polar representation below. For each index $k = 0, 1, \dots, n-1$, the second formula gives one of its exactly $n$ distinct $n$-th roots:
+\[
+\begin{aligned}
+z &= r(\cos\theta + i\sin\theta), \\
+w_k &= r^{1/n} \left[ \cos\left( \frac{\theta + 2k\pi}{n} \right) + i \sin\left( \frac{\theta+2k\pi}{n} \right) \right].
+\end{aligned}
+\]
+
+\end{theorem}
+
+All these roots have modulus $r^{1/n}$ and therefore lie on a circle of radius $r^{1/n}$ in the complex plane.
+Their successive arguments differ by $2\pi/n$, so the roots are equally spaced around the circle.
+
+\begin{example}
+We find the sixth roots of $z = -8$. In trigonometric form,
+\[
+z = 8(\cos\pi + i\sin\pi).
+\]
+Applying the formula with $n = 6$, we obtain the six roots by taking $k = 0, 1, 2, 3, 4, 5$ in
+\[
+8^{1/6} \left[ \cos\left( \frac{\pi + 2k\pi}{6} \right) + i \sin\left( \frac{\pi+2k\pi}{6} \right) \right];
+\]
+all six resulting points lie on the circle of radius $8^{1/6} = \sqrt{2}$ in the complex plane, equally spaced around it.
+\end{example}
+
+Figure~\ref{fig:sixth-roots-minus-eight} displays these six roots and the equal angular spacing between successive ones.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=2.1,>=Stealth]
+  \draw[->,black!55] (-1.85,0) -- (1.95,0) node[right] {$\mathrm{Re}$};
+  \draw[->,black!55] (0,-1.85) -- (0,1.95) node[above] {$\mathrm{Im}$};
+  \draw[figblue,thick] (0,0) circle ({sqrt(2)});
+  \draw[figblue!45,dashed] (30:{sqrt(2)}) -- (90:{sqrt(2)}) -- (150:{sqrt(2)})
+    -- (210:{sqrt(2)}) -- (270:{sqrt(2)}) -- (330:{sqrt(2)}) -- cycle;
+  \foreach \angle/\rootindex in {30/0,90/1,150/2,210/3,270/4,330/5} {
+    \draw[gridline,dashed] (0,0) -- (\angle:{sqrt(2)});
+    \fill[figblue] (\angle:{sqrt(2)}) circle (1.3pt);
+  }
+  \node[above right] at (30:{sqrt(2)}) {$w_0$};
+  \node[above right] at (90:{sqrt(2)}) {$w_1$};
+  \node[above left] at (150:{sqrt(2)}) {$w_2$};
+  \node[below left] at (210:{sqrt(2)}) {$w_3$};
+  \node[below right] at (270:{sqrt(2)}) {$w_4$};
+  \node[below right] at (330:{sqrt(2)}) {$w_5$};
+  \draw[figgreen,thick,->] (30:0.55) arc[start angle=30,end angle=90,radius=0.55];
+  \node[figgreen] at (60:0.85) {$\pi/3$};
+  \node[below left] at (0,0) {$0$};
+\end{tikzpicture}
+\caption[The six sixth roots of minus eight]{The solutions of $w^6=-8$ form the vertices of a regular hexagon on the circle of radius $\sqrt{2}$. Starting at argument $\pi/6$, the labels follow increasing argument in steps of $\pi/3$. Dashed segments emphasize the symmetry and do not represent additional roots.}
+\label{fig:sixth-roots-minus-eight}
+\end{figure}
+
+\subsection{The Complex Exponential and Euler's Formula}
+
+
+We now define $e^z$ for a complex number $z = x+iy$. Power series, studied in detail in later chapters, also allow complex terms.
+Motivated by the Maclaurin series for $e^x$, we define the complex exponential by
+\[
+\begin{aligned}
+e^z &:= \sum_{n=0}^{\infty} \frac{z^n}{n!} \\
+&= 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots,
+\end{aligned}
+\]
+which has the same fundamental algebraic properties as the real exponential. In particular, $e^{z+w} = e^z e^w$, for all complex numbers $z$ and $w$.
+
+
+Substituting $z = iy$ for real $y$ into the defining series and using $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, together with the periodic recurrence of higher powers of $i$, one obtains
+\[
+\begin{aligned}
+e^{iy} &= 1 + iy + \frac{(iy)^2}{2!} + \frac{(iy)^3}{3!} + \frac{(iy)^4}{4!} + \cdots \\
+&= \left(1 - \frac{y^2}{2!} + \frac{y^4}{4!} - \cdots\right) + i \left( y - \frac{y^3}{3!} + \frac{y^5}{5!} - \cdots \right).
+\end{aligned}
+\]
+
+The two series in parentheses are the Maclaurin series for $\cos y$ and $\sin y$, respectively. This gives Euler's formula.
+
+\begin{theorem}[Euler's Formula]
+For every real number $y$,
+\[
+e^{iy} = \cos y + i \sin y.
+\]
+
+\end{theorem}
+
+Combining Euler's formula with the multiplicative property gives
+\[
+\begin{aligned}
+e^{x+iy} &= e^x e^{iy} \\
+&= e^x (\cos y + i \sin y),
+\end{aligned}
+\]
+which expresses the exponential of $x+iy$ using the real exponential and trigonometric functions.
+
+\begin{example}
+We evaluate two particular complex exponentials using Euler's formula. First,
+\[
+\begin{aligned}
+e^{i\pi} &= \cos\pi + i \sin\pi \\
+&= -1 + i \cdot 0 \\
+&= -1,
+\end{aligned}
+\]
+an identity linking five fundamental mathematical constants. Second, the general formula for $e^{x+iy}$ gives
+\[
+\begin{aligned}
+e^{1+i\pi/2} &= e^1 (\cos(\pi/2) + i \sin(\pi/2)) \\
+&= e(0 + i \cdot 1) \\
+&= ie.
+\end{aligned}
+\]
+
+\end{example}
+
+Euler's formula also gives a short proof of De Moivre's Theorem. Writing $z = re^{i\theta}$, we obtain
+\[
+\begin{aligned}
+\big[ r(\cos\theta + i\sin\theta) \big]^n &= \big( r e^{i\theta} \big)^n \\
+&= r^n e^{in\theta} \\
+&= r^n (\cos n\theta + i \sin n\theta),
+\end{aligned}
+\]
+so De Moivre's Theorem follows directly from the laws of exponents for the complex exponential.

@@ -1,0 +1,256 @@
+\documentclass[11pt]{report}
+ 
+% --- GEOMETRIA E STRUTTURA DELLA PAGINA ---
+\usepackage[a4paper, left=2.8cm, right=2.8cm, top=3cm, bottom=3cm, headheight=15pt, headsep=8mm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage[section]{placeins}
+ 
+% --- LINGUA, CODIFICA E TIPOGRAFIA (FONT) ---
+\usepackage[italian, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{microtype}
+ 
+% --- MATEMATICA E SIMBOLI ---
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{siunitx}
+\sisetup{per-mode=symbol}
+ 
+% --- GRAFICA, DIAGRAMMI E CIRCUITI ---
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup[figure]{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false,position=bottom,skip=10pt}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[american]{circuitikz}
+ 
+\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning, calc}
+\usetikzlibrary{patterns, decorations.pathmorphing, backgrounds, automata}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{statistics}
+
+\tikzset{
+    block/.style = {draw, thick, rectangle, minimum height=1.2cm, minimum width=2cm, align=center},
+    sum/.style = {draw, circle, thick, minimum size=8mm, node distance=1cm},
+    input/.style = {coordinate},
+    output/.style = {coordinate},
+    arrow/.style={->, thick, black},
+    io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=1cm, minimum height=0.5cm, draw, align=center}
+}
+ 
+% --- TABELLE E INDICE ---
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{tocloft}
+\usepackage[hidelinks,bookmarks=true,bookmarksopen=true]{hyperref}
+\hypersetup{
+  pdftitle={Mathematical Methods for Machine Learning},
+  pdfauthor={Tommaso Vescio},
+  pdfsubject={A self-contained compendium of mathematical methods for machine learning},
+  pdfkeywords={mathematical analysis, linear algebra, optimization, probability, differential equations, machine learning},
+  pdfcreator={LaTeX with hyperref}
+}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\setlength{\cftbeforechapskip}{1em}
+\setlength{\cftbeforesecskip}{0.28em}
+\setlength{\cftbeforesubsecskip}{0.10em}
+\setlength{\cftchapnumwidth}{2.5em}
+\cftsetindents{section}{1.5em}{3.1em}
+\cftsetindents{subsection}{3.4em}{4em}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+\renewcommand{\cftchapafterpnum}{\par\nobreak}
+\renewcommand{\cftsecafterpnum}{\par\nobreak}
+\cftsetpnumwidth{2.5em}
+\cftsetrmarg{3.5em}
+ 
+% --- CONFIGURAZIONE STILI TEOREMI ---
+\newtheoremstyle{boldplain}
+  {14pt plus 3pt minus 2pt}{14pt plus 3pt minus 2pt}{\itshape}{}{\bfseries}{.}{0.7em}
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}
+\newtheoremstyle{bolddefinition}
+  {14pt plus 3pt minus 2pt}{14pt plus 3pt minus 2pt}{\normalfont}{}{\bfseries}{.}{0.7em}
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}
+\newtheoremstyle{boldremark}
+  {14pt plus 3pt minus 2pt}{14pt plus 3pt minus 2pt}{\normalfont}{}{\bfseries}{.}{0.7em}
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}
+ 
+\theoremstyle{bolddefinition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{boldplain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{boldremark}
+\newtheorem{remark}{Remark}[section]
+
+ 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em plus 0.15em minus 0.1em}
+\setstretch{1.0}
+\setdisplayskipstretch{1}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\setlength{\emergencystretch}{1em}
+
+\appto\normalsize{%
+  \setlength{\abovedisplayskip}{16pt plus 3pt minus 2pt}%
+  \setlength{\belowdisplayskip}{16pt plus 3pt minus 2pt}%
+  \setlength{\abovedisplayshortskip}{10pt plus 2pt minus 1pt}%
+  \setlength{\belowdisplayshortskip}{14pt plus 3pt minus 2pt}%
+}
+\AtBeginDocument{\normalsize}
+\setlength{\jot}{6pt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\Huge\bfseries\raggedright}
+  {\normalfont\large\scshape\chaptertitlename\ \thechapter}
+  {24pt}{}
+\titlespacing*{\chapter}{0pt}{54pt}{44pt}
+\titlespacing*{\section}{0pt}{2.2\baselineskip plus 4pt minus 2pt}{0.85\baselineskip}
+\titlespacing*{\subsection}{0pt}{1.6\baselineskip plus 3pt minus 2pt}{0.65\baselineskip}
+
+\setlist[itemize,enumerate,description]{
+  topsep=0.8em plus 0.2em minus 0.1em,
+  itemsep=0.45em plus 0.1em minus 0.05em,
+  parsep=0.2em,
+  partopsep=0.2em
+}
+\BeforeBeginEnvironment{proof}{\par\addvspace{0.6\baselineskip}}
+\AfterEndEnvironment{proof}{\par\addvspace{0.6\baselineskip}}
+
+\setlength{\textfloatsep}{22pt plus 4pt minus 2pt}
+\setlength{\intextsep}{20pt plus 4pt minus 2pt}
+\setlength{\floatsep}{16pt plus 3pt minus 2pt}
+\setlength{\abovecaptionskip}{10pt}
+\setlength{\belowcaptionskip}{6pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.12}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+ 
+% --- COMANDI AGGIUNTIVI PER ALGEBRA/ANALISI ---
+\newcommand{\bv}{\bm{v}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bx}{\bm{x}}
+\newcommand{\by}{\bm{y}}
+\newcommand{\bW}{\bm{W}}
+\newcommand{\bM}{\bm{M}}
+\newcommand{\bX}{\bm{X}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dalembert}{\mathop{\Box}\nolimits}
+
+% --- PALETTE DEDICATA ALLE FIGURE (coerente con lo stile del libro) ---
+\definecolor{figblue}{RGB}{0,90,170}
+\definecolor{figred}{RGB}{190,30,45}
+\definecolor{figgreen}{RGB}{30,140,80}
+\tikzset{
+  vecA/.style={draw=figblue, very thick, -{Stealth[length=2.8mm]}},
+  vecB/.style={draw=figred, very thick, -{Stealth[length=2.8mm]}},
+  vecC/.style={draw=figgreen, very thick, -{Stealth[length=2.8mm]}},
+  gridline/.style={draw=black!30, thin},
+}
+
+% ==========================================
+%            INIZIO DOCUMENTO
+% ==========================================
+\begin{document}
+
+\pagenumbering{roman} 
+\pagestyle{plain}     
+
+% =========================================================================
+% --- FRONTESPIZIO COMPATTO (STILE GATSBY UNIT UCL) ---
+% =========================================================================
+\begin{center}
+    {\linespread{1.1}\selectfont
+    {\huge Mathematical Methods for Machine Learning\\} 
+    }
+    \vspace{0.4cm}
+    {\large{Tommaso Vescio $\,\cdot\,$ Updated: September 2026 (Original: June 2023)} \par}
+\end{center}
+
+\vspace{0.2cm}
+
+\hrule
+\vspace{0.15cm}
+{\large{\textit{Mathematical Methods for Machine Learning} develops a unified pathway from the foundations of mathematical analysis to advanced methods for modeling and inference. Building on the Analysis course taught by \textit{Professor Monica Conti (Politecnico di Milano)}, this expanded compendium combines rigorous treatments of calculus, linear and functional analysis, differential equations, optimization, Fourier methods, and probability with the operational tools required for biophysical modeling and probabilistic inference in complex systems.} \par}
+
+% --- INDICE ---
+\renewcommand{\contentsname}{\LARGE\textbf{Contents}} 
+\tableofcontents 
+\newpage
+
+% --- CONFIGURAZIONE PAGINE ---
+\pagenumbering{arabic} 
+\pagestyle{fancy}
+\fancyhf{}              
+\fancyhead[R]{\small\nouppercase{\rightmark}}
+\fancyfoot[C]{\thepage}
+
+% --- INCLUSIONE DEI FILE DELLE LEZIONI ---
+\input{chapters/L0.tex}
+\newpage
+\input{chapters/L1.tex}
+\newpage
+\input{chapters/L2.tex}
+\newpage
+\input{chapters/L3.tex}
+\newpage
+\input{chapters/L4.tex}
+\newpage
+\input{chapters/L5.tex}
+\newpage
+\input{chapters/L6.tex}
+\newpage
+\input{chapters/L7.tex}
+\newpage
+\input{chapters/L8.tex}
+\newpage
+\input{chapters/L9.tex}
+\newpage
+\input{chapters/L10.tex}
+\newpage
+\input{chapters/L11.tex}
+\newpage
+\input{chapters/L12.tex}
+\newpage
+\input{chapters/L13.tex}
+\newpage
+\input{chapters/L14.tex}
+\clearpage
+\input{references.tex}
+\end{document}

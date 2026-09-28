@@ -1,0 +1,18 @@
+Figure~\ref{fig:atlas-outward-flux} connects positive divergence inside a region with outward boundary flux.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.35,>=Stealth]
+\fill[figblue!8] (0,0) circle (1.5);
+\draw[figblue,thick] (0,0) circle (1.5);
+\foreach \angle in {0,30,...,330} {
+  \draw[->,figred,thick] (\angle:1.5) -- (\angle:2.05);
+  \draw[->,black!40] (\angle:0.55) -- (\angle:0.95);
+}
+\node at (0,0) {$\Omega$};
+\node[above right,figblue] at (45:1.5) {$\partial\Omega$};
+\node[right,figred] at (0:2.05) {$n$};
+\end{tikzpicture}
+\caption{A planar slice through the unit ball for the three-dimensional field $F(x,y,z)=(x,y,z)$. The field has divergence $3$ and agrees with the outward unit normal on the unit sphere. The resulting flux $4\pi$ equals divergence times volume. Arrows show radial directions, not a surface parametrization.}
+\label{fig:atlas-outward-flux}
+\end{figure}

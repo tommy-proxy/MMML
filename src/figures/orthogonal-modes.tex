@@ -1,0 +1,28 @@
+Figure~\ref{fig:atlas-orthogonal-modes} illustrates orthogonal oscillatory modes in a function space.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[
+  width=12.5cm,height=6.4cm,
+  axis lines=left,
+  ticklabel style={font=\small},label style={font=\small},
+  xlabel={$x$},ylabel={$e_n(x)$},
+  xmin=-0.03,xmax=1.03,ymin=-1.6,ymax=1.65,
+  xtick={0,0.5,1},ytick={-1,0,1},
+  legend style={at={(0.5,1.02)},anchor=south,legend columns=3,
+    font=\scriptsize,draw=black!20,fill=white,column sep=1em}
+]
+\draw[black!20,densely dashed] (axis cs:0,-1.5) -- (axis cs:0,1.5);
+\draw[black!20,densely dashed] (axis cs:1,-1.5) -- (axis cs:1,1.5);
+\addplot[figblue,very thick,domain=0:1,samples=140] {sqrt(2)*sin(deg(pi*x))};
+\addlegendentry{$n=1$}
+\addplot[figred,thick,dashed,domain=0:1,samples=140] {sqrt(2)*sin(deg(2*pi*x))};
+\addlegendentry{$n=2$}
+\addplot[figgreen,thick,dashdotted,domain=0:1,samples=140] {sqrt(2)*sin(deg(3*pi*x))};
+\addlegendentry{$n=3$}
+\end{axis}
+\end{tikzpicture}
+\caption{The first three functions $\sqrt{2}\sin(n\pi x)$ on $[0,1]$, extended by zero outside this interval, are orthonormal in $L^2(\mathbb{R})$. Their different oscillation patterns have zero pairwise inner products. Orthonormality refers to an integral, not to perpendicular curves in the picture.}
+\label{fig:atlas-orthogonal-modes}
+\end{figure}

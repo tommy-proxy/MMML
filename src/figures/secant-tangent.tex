@@ -1,0 +1,17 @@
+Figure~\ref{fig:atlas-secant-tangent} shows how secant slopes approach the derivative at a fixed point.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=5.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$y$},xmin=0,xmax=2.4,ymin=-0.3,ymax=5,xtick={1,1.5,2},ytick={1,2,3,4}]
+\addplot[figblue,very thick,domain=0:2.2,samples=100] {x^2};
+\addplot[figred,dashed,thick,domain=0.6:2.15] {3*x-2};
+\addplot[figred!55,dashdotted,thick,domain=0.6:2.15] {2.5*x-1.5};
+\addplot[figgreen,thick,domain=0.4:2.1] {2*x-1};
+\addplot[only marks,mark=*,figblue] coordinates {(1,1)(1.5,2.25)(2,4)};
+\node[below right] at (axis cs:1,1) {$(1,1)$};
+\end{axis}
+\end{tikzpicture}
+\caption{For $f(x)=x^2$ at $x=1$, the secants through the second points $x=2$ and $x=1.5$ have slopes $3$ and $2.5$. They approach the tangent slope $2$ as the second point tends to the first. The tangent is drawn in green.}
+\label{fig:atlas-secant-tangent}
+\end{figure}

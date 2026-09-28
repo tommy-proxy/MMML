@@ -1,0 +1,887 @@
+\chapter[Multivariable Calculus, Vector Operators, and Tensors]{Multivariable Differential Calculus, Vector Operators and Tensor Theory}
+
+\section{Multivariable Functions and Partial Derivatives}
+
+\subsection{Definition, Graphs, and Level Curves}
+
+A function $f$ of two variables is a rule that assigns to each ordered pair of real numbers $(x,y)$ belonging to a set $D \subset \mathbb{R}^2$ a unique real number, denoted by $f(x,y)$; symbolically,
+\[
+f : D \subset \mathbb{R}^2 \to \mathbb{R}, \qquad (x,y) \mapsto f(x,y).
+\]
+
+The domain $D$ is a subset of the $xy$-plane, and consists of the set of all admissible inputs of the function. Several elementary examples illustrate this notion, such as
+\[
+\begin{gathered}
+z = (1-x-y)^{1/2}/(x-y), \\[0.5em]
+z = \ln(y^2-x), \\[0.5em]
+z = 4 - x^2 - y^2,
+\end{gathered}
+\]
+each defined on a suitable domain determined by the requirement that the corresponding algebraic expression be well defined.
+
+One method for visualizing the behavior of a function of two variables is to consider its graph. If $f$ is a function of two variables with domain $D$, the graph of $f$ is defined as the set of all points $(x,y,z) \in \mathbb{R}^3$ such that $z = f(x,y)$ and $(x,y) \in D$; this graph typically takes the form of a surface in three-dimensional space.
+
+A second, complementary method for visualizing such functions, borrowed from the practice of mapmakers, relies on two-dimensional maps annotated with level curves.
+
+\begin{definition}[Level Curve]
+The level curves of a function $f$ of two variables are the curves in the $xy$-plane with equations $f(x,y) = k$, where $k$ is a constant belonging to the range of $f$.
+\end{definition}
+
+As illustrations of this notion, one may sketch the level-curve map of the function
+\[
+z = 6 - 3x - 2y,
+\]
+whose level curves form a family of parallel straight lines, or of the function
+\[
+g(x,y) = 9 - x^2 - y^2,
+\]
+whose level curves form a family of concentric circles centered at the origin.
+
+\subsection{Limits of Functions of Two Variables}
+
+Let $f$ be a function of two variables whose domain $D$ includes a neighborhood $U(a,b)$ of a given point $(a,b)$, that is, a disc centered at $(a,b)$.
+
+The notion of limit developed earlier for functions of a single real variable extends naturally to this two-dimensional setting, with the absolute distance $|x-a|$ replaced by the Euclidean distance between the points $(x,y)$ and $(a,b)$.
+
+\begin{definition}
+We write
+\[
+\lim_{(x,y) \to (a,b)} f(x,y) = L,
+\]
+and say that the limit of $f(x,y)$ as $(x,y)$ approaches $(a,b)$ is $L$, if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+\[
+0 < \sqrt{(x-a)^2 + (y-b)^2} < \delta \implies |f(x,y) - L| < \varepsilon.
+\]
+
+Equivalently, the distance between $f(x,y)$ and $L$ can be made arbitrarily small by making the distance from $(x,y)$ to $(a,b)$ sufficiently small, though not equal to zero.
+\end{definition}
+
+\begin{remark}
+This definition refers exclusively to the Euclidean distance between $(x,y)$ and $(a,b)$, and makes no reference whatsoever to the particular direction along which $(x,y)$ approaches $(a,b)$.
+
+Consequently, if the limit exists, then $f(x,y)$ must approach the very same value $L$ regardless of the specific path along which $(x,y)$ approaches $(a,b)$; this observation provides a standard technique for proving the nonexistence of a two-variable limit, namely by exhibiting two distinct paths of approach along which $f$ tends to two different values. As an illustration of this phenomenon, one may investigate whether the limit
+\[
+\lim_{(x,y) \to (0,0)} f(x,y)
+\]
+exists for the function
+\[
+f(x,y) = xy/(x^2+y^2),
+\]
+and discover, by comparing the limiting values obtained along the two coordinate axes and along the line $y=x$, that no common limiting value exists.
+\end{remark}
+
+\input{figures/path-dependent-limit.tex}
+
+\subsection{Continuity of Functions of Two Variables}
+
+\begin{definition}
+A function $f$ of two variables is called continuous at $(a,b)$ if
+\[
+\lim_{(x,y) \to (a,b)} f(x,y) = f(a,b).
+\]
+We say that $f$ is continuous on $D$ if $f$ is continuous at every point of $D$.
+\end{definition}
+
+Using the algebraic properties of limits, entirely analogous to those established for functions of a single variable, one readily verifies that sums, differences, products, and quotients of continuous functions of two variables remain continuous on their respective domains. Consequently, any polynomial function of two variables, such as
+\[
+f(x,y) = x^4 + 5x^3y^2 - 6xy^4 + 7y^2,
+\]
+is continuous throughout $\mathbb{R}^2$. Likewise, since a rational function is a ratio of two polynomials, it is continuous wherever its denominator does not vanish; the function
+\[
+f(x,y) = x^2y/(x^2+y^2)
+\]
+provides a standard example of such a rational function, continuous throughout $\mathbb{R}^2 \setminus \{(0,0)\}$.
+
+\subsection{Partial Derivatives: Definition and Computation}
+
+
+Let $f(x,y)$ be a function of two variables, defined on a neighborhood $U(a,b)$ of a point $(a,b)$.
+
+Suppose that we allow only the variable $x$ to vary, while keeping $y$ fixed at the value $b$; this amounts to considering the function of a single variable $g(x) = f(x,b)$.
+
+If $g$ is differentiable at $x=a$, we say that $f$ has a partial derivative with respect to $x$ at $(a,b)$, denoted $f_x(a,b)$ or $\partial f/\partial x \, (a,b)$, defined by $f_x(a,b) = g'(a)$; equivalently, unwinding the definition of ordinary derivative,
+\[
+\begin{aligned}
+f_x(a,b) &= \lim_{h \to 0} \frac{g(a+h) - g(a)}{h} \\[0.5em]
+&= \lim_{h \to 0} \frac{f(a+h,b) - f(a,b)}{h}.
+\end{aligned}
+\]
+
+An entirely analogous construction, obtained by keeping $x$ fixed at the value $a$ and letting $y$ vary, defines the partial derivative of $f$ with respect to $y$ at $(a,b)$, denoted $f_y(a,b)$ or $\partial f/\partial y \, (a,b)$; setting $G(y) = f(a,y)$, one has $f_y(a,b) = G'(b)$, that is,
+\[
+f_y(a,b) = \lim_{k \to 0} \frac{f(a,b+k) - f(a,b)}{k}.
+\]
+
+If the point $(a,b)$ is allowed to vary throughout the domain, the partial derivatives $f_x$ and $f_y$ themselves become functions of the two variables $x$ and $y$,
+\[
+\begin{aligned}
+f_x(x,y) &= \lim_{h \to 0} \frac{f(x+h,y) - f(x,y)}{h}, \\[0.5em]
+f_y(x,y) &= \lim_{k \to 0} \frac{f(x,y+k) - f(x,y)}{k}.
+\end{aligned}
+\]
+
+In practice, partial derivatives are computed according to the following simple rule: to find $f_x$, one regards $y$ as a constant and differentiates the resulting expression with respect to $x$ using the ordinary rules of single-variable differentiation; symmetrically, to find $f_y$, one regards $x$ as a constant and differentiates with respect to $y$. As an illustration of this rule, one may compute the partial derivatives of
+\[
+f(x,y) = x^3 + x^2 y^3 - 2y^2.
+\]
+
+If $f$ is a function of two variables, its partial derivatives $f_x$ and $f_y$ are themselves functions of two variables, and one may accordingly consider their own partial derivatives, namely $(f_x)_x$, $(f_x)_y$, $(f_y)_x$, and $(f_y)_y$, collectively called the second-order partial derivatives of $f$. Writing $z = f(x,y)$, one adopts the standard notation $f_{xy} = \partial^2 f / \partial y\, \partial x$ to indicate that differentiation is performed first with respect to $x$, and subsequently with respect to $y$; the notation $f_{yx}$ indicates the reverse order of differentiation. Although these two mixed partial derivatives are computed in opposite orders, they in fact coincide under mild regularity assumptions, as the following classical result shows.
+
+\begin{theorem}[Clairaut's Theorem]
+Suppose $f$ is defined on a neighborhood $U(a,b)$. If the functions $f_{xy}$ and $f_{yx}$ are both continuous on $U(a,b)$, then
+\[
+f_{xy}(a,b) = f_{yx}(a,b).
+\]
+
+\end{theorem}
+
+Partial derivatives occur pervasively in the formulation of partial differential equations expressing fundamental physical laws, and it is instructive to record a few celebrated examples. The Laplace equation, $\Delta u = 0$, where
+\[
+\Delta = \partial^2/\partial x^2 + \partial^2/\partial y^2
+\]
+denotes the two-dimensional Laplacian operator already introduced in the study of vector calculus, has solutions called harmonic functions, which play a central role in problems of heat conduction, fluid flow, and electric potential. If $u(t,x)$ represents the displacement of a vibrating violin string at time $t$ and at a distance $x$ from one end of the string, then $u$ satisfies the wave equation,
+\[
+\partial^2 u/\partial t^2 = a^2 \, \partial^2 u/\partial x^2,
+\]
+for a suitable constant $a$ related to the physical properties of the string. Finally, the celebrated Navier--Stokes equation, governing the velocity field $\mathbf{u}$ of an incompressible fluid, takes the form
+\[
+\partial \mathbf{u}/\partial t + (\mathbf{u} \cdot \nabla)\mathbf{u} - \nu \Delta \mathbf{u} = -\nabla w + \mathbf{g},
+\]
+where $\nu$, $w$, and $\mathbf{g}$ denote, respectively, the viscosity, pressure, and external force density of the fluid.
+
+\section{Scalar and Vector Fields: Differential Operators}
+\label{sec:vector-operators}
+
+Vector calculus is a fundamental tool in mathematical analysis, differential geometry, and mathematical physics. It extends the concepts of differential calculus, already developed for functions of a single real variable, to the setting of scalar and vector fields defined on regions of three-dimensional space.
+
+\subsection{Scalar and Vector Fields and First-Order Operators}
+
+Let $\Omega \subseteq \mathbb{R}^3$ be a given open set. Two distinct types of fields naturally arise on such a domain, and it is useful to introduce a unified notation before distinguishing between them. A scalar field is a function $f : \Omega \to \mathbb{R}$ that assigns a single real number to every point $\mathbf{x} = (x,y,z) \in \Omega$; a vector field, by contrast, is a function $\mathbf{F} : \Omega \to \mathbb{R}^3$ that assigns an entire vector, rather than a single number, to every point of $\Omega$, and is accordingly written in components as
+\[
+\mathbf{F}(x,y,z) = P(x,y,z) \, \mathbf{i} + Q(x,y,z) \, \mathbf{j} + R(x,y,z) \, \mathbf{k} = \begin{pmatrix} P(x,y,z) \\ Q(x,y,z) \\ R(x,y,z) \end{pmatrix}.
+\]
+
+In order to express directional derivatives and the various differential operations acting on scalar and vector fields in a compact and systematic notation, it is convenient to introduce the symbolic Nabla operator,
+\[
+\nabla = \mathbf{i} \frac{\partial}{\partial x} + \mathbf{j} \frac{\partial}{\partial y} + \mathbf{k} \frac{\partial}{\partial z} = \begin{pmatrix} \dfrac{\partial}{\partial x} \\[2mm] \dfrac{\partial}{\partial y} \\[2mm] \dfrac{\partial}{\partial z} \end{pmatrix}.
+\]
+
+Although $\nabla$ is not itself a vector in the ordinary sense, but rather a formal symbol representing a vector of partial differentiation operators, it can be manipulated according to many of the familiar rules of vector algebra, and this formal analogy underlies the definitions of the gradient, divergence, and curl introduced in the following subsection.
+
+
+Three fundamental first-order differential operators act on scalar and vector fields, each capturing a distinct geometric aspect of how the field varies from point to point; we now introduce each of them in turn, together with its defining formula in terms of the Nabla operator.
+
+The gradient of a differentiable scalar field $f$ is a vector field that points, at every point of $\Omega$, in the direction of the maximum rate of increase of $f$, and whose magnitude equals that maximum rate of increase. It is defined by applying the Nabla operator to $f$, yielding
+\[
+\begin{aligned}
+\operatorname{grad} f &= \nabla f \\[0.5em]
+&= \frac{\partial f}{\partial x} \, \mathbf{i} + \frac{\partial f}{\partial y} \, \mathbf{j} + \frac{\partial f}{\partial z} \, \mathbf{k}.
+\end{aligned}
+\]
+
+The divergence, by contrast, acts on a vector field $\mathbf{F}$ rather than on a scalar field, and produces a scalar rather than a vector; it measures the magnitude of the source or sink of the vector field at a given point, that is, the extent to which the field appears to originate from or converge toward that point. It is defined, formally, as the dot product of $\nabla$ with $\mathbf{F}$,
+\[
+\begin{aligned}
+\operatorname{div} \mathbf{F} &= \nabla \cdot \mathbf{F} \\[0.5em]
+&= \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}.
+\end{aligned}
+\]
+
+The curl, finally, again acts on a vector field, but unlike the divergence it returns another vector field rather than a scalar, and it measures the tendency of the field to rotate about a given point. It is defined, formally, as the cross product of $\nabla$ with $\mathbf{F}$, evaluated symbolically as the determinant
+\[
+\operatorname{curl} \mathbf{F} = \nabla \times \mathbf{F} = \det \begin{pmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\[1mm] \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\[2mm] P & Q & R \end{pmatrix}.
+\]
+
+\subsection{Second-Order Differential Operators}
+
+Beyond the three first-order operators just introduced, it is natural to consider differential operators obtained by applying two differentiations in succession; the most important such operator, arising throughout mathematical physics, is the Laplacian.
+
+The Laplacian is a second-order differential operator obtained by taking the divergence of the gradient of a scalar field, and is denoted either by $\Delta$ or by $\nabla^2$. Combining the two definitions given above, one obtains the explicit formula
+\[
+\begin{aligned}
+\Delta f &= \nabla \cdot (\nabla f) \\[0.5em]
+&= \nabla^2 f \\[0.5em]
+&= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2}.
+\end{aligned}
+\]
+
+Scalar fields satisfying $\Delta f = 0$ throughout their domain are called harmonic functions, and they play a central role in potential theory and in the study of steady-state physical phenomena. The Laplacian operator can furthermore be extended to act on a vector field $\mathbf{F}$, by applying it separately, or component-wise, to each of the three scalar components of the field,
+\[
+\Delta \mathbf{F} = (\Delta P) \, \mathbf{i} + (\Delta Q) \, \mathbf{j} + (\Delta R) \, \mathbf{k}.
+\]
+
+When the theory of vector calculus is extended from ordinary three-dimensional space to the four-dimensional Minkowski spacetime with coordinates $(t,x,y,z)$, a setting frequently employed in the study of wave propagation and in relativity, the Laplacian itself is generalized into a further second-order operator, known as the D'Alembertian, or wave operator, and denoted by $\dalembert$. This operator incorporates, in addition to the spatial Laplacian, a second derivative with respect to time, suitably balanced by the speed of light $c$, or by the value $c=1$ if natural units are adopted; explicitly,
+\[
+\begin{aligned}
+\dalembert f &= \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2} - \Delta f \\
+&= \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2}
+- \left( \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} \right).
+\end{aligned}
+\]
+
+\begin{remark}
+Depending on the metric signature adopted in a given treatment of theoretical physics, either the mostly-minus or the mostly-plus convention, one may instead encounter the opposite sign convention for the D'Alembertian, namely
+\[
+\dalembert f = \Delta f - \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2}.
+\]
+
+Regardless of which sign convention is adopted, the equation $\dalembert f = 0$ represents the homogeneous wave equation, which describes how electromagnetic or acoustic waves propagate through space as time evolves.
+\end{remark}
+
+\section{Quadratic Forms, Least Squares, and Multivariable Extrema}
+
+\subsection{Gradients and Hessians of Quadratic Forms}
+
+Quadratic forms occur pervasively in optimization and in statistics, most notably in the least squares problem, and it is therefore essential to compute their gradients and Hessians explicitly.
+
+\begin{definition}[Quadratic Form]
+Given a matrix $A \in M_n$, the quadratic form associated with $A$ is the function $Q : \mathbb{R}^n \to \mathbb{R}$ defined by $Q(\mathbf{x}) = \mathbf{x}^{\top} A \mathbf{x}$.
+
+\end{definition}
+
+\begin{theorem}[Gradient and Hessian of a Quadratic Form]
+Given $A \in M_n$, the gradient and Hessian of $Q(\mathbf{x}) = \mathbf{x}^{\top}A\mathbf{x}$ are
+\[
+\begin{aligned}
+\nabla Q(\mathbf{x}) &= (A + A^{\top})\mathbf{x}, \\[0.5em]
+\nabla^2 Q(\mathbf{x}) &= A + A^{\top}.
+\end{aligned}
+\]
+In particular, if $A$ is symmetric,
+\[
+\begin{gathered}
+\nabla Q(\mathbf{x}) = 2A\mathbf{x} \\[0.5em]
+\nabla^2 Q(\mathbf{x}) = 2A.
+\end{gathered}
+\]
+
+\end{theorem}
+
+\begin{proof}
+Writing
+\[
+Q(\mathbf{x}) = \sum_{i,j} a_{ij} x_i x_j
+\]
+and differentiating with respect to $x_k$, the terms with $i=k$, namely
+\[
+\sum_j a_{kj}x_k x_j,
+\]
+contribute
+\[
+\sum_j a_{kj} x_j
+\]
+upon differentiation, while the terms with $j=k$, namely
+\[
+\sum_i a_{ik}x_ix_k,
+\]
+contribute
+\[
+\sum_i a_{ik} x_i;
+\]
+the single term with
+\[
+\begin{aligned}
+i &= j \\
+&= k
+\end{aligned}
+\]
+is counted correctly by either contribution alone and not twice, since it is a single term $a_{kk}x_k^2$ whose derivative $2a_{kk}x_k$ equals the sum of the two separate contributions $a_{kk}x_k$ from each. One obtains
+\[
+\partial Q / \partial x_k = \sum_j a_{kj}x_j + \sum_i a_{ik}x_i,
+\]
+which is the $k$-th component of $A\mathbf{x} + A^{\top}\mathbf{x}$; since this holds for every $k$,
+\[
+\nabla Q(\mathbf{x}) = (A+A^{\top})\mathbf{x}.
+\]
+
+Differentiating this expression once more with respect to $x_l$, since $A+A^{\top}$ is a constant matrix, yields directly
+\[
+\partial^2 Q/\partial x_l \partial x_k = (A+A^{\top})_{kl},
+\]
+Hence the Hessian is
+\[
+\nabla^2 Q(\mathbf{x}) = A+A^{\top}.
+\]
+
+\end{proof}
+
+Together with the linearity of differentiation, this result yields the gradient and Hessian of the general quadratic function
+\[
+\begin{gathered}
+f(\mathbf{x}) = \mathbf{x}^{\top}A\mathbf{x} + \mathbf{b}^{\top}\mathbf{x} + c, \\[0.5em]
+\text{namely}\quad \nabla f(\mathbf{x}) = (A+A^{\top})\mathbf{x} + \mathbf{b} \\[0.5em]
+\nabla^2 f(\mathbf{x}) = A + A^{\top},
+\end{gathered}
+\]
+since $\nabla(\mathbf{b}^{\top}\mathbf{x}) = \mathbf{b}$, directly from the definition of the gradient applied to the linear function
+\[
+\mathbf{b}^{\top}\mathbf{x} = \sum_i b_i x_i,
+\]
+and the constant $c$ contributes nothing to either derivative.
+
+\subsection{Least Squares and the Normal Equations}
+
+\begin{example}[Derivation of the Normal Equations]
+Consider the least squares problem of minimizing
+\[
+f(\mathbf{x}) = \|A\mathbf{x} - \mathbf{b}\|^2
+\]
+over $\mathbf{x} \in \mathbb{R}^n$, for $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$. Expanding,
+\[
+\begin{aligned}
+f(\mathbf{x}) &= (A\mathbf{x}-\mathbf{b})^{\top}(A\mathbf{x}-\mathbf{b}) \\[0.5em]
+&= \mathbf{x}^{\top}A^{\top}A\mathbf{x} - 2\mathbf{b}^{\top}A\mathbf{x} + \mathbf{b}^{\top}\mathbf{b},
+\end{aligned}
+\]
+a quadratic function with symmetric matrix $A^{\top}A$ and linear coefficient $-2A^{\top}\mathbf{b}$. Its gradient is
+\[
+\nabla f(\mathbf{x}) = 2A^{\top}A\mathbf{x} - 2A^{\top}\mathbf{b},
+\]
+and its Hessian is the constant matrix $2A^{\top}A$, which is positive semidefinite since
+\[
+\begin{aligned}
+\mathbf{v}^{\top}(A^{\top}A)\mathbf{v} &= \|A\mathbf{v}\|^2 \\
+&\geq 0
+\end{aligned}
+\]
+for every $\mathbf{v}$, so that every critical point of $f$ is automatically a global minimum. Setting $\nabla f(\mathbf{x}) = \vec{0}$ yields the normal equations
+\[
+A^{\top}A\mathbf{x} = A^{\top}\mathbf{b},
+\]
+whose solutions are precisely the least squares solutions of the original, generally inconsistent, system $A\mathbf{x} = \mathbf{b}$; when $A^{\top}A$ is nonsingular, the unique solution is $\mathbf{x} = (A^{\top}A)^{-1}A^{\top}\mathbf{b}$, and this expression coincides with $A^{+}\mathbf{b}$, the pseudoinverse solution obtained in the previous section, whenever $A$ has full column rank.
+\end{example}
+
+\subsection{Multivariable Extrema and Second-Derivative Tests}
+
+\begin{definition}
+A function $f$ of two variables has a local maximum at $(a,b)$ if $f(x,y) \leq f(a,b)$ for every $(x,y)$ in some neighborhood $U(a,b)$; the number $f(a,b)$ is then called a local maximum value. An analogous definition, with the inequality reversed, defines a local minimum and the corresponding local minimum value.
+\end{definition}
+
+As in the single-variable theory, the vanishing of an appropriate derivative provides a necessary condition for the presence of a local extremum, and this condition is furnished by the following two-variable generalization of Fermat's Theorem.
+
+\begin{theorem}[Fermat's Theorem for Functions of Two Variables]
+If $f$ has a local maximum or minimum at $(a,b)$, and the first-order partial derivatives of $f$ exist there, then $\nabla f(a,b) = (0,0)$, that is, $f_x(a,b) = 0$ and $f_y(a,b) = 0$.
+
+\end{theorem}
+
+The idea underlying the proof is that, if $f$ has a local maximum at $(a,b)$, then the restriction of $f$ along the line $y=b$, namely the single-variable function $g(x) = f(x,b)$, itself has a local maximum at $x=a$; the single-variable Fermat's Theorem therefore yields $g'(a) = 0$, and since $g'(a) = f_x(a,b)$, one concludes that $f_x(a,b) = 0$.
+
+An entirely analogous argument, applied to the restriction of $f$ along the line $x=a$, yields $f_y(a,b) = 0$.
+
+\begin{definition}
+A point $(a,b)$ is called a critical point of $f$ if $\nabla f(a,b) = (0,0)$.
+\end{definition}
+
+Fermat's Theorem, restated in this terminology, asserts that if $f$ has a local maximum or minimum at $(a,b)$, and the partial derivatives of $f$ exist at $(a,b)$, then $(a,b)$ must be a critical point of $f$. It is important to observe, however, that, exactly as in the single-variable theory, not every critical point corresponds to a local maximum or minimum; a critical point may instead be a saddle point, at which the function increases along some directions and decreases along others.
+
+In order to determine whether a given critical point actually corresponds to a local extremum, or instead to a saddle point, one relies on the following test, formulated in terms of the second-order partial derivatives of $f$.
+
+\begin{theorem}[Second Derivatives Test]
+Suppose the second partial derivatives of $f$ are continuous on a neighborhood $U(a,b)$, and suppose that $(a,b)$ is a critical point of $f$. Let
+\[
+D = f_{xx}(a,b) \, f_{yy}(a,b) - \big[ f_{xy}(a,b) \big]^2.
+\]
+
+If $D < 0$, then $(a,b)$ is neither a local maximum nor a local minimum, but a saddle point. If $D > 0$ and $f_{xx}(a,b) > 0$, then $f(a,b)$ is a local minimum. If $D > 0$ and $f_{xx}(a,b) < 0$, then $f(a,b)$ is a local maximum.
+\end{theorem}
+
+\begin{remark}
+If $D = 0$, the test is inconclusive: the function $f$ could have a local maximum, a local minimum, or a saddle point at $(a,b)$, and no further information can be extracted from the sign of $D$ alone. This ambiguity is illustrated by the three functions
+\[
+\begin{gathered}
+z = x^4+y^4, \\[0.5em]
+z = -x^4-y^4, \\[0.5em]
+z = x^4-y^4,
+\end{gathered}
+\]
+all of which have a critical point with $D=0$ at the origin, yet exhibit, respectively, a local minimum, a local maximum, and a saddle point there.
+\end{remark}
+
+The four second-order partial derivatives of $f$ at $(a,b)$ can be conveniently organized into a matrix, called the Hessian matrix of $f$ at $(a,b)$,
+\[
+H_f(a,b) = \begin{pmatrix} f_{xx}(a,b) & f_{xy}(a,b) \\ f_{yx}(a,b) & f_{yy}(a,b) \end{pmatrix},
+\]
+and the quantity $D$ appearing in the Second Derivatives Test is precisely the determinant of this Hessian matrix. As an illustrative exercise, one may apply the Second Derivatives Test to locate and classify the local maximum values, local minimum values, and saddle points of the function
+\[
+f(x,y) = x^4+y^4-4xy+1.
+\]
+
+\input{figures/saddle-surface.tex}
+
+\section{Differentiability, Directional Derivatives, and Jacobians}
+
+\subsection{Tangent Planes and Differentiability}
+
+Before introducing the notion of differentiability for a function of two variables, it is useful to recall that any plane in $\mathbb{R}^3$ passing through a point $P(x_0,y_0,z_0)$ admits an equation of the form
+\[
+A(x-x_0) + B(y-y_0) + C(z-z_0) = 0,
+\]
+or equivalently $Ax+By+Cz=D$; the particular planes $z=z_0$, $y=y_0$, and $x=x_0$ arise as special cases of this general form.
+
+Let $S$ denote the graph of a function $z = f(x,y)$, regarded as a surface in $\mathbb{R}^3$, and let $C_1$ and $C_2$ denote the traces of this surface in the planes $y=b$ and $x=a$ respectively, that is, the curves obtained by intersecting $S$ with these two coordinate planes. The partial derivatives $f_x(a,b)$ and $f_y(a,b)$ admit a direct geometric interpretation as the slopes of the tangent lines $T_1$ and $T_2$ to the traces $C_1$ and $C_2$ at the common point $P(a,b,c)$, where $c = f(a,b)$; this geometric interpretation is well illustrated by the graph of
+\[
+f(x,y) = 4-x^2-2y^2,
+\]
+together with the corresponding tangent lines at the point $(1,1)$.
+
+\begin{remark}
+A function may possess both partial derivatives at a point $(a,b)$ without being continuous at that same point. This somewhat surprising phenomenon is illustrated by the function
+\[
+f(x,y) =
+\begin{cases}
+\dfrac{xy}{x^2+y^2} & (x,y) \neq (0,0), \\[1mm]
+0 & (x,y) = (0,0).
+\end{cases}
+\]
+Both partial derivatives of this function exist at the origin, and in fact
+\[
+f_x(0,0) = f_y(0,0) = 0;
+\]
+however, $f(x,y) = 1/2$ at every point on the line $y=x$ other than the origin, while $f(x,y) = 0$ at every point on the line $y=0$, so that $f$ fails to be continuous at the origin, since it does not approach a common limiting value along these two distinct lines.
+\end{remark}
+
+The plane containing the two tangent lines $T_1$ and $T_2$ discussed above is called the tangent plane to the graph of $f$ at the point $(a,b,f(a,b))$, and its equation is given explicitly by
+\[
+z = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b).
+\]
+
+Recall that, for a function of a single variable, differentiability of $f$ at $x=a$ means precisely that the tangent line
+\[
+L(x) = f(a) + f'(a)(x-a)
+\]
+provides the best possible linear approximation of $f$ near $x=a$, in the sense that
+\[
+\lim_{x \to a} [f(x)-L(x)]/(x-a) = 0.
+\]
+
+This notion extends naturally to functions of two variables, with the tangent line replaced by the tangent plane introduced above. Denote by $L(x,y)$ the linear function whose graph is precisely this tangent plane, that is,
+\[
+L(x,y) = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b).
+\]
+
+\begin{definition}
+We say that $f$ is differentiable at $(a,b)$ if the tangent plane provides a good approximation of the function near $(a,b)$, in the sense that
+\[
+\lim_{(x,y) \to (a,b)} \frac{f(x,y) - L(x,y)}{\sqrt{(x-a)^2+(y-b)^2}} = 0.
+\]
+
+\end{definition}
+
+As already observed, a function may possess partial derivatives at a point without being continuous there; however, this pathology cannot occur once the function is known to be differentiable at that point, as the following theorem shows.
+
+\begin{theorem}
+If $f$ is differentiable at $(a,b)$, then $f$ is continuous at $(a,b)$.
+
+\end{theorem}
+
+While the definition of differentiability given above is precise, it is often cumbersome to verify directly from the definition. The following theorem provides a convenient sufficient condition for differentiability, expressed purely in terms of the continuity of the partial derivatives, and is the criterion most frequently applied in practice.
+
+\begin{theorem}[Sufficient Condition for Differentiability]
+If the partial derivatives $f_x$ and $f_y$ exist on a neighborhood $U(a,b)$ and are continuous at $(a,b)$, then $f$ is differentiable at $(a,b)$.
+
+\end{theorem}
+
+\subsection{Directional Derivatives and the Gradient}
+
+The partial derivatives $f_x(x_0,y_0)$ and $f_y(x_0,y_0)$ represent the rates of change of $z=f(x,y)$ at the point $(x_0,y_0)$ specifically in the $x$- and $y$-directions, that is, in the directions of the unit vectors $\mathbf{i}$ and $\mathbf{j}$ respectively. It is natural to seek a corresponding notion of rate of change in an arbitrary direction, specified by an arbitrary unit vector $\mathbf{u} = a\mathbf{i} + b\mathbf{j}$, satisfying $a^2+b^2=1$.
+
+\begin{definition}[Directional Derivative]
+The directional derivative of $f$ at $(x_0,y_0)$ in the direction of the unit vector $\mathbf{u} = a\mathbf{i}+b\mathbf{j}$, denoted $D_{\mathbf{u}} f(x_0,y_0)$, is defined as
+\[
+D_{\mathbf{u}} f(x_0,y_0) = \lim_{t \to 0} \frac{f(x_0+ta, y_0+tb) - f(x_0,y_0)}{t},
+\]
+provided this limit exists and is finite. Geometrically, this quantity represents the slope of the tangent line $T$ at the point $P(x_0,y_0,z_0)$ to the trace $C$ obtained by intersecting the graph of $f$ with the vertical plane through $(x_0,y_0)$ in the direction $\mathbf{u}$.
+\end{definition}
+
+When $f$ is known to be differentiable at $(x_0,y_0)$, its directional derivatives in every direction can be computed very efficiently by means of the following formula, which reduces the computation of a directional derivative to a simple dot product involving the gradient vector.
+
+\begin{theorem}[Gradient Formula]
+Suppose $f$ is differentiable at $(x_0,y_0)$. Then $f$ has a directional derivative $D_{\mathbf{u}} f(x_0,y_0)$ in the direction of every unit vector $\mathbf{u} = a\mathbf{i}+b\mathbf{j}$, given by
+\[
+\begin{aligned}
+D_{\mathbf{u}} f(x_0,y_0) &= \nabla f(x_0,y_0) \cdot \mathbf{u} \\[0.5em]
+&= f_x(x_0,y_0) \, a + f_y(x_0,y_0) \, b.
+\end{aligned}
+\]
+
+\end{theorem}
+
+The proof of this formula relies on the Chain Rule for partial derivatives of composite functions, a tool that extends the single-variable Chain Rule to functions of several variables and that will be developed in subsequent material.
+
+The Gradient Formula established above has an important consequence concerning the direction in which a function increases most rapidly at a given point.
+
+\begin{theorem}
+The maximum value of the directional derivative $D_{\mathbf{u}} f(x_0,y_0)$, taken over all unit vectors $\mathbf{u}$, equals $\| \nabla f(x_0,y_0) \|$, and this maximum value is attained precisely when $\mathbf{u}$ has the same direction as the gradient vector $\nabla f(x_0,y_0)$, that is, when
+\[
+\mathbf{u} = \frac{\nabla f(x_0,y_0)}{\| \nabla f(x_0,y_0) \|}.
+\]
+
+\end{theorem}
+
+As an illustrative exercise, one may find the maximum rate of change of the function
+\[
+f(x,y) = x^2 y + \sqrt{y}
+\]
+at the point $(2,1)$, together with the particular direction in which this maximum rate of change occurs.
+
+A further important geometric property of the gradient vector, complementing the result just stated, concerns its relationship to the level curves of $f$: the gradient vector $\nabla f(x_0,y_0)$ is always perpendicular to the level curve of $f$ that passes through the point $(x_0,y_0)$, providing a further geometric characterization of the direction of steepest ascent described above.
+
+Figure~\ref{fig:ch9-gradient} illustrates the relationship between level curves, the gradient, and directional derivatives. For the scalar field
+\[
+f(x,y)=x^2+y^2
+\]
+the level curves are concentric circles. The gradient $\nabla f$ is perpendicular to the
+level curve at the point and maximizes the directional derivative $D_{\bu} f = \nabla f \cdot \bu$ when $\bu \parallel \nabla f$.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+\draw[->] (-3.3,0) -- (3.3,0) node[right,font=\scriptsize]{$x$};
+\draw[->] (0,-3.3) -- (0,3.3) node[above,font=\scriptsize]{$y$};
+\foreach \r/\c in {0.71/figblue!25,1.22/figblue!40,1.73/figblue!55,2.24/figblue!70,2.74/figblue!85,3.24/figblue}{
+\draw[\c,thick,domain=0:360,samples=100,smooth,variable=\t]
+plot ({\r*cos(\t)},{\r*sin(\t)});
+}
+\node[circle,fill=black,inner sep=1.2pt] at (1.2,0.9) {};
+\draw[vecB] (1.2,0.9) -- (2.16,1.62) node[above right,font=\scriptsize]{$\nabla f$};
+\draw[vecC] (1.2,0.9) -- (2.0,0.05) node[below right,yshift=-2pt,font=\scriptsize]{$\bu$};
+\draw[figblue,dashed] (0.05,1.5) -- (2.35,0.3);
+\node[figblue,above left,fill=white,inner sep=1.5pt,font=\scriptsize]
+  at (0.45,1.55) {tangent};
+\end{tikzpicture}
+\caption[Level curves, gradient, and directional derivative]{Concentric level curves of the scalar field, with the gradient shown in red and a comparison direction in green. The gradient is normal to the level curve at the marked point and gives the direction of greatest increase.}
+\label{fig:ch9-gradient}
+\end{figure}
+
+\subsection{Vector-Valued Maps and the Jacobian}
+
+Differential calculus, as developed for functions of a single variable and subsequently for scalar fields of several variables, associates to a differentiable function a linear approximation of its local behavior. The same idea extends to functions taking values in $\mathbb{R}^m$ rather than in $\mathbb{R}$, and the matrix encoding this linear approximation is called the Jacobian matrix.
+
+\begin{definition}[Jacobian Matrix]
+Given a function
+\[
+\mathbf{f} : \Omega \subseteq \mathbb{R}^n \to \mathbb{R}^m,
+\]
+with components $\mathbf{f} = (f_1, \dots, f_m)$, each admitting all first-order partial derivatives at $\mathbf{x} \in \Omega$, the Jacobian matrix of $\mathbf{f}$ at $\mathbf{x}$ is the matrix $J_{\mathbf{f}}(\mathbf{x}) \in M_{m,n}$ whose $(i,j)$ entry is the partial derivative $\partial f_i / \partial x_j$, evaluated at $\mathbf{x}$.
+\end{definition}
+
+As with scalar fields, the mere existence of the partial derivatives comprising the Jacobian matrix does not by itself guarantee that this matrix furnishes a genuine local linear approximation of $\mathbf{f}$; the appropriate strengthening of this notion is differentiability.
+
+\begin{definition}[Differentiability of a Vector-Valued Function]
+The function $\mathbf{f} : \Omega \to \mathbb{R}^m$ is differentiable at $\mathbf{x} \in \Omega$ if there exists a matrix $J \in M_{m,n}$ such that
+\[
+\lim_{\mathbf{h} \to \vec{0}} \frac{\|\mathbf{f}(\mathbf{x}+\mathbf{h}) - \mathbf{f}(\mathbf{x}) - J\mathbf{h}\|}{\|\mathbf{h}\|} = 0.
+\]
+
+\end{definition}
+
+\begin{theorem}
+If $\mathbf{f}$ is differentiable at $\mathbf{x}$, then the matrix $J$ in the definition above is unique and equals $J_{\mathbf{f}}(\mathbf{x})$.
+
+\end{theorem}
+
+\begin{proof}
+Applying the defining limit with $\mathbf{h} = t\mathbf{e}_j$ for $t \to 0$ shows that the $j$-th column of $J$ equals the directional derivative of $\mathbf{f}$ in the direction $\mathbf{e}_j$, which is precisely $\partial \mathbf{f}/\partial x_j (\mathbf{x})$, the $j$-th column of $J_{\mathbf{f}}(\mathbf{x})$; since this holds for every $j = 1, \dots, n$, the two matrices coincide, and uniqueness follows since a matrix is determined by its columns.
+\end{proof}
+
+\begin{example}
+Consider the transformation from polar to Cartesian coordinates,
+\[
+\mathbf{f}(r,\theta) = (r\cos\theta, r\sin\theta).
+\]
+Its Jacobian matrix is
+\[
+J_{\mathbf{f}}(r,\theta) = \begin{pmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{pmatrix},
+\]
+with determinant
+\[
+\begin{aligned}
+\operatorname{Det}(J_{\mathbf{f}}) &= r\cos^2\theta + r\sin^2\theta \\[0.5em]
+&= r,
+\end{aligned}
+\]
+recovering the familiar Jacobian factor of polar coordinates used in the change of variables formula for double integrals. Since this determinant is nonzero for $r \neq 0$, the Inverse Function Theorem guarantees that $\mathbf{f}$ is locally invertible near every point with $r \neq 0$, consistently with the existence of the inverse transformation
+\[
+\begin{gathered}
+r = (x^2+y^2)^{1/2}, \\[0.5em]
+\theta = \operatorname{atan2}(y,x)
+\end{gathered}
+\]
+away from the origin.
+\end{example}
+
+The chain rule established for functions of one and several variables generalizes to compositions of vector-valued functions, taking the particularly clean form of a matrix product.
+
+\begin{theorem}[Chain Rule, Matrix Form]
+Let $\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^m$ be differentiable at $\mathbf{x}$ and $\mathbf{g} : \mathbb{R}^m \to \mathbb{R}^p$ be differentiable at $\mathbf{f}(\mathbf{x})$. Then $\mathbf{g} \circ \mathbf{f}$ is differentiable at $\mathbf{x}$, and
+\[
+J_{\mathbf{g} \circ \mathbf{f}}(\mathbf{x}) = J_{\mathbf{g}}(\mathbf{f}(\mathbf{x})) \, J_{\mathbf{f}}(\mathbf{x}).
+\]
+
+\end{theorem}
+
+\begin{proof}
+Writing $\mathbf{y} = \mathbf{f}(\mathbf{x})$, the componentwise chain rule for scalar functions of several variables, applied to each component $g_i \circ \mathbf{f}$ in turn, gives, for each $i = 1, \dots, p$ and $j = 1, \dots, n$,
+\[
+\frac{\partial (g_i \circ \mathbf{f})}{\partial x_j}(\mathbf{x}) = \sum_{k=1}^{m} \frac{\partial g_i}{\partial y_k}(\mathbf{y}) \frac{\partial f_k}{\partial x_j}(\mathbf{x}),
+\]
+which is precisely the $(i,j)$ entry of the matrix product
+\[
+J_{\mathbf{g}}(\mathbf{f}(\mathbf{x})) J_{\mathbf{f}}(\mathbf{x});
+\]
+since this identity holds entrywise, the two matrices coincide.
+\end{proof}
+
+When $n=m$, the Jacobian matrix is square, and its determinant, called the Jacobian determinant, measures the local factor by which $\mathbf{f}$ distorts $n$-dimensional volume near a given point; its sign, moreover, indicates whether $\mathbf{f}$ preserves or reverses orientation locally. As already illustrated, the nonvanishing of this determinant at a point is, by the Inverse Function Theorem, sufficient to guarantee that $\mathbf{f}$ admits a differentiable local inverse near that point, whose Jacobian is then obtained by inverting $J_{\mathbf{f}}$: differentiating the identity
+\[
+\mathbf{f}^{-1}(\mathbf{f}(\mathbf{x})) = \mathbf{x}
+\]
+via the Chain Rule gives
+\[
+\begin{gathered}
+J_{\mathbf{f}^{-1}}(\mathbf{f}(\mathbf{x})) J_{\mathbf{f}}(\mathbf{x}) = I, \\[0.5em]
+\text{so that}\quad J_{\mathbf{f}^{-1}}(\mathbf{f}(\mathbf{x})) = J_{\mathbf{f}}(\mathbf{x})^{-1}.
+\end{gathered}
+\]
+
+When $m=1$, the function $\mathbf{f}$ reduces to a scalar field $f : \Omega \to \mathbb{R}$, and its Jacobian matrix $J_f(\mathbf{x}) \in M_{1,n}$ is the single row vector
+\[
+( \partial f/\partial x_1, \dots, \partial f/\partial x_n ),
+\]
+that is, precisely the transpose of the gradient $\nabla f(\mathbf{x})$ introduced earlier for scalar fields. The Chain Rule in matrix form then recovers, as a special case, the familiar formula for the directional derivative: if $\boldsymbol{\gamma}(t)$ is a differentiable curve with $\boldsymbol{\gamma}(0) = \mathbf{x}$ and $\boldsymbol{\gamma}'(0) = \mathbf{u}$, then
+\[
+\begin{aligned}
+\frac{d}{dt}\Big|_{t=0} f(\boldsymbol{\gamma}(t)) &= J_f(\mathbf{x}) \boldsymbol{\gamma}'(0) \\[0.5em]
+&= \nabla f(\mathbf{x}) \cdot \mathbf{u},
+\end{aligned}
+\]
+recovering the directional derivative formula
+\[
+D_{\mathbf{u}}f(\mathbf{x}) = \nabla f(\mathbf{x}) \cdot \mathbf{u}
+\]
+established previously for unit vectors $\mathbf{u}$. Figure~\ref{fig:ch10-jacobian-polar} relates the polar coordinate directions to the columns of the Jacobian. The polar grid uses coordinates $(r,\theta)$ on the Cartesian plane; the highlighted
+curvilinear cell has sides $dr$ and $r\,d\theta$ along the directions $\partial/\partial r$, $\partial/\partial\theta$: the columns of the Jacobian $J_f$, with $\det J_f = r$.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.3,>=Stealth]
+\draw[->] (-2.3,0) -- (2.3,0) node[right,font=\scriptsize]{$x$};
+\draw[->] (0,-2.3) -- (0,2.3) node[above,font=\scriptsize]{$y$};
+\foreach \r in {0.5,1,1.5,2} \draw[gridline] (0,0) circle (\r);
+\foreach \t in {0,30,...,330} \draw[gridline] (0,0) -- (\t:2.1);
+\fill[figblue,opacity=0.35] (55:1) -- (55:1.9) arc (55:95:1.9) -- (95:1) arc (95:55:1);
+\draw[vecB] (55:1) -- (55:1.9) node[midway,right=3pt,font=\scriptsize]{$\partial/\partial r$};
+\draw[vecC] (55:1) arc[start angle=55,end angle=82,radius=1]
+  node[pos=0.65,above left=2pt,font=\scriptsize]{$\partial/\partial\theta$};
+\node[below left,font=\scriptsize] at (55:0.92) {$(r,\theta)$};
+\end{tikzpicture}
+\caption[Polar grid and Jacobian]{Polar coordinate grid on Cartesian axes, with a curvilinear cell highlighted in blue. The red and green arrows indicate radial and angular coordinate directions, respectively; the Jacobian accounts for the corresponding local area scaling.}
+\label{fig:ch10-jacobian-polar}
+\end{figure}
+
+\section{Multilinear Maps and Tensors}
+
+Vectors, linear functionals, and matrices, though introduced separately over the course of this document, are in fact instances of a single unifying algebraic structure: the tensor. Tensor calculus organizes and generalizes these objects, and the operations acting upon them, within one coherent framework, one that becomes indispensable once coordinates are allowed to change in ways more general than the orthonormal changes of basis considered earlier.
+
+\begin{definition}[Tensor]
+Given a finite-dimensional vector space $V$ with dual space $V^{*}$, a tensor of type $(r,s)$ on $V$ is a multilinear map
+\[
+T : \underbrace{V^{*} \times \cdots \times V^{*}}_{r} \times \underbrace{V \times \cdots \times V}_{s} \longrightarrow \mathbb{R},
+\]
+that is, a map that is linear separately in each of its $r+s$ arguments.
+\end{definition}
+
+This single definition subsumes the objects encountered throughout this document as special cases distinguished only by the pair $(r,s)$. A scalar is a tensor of type $(0,0)$. A vector $\mathbf{v} \in V$ corresponds to a tensor of type $(1,0)$, acting on a covector $\boldsymbol{\varphi} \in V^{*}$ by $\mathbf{v}(\boldsymbol{\varphi}) = \boldsymbol{\varphi}(\mathbf{v})$; this identification of $V$ with the dual of $V^{*}$ is legitimate in finite dimension, where $V$ and its double dual $V^{**}$ are canonically isomorphic. A linear functional, or covector, is itself a tensor of type $(0,1)$.
+
+A linear map $L : V \to V$, represented in earlier sections by a matrix $A$, corresponds to a tensor of type $(1,1)$, acting on a pair $(\boldsymbol{\varphi}, \mathbf{v})$ by $\boldsymbol{\varphi}(L\mathbf{v})$; one may verify directly that this assignment is linear in $\boldsymbol{\varphi}$, since $\boldsymbol{\varphi}$ itself is linear, and linear in $\mathbf{v}$, since $L$ is linear.
+
+\subsection{Components and the Einstein Summation Convention}
+
+Once a basis $\mathbf{e}_1, \dots, \mathbf{e}_n$ of $V$, and the corresponding dual basis $\boldsymbol{\varepsilon}^1, \dots, \boldsymbol{\varepsilon}^n$ of $V^{*}$ satisfying $\boldsymbol{\varepsilon}^i(\mathbf{e}_j) = \delta^i_j$, are fixed, every tensor is fully described by its components with respect to these bases, and it becomes conventional to place indices referring to the dual space as superscripts, called contravariant indices, and indices referring to $V$ itself as subscripts, called covariant indices.
+
+\begin{definition}[Einstein Summation Convention]
+Whenever an index appears once as a superscript and once as a subscript within a single term, summation over that index, from $1$ to $n$, is implied without an explicit summation symbol.
+\end{definition}
+
+Under this convention, a vector $\mathbf{v} = v^i \mathbf{e}_i$ is described by its contravariant components $v^i$, while a covector $\boldsymbol{\varphi} = \varphi_i \boldsymbol{\varepsilon}^i$ is described by its covariant components $\varphi_i$; the pairing $\boldsymbol{\varphi}(\mathbf{v}) = \varphi_i v^i$ is a contraction, discussed further below.
+
+\begin{theorem}[Transformation Law for Components]
+Let $\hat{\mathbf{e}}_j = P_j^{\;i}\mathbf{e}_i$ define a new basis of $V$ via an invertible change of basis matrix $P$, with inverse having entries $(P^{-1})^i_{\;j}$. Then the contravariant components of a fixed vector $\mathbf{v}$ transform as
+\[
+\hat{v}^i = (P^{-1})^i_{\;j}v^j,
+\]
+while the covariant components of a fixed covector $\boldsymbol{\varphi}$ transform as $\hat\varphi_i = P_i^{\;j}\varphi_j$.
+\end{theorem}
+
+\begin{proof}
+The vector $\mathbf{v}$ itself does not depend on the choice of basis, so
+\[
+\begin{aligned}
+\mathbf{v} &= v^i\mathbf{e}_i \\[0.5em]
+&= \hat{v}^j\hat{\mathbf{e}}_j \\[0.5em]
+&= \hat{v}^j P_j^{\;i}\mathbf{e}_i.
+\end{aligned}
+\]
+
+Comparing coefficients of $\mathbf{e}_i$ on both sides, since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, gives $v^i = P_j^{\;i}\hat{v}^j$; multiplying both sides by $(P^{-1})^i_{\;k}$ and summing over $i$ recovers
+\[
+\hat{v}^k = (P^{-1})^k_{\;i}v^i,
+\]
+as claimed, after relabeling the free index. For the covector, the dual basis vectors transform by the inverse-transpose relation
+\[
+\hat{\boldsymbol{\varepsilon}}^i = (P^{-1})^i_{\;j}\boldsymbol{\varepsilon}^j,
+\]
+since this is precisely the unique transformation making
+\[
+\begin{aligned}
+\hat{\boldsymbol{\varepsilon}}^i(\hat{\mathbf{e}}_k) &= (P^{-1})^i_{\;j}P_k^{\;l}\boldsymbol{\varepsilon}^j(\mathbf{e}_l) \\[0.5em]
+&= (P^{-1})^i_{\;j}P_k^{\;j} \\[0.5em]
+&= \delta^i_k
+\end{aligned}
+\]
+hold, as required of a dual basis. Since
+\[
+\begin{aligned}
+\boldsymbol{\varphi} &= \varphi_i\boldsymbol{\varepsilon}^i \\[0.5em]
+&= \hat\varphi_j\hat{\boldsymbol{\varepsilon}}^j \\[0.5em]
+&= \hat\varphi_j (P^{-1})^j_{\;i}\boldsymbol{\varepsilon}^i,
+\end{aligned}
+\]
+comparing coefficients gives
+\[
+\varphi_i = (P^{-1})^j_{\;i}\hat\varphi_j;
+\]
+multiplying by $P_i^{\;k}$ and summing over $i$, and using
+\[
+P_i^{\;k}(P^{-1})^j_{\;i} = \delta^{jk}.
+\]
+More directly, inverting the relation
+\[
+\varphi_i = (P^{-1})^j_{\;i}\hat\varphi_j
+\]
+by the matrix $P$ gives $\hat\varphi_k = P_k^{\;i}\varphi_i$, as claimed.
+\end{proof}
+
+The terminology ``covariant'' and ``contravariant'' is justified precisely by this theorem: covariant components transform directly with $P$, in the same way as the basis vectors themselves, while contravariant components transform with the inverse of $P$, compensating the change of basis so that the vector $\mathbf{v}$ itself remains unchanged; this is consistent with, and generalizes, the earlier formula
+\[
+\hat{\mathbf{x}} = M^{-1}\mathbf{x}
+\]
+obtained for coordinates with respect to a new basis $\mathcal{B}$.
+
+\subsection{The Metric Tensor}
+
+Among tensors of type $(0,2)$, one plays a distinguished geometric role: it encodes the inner product of the underlying space, and thereby provides a canonical means of converting contravariant components into covariant ones, and conversely.
+
+\begin{definition}[Metric Tensor]
+Given a basis $\mathbf{e}_1, \dots, \mathbf{e}_n$ of an inner product space $V$, the metric tensor is the tensor of type $(0,2)$ with components $g_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j$.
+
+\end{definition}
+
+\begin{theorem}
+The matrix $[g_{ij}]$ is symmetric and invertible.
+\end{theorem}
+
+\begin{proof}
+Symmetry is immediate, since
+\[
+\begin{aligned}
+g_{ij} &= \mathbf{e}_i\cdot\mathbf{e}_j \\[0.5em]
+&= \mathbf{e}_j\cdot\mathbf{e}_i \\[0.5em]
+&= g_{ji}
+\end{aligned}
+\]
+by symmetry of the inner product. For invertibility, suppose $c^j g_{ij} = 0$ for every $i$, for some scalars $c^1,\dots,c^n$; then, setting $\mathbf{w} = c^j\mathbf{e}_j$, one has
+\[
+\begin{aligned}
+\mathbf{w}\cdot\mathbf{e}_i &= c^jg_{ij} \\[0.5em]
+&= 0
+\end{aligned}
+\]
+for every $i$, so $\mathbf{w}$ is orthogonal to every basis vector, and hence $\mathbf{w}\cdot\mathbf{w} = 0$, forcing $\mathbf{w} = \vec{0}$ by positive-definiteness of the inner product; since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, this forces every $c^j = 0$, showing that $[g_{ij}]$ has trivial kernel, and is therefore invertible.
+\end{proof}
+
+Its inverse, denoted $g^{ij}$, is itself the component matrix of a tensor of type $(2,0)$. When the basis is orthonormal, $g_{ij} = \delta_{ij}$, and the metric tensor reduces to the identity matrix, erasing the distinction between covariant and contravariant components that is otherwise essential in a general, non-orthonormal basis.
+
+\begin{definition}[Raising and Lowering Indices]
+Given a vector with contravariant components $v^i$, its associated covariant components are $v_i = g_{ij} v^j$; conversely, given covariant components $\varphi_i$, the associated contravariant components are $\varphi^i = g^{ij}\varphi_j$.
+
+\end{definition}
+
+\begin{theorem}
+The two operations of raising and lowering indices are mutually inverse: $g^{ij}(g_{jk}v^k) = v^i$ for every choice of components $v^k$.
+
+\end{theorem}
+
+\begin{proof}
+Since $g^{ij}$ is, by definition, the matrix inverse of $g_{ij}$, one has $g^{ij}g_{jk} = \delta^i_k$; hence
+\[
+\begin{aligned}
+g^{ij}(g_{jk}v^k) &= (g^{ij}g_{jk})v^k \\[0.5em]
+&= \delta^i_k v^k \\[0.5em]
+&= v^i,
+\end{aligned}
+\]
+using the Einstein summation convention to collapse the sum over the repeated index $k$.
+\end{proof}
+
+With this notation, the inner product of two vectors $\mathbf{u} = u^i\mathbf{e}_i$ and $\mathbf{v}=v^j\mathbf{e}_j$ is expressed compactly as
+\[
+\begin{aligned}
+\mathbf{u}\cdot\mathbf{v} &= g_{ij}u^iv^j \\[0.5em]
+&= u_jv^j,
+\end{aligned}
+\]
+recovering the ordinary dot product $u^iv^i$ once the basis is orthonormal and $g_{ij}=\delta_{ij}$.
+
+\subsection{Tensor Product and Contraction}
+
+Two operations generate new tensors from existing ones: the tensor product, which combines tensors of lower type into one of higher type without any loss of information, and contraction, which reduces the type of a single tensor by pairing a contravariant index with a covariant one and summing.
+
+\begin{definition}[Tensor Product]
+Given a tensor $S$ of type $(r_1,s_1)$ and a tensor $T$ of type $(r_2,s_2)$ on $V$, their tensor product $S \otimes T$ is the tensor of type $(r_1+r_2, s_1+s_2)$ defined by evaluating $S$ on the first $r_1$ dual arguments and the first $s_1$ vector arguments, and $T$ on the remaining arguments, and multiplying the two results.
+\end{definition}
+
+In components, if $S$ and $T$ have respective components
+\[
+\begin{gathered}
+S^{i_1\cdots i_{r_1}}_{\;\;\;\;\;\;\;j_1\cdots j_{s_1}} \\
+T^{k_1\cdots k_{r_2}}_{\;\;\;\;\;\;\;l_1\cdots l_{s_2}},
+\end{gathered}
+\]
+then $S \otimes T$ has components equal to the ordinary product
+\[
+S^{i_1\cdots i_{r_1}}_{\;\;\;\;\;\;\;j_1\cdots j_{s_1}}\, T^{k_1\cdots k_{r_2}}_{\;\;\;\;\;\;\;l_1\cdots l_{s_2}},
+\]
+a fact which follows directly from multilinearity of the tensor product upon expanding each argument in the chosen basis.
+
+\begin{definition}[Contraction]
+Given a tensor $T$ of type $(r,s)$ with $r,s \geq 1$, the contraction of $T$ over a chosen contravariant index and a chosen covariant index is the tensor of type $(r-1,s-1)$ obtained, in components, by setting the two chosen indices equal and summing, following the Einstein convention.
+\end{definition}
+
+\begin{theorem}
+The contraction of a tensor is independent of the basis used to compute it, that is, it defines a genuine tensor of type $(r-1,s-1)$.
+
+\end{theorem}
+
+\begin{proof}
+It suffices to verify the claim for a tensor $T$ of type $(1,1)$, with components $T^i_{\;j}$, since the general case follows by treating the remaining indices as passive labels throughout the argument. Under a change of basis with matrix $P$, the transformation law established above gives
+\[
+\hat{T}^i_{\;j} = (P^{-1})^i_{\;k}P_j^{\;l}T^k_{\;l},
+\]
+since $T^i_{\;j}$ transforms contravariantly in its upper index and covariantly in its lower index. The contraction is
+\[
+\begin{aligned}
+\hat{T}^i_{\;i} &= (P^{-1})^i_{\;k}P_i^{\;l}T^k_{\;l} \\[0.5em]
+&= \delta^l_k T^k_{\;l} \\[0.5em]
+&= T^k_{\;k},
+\end{aligned}
+\]
+using
+\[
+(P^{-1})^i_{\;k}P_i^{\;l} = \delta^l_k,
+\]
+the statement that $P^{-1}$ and $P$ are mutually inverse matrices; hence the contracted quantity $T^k_{\;k}$ is the same scalar regardless of the basis used to compute it, confirming that it is a well-defined, basis-independent scalar, that is, a tensor of type $(0,0)$.
+
+\end{proof}
+
+The contraction of a tensor of type $(1,1)$, represented in a basis by the matrix $A = [a^i_{\;j}]$, over its single pair of indices yields the scalar $a^i_{\;i}$, which is precisely the trace of $A$, now seen to be basis-independent as a direct consequence of the theorem above, recovering from a different direction the earlier observation that similar matrices, representing the same linear map in different bases, share the same trace. More generally, the divergence, gradient, and curl introduced earlier for vector fields in $\mathbb{R}^3$ reappear within this framework as particular contractions of tensors built from the components of a field and their partial derivatives, a perspective that becomes indispensable once such operators must be expressed in curvilinear, rather than Cartesian, coordinate systems, where the metric tensor $g_{ij}$ varies from point to point and must be accounted for explicitly in any differentiation of tensor components.

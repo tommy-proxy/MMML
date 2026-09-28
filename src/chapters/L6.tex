@@ -1,0 +1,1782 @@
+\chapter{Applied Linear Algebra}
+
+\section{Matrices, Products, and Linear Systems}
+
+\subsection{Matrices and Basic Operations}
+
+
+A matrix is a rectangular array of $m \cdot n$ numbers organized into $m$ horizontal rows and $n$ vertical columns,
+\[
+A =
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}.
+\]
+
+Each element, or entry, of the matrix is denoted by a variable carrying two subscripts: the symbol $a_{ij}$ represents the entry located at the $i$-th row and $j$-th column, where the row index $i$ ranges from $1$ to $m$ and the column index $j$ ranges from $1$ to $n$. Each row of the matrix may itself be regarded as a vector with $n$ components,
+\[
+\mathbf{a}_i = [a_{i1} \ a_{i2} \ \cdots \ a_{in}]
+\]
+for $i = 1, \dots, m$, and each column may likewise be regarded as a vector with $m$ components,
+\[
+\mathbf{a}^j = (a_{1j}, a_{2j}, \dots, a_{mj})
+\]
+for $j = 1, \dots, n$. A matrix $A$ as above is denoted compactly by $A = [a_{ij}]$. The set of all matrices with real entries of dimension $m \times n$ is denoted by $M_{m,n}$, or simply by $M_n$ in the special case $m = n$, in which case the matrices are called square matrices. The matrix all of whose entries equal zero is called the zero matrix, and is denoted by $O \in M_{m,n}$. Finally, given $n$ vectors $\mathbf{b}^1, \dots, \mathbf{b}^n \in \mathbb{R}^m$, the notation
+\[
+[\mathbf{b}^1 | \cdots | \mathbf{b}^n] \in M_{m,n}
+\]
+denotes the matrix obtained by placing these vectors into the columns of the matrix, in the given order.
+
+
+Certain matrix configurations recur frequently enough throughout the theory to deserve dedicated terminology. A matrix is said to be in row echelon form when the leading coefficient of every nonzero row, that is, the first nonzero entry counted from the left, also called the pivot of that row, lies strictly to the right of the leading coefficient of the row directly above it, and all rows consisting entirely of zeros, if any, are collected at the bottom of the matrix. These two conditions together imply that every entry lying in a column below a leading coefficient must itself be zero, so that the lower left-hand corner of a matrix in row echelon form is filled with zeros.
+
+Among matrices with an equal number of rows and columns, several further special types are worth distinguishing. A square matrix is a matrix belonging to $M_n$ for some $n$, that is, one having the same number of rows and columns. A diagonal matrix is a square matrix all of whose off-diagonal entries vanish; the particular diagonal matrix having every diagonal entry equal to $1$ is called the identity matrix, and is denoted by $I$. An upper triangular matrix is a square matrix all of whose entries below the main diagonal vanish, while a lower triangular matrix is a square matrix all of whose entries above the main diagonal vanish.
+
+
+The set of matrices of a fixed dimension can be equipped with two natural algebraic operations, entirely analogous to the corresponding operations on vectors of $\mathbb{R}^n$.
+
+\begin{definition}[Matrix Addition]
+Given two matrices of the same dimension, $A = [a_{ij}]$ and $B = [b_{ij}]$, both belonging to $M_{m,n}$, their sum $A+B$ is the $m \times n$ matrix whose $(i,j)$ entry is the sum of the corresponding entries of $A$ and $B$, that is, $A + B = [a_{ij} + b_{ij}]$, for every $i = 1, \dots, m$ and $j = 1, \dots, n$.
+\end{definition}
+
+\begin{definition}[Scalar Multiplication]
+Given a matrix $A = [a_{ij}] \in M_{m,n}$ and a real number $t \in \mathbb{R}$, the scalar product $tA$ is the $m \times n$ matrix obtained by multiplying every entry of $A$ by $t$, that is, $tA = [t \, a_{ij}]$.
+\end{definition}
+
+These two operations satisfy a collection of algebraic properties entirely analogous to those already familiar from ordinary arithmetic on real numbers. Given any three matrices $A, B, C \in M_{m,n}$ and any two real numbers $s, t$, one has that addition is associative,
+\[
+A + (B+C) = (A+B) + C,
+\]
+and commutative, $A + B = B + A$; that the zero matrix $O \in M_{m,n}$ satisfies $A + O = A$; that the matrix $-A = [-a_{ij}]$ is the additive inverse of $A$, satisfying $A + (-A) = O$; and that scalar multiplication satisfies $s(tA) = (st)A$, $1 \cdot A = A$, $t(A+B) = tA + tB$, and $(s+t)A = sA + tA$. Taken together, these properties show that $M_{m,n}$, equipped with the two operations of matrix addition and scalar multiplication, forms a vector space of dimension $m \cdot n$.
+
+\subsection{Matrix Products and Linear Systems}
+
+Before defining the product of two general matrices, it is instructive to consider the simpler case in which one of the two factors is a vector. Given a row vector $\mathbf{a} = [a_1 \ a_2 \ \cdots \ a_n]$ and a column vector
+\[
+\mathbf{x} = (x_1, x_2, \dots, x_n)
+\]
+having the same number $n$ of components, the product $\mathbf{a}\mathbf{x}$ is defined as the ordinary dot product in $\mathbb{R}^n$,
+\[
+\mathbf{a}\mathbf{x} = [a_1 \ a_2 \ \cdots \ a_n]
+\begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
+= a_1 x_1 + a_2 x_2 + \cdots + a_n x_n.
+\]
+This notion extends naturally to the product of a general matrix with a column vector.
+
+\begin{definition}[Matrix-Vector Product]
+Given a matrix $A = [a_{ij}] \in M_{m,n}$ and a column vector
+\[
+\mathbf{x} = (x_1, x_2, \dots, x_n) \in \mathbb{R}^n,
+\]
+the product $A\mathbf{x}$ is the vector with $m$ components given by
+\[
+A\mathbf{x} =
+\begin{pmatrix} \mathbf{a}_1 \mathbf{x} \\ \mathbf{a}_2 \mathbf{x} \\ \vdots \\ \mathbf{a}_m \mathbf{x} \end{pmatrix}
+=
+\begin{pmatrix}
+a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \\
+a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \\
+\vdots \\
+a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n
+\end{pmatrix} \in \mathbb{R}^m,
+\]
+Here the $i$-th row of $A$ is
+\[
+\mathbf{a}_i = [a_{i1} \ a_{i2} \ \cdots \ a_{in}]
+\]
+
+\end{definition}
+
+\begin{example}
+Consider the following matrix and vector:
+\[
+\begin{gathered}
+A = \begin{pmatrix} 0 & 1 & 1 \\ 2 & 2 & 1 \end{pmatrix} \in M_{2,3} \\
+\mathbf{x} = (2,1,3) \in \mathbb{R}^3
+\end{gathered}
+\]
+Their product is
+\[
+A\mathbf{x} = \begin{pmatrix} 0\cdot 2 + 1 \cdot 1 + 1 \cdot 3 \\ 2 \cdot 2 + 2 \cdot 1 + 1 \cdot 3 \end{pmatrix} = \begin{pmatrix} 4 \\ 9 \end{pmatrix} \in \mathbb{R}^2.
+\]
+
+\end{example}
+
+The matrix-vector product enjoys an important algebraic property, namely linearity with respect to the vector argument, which lies at the very heart of the entire theory of linear algebra.
+
+\begin{theorem}[Linearity of the Matrix-Vector Product]
+Given $A \in M_{m,n}$, the matrix-vector product $A\mathbf{x}$ is linear in $\mathbf{x}$; that is, $A(\mathbf{x}+\mathbf{y}) = A\mathbf{x} + A\mathbf{y}$ for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$, and $A(t\mathbf{x}) = t(A\mathbf{x})$ for every $t \in \mathbb{R}$ and $\mathbf{x} \in \mathbb{R}^n$.
+\end{theorem}
+
+Given a matrix $A \in M_{m,n}$, one may associate with it the function $L : \mathbb{R}^n \to \mathbb{R}^m$ defined by $L(\mathbf{x}) = A\mathbf{x}$. The linearity property just stated shows precisely that $L$ is a linear map, in the sense that
+\[
+\begin{gathered}
+L(\mathbf{x} + \mathbf{y}) = L(\mathbf{x}) + L(\mathbf{y}) \\
+L(t\mathbf{x}) = t L(\mathbf{x})
+\end{gathered}
+\]
+for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ and $t \in \mathbb{R}$; this correspondence between matrices and linear maps, easily verified by direct computation, will be developed systematically in a later section.
+
+A particularly useful way of viewing the matrix-vector product emerges from rewriting the explicit expression for $A\mathbf{x}$ given above. Since
+\[
+A\mathbf{x} =
+x_1 \begin{pmatrix} a_{11} \\ a_{21} \\ \vdots \\ a_{m1} \end{pmatrix}
++ x_2 \begin{pmatrix} a_{12} \\ a_{22} \\ \vdots \\ a_{m2} \end{pmatrix}
++ \cdots +
+x_n \begin{pmatrix} a_{1n} \\ a_{2n} \\ \vdots \\ a_{mn} \end{pmatrix},
+\]
+one recognizes that the product $A\mathbf{x}$ is precisely the linear combination of the columns $\mathbf{a}^j$ of $A$, with coefficients given by the components of $\mathbf{x}$, that is,
+\[
+A\mathbf{x} = x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_n \mathbf{a}^n.
+\]
+
+This alternative viewpoint proves indispensable when relating the matrix-vector product to the theory of linear systems, developed in the following subsection, and to the theory of linear independence, developed subsequently.
+
+The general form of a linear system of $m$ equations in $n$ unknowns $x_1, x_2, \dots, x_n$ is
+\[
+\begin{cases}
+a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
+a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
+\quad \vdots \\
+a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m,
+\end{cases}
+\]
+where the coefficients $a_{ij}$ and the constants $b_i$ are assigned numbers. In light of the definition of the matrix-vector product, this system can be written compactly as the single vector equation $A\mathbf{x} = \mathbf{b}$ in $\mathbb{R}^m$, having set
+\[
+A = \begin{pmatrix} a_{11} & \cdots & a_{1n} \\ \vdots & \ddots & \vdots \\ a_{m1} & \cdots & a_{mn} \end{pmatrix}, \qquad
+\mathbf{b} = \begin{pmatrix} b_1 \\ \vdots \\ b_m \end{pmatrix}, \qquad
+\mathbf{x} = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}.
+\]
+
+The matrix $A$ is called the coefficient matrix of the system, and the matrix obtained by appending the column $\mathbf{b}$ to $A$, denoted $[A | \mathbf{b}]$, is called the augmented matrix of the system.
+
+A solution of the linear system is an assignment of values to the variables $x_1, \dots, x_n$ satisfying every equation simultaneously; the set of all such solutions is called the solution set,
+\[
+S = \{ \mathbf{x} = (x_1, \dots, x_n) \in \mathbb{R}^n : A\mathbf{x} = \mathbf{b} \}.
+\]
+
+A linear system may exhibit one of exactly three possible behaviors: it may have infinitely many solutions, it may have a single unique solution, or it may have no solution at all. A system possessing no solution is said to be inconsistent, while a system possessing at least one solution is said to be consistent, or solvable.
+
+\begin{example}[Application: Linear Independence]
+Given $n$ vectors $\mathbf{v}^1, \dots, \mathbf{v}^n \in \mathbb{R}^m$, one may efficiently compute their linear combinations by first assembling the matrix
+\[
+A = [\mathbf{v}^1 | \cdots | \mathbf{v}^n] \in M_{m,n}.
+\]
+The coefficients can be collected into a vector
+\[
+\mathbf{x} = (x_1, \dots, x_n) \in \mathbb{R}^n.
+\]
+
+For every such coefficient vector, the linear combination of the vectors $\mathbf{v}^i$ with coefficients $x_i$ is given precisely by $A\mathbf{x}$. Consequently, the vectors $\mathbf{v}^1, \dots, \mathbf{v}^n$ are linearly independent if and only if the homogeneous system $A\mathbf{x} = \vec{0}_m$ has the unique solution $\mathbf{x} = \vec{0}_n$, reducing the study of linear independence to the study of a homogeneous linear system.
+\end{example}
+
+The product of two matrices is defined only when the number of columns of the first matrix equals the number of rows of the second, and the resulting product generalizes the matrix-vector product introduced above.
+
+\begin{definition}[Matrix Multiplication]
+Given $A = [a_{ij}] \in M_{m,n}$ and $B = [b_{ij}] \in M_{n,r}$, the product of $A$ times $B$, denoted $AB$, is the $m \times r$ matrix obtained by taking, for each entry, the dot product of the corresponding row of $A$ with the corresponding column of $B$; that is, $AB \in M_{m,r}$, with $[AB]_{ij} = \mathbf{a}_i \cdot \mathbf{b}^j$, so that the $(i,j)$ entry of $AB$ is the scalar product of the $i$-th row of $A$ with the $j$-th column of $B$.
+\end{definition}
+
+\begin{example}
+Consider the following pair of matrices:
+\[
+\begin{gathered}
+A = \begin{pmatrix} 0 & 1 & 1 \\ 2 & 2 & 1 \end{pmatrix} \in M_{2,3} \\
+B = \begin{pmatrix} 1 & 2 \\ 2 & 0 \\ 3 & 1 \end{pmatrix} \in M_{3,2}.
+\end{gathered}
+\]
+The product $AB$ is the $2 \times 2$ matrix
+\[
+AB = \begin{pmatrix} 4 & 3 \\ 9 & 5 \end{pmatrix},
+\]
+where the entries are computed as
+\[
+\begin{aligned}
+c_{11} &= 0\cdot 2 + 1\cdot 1 + 1 \cdot 3 \\
+&= 4,
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+c_{12} &= 0 \cdot 0 + 1 \cdot 2 + 1 \cdot 1 \\
+&= 3,
+\end{aligned}
+\]
+
+\[
+\begin{gathered}
+\begin{aligned}
+c_{21} &= 2 \cdot 2 + 2 \cdot 1 + 1 \cdot 3 \\
+&= 9
+\end{aligned} \\
+\begin{aligned}
+c_{22} &= 2 \cdot 0 + 2 \cdot 2 + 1 \cdot 1 \\
+&= 5.
+\end{aligned}
+\end{gathered}
+\]
+
+\end{example}
+
+Matrix multiplication satisfies several properties analogous to those of ordinary multiplication of numbers, namely associativity, $A(BC) = (AB)C$ for every $A \in M_{m,r}$, $B \in M_{r,n}$, $C \in M_{n,p}$; distributivity over addition, $A(B+C) = AB + AC$ for every $A \in M_{m,r}$ and $B, C \in M_{r,n}$, and $(A+B)C = AC + BC$ for every $A, B \in M_{m,r}$ and $C \in M_{r,n}$; and compatibility with scalar multiplication,
+\[
+\begin{aligned}
+A(tB) &= (tA)B \\
+&= t(AB),
+\end{aligned}
+\]
+for every $t \in \mathbb{R}$, $A \in M_{m,r}$, $B \in M_{r,n}$.
+
+\begin{remark}
+In marked contrast with the multiplication of ordinary numbers, which is independent of the order of the factors, matrix multiplication is not commutative: even for square matrices, it may happen that $AB \neq BA$. For example, with
+\[
+\begin{gathered}
+\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\
+\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix},
+\end{gathered}
+\]
+one computes
+\[
+\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix},
+\]
+while
+\[
+\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix},
+\]
+and these two products clearly differ. Moreover, the product of two matrices can vanish identically even when neither factor is the zero matrix: taking
+\[
+A = B = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
+\]
+one finds $AB = O$, despite $A \neq O$.
+\end{remark}
+
+
+A further operation on matrices, of frequent use throughout the theory, consists of interchanging rows and columns.
+
+\begin{definition}[Transpose]
+The transpose of an $m \times n$ matrix $A$ is the $n \times m$ matrix $A^{\top}$ obtained by turning rows into columns and vice versa, that is, $[A^{\top}]_{ij} = a_{ji}$, for every $i = 1, \dots, n$ and $j = 1, \dots, m$.
+\end{definition}
+\subsection{Solving Linear Systems by Gaussian Elimination}
+
+When the coefficient matrix of a homogeneous linear system is already in row echelon form, the corresponding system can be solved directly by a simple procedure known as back-substitution. Consider, for instance, the homogeneous system $U\mathbf{x} = \vec{0}$, where
+\[
+U = \begin{pmatrix} 2 & 1 & 1 \\ 0 & \tfrac{3}{2} & \tfrac{1}{2} \\ 0 & 0 & 0 \end{pmatrix},
+\]
+corresponding explicitly to the system
+\[
+\begin{cases}
+2x + y + z = 0, \\
+\tfrac{3}{2} y + \tfrac{1}{2} z = 0, \\
+0 = 0.
+\end{cases}
+\]
+
+This system is readily solved by back-substitution: one first sets $z = t$, in correspondence with the column of $U$ containing no pivot; one then obtains $y$ from the second equation; and finally one obtains $x$ from the first equation. With $t \in \mathbb{R}$ arbitrary, the resulting solution set is
+\[
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = t \begin{pmatrix} -\tfrac{1}{3} \\ -\tfrac{1}{3} \\ 1 \end{pmatrix}.
+\]
+
+For a general coefficient matrix, not necessarily already in row echelon form, one first reduces the matrix to row echelon form by means of a systematic procedure known as the Gauss elimination method, before applying back-substitution as above.
+
+The Gauss elimination method consists of a sequence of elementary row operations applied to a matrix, with the goal of transforming it into row echelon form, that is, of filling the lower left-hand corner of the matrix with zeros as far as possible. Three types of elementary row operations are permitted: swapping two rows; multiplying a row by a nonzero number; and adding a multiple of one row to another row. Using these three operations, any matrix can always be transformed into a matrix in row echelon form.
+
+Once, in addition, every leading coefficient of the resulting matrix equals $1$, and every column containing a leading coefficient has zeros in all its remaining entries, the matrix is said to be in reduced row echelon form. This final reduced form is unique, in the sense that it does not depend on the particular sequence of elementary row operations used to reach it.
+
+\begin{example}
+Applying the Gauss elimination method to the matrix
+\[
+\begin{pmatrix} 1 & 1 & -1 & 1 \\ 1 & 3 & 1 & 9 \\ 3 & 11 & 5 & 35 \end{pmatrix},
+\]
+one first subtracts the first row from the second, and three times the first row from the third, obtaining
+\[
+\begin{pmatrix} 1 & 3 & 1 & 9 \\ 0 & -2 & -2 & -8 \\ 0 & 0 & 0 & 0 \end{pmatrix}
+\]
+after also swapping the first two rows for convenience; multiplying the second row by $-(1/2)$ and adding it to the third yields the row echelon form
+\[
+\begin{pmatrix} 1 & 3 & 1 & 9 \\ 0 & 1 & 1 & 4 \\ 0 & 0 & 0 & 0 \end{pmatrix}.
+\]
+
+\end{example}
+
+The Gauss elimination method is the principal tool for finding the solution set of a linear system with an arbitrary coefficient matrix $A$. Its validity rests on the fact that, whenever an elementary operation is performed on the equations of a system, the solution set of the system remains unchanged; and, crucially, an elementary operation on the equations of a system corresponds precisely to an elementary row operation on the corresponding coefficient matrix. Consequently, if $A$ is the coefficient matrix of the homogeneous system $A\mathbf{x} = \vec{0}$, and $U$ denotes the matrix obtained by applying the Gauss algorithm to $A$, then
+\[
+A\mathbf{x} = \vec{0} \iff U\mathbf{x} = \vec{0},
+\]
+so that the original system and the reduced system share exactly the same solution set.
+
+\begin{example}
+Consider the homogeneous system
+\[
+\begin{cases}
+2x + y + z = 0, \\
+x + 2y + z = 0, \\
+x + y + \tfrac{2}{3} z = 0,
+\end{cases}
+\]
+with coefficient matrix
+\[
+A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & \tfrac{2}{3} \end{pmatrix}.
+\]
+Applying the Gauss elimination method to $A$ yields the reduced matrix
+\[
+U = \begin{pmatrix} 2 & 1 & 1 \\ 0 & \tfrac{3}{2} & \tfrac{1}{2} \\ 0 & 0 & 0 \end{pmatrix},
+\]
+and solving $U\mathbf{x} = \vec{0}$ by back-substitution exactly as in the earlier example yields the following solution set, with $t \in \mathbb{R}$ arbitrary:
+\[
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = t \begin{pmatrix} -\tfrac{1}{3} \\ -\tfrac{1}{3} \\ 1 \end{pmatrix}.
+\]
+
+\end{example}
+
+The Gauss elimination method extends immediately to nonhomogeneous systems of the general form $A\mathbf{x} = \mathbf{b}$. Letting $[A | \mathbf{b}]$ denote the augmented matrix of the system, and $[U | \mathbf{b}']$ the matrix obtained by applying the Gauss algorithm to $[A | \mathbf{b}]$, one has the equivalence
+\[
+A\mathbf{x} = \mathbf{b} \iff U\mathbf{x} = \mathbf{b}',
+\]
+so that the two systems again share the same solution set.
+
+\begin{example}
+Consider the nonhomogeneous system
+\[
+\begin{cases}
+2x + y + z = 6, \\
+x + 2y + z = 6, \\
+x + y + \tfrac{2}{3} z = 4.
+\end{cases}
+\]
+The coefficient matrix and the augmented matrix are
+\[
+\begin{gathered}
+A = \begin{pmatrix} 2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & \tfrac{2}{3} \end{pmatrix} \\
+[A|\mathbf{b}] = \begin{pmatrix} 2 & 1 & 1 & 6 \\ 1 & 2 & 1 & 6 \\ 1 & 1 & \tfrac{2}{3} & 4 \end{pmatrix}.
+\end{gathered}
+\]
+Applying the Gauss algorithm to $[A|\mathbf{b}]$ yields the reduced augmented matrix
+\[
+[U|\mathbf{b}'] = \begin{pmatrix} 2 & 1 & 1 & 6 \\ 0 & \tfrac{3}{2} & \tfrac{1}{2} & 3 \\ 0 & 0 & 0 & 0 \end{pmatrix};
+\]
+solving $U\mathbf{x} = \mathbf{b}'$ by back-substitution, setting $z = t$ for the column with no pivot, and then obtaining $y$ and $x$ in succession, yields the following solution set, with $t \in \mathbb{R}$ arbitrary:
+\[
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2 \\ 2 \\ 0 \end{pmatrix} + t \begin{pmatrix} -\tfrac{1}{3} \\ -\tfrac{1}{3} \\ 1 \end{pmatrix}.
+\]
+
+As a related exercise, applying the Gauss elimination method to the similar system with third equation $x + y + 5z = 4$ in place of $x+y+(2/3)z=4$ shows that this modified system has no solutions at all.
+\end{example}
+
+The general procedure just illustrated applies to an arbitrary matrix $A \in M_{m,n}$ and vector $\mathbf{b} \in \mathbb{R}^m$: letting $[A|\mathbf{b}]$ denote the augmented matrix and $[U|\mathbf{b}']$ the corresponding matrix obtained from the Gauss algorithm, the two systems $A\mathbf{x} = \mathbf{b}$ and $U\mathbf{x} = \mathbf{b}'$ have the same solution set, that is, they are equivalent. The original system is consistent if and only if the number of pivots of $U$ equals the number of pivots of $[U|\mathbf{b}'];$ denoting this common number of pivots by $p$, the solution set depends on $n - p$ free parameters, corresponding precisely to the number of columns of $U$ that contain no pivot.
+
+\section{Determinants, Inverses, and Rank}
+
+\subsection{Determinants: Definition and Recursive Computation}
+
+Given a square matrix, the determinant is a scalar value that encodes certain fundamental properties of the linear transformation described by the matrix. In the simplest case, the determinant admits an explicit closed-form expression.
+
+\begin{definition}[Determinant of a $2\times 2$ Matrix]
+Given the matrix
+\[
+A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in M_2,
+\]
+the determinant of $A$ is the number $\operatorname{Det}(A) = ad - bc$.
+\end{definition}
+
+For matrices of larger size, the determinant is computed recursively, by means of a procedure known as Laplace expansion, which reduces the computation of an $n \times n$ determinant to the computation of several $(n-1) \times (n-1)$ determinants. Given $A \in M_n$, denote by $A_{ij} \in M_{n-1}$ the submatrix obtained by deleting the $i$-th row and the $j$-th column of $A$. The real number
+\[
+C_{ij} = (-1)^{i+j} \operatorname{Det}(A_{ij})
+\]
+is called the cofactor of $a_{ij}$. It can be proved that the sum of the products of the elements of any row, or any column, of $A$ with their respective cofactors always yields the same value, regardless of which row or column is chosen; this common value is, by definition, the determinant of $A$.
+
+\begin{theorem}[Laplace Expansion for the Determinant]
+Fix any row $i \in \{1, \dots, n\}$. Then
+\[
+\begin{aligned}
+\operatorname{Det}(A) &= a_{i1} C_{i1} + a_{i2} C_{i2} + \cdots + a_{in} C_{in} \\
+&= \sum_{j=1}^{n} (-1)^{i+j} a_{ij} \operatorname{Det}(A_{ij}).
+\end{aligned}
+\]
+Analogously, fixing any column $j$,
+\[
+\begin{aligned}
+\operatorname{Det}(A) &= a_{1j} C_{1j} + a_{2j} C_{2j} + \cdots + a_{nj} C_{nj} \\
+&= \sum_{i=1}^{n} (-1)^{i+j} a_{ij} \operatorname{Det}(A_{ij}).
+\end{aligned}
+\]
+
+\end{theorem}
+
+Several elementary properties of the determinant follow readily from this recursive definition. If $A$ has a row, or a column, consisting entirely of zeros, then $\operatorname{Det}(A) = 0$. The determinant is invariant under transposition,
+\[
+\operatorname{Det}(A^{\top}) = \operatorname{Det}(A).
+\]
+
+If $A$ is a triangular matrix, whether upper or lower, then its determinant equals the product of its diagonal entries,
+\[
+\operatorname{Det}(A) = a_{11} a_{22} \cdots a_{nn}.
+\]
+
+Finally, the determinant of a product of two square matrices of the same order factors as the product of the individual determinants.
+
+\begin{theorem}[Binet's Theorem]
+If $A$ and $B$ are square matrices of the same order, then
+\[
+\operatorname{Det}(AB) = \operatorname{Det}(A) \cdot \operatorname{Det}(B).
+\]
+
+\end{theorem}
+
+It can be shown that the determinant is, in fact, the unique function $M_n \to \mathbb{R}$ satisfying three fundamental properties, and this axiomatic characterization is sometimes taken as the very definition of the determinant. First, $\operatorname{Det}(I) = 1$. Second, the determinant is alternating: whenever two rows of a matrix are identical, its determinant equals zero. Third, the determinant is multilinear, that is, it is a linear function of each individual row separately; for instance, linearity in the first row means that
+\[
+\operatorname{Det}\begin{pmatrix} \mathbf{a}_1 + t \mathbf{b}_1 \\ \mathbf{a}_2 \\ \vdots \\ \mathbf{a}_n \end{pmatrix} = \operatorname{Det}\begin{pmatrix} \mathbf{a}_1 \\ \mathbf{a}_2 \\ \vdots \\ \mathbf{a}_n \end{pmatrix} + t \cdot \operatorname{Det}\begin{pmatrix} \mathbf{b}_1 \\ \mathbf{a}_2 \\ \vdots \\ \mathbf{a}_n \end{pmatrix}
+\]
+for every $t \in \mathbb{R}$.
+
+On the basis of these three fundamental properties, one readily deduces how the determinant changes when elementary row operations are performed. If two rows of a matrix are interchanged, the determinant changes sign; and if any linear combination of the other rows is added to a given row, the determinant remains unchanged. These two facts allow one to compute the determinant of an arbitrary matrix $A$ by relating it to the determinant of a triangular matrix $U$ obtained from $A$ by Gaussian elimination, using only these two operations: if an even number of row interchanges is used, or none at all, then
+\[
+\operatorname{Det}(A) = \operatorname{Det}(U);
+\]
+whereas if an odd number of row interchanges is used, then
+\[
+\operatorname{Det}(A) = -\operatorname{Det}(U).
+\]
+
+This relationship yields a particularly efficient criterion for determining when a matrix has nonzero determinant. Since $\operatorname{Det}(A) \neq 0$ if and only if $\operatorname{Det}(U) \neq 0$, and since
+\[
+\operatorname{Det}(U) = u_{11} u_{22} \cdots u_{nn}
+\]
+for a triangular matrix, it follows that $\operatorname{Det}(A) \neq 0$ if and only if every diagonal entry $u_{ii}$ of $U$ is nonzero, that is, if and only if $U$ has exactly $n$ pivots. Consequently, $\operatorname{Det}(A) \neq 0$ if and only if $\operatorname{Rank}(A) = n$.
+
+\begin{definition}
+A square matrix $A$ such that $\operatorname{Det}(A) \neq 0$ is called a nonsingular matrix.
+\end{definition}
+
+The nonsingularity of a matrix, as characterized by a nonvanishing determinant, has several important consequences for the associated linear system and linear transformation. A square linear system $A\mathbf{x} = \mathbf{b}$ has a unique solution if and only if $\operatorname{Det}(A) \neq 0$; in particular, if $\mathbf{b} = \vec{0}$, the only solution is the null vector. The columns, and equally the rows, of a square matrix are linearly independent vectors if and only if $\operatorname{Det}(A) \neq 0$. Finally, if $A$ is the representative matrix of a linear transformation $L : \mathbb{R}^n \to \mathbb{R}^n$, then $L$ is injective if and only if $L$ is surjective, and both properties hold if and only if $\operatorname{Det}(A) \neq 0$.
+
+\input{figures/determinant-area.tex}
+
+\subsection{The Inverse of a Matrix}
+
+\begin{definition}[Invertible Matrix]
+Let $A \in M_n$. We say that $A$ is invertible if there exists a matrix $B \in M_n$ such that
+\[
+\begin{aligned}
+AB &= BA \\
+&= I.
+\end{aligned}
+\]
+When such an inverse exists, it is unique, and is denoted by $A^{-1}$.
+\end{definition}
+
+\begin{theorem}
+If $A$ is invertible, then $\operatorname{Det}(A) \neq 0$.
+\end{theorem}
+
+\begin{proof}
+Since $A A^{-1} = I$, Binet's Theorem yields
+\[
+\begin{aligned}
+\operatorname{Det}(A) \operatorname{Det}(A^{-1}) &= \operatorname{Det}(AA^{-1}) \\
+&= \operatorname{Det}(I) \\
+&= 1,
+\end{aligned}
+\]
+which shows in particular that $\operatorname{Det}(A) \neq 0$, and moreover that
+\[
+\operatorname{Det}(A^{-1}) = 1/\operatorname{Det}(A).
+\]
+
+\end{proof}
+
+The converse implication also holds, so that nonsingularity is not merely necessary but also sufficient for invertibility.
+
+\begin{theorem}
+If $\operatorname{Det}(A) \neq 0$, then $A$ is invertible.
+\end{theorem}
+
+\begin{proof}
+Since $\operatorname{Det}(A) \neq 0$, for each $i = 1, \dots, n$ the system $A\mathbf{x} = \mathbf{e}_i$, where $\mathbf{e}_i$ denotes the $i$-th canonical basis vector, has a unique solution, which we call $\mathbf{b}^i$. Defining $B = [\mathbf{b}^1 | \cdots | \mathbf{b}^n]$, one observes that
+\[
+\begin{aligned}
+AB &= [A\mathbf{b}^1 | \cdots | A\mathbf{b}^n] \\
+&= [\mathbf{e}_1 | \cdots | \mathbf{e}_n] \\
+&= I,
+\end{aligned}
+\]
+establishing that $A$ is invertible with inverse $B$.
+\end{proof}
+
+In practice, the inverse of a nonsingular matrix can be computed by applying the Gauss elimination method to the augmented matrix $[A | I]$ until a reduced matrix of the form $[I | B]$ is obtained; the resulting matrix $B$ is then the inverse of $A$. An explicit formula for the inverse, expressed directly in terms of cofactors, is also available.
+
+\begin{theorem}[Laplace's Formula for the Inverse of a Matrix]
+The inverse of a nonsingular matrix $A$ is given by
+\[
+A^{-1} = \frac{1}{\operatorname{Det}(A)} C^{\top},
+\]
+where $C^{\top}$ denotes the transpose of the matrix of cofactors $C = [C_{ij}]$, with
+\[
+C_{ij} = (-1)^{i+j} \operatorname{Det}(A_{ij}).
+\]
+
+\end{theorem}
+
+\begin{example}
+We find the inverse, if it exists, of
+\[
+A = \begin{pmatrix} 3 & 4 & 2 \\ 1 & 2 & 0 \\ 1 & 0 & 1 \end{pmatrix}.
+\]
+Expanding along the second column, we compute $\operatorname{Det}(A_{12}) = 1$ and $\operatorname{Det}(A_{22}) = 1$, and hence
+\[
+\operatorname{Det}(A) = -4 \cdot 1 + 2 \cdot 1 \cdot \ldots,
+\]
+which, after completing the expansion, equals $2 \neq 0$; thus $A$ is invertible. Computing the remaining cofactors, namely $\operatorname{Det}(A_{11}) = 4$, $\operatorname{Det}(A_{13}) = -4$, $\operatorname{Det}(A_{21}) = 2$, $\operatorname{Det}(A_{23}) = -2$, $\operatorname{Det}(A_{31}) = 4$, $\operatorname{Det}(A_{32}) = 2$, $\operatorname{Det}(A_{33}) = -2$, one obtains the inverse
+\[
+A^{-1} = \frac{1}{2} \begin{pmatrix} 4 & -2 & 4 \\ -1 & 1 & -2 \\ -4 & 2 & -2 \end{pmatrix}.
+\]
+
+\end{example}
+
+\subsection{The Rank of a Matrix}
+
+We now consider matrices $A \in M_{m,n}$ of arbitrary, not necessarily square, dimension. Recall that the rank of $A$, already introduced in connection with the column space of $A$, is the dimension of $\operatorname{Col}(A)$, that is, the maximum number of linearly independent columns of $A$. The determinant provides an alternative, and in many contexts more computationally direct, characterization of this quantity.
+
+\begin{definition}
+Given $A \in M_{m,n}$, we call a minor of $A$ the determinant of any square submatrix of $A$, and we call the order of the minor the dimension of the corresponding square submatrix.
+\end{definition}
+
+\begin{proposition}
+$\operatorname{Rank}(A) = r$ if and only if there exists a nonzero minor of order $r$, and every minor of order greater than $r$ vanishes. Equivalently, the rank of $A$ is the largest order among all nonzero minors of $A$.
+\end{proposition}
+
+Directly verifying that every minor of a given order beyond a certain threshold vanishes can be computationally expensive, since the number of such minors grows rapidly with the dimensions of the matrix. The following theorem shows that a much smaller number of minors need actually be checked.
+
+\begin{theorem}[Kronecker's Theorem]
+$\operatorname{Rank}(A) = r$ if and only if there is a nonzero minor of order $r$, corresponding to a certain square submatrix $B \in M_r$, and the minor of every square submatrix of order $r+1$ that contains $B$ as a submatrix vanishes.
+\end{theorem}
+
+\begin{example}
+Consider the matrix
+\[
+A = \begin{pmatrix} 0 & 1 & 3 & 2 \\ 1 & 0 & -5 & -1 \\ 1 & 2 & 1 & 3 \end{pmatrix}.
+\]
+Since $A$ has only three rows, $\operatorname{Rank}(A) \leq 3$. The square submatrix
+\[
+B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+\]
+has nonzero determinant, so $\operatorname{Rank}(A) \geq 2$. There are exactly two square submatrices of order $3$ containing $B$ as a submatrix, and direct computation shows that both of their determinants vanish; by Kronecker's Theorem, we conclude that $\operatorname{Rank}(A) = 2$.
+\end{example}
+
+\subsection{Applications: Change of Basis and Similar Matrices}
+
+The determinant, and the associated notion of invertibility, play a decisive role in two important constructions of linear algebra, namely the change of basis and the similarity of matrices.
+
+Given any basis $\mathcal{B} = \{\mathbf{b}^1, \dots, \mathbf{b}^n\}$ of $\mathbb{R}^n$, and a vector $\mathbf{v} = (x_1, \dots, x_n)$ expressed in the canonical basis, one may ask how to find the coordinates $\hat{\mathbf{x}} = (\hat{x}_1, \dots, \hat{x}_n)$ of $\mathbf{v}$ with respect to $\mathcal{B}$. Setting
+\[
+M = [\mathbf{b}^1 | \cdots | \mathbf{b}^n] \in M_n,
+\]
+called the change of basis matrix, one has $\hat{\mathbf{x}} = M^{-1} \mathbf{x}$. Indeed, writing
+\[
+\begin{aligned}
+\mathbf{v} &= \sum_{i=1}^n x_i \mathbf{e}_i \\
+&= I \mathbf{x}
+\end{aligned}
+\]
+using the canonical basis, and
+\[
+\begin{aligned}
+\mathbf{v} &= \sum_{i=1}^n \hat{x}_i \mathbf{b}^i \\
+&= M \hat{\mathbf{x}}
+\end{aligned}
+\]
+using the basis $\mathcal{B}$, one obtains $\mathbf{x} = M\hat{\mathbf{x}}$; since $\operatorname{Det}(M) \neq 0$, because the columns of $M$ form a basis and are therefore linearly independent, one may invert this relation to find $\hat{\mathbf{x}} = M^{-1}\mathbf{x}$.
+
+A closely related construction concerns the representation of a linear map in different bases. Let $A \in M_n$ be the representative matrix of a linear map $L : \mathbb{R}^n \to \mathbb{R}^n$ in the canonical basis, and take any basis $\mathcal{B} = \{\mathbf{b}^1, \dots, \mathbf{b}^n\}$ of $\mathbb{R}^n$. Setting again $M = [\mathbf{b}^1 | \cdots | \mathbf{b}^n]$, the representative matrix $B$ of $L$ in the new basis $\mathcal{B}$ is given by $B = M^{-1} A M$. Two matrices $A$ and $B$ related in this way, that is, satisfying $B = M^{-1}AM$ for some invertible matrix $M$, are said to be similar; two $n$-by-$n$ matrices are similar if and only if they represent the same linear transformation of $\mathbb{R}^n$ with respect to two different bases.
+
+\section{Vector Spaces and Fundamental Subspaces}
+
+\subsection{Vector Operations and Vector Spaces}
+
+The foundational object underlying the entire theory developed in this document is the vector. Two fundamental operations govern the algebra of vectors, and it is useful to describe them both geometrically and in coordinates.
+
+Geometrically, if two vectors $\mathbf{u}$ and $\mathbf{v}$ are positioned so that the initial point of $\mathbf{v}$ coincides with the terminal point of $\mathbf{u}$, then their sum $\mathbf{u} + \mathbf{v}$ is defined as the vector running from the initial point of $\mathbf{u}$ to the terminal point of $\mathbf{v}$. The scalar multiple $t\mathbf{v}$, for a real number $t$, is defined as the vector whose length equals the length of $\mathbf{v}$ multiplied by $|t|$; provided $t \neq 0$, the vector $t\mathbf{v}$ points in the same direction as $\mathbf{v}$, with the same orientation if $t$ is positive and the opposite orientation if $t$ is negative.
+
+In coordinates, given two vectors $\mathbf{x} = (x_1, \dots, x_m)$ and $\mathbf{y} = (y_1, \dots, y_m)$ in $\mathbb{R}^m$, their sum, denoted $\mathbf{x}+\mathbf{y}$, is the vector of $\mathbb{R}^m$ given by
+\[
+\mathbf{x} + \mathbf{y} = (x_1+y_1, \dots, x_m+y_m).
+\]
+Given a number $t \in \mathbb{R}$ and a vector
+\[
+\mathbf{x} = (x_1, \dots, x_m) \in \mathbb{R}^m,
+\]
+the scalar multiple $t\mathbf{x}$ is the vector
+\[
+t\mathbf{x} = (t x_1, \dots, t x_m) \in \mathbb{R}^m.
+\]
+
+Consider the following set of $m$ vectors of $\mathbb{R}^m$,
+\[
+\mathbf{e}_1 = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}, \qquad \mathbf{e}_2 = \begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix}, \qquad \ldots, \qquad \mathbf{e}_m = \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 1 \end{pmatrix}.
+\]
+
+Given any vector $\mathbf{v} = (v_1, \dots, v_m)$, one can write $\mathbf{v} = v_1 \mathbf{e}_1 + \cdots + v_m \mathbf{e}_m$; in this sense, every vector of $\mathbb{R}^m$ can be reached from $\mathbf{e}_1, \dots, \mathbf{e}_m$ using only the two fundamental operations of addition and scalar multiplication.
+
+Several pieces of terminology, central to the entire subject of linear algebra, arise directly from this observation. When a vector is obtained from a set of given vectors using only the two fundamental operations, one says that it is a linear combination of the given vectors. The set of all possible vectors reachable in this way from a given collection of vectors is called the span of those vectors. The vectors $\mathbf{e}_1, \dots, \mathbf{e}_m$ are linearly independent, meaning that none of them belongs to the span of the others; and one says that they form a basis of $\mathbb{R}^m$, capturing the fact that they constitute a set of linearly independent vectors that spans the entire space.
+
+The properties observed above for $\mathbb{R}^m$ are, in fact, common to a much wider class of mathematical objects, axiomatized by the notion of a vector space.
+
+\begin{definition}[Vector Space]
+A vector space is a set $V$, whose elements are called vectors, on which two fundamental operations are defined: an internal operation called sum, $V \times V \to V$, $(\mathbf{u}, \mathbf{v}) \mapsto \mathbf{u}+\mathbf{v}$, and an external operation called scalar multiplication, $\mathbb{R} \times V \to V$, $(t, \mathbf{u}) \mapsto t\mathbf{u}$. These two operations must satisfy the following properties, for every $\mathbf{u}, \mathbf{v}, \mathbf{z} \in V$ and every $s, t \in \mathbb{R}$: associativity of addition,
+\[
+\mathbf{u} + (\mathbf{v}+\mathbf{z}) = (\mathbf{u}+\mathbf{v}) + \mathbf{z};
+\]
+commutativity of addition, $\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}$; existence of a zero element $\vec{0} \in V$ such that $\mathbf{u}+\vec{0} = \mathbf{u}$; existence, for each $\mathbf{u} \in V$, of an element $\mathbf{w} \in V$ such that $\mathbf{u}+\mathbf{w} = \vec{0}$; the associativity relation $s(t\mathbf{u}) = (st)\mathbf{u}$; the identity relation $1\mathbf{u} = \mathbf{u}$; and the two distributive laws $t(\mathbf{u}+\mathbf{v}) = t\mathbf{u}+t\mathbf{v}$ and $(s+t)\mathbf{u} = s\mathbf{u}+t\mathbf{u}$.
+\end{definition}
+
+\begin{definition}[Subspace]
+A subset $W \subset V$ is called a subspace of $V$ if it is closed under the operations of sum and scalar multiplication, that is, if $\mathbf{u}, \mathbf{v} \in W$ implies $\mathbf{u}+\mathbf{v} \in W$, and $\mathbf{u} \in W$, $t \in \mathbb{R}$ implies $t\mathbf{u} \in W$.
+\end{definition}
+
+\begin{remark}
+Every subspace necessarily contains the zero vector: if $W$ is a subspace of $V$, then $\vec{0}_V \in W$. Moreover, a subspace $W \subset V$ inherits the vector space structure of $V$: a subspace is itself a vector space, with the same operations restricted to $W$.
+\end{remark}
+
+\begin{definition}[Linear Combination]
+Given $k$ vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ and $k$ given numbers $a_1, a_2, \dots, a_k \in \mathbb{R}$, the vector
+\[
+\mathbf{w} = a_1 \mathbf{v}^1 + a_2 \mathbf{v}^2 + \cdots + a_k \mathbf{v}^k \in V
+\]
+is called the linear combination of $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k$ with coefficients $a_1, a_2, \dots, a_k$.
+\end{definition}
+
+\begin{definition}[Span]
+Given $k$ vectors $\mathbf{v}^1, \dots, \mathbf{v}^k \in V$, we denote by $\operatorname{span}(\mathbf{v}^1, \dots, \mathbf{v}^k)$ the set of all possible linear combinations of these vectors, that is,
+\[
+\operatorname{span}(\mathbf{v}^1, \dots, \mathbf{v}^k) = \left\{ \sum_{i=1}^{k} x_i \mathbf{v}^i : x_1, \dots, x_k \in \mathbb{R} \right\}.
+\]
+
+\end{definition}
+
+One readily observes that $\operatorname{span}(\mathbf{v}^1, \dots, \mathbf{v}^k)$ is always a subspace of $V$, since it is closed under both fundamental operations; this subspace is accordingly called the subspace generated by the vectors $\mathbf{v}^1, \dots, \mathbf{v}^k$.
+
+\subsection{Linear Independence, Basis, and Dimension}
+
+\begin{definition}[Linear Dependence]
+The vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ are called linearly dependent if there exist scalars $x_1, \dots, x_k$, not all zero, such that
+\[
+x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + \cdots + x_k \mathbf{v}^k = \vec{0}.
+\]
+
+\end{definition}
+
+If not every scalar in this relation vanishes, then at least one, say $x_1$, is nonzero, and the defining equation can be rearranged as
+\[
+\mathbf{v}^1 = -(x_2/x_1) \mathbf{v}^2 - \cdots - (x_k/x_1) \mathbf{v}^k,
+\]
+exhibiting $\mathbf{v}^1$ as a linear combination of the remaining vectors. In this sense, $\mathbf{v}^1$ is redundant, and one has the equality
+\[
+\operatorname{span}(\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k) = \operatorname{span}(\mathbf{v}^2, \dots, \mathbf{v}^k),
+\]
+showing that a linearly dependent set can always be reduced without changing its span.
+
+\begin{definition}[Linear Independence]
+The vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ are called linearly independent if the relation
+\[
+x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + \cdots + x_k \mathbf{v}^k = \vec{0}
+\]
+implies $x_i = 0$ for every $i = 1, \dots, k$.
+\end{definition}
+
+A set of linearly independent vectors is, in this sense, minimal for the generation of its span, since no vector in the set is redundant. In the particular case of two vectors, linear dependence admits a simple geometric characterization: two vectors $\mathbf{v}^1$ and $\mathbf{v}^2$ in $V$ are linearly dependent if and only if they are proportional, that is, if and only if $\mathbf{v}^1 = \lambda \mathbf{v}^2$ for some nonzero scalar $\lambda$.
+
+\begin{example}
+We investigate whether the vectors $\mathbf{v}^1 = (1,0,0)$, $\mathbf{v}^2 = (1, 1/2, 1)$, and $\mathbf{v}^3 = (5,1,2)$ are linearly independent in $\mathbb{R}^3$. Imposing the condition
+\[
+x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + x_3 \mathbf{v}^3 = \vec{0},
+\]
+and writing the resulting equation in components, one obtains the linear system
+\[
+\begin{cases}
+x_1 + x_2 + 5 x_3 = 0, \\
+\tfrac{1}{2} x_2 + x_3 = 0, \\
+x_2 + 2 x_3 = 0.
+\end{cases}
+\]
+
+This system reduces to $x_1 = -3x_3$ and $x_2 = -2x_3$, with $x_3$ free to take any value in $\mathbb{R}$; consequently, the three vectors are linearly dependent. In particular, fixing $x_3 = 1$ yields the explicit relation $\mathbf{v}^3 = 3\mathbf{v}^1 + 2\mathbf{v}^2$.
+\end{example}
+
+The example just presented illustrates the general strategy for investigating the linear independence of a family of vectors in $\mathbb{R}^m$. Given $k$ vectors $\mathbf{a}^1, \dots, \mathbf{a}^k \in \mathbb{R}^m$, with
+\[
+\mathbf{a}^j = (a_{1j}, a_{2j}, \dots, a_{mj})
+\]
+for each $j = 1, \dots, k$, one investigates their linear dependence or independence by asking whether the equation
+\[
+x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_k \mathbf{a}^k = \vec{0}
+\]
+in $\mathbb{R}^m$ has the unique solution $x_i = 0$ for all $i$. Writing this equation out in components yields precisely a homogeneous linear system of $m$ equations in the $k$ unknowns $x_1, \dots, x_k$; consequently, proving the linear independence of a family of $k$ vectors in $\mathbb{R}^m$ amounts to showing that this associated homogeneous linear system has only the trivial solution, connecting the study of linear independence directly to the theory of linear systems developed earlier.
+
+\begin{definition}[Basis]
+Given vectors $\mathbf{b}^1, \mathbf{b}^2, \dots, \mathbf{b}^d \in V$, the set $\{\mathbf{b}^1, \dots, \mathbf{b}^d\}$ is called a basis for $V$ if the vectors $\mathbf{b}^1, \dots, \mathbf{b}^d$ are linearly independent, and if $\{\mathbf{b}^1, \dots, \mathbf{b}^d\}$ is a set of generators of $V$, that is,
+\[
+\operatorname{span}(\mathbf{b}^1, \dots, \mathbf{b}^d) = V.
+\]
+
+\end{definition}
+
+By the very definition of span, every vector $\mathbf{v}$ in the space can be written as a linear combination of the basis vectors; the following theorem shows that the coefficients in this expansion are, in fact, uniquely determined.
+
+\begin{theorem}
+Let $\mathcal{B} = \{\mathbf{b}^1, \mathbf{b}^2, \dots, \mathbf{b}^d\}$ be a basis for $V$. Then, for every $\mathbf{v} \in V$, there is a unique set of $d$ scalars $x_1, x_2, \dots, x_d \in \mathbb{R}$ such that
+\[
+\mathbf{v} = \sum_{i=1}^{d} x_i \mathbf{b}^i.
+\]
+The scalars $x_1, \dots, x_d$ are called the components, or coordinates, of $\mathbf{v}$ in the basis $\mathcal{B}$.
+\end{theorem}
+
+\begin{proof}[Proof of uniqueness]
+Suppose, for the sake of contradiction, that there exist a vector $\mathbf{v} \in V$ and two distinct sets of coefficients, $x_1, \dots, x_d$ and $\tilde{x}_1, \dots, \tilde{x}_d$, such that
+\[
+\begin{aligned}
+\mathbf{v} &= \sum_{i=1}^{d} x_i \mathbf{b}^i \\
+&= \sum_{i=1}^{d} \tilde{x}_i \mathbf{b}^i.
+\end{aligned}
+\]
+Subtracting the two expressions yields
+\[
+\sum_{i=1}^{d} (x_i - \tilde{x}_i) \mathbf{b}^i = \vec{0}.
+\]
+
+Since the vectors $\mathbf{b}^1, \dots, \mathbf{b}^d$ are linearly independent, this forces $x_i - \tilde{x}_i = 0$ for every $i$, that is, $x_i = \tilde{x}_i$ for every $i$, contradicting the assumed distinctness of the two sets of coefficients.
+\end{proof}
+
+The number of vectors in a basis of a given vector space turns out to be an intrinsic property of the space itself, independent of the particular basis chosen, as recorded in the following fundamental theorem.
+
+\begin{theorem}[Dimension Theorem]
+If $V$ has a basis consisting of $d \in \mathbb{N}$ vectors, then every basis of $V$ consists of exactly $d$ vectors.
+\end{theorem}
+
+In light of this theorem, one says that $V$ has dimension $d$, and writes $\operatorname{Dim}(V) = d$. It follows moreover that, if $V$ has dimension $d$, then any set of $d$ linearly independent vectors of $V$ is automatically a basis of $V$; no separate verification that the set spans $V$ is required. As a basic example, the vector space $\mathbb{R}^m$ has dimension $m$; the three vectors $\mathbf{v}^1$, $\mathbf{v}^2$, $\mathbf{v}^3$ considered in the earlier example, having been shown to be linearly dependent, therefore fail to constitute a basis of $\mathbb{R}^3$.
+
+Several useful facts relate the dimension of a subspace to the dimension of the ambient space. Let $W \subset V$ be a subspace, with $\operatorname{Dim}(V) = m$. Then
+\[
+\operatorname{Dim}(W) \leq \operatorname{Dim}(V);
+\]
+if $W$ is a proper subspace of $V$, then $\operatorname{Dim}(W) < m$ strictly; and, conversely, if $\operatorname{Dim}(W) = m$, then necessarily $W = V$. The null subspace $W = \{\vec{0}_V\}$ has dimension $0$, and is in fact the unique subspace of dimension zero. Finally, if
+\[
+W = \operatorname{span}(\mathbf{v}^1, \dots, \mathbf{v}^k),
+\]
+then $\operatorname{Dim}(W) = r$, where $r$ denotes the largest number of linearly independent vectors among the generators $\mathbf{v}^1, \dots, \mathbf{v}^k$; these $r$ vectors then form a basis of $W$. It follows that $r \leq m$ and $r \leq k$.
+
+\subsection{Column Space, Kernel, and the Nullity--Rank Theorem}
+
+\begin{definition}
+Let $A = [a_{ij}] \in M_{m,n}$ be a given matrix. The column space of $A$ is the subspace of $\mathbb{R}^m$ generated by the columns of $A$, that is,
+\[
+\operatorname{Col}(A) = \operatorname{span}(\mathbf{a}^1, \dots, \mathbf{a}^n) \subset \mathbb{R}^m,
+\]
+where $\mathbf{a}^j$ denotes the $j$-th column of $A$. Equivalently,
+\[
+\operatorname{Col}(A) = \{ A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n \},
+\]
+in light of the interpretation of the matrix-vector product as a linear combination of columns.
+\end{definition}
+
+\begin{definition}
+The dimension of $\operatorname{Col}(A)$ is called the rank of $A$, denoted $\operatorname{Rank}(A)$.
+\end{definition}
+
+\begin{remark}
+The computation of the rank is immediate whenever the matrix is already in row echelon form: the columns of the matrix that contain a pivot are linearly independent, while every remaining column belongs to the span of the pivot columns preceding it. Consequently,
+\[
+\operatorname{Dim}(\operatorname{Col}(U)) = \operatorname{Rank}(U)
+\]
+equals the number of pivots of $U$, for a matrix $U$ in row echelon form; this same number of pivots also indicates the maximum number of linearly independent rows of $U$.
+\end{remark}
+
+\begin{definition}
+Let $A = [a_{ij}] \in M_{m,n}$ be a given matrix. The kernel of $A$ is the subset of $\mathbb{R}^n$ given by
+\[
+\operatorname{Ker}(A) = \{ \mathbf{x} \in \mathbb{R}^n : A\mathbf{x} = \vec{0}_m \} \subset \mathbb{R}^n.
+\]
+
+\end{definition}
+
+\begin{theorem}
+$\operatorname{Ker}(A)$ is a vector space.
+\end{theorem}
+
+The proof of this theorem consists in verifying directly that $\operatorname{Ker}(A)$ is closed under vector addition and scalar multiplication, a straightforward consequence of the linearity of the matrix-vector product established earlier.
+
+\input{figures/kernel-image.tex}
+
+We now come to one of the central results of linear algebra, relating the dimension of the kernel of a matrix to the dimension of its column space.
+
+\begin{theorem}[Nullity-Rank Theorem]
+Given any matrix $A$ with $n$ columns,
+\[
+\operatorname{Dim}(\operatorname{Ker}(A)) + \operatorname{Dim}(\operatorname{Col}(A)) = n.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Assume that
+\[
+\operatorname{Dim}(\operatorname{Ker}(A)) = k,
+\]
+and let $\{\mathbf{u}^1, \dots, \mathbf{u}^k\}$ be a basis of $\operatorname{Ker}(A)$, so that
+\[
+\operatorname{Ker}(A) = \operatorname{span}(\mathbf{u}^1, \dots, \mathbf{u}^k).
+\]
+
+By an important theorem of linear algebra, one may select $n-k$ further vectors $\mathbf{w}^{k+1}, \dots, \mathbf{w}^n \in \mathbb{R}^n$, linearly independent both among themselves and from the vectors $\mathbf{u}^1, \dots, \mathbf{u}^k$, such that $\{\mathbf{u}^1, \dots, \mathbf{u}^k, \mathbf{w}^{k+1}, \dots, \mathbf{w}^n\}$ is a basis of $\mathbb{R}^n$; note that
+\[
+\operatorname{span}(\mathbf{w}^{k+1}, \dots, \mathbf{w}^n) \cap \operatorname{Ker}(A) = \{\vec{0}_n\}.
+\]
+
+The strategy of the proof is to show that the $n-k$ vectors $A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n \in \mathbb{R}^m$ form a basis of $\operatorname{Col}(A)$, from which
+\[
+\operatorname{Dim}(\operatorname{Col}(A)) = n-k
+\]
+follows immediately, establishing the theorem. We first show that $\{A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n\}$ generates $\operatorname{Col}(A)$. Given any $\mathbf{x} \in \mathbb{R}^n$, there exist numbers $\alpha_1, \dots, \alpha_n \in \mathbb{R}$ such that
+\[
+\mathbf{x} = \sum_{j=1}^{k} \alpha_j \mathbf{u}^j + \sum_{j=k+1}^{n} \alpha_j \mathbf{w}^j.
+\]
+By linearity of the matrix-vector product,
+\[
+\begin{aligned}
+A\mathbf{x} &= \sum_{j=1}^{k} \alpha_j A\mathbf{u}^j + \sum_{j=k+1}^{n} \alpha_j A\mathbf{w}^j \\
+&= \sum_{j=k+1}^{n} \alpha_j A\mathbf{w}^j,
+\end{aligned}
+\]
+since $A\mathbf{u}^j = \vec{0}_m$ for each $j = 1, \dots, k$, as $\mathbf{u}^j \in \operatorname{Ker}(A)$. This shows that $A\mathbf{x} \in \operatorname{span}(A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n)$; since
+\[
+\operatorname{Col}(A) = \{A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n\},
+\]
+this establishes the claim. We next show that the vectors $A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n$ are linearly independent. Take $\beta_1, \dots, \beta_{n-k} \in \mathbb{R}$ such that
+\[
+\sum_{j=1}^{n-k} \beta_j A\mathbf{w}^{k+j} = \vec{0}_m.
+\]
+By linearity, this equals
+\[
+A( \sum_{j=1}^{n-k} \beta_j \mathbf{w}^{k+j} ),
+\]
+so that the vector
+\[
+\mathbf{u} := \sum_{j=1}^{n-k} \beta_j \mathbf{w}^{k+j} \in \operatorname{Ker}(A).
+\]
+
+But this same vector $\mathbf{u}$ also lies in $\operatorname{span}(\mathbf{w}^{k+1}, \dots, \mathbf{w}^n)$, and we recorded above that this span intersects $\operatorname{Ker}(A)$ only in the zero vector; hence $\mathbf{u} = \vec{0}_n$. Since the vectors $\mathbf{w}^{k+1}, \dots, \mathbf{w}^n$ are themselves linearly independent, the relation
+\[
+\sum_{j=1}^{n-k} \beta_j \mathbf{w}^{k+j} = \vec{0}_n
+\]
+forces $\beta_j = 0$ for every $j = 1, \dots, n-k$, establishing the linear independence of $A\mathbf{w}^{k+1},\allowbreak \dots, A\mathbf{w}^n$ and completing the proof.
+\end{proof}
+
+
+Let $A \in M_{m,n}$. A homogeneous system consists in finding $\mathbf{x} \in \mathbb{R}^n$ such that $A\mathbf{x} = \vec{0}_m$. Such a system is always solvable, since the null vector $\mathbf{x} = \vec{0}_n$ is trivially a solution; moreover, the entire solution set coincides precisely with $\operatorname{Ker}(A)$, and hence, by the Nullity-Rank Theorem, its dimension equals $n - \operatorname{Rank}(A)$, where $n$ denotes the number of unknowns.
+
+\begin{theorem}
+Let $A \in M_{m,n}$. The solution set of the homogeneous system $A\mathbf{x} = \vec{0}_m$ is a vector space of dimension $n - \operatorname{Rank}(A)$. Setting $r = \operatorname{Rank}(A)$, the following hold: if $r = n$, then $\mathbf{x} = \vec{0}_n$ is the unique solution of the system; if $r < n$, the system has $n-r$ linearly independent solutions $\mathbf{x}^1, \dots, \mathbf{x}^{n-r}$, and every solution is given by
+\[
+S = \{ \mathbf{x} = t_1 \mathbf{x}^1 + \cdots + t_{n-r} \mathbf{x}^{n-r} : t_i \in \mathbb{R} \}.
+\]
+
+The system therefore has infinitely many solutions, depending on $n-r$ free parameters, whenever $r < n$.
+\end{theorem}
+
+\begin{remark}
+Recall that, when studying homogeneous linear systems by the Gauss elimination method, the solution set was found to depend on $n-p$ parameters, where $p$ denotes the number of pivots of the reduced matrix. Comparing this earlier result with the theorem just stated, in which the solutions depend on $n - \operatorname{Rank}(A)$ parameters, one concludes that $p = \operatorname{Rank}(A)$; that is, the rank of a matrix equals the number of pivots of its row-echelon reduction. This identity has a further important consequence: the number of linearly independent columns of a matrix necessarily coincides with the number of linearly independent rows.
+\end{remark}
+
+Let $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$ with $\mathbf{b} \neq \vec{0}_m$. A nonhomogeneous system consists in finding $\mathbf{x} \in \mathbb{R}^n$ such that $A\mathbf{x} = \mathbf{b}$. Recalling that the matrix-vector product equals
+\[
+A\mathbf{x} = x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_n \mathbf{a}^n,
+\]
+solving $A\mathbf{x} = \mathbf{b}$ is equivalent to finding coefficients $x_1, \dots, x_n$, if any exist, such that $\mathbf{b}$ can be written as a linear combination of the columns $\mathbf{a}^1, \mathbf{a}^2, \dots, \mathbf{a}^n$ of $A$. This reformulation immediately raises the question of whether such a system is always solvable.
+
+The answer is that the system is solvable, that is, consistent, if and only if $\mathbf{b} \in \operatorname{Col}(A)$, that is, if and only if
+\[
+\operatorname{Col}([A|\mathbf{b}]) = \operatorname{Col}(A).
+\]
+Since $\operatorname{Col}(A) \subset \operatorname{Col}([A|\mathbf{b}])$ always holds, the two column spaces coincide if and only if
+\[
+\operatorname{Dim}(\operatorname{Col}([A|\mathbf{b}])) = \operatorname{Dim}(\operatorname{Col}(A)),
+\]
+yielding the following solvability condition.
+
+\begin{theorem}[Solvability Condition]
+A nonhomogeneous system of linear equations $A\mathbf{x} = \mathbf{b}$ has a solution if and only if the rank of its coefficient matrix $A$ equals the rank of its augmented matrix $[A|\mathbf{b}]$, that is,
+\[
+\operatorname{Rank}([A|\mathbf{b}]) = \operatorname{Rank}(A).
+\]
+
+\end{theorem}
+
+Unlike the homogeneous case, the solution set of a nonhomogeneous system does not, in general, form a vector space, since it need not contain the zero vector; nonetheless, it is closely related to the solution set of the associated homogeneous system.
+
+\begin{theorem}[Structure of the Solution Set]
+Given any specific solution $\mathbf{v}_p$ of $A\mathbf{x} = \mathbf{b}$, the entire solution set of the nonhomogeneous system is
+\[
+S = \{ \mathbf{y} = \mathbf{v} + \mathbf{v}_p : \mathbf{v} \in \mathbb{R}^n, \ A\mathbf{v} = \vec{0}_m \} = \operatorname{Ker}(A) + \mathbf{v}_p.
+\]
+
+\end{theorem}
+
+\begin{proof}
+It suffices to observe that $\mathbf{y} \in \mathbb{R}^n$ satisfies $A\mathbf{y} = \mathbf{b}$ if and only if
+\[
+\begin{aligned}
+A(\mathbf{y} - \mathbf{v}_p) &= A\mathbf{y} - A\mathbf{v}_p \\
+&= \mathbf{b} - \mathbf{b} \\
+&= \vec{0}_m.
+\end{aligned}
+\]
+
+Hence $\mathbf{y} - \mathbf{v}_p \in \operatorname{Ker}(A)$, so that $\mathbf{y}$ equals the sum of the particular solution $\mathbf{v}_p$ and an element of $\operatorname{Ker}(A)$, and conversely every such sum is a solution.
+\end{proof}
+
+Combining the solvability condition with the structure theorem for the solution set yields the following comprehensive result, which fully characterizes the possible behaviors of a general linear system.
+
+\begin{theorem}[Rouch\'e--Capelli Theorem]
+Let $\mathbf{b} \neq \vec{0}_m$. The nonhomogeneous system $A\mathbf{x} = \mathbf{b}$ has a solution if and only if
+\[
+\operatorname{Rank}(A) = \operatorname{Rank}([A|\mathbf{b}]).
+\]
+
+In this case, setting $r = \operatorname{Rank}(A)$: if $r = n$, the solution is unique; if $r < n$, the system has infinitely many solutions, depending on $n-r$ free parameters, and the solution set is
+\[
+S = \{ \mathbf{y} = \mathbf{v}_p + t_1 \mathbf{x}^1 + \cdots + t_{n-r} \mathbf{x}^{n-r} : t_i \in \mathbb{R} \},
+\]
+where $\mathbf{x}^1, \dots, \mathbf{x}^{n-r}$ are $n-r$ linearly independent solutions of the associated homogeneous system $A\mathbf{x} = \vec{0}_m$, and $\mathbf{v}_p$ is any particular solution of the nonhomogeneous system.
+\end{theorem}
+
+\section{Linear Maps}
+
+\subsection{Linear Maps and Their Representative Matrix}
+
+Given $A \in M_{m,n}$, one may associate with it the map $L : \mathbb{R}^n \to \mathbb{R}^m$, $L(\mathbf{x}) = A\mathbf{x}$, and we have already observed that this map is linear, satisfying
+\[
+\begin{gathered}
+L(\mathbf{x}+\mathbf{y}) = L(\mathbf{x}) + L(\mathbf{y}) \\
+L(t\mathbf{x}) = tL(\mathbf{x})
+\end{gathered}
+\]
+for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ and $t \in \mathbb{R}$, or, equivalently,
+\[
+L(s\mathbf{x}+t\mathbf{y}) = sL(\mathbf{x}) + tL(\mathbf{y}).
+\]
+
+It is worth noting that the columns of $A$ are precisely the images of the canonical basis vectors, $L(\mathbf{e}_j) = \mathbf{a}^j$ for every $j = 1, \dots, n$; consequently, if $\mathbf{x} = (x_1, \dots, x_n)$, then
+\[
+\begin{aligned}
+L(\mathbf{x}) &= A\mathbf{x} \\
+&= \sum_{j=1}^n x_j L(\mathbf{e}_j).
+\end{aligned}
+\]
+
+Conversely, every linear map between finite-dimensional Euclidean spaces can be represented in this fashion by a suitable matrix.
+
+\begin{theorem}[Representation Theorem for Linear Maps]
+Let $L : \mathbb{R}^n \to \mathbb{R}^m$ be any linear map, that is, a map satisfying
+\[
+L(s\mathbf{x}+t\mathbf{y}) = sL(\mathbf{x}) + tL(\mathbf{y})
+\]
+for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ and $s, t \in \mathbb{R}$. Setting $\mathbf{a}^j = L(\mathbf{e}_j)$ for $j = 1, \dots, n$, and
+\[
+A = [\mathbf{a}^1 | \mathbf{a}^2 | \cdots | \mathbf{a}^n] \in M_{m,n},
+\]
+called the representative matrix of $L$ in the canonical basis, one has $L(\mathbf{x}) = A\mathbf{x}$ for every $\mathbf{x} \in \mathbb{R}^n$.
+\end{theorem}
+
+\begin{proof}
+Take any vector
+\[
+\mathbf{x} = (x_1, \dots, x_n) = \sum_{j=1}^n x_j \mathbf{e}_j \in \mathbb{R}^n.
+\]
+By the linearity of $L$,
+\[
+\begin{aligned}
+L(\mathbf{x}) &= L( \sum_{j=1}^n x_j \mathbf{e}_j ) \\
+&= \sum_{j=1}^n x_j L(\mathbf{e}_j) \\
+&= \sum_{j=1}^n x_j \mathbf{a}^j \\
+&= A\mathbf{x},
+\end{aligned}
+\]
+where the last equality follows from the interpretation of the matrix-vector product as a linear combination of columns.
+\end{proof}
+
+This representation theorem shows that the action of any linear map between Euclidean spaces is represented, once bases have been fixed, by a matrix-vector product.
+
+\begin{example}
+Consider the linear transformation of $\mathbb{R}^2$ describing a rotation of $180$ degrees counterclockwise combined with a stretching by a factor of $2$. To find its representative matrix, one determines where the canonical basis vectors land under this transformation: $\mathbf{e}_1$ maps to $(-2,0)$, and $\mathbf{e}_2$ maps to $(0,-2)$. Any vector $\mathbf{x} = x\mathbf{e}_1 + y\mathbf{e}_2$ therefore lands on
+\[
+x(-2,0) + y(0,-2) = \begin{pmatrix} -2 & 0 \\ 0 & -2 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix},
+\]
+identifying the representative matrix of the transformation as
+\[
+\begin{pmatrix} -2 & 0 \\ 0 & -2 \end{pmatrix}.
+\]
+
+\end{example}
+
+Figure~\ref{fig:ch8-linear-map} shows how a linear map transforms a coordinate grid and its basis vectors.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.05,>=Stealth]
+  \begin{scope}
+    \fill[figblue!8] (0,0) rectangle (1,1);
+    \foreach \gridindex in {0,...,2} {
+      \draw[gridline] (\gridindex,0) -- (\gridindex,2);
+      \draw[gridline] (0,\gridindex) -- (2,\gridindex);
+    }
+    \draw[->] (-0.4,0) -- (2.6,0) node[right,font=\small] {$x_1$};
+    \draw[->] (0,-0.4) -- (0,3.4) node[above,font=\small] {$x_2$};
+    \draw[vecB] (0,0) -- (1,0) node[below=4pt,font=\small] {$e_1$};
+    \draw[vecC] (0,0) -- (0,1) node[left=4pt,font=\small] {$e_2$};
+    \node[below left,font=\small] at (0,0) {$0$};
+  \end{scope}
+  \draw[->,very thick] (2.9,1.5) -- (4.8,1.5)
+    node[midway,above=5pt,font=\small] {$T(\bx)=A\bx$};
+  \begin{scope}[xshift=5.5cm]
+    \fill[figblue!8] (0,0) -- (1.3,0.4) -- (1.9,1.5) -- (0.6,1.1) -- cycle;
+    \foreach \gridindex in {0,...,2} {
+      \draw[gridline] ({1.3*\gridindex},{0.4*\gridindex})
+        -- ({1.3*\gridindex+1.2},{0.4*\gridindex+2.2});
+      \draw[gridline] ({0.6*\gridindex},{1.1*\gridindex})
+        -- ({2.6+0.6*\gridindex},{0.8+1.1*\gridindex});
+    }
+    \draw[->] (-0.4,0) -- (4.2,0) node[right,font=\small] {$y_1$};
+    \draw[->] (0,-0.4) -- (0,3.4) node[above,font=\small] {$y_2$};
+    \draw[vecB] (0,0) -- (1.3,0.4)
+      node[right=4pt,font=\small,fill=white,inner sep=1pt] {$A e_1$};
+    \draw[vecC] (0,0) -- (0.6,1.1)
+      node[above=4pt,font=\small,fill=white,inner sep=1pt] {$A e_2$};
+    \node[below left,font=\small] at (0,0) {$0$};
+  \end{scope}
+\end{tikzpicture}
+\caption[Linear transformation of a grid]{A coordinate grid before and after an
+  illustrative linear map $T(\bx)=A\bx$. The shaded unit square on the left maps
+  to the shaded parallelogram spanned by the columns $Ae_1,Ae_2$ on the right.
+  Matching colors identify each basis vector and its image; both coordinate
+  systems have their axes intersecting at the origin.}
+\label{fig:ch8-linear-map}
+\end{figure}
+
+\subsection{Image, Kernel, and Injectivity/Surjectivity}
+
+A central goal in the study of linear maps is to determine conditions guaranteeing their injectivity or surjectivity. To this end, given a linear map $L : \mathbb{R}^n \to \mathbb{R}^m$ with representative matrix $A$, we define the range, or image, of $L$ as the collection of all images $L(\mathbf{x})$ for $\mathbf{x} \in \mathbb{R}^n$, that is, $\operatorname{Im}(L) = \operatorname{Col}(A)$; and we define the kernel of $L$ as the subspace of vectors whose image is the zero vector,
+\[
+\operatorname{Ker}(L) = \operatorname{Ker}(A).
+\]
+
+\begin{theorem}
+The linear map $L : \mathbb{R}^n \to \mathbb{R}^m$ is surjective if and only if $\operatorname{Rank}(A) = m$.
+\end{theorem}
+
+This theorem follows immediately from the fact that $L$ is surjective precisely when $\operatorname{Im}(L) = \operatorname{Col}(A)$ equals the entire codomain $\mathbb{R}^m$, which occurs exactly when
+\[
+\operatorname{Dim}(\operatorname{Col}(A)) = m,
+\]
+that is, when $\operatorname{Rank}(A) = m$.
+
+\begin{theorem}[Injectivity]
+The linear map $L : \mathbb{R}^n \to \mathbb{R}^m$ is one-to-one if and only if $\operatorname{Ker}(L) = \{\vec{0}_n\}$.
+\end{theorem}
+
+\begin{proof}
+Assume first that $L$ is injective. Since $L(\vec{0}_n) = \vec{0}_m$ by linearity, and $L$ is injective, no other vector can share this image; hence, for every $\mathbf{x} \neq \vec{0}_n$, one has $L(\mathbf{x}) \neq \vec{0}_m$, so that no nonzero vector belongs to $\operatorname{Ker}(L)$, that is,
+\[
+\operatorname{Ker}(L) = \{\vec{0}_n\}.
+\]
+
+Conversely, assume $\operatorname{Ker}(L) = \{\vec{0}_n\}$, and suppose, for the sake of contradiction, that $L(\mathbf{x}_1) = L(\mathbf{x}_2)$ for some $\mathbf{x}_1 \neq \mathbf{x}_2$ in $\mathbb{R}^n$. By linearity,
+\[
+\begin{aligned}
+L(\mathbf{x}_1 - \mathbf{x}_2) &= L(\mathbf{x}_1) - L(\mathbf{x}_2) \\
+&= \vec{0}_m,
+\end{aligned}
+\]
+so that $\mathbf{x}_1 - \mathbf{x}_2 \in \operatorname{Ker}(L)$. But the only element of $\operatorname{Ker}(L)$ is $\vec{0}_n$, so $\mathbf{x}_1 - \mathbf{x}_2 = \vec{0}_n$, contradicting the assumption $\mathbf{x}_1 \neq \mathbf{x}_2$; this contradiction establishes injectivity.
+\end{proof}
+
+The linear map and its representative matrix have the same kernel:
+\[
+\operatorname{Ker}(L) = \operatorname{Ker}(A),
+\]
+The Nullity-Rank Theorem yields
+\[
+\operatorname{Dim}(\operatorname{Ker}(L)) = n - \operatorname{Rank}(A),
+\]
+from which one obtains the following corollary.
+
+\begin{corollary}
+The linear map $L : \mathbb{R}^n \to \mathbb{R}^m$ is one-to-one if and only if $\operatorname{Rank}(A) = n$.
+\end{corollary}
+
+
+Given a square matrix $A \in M_n$, the linear function $T : \mathbb{R}^n \to \mathbb{R}^n$, $T(\mathbf{x}) = A\mathbf{x}$, represents a geometric transformation of $\mathbb{R}^n$ into itself, called an endomorphism. Combining the injectivity and surjectivity criteria established above with the earlier characterization of nonsingularity in terms of the determinant, one obtains a particularly clean criterion for such maps: the linear function $T : \mathbb{R}^n \to \mathbb{R}^n$ is injective if and only if it is surjective, and both properties hold precisely when the rank of its representative matrix equals $n$, that is, $\operatorname{Rank}(A) = n$; equivalently, as established earlier, this occurs if and only if $\operatorname{Det}(A) \neq 0$.
+
+\section{Spectral and Singular-Value Methods}
+
+\subsection{Eigenvalues, Eigenvectors, and the Characteristic Equation}
+
+Given $A \in M_n$, consider the associated linear transformation $T : \mathbb{R}^n \to \mathbb{R}^n$, $T(\mathbf{x}) = A\mathbf{x}$. Among the many vectors that this transformation acts upon, some special nonzero vectors change, under the action of $T$, by at most a scalar factor, that is, they are simply stretched, or possibly reversed, by the transformation, in the sense that $T(\mathbf{v}) = \lambda \mathbf{v}$ for some scalar $\lambda$. Such a special vector is called an eigenvector, and the corresponding scalar $\lambda$, the factor by which it is stretched, is called the eigenvalue associated with that eigenvector.
+
+\begin{definition}
+Let $A \in M_n$ be a given square matrix. A vector $\mathbf{u} \in \mathbb{R}^n$, $\mathbf{u} \neq \vec{0}$, is an eigenvector of $A$ if $A\mathbf{u} = \lambda \mathbf{u}$ for some $\lambda \in \mathbb{R}$. The scalar $\lambda$ is called the eigenvalue corresponding to that eigenvector.
+\end{definition}
+
+To determine systematically the pairs $\mathbf{u} \neq \vec{0}$ and $\lambda \in \mathbb{R}$ satisfying this relation, one observes that the defining equation $A\mathbf{u} = \lambda \mathbf{u}$ can be equivalently rewritten as $(A - \lambda I)\mathbf{u} = \vec{0}$, which is a homogeneous linear system in the unknown $\mathbf{u}$, with coefficient matrix $A - \lambda I$. Finding eigenvectors of $A$, for a fixed value of $\lambda$, therefore amounts to finding nontrivial solutions of this homogeneous system, and, by the general theory of linear systems developed earlier, such nontrivial solutions exist if and only if the coefficient matrix $A - \lambda I$ is singular, that is, if and only if its determinant vanishes. This observation yields the following fundamental characterization of eigenvalues.
+
+\begin{theorem}
+A scalar $\lambda \in \mathbb{R}$ is an eigenvalue of $A$ if and only if $\lambda$ satisfies the equation $\operatorname{Det}(A - \lambda I) = 0$.
+\end{theorem}
+
+Several pieces of terminology accompany this characterization. The function
+\[
+P(t) = \operatorname{Det}(A - tI)
+\]
+is a polynomial of degree $n$ in the variable $t$, called the characteristic polynomial of $A$; the equation $P(t) = 0$ is called the characteristic equation of $A$. By the Fundamental Theorem of Algebra, the characteristic polynomial of an $n$-by-$n$ matrix has exactly $n$ complex roots, counted with multiplicity and not necessarily distinct. Given any fixed real eigenvalue $\lambda$ of $A$, one may factor the characteristic polynomial as
+\[
+P(t) = (t-\lambda)^k Q(t),
+\]
+for some polynomial $Q$ satisfying $Q(\lambda) \neq 0$ and some positive integer $k$; this integer $k$ is called the algebraic multiplicity of $\lambda$, and is denoted $a_\lambda$.
+
+Associated with each real eigenvalue $\lambda$ of $A$ is a distinguished subspace, obtained as the solution set of the corresponding homogeneous system: the solution set of $(A-\lambda I)\mathbf{x} = \vec{0}$ is the vector space $V_\lambda = \operatorname{Ker}(A - \lambda I)$, called the eigenspace corresponding to $\lambda$, and it contains precisely all the eigenvectors of $A$ associated with $\lambda$, together with the zero vector. The dimension of this eigenspace is called the geometric multiplicity of $\lambda$, denoted $g_\lambda$; by the Nullity-Rank Theorem,
+\[
+\begin{aligned}
+g_\lambda &= \operatorname{Dim}(V_\lambda) \\
+&= n - \operatorname{Rank}(A - \lambda I).
+\end{aligned}
+\]
+Figure~\ref{fig:ch8-eigenvectors} highlights the directions preserved by a linear transformation.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.65,>=Stealth]
+  \draw[->] (-2.3,0) -- (2.3,0) node[right,font=\scriptsize]{$x_1$};
+  \draw[->] (0,-1.6) -- (0,1.9) node[above,font=\scriptsize]{$x_2$};
+  \draw[figblue!35, thick] (-2,-1) -- (2,1);
+  \draw[figred!35, thick] (-1.2,1.6) -- (1.2,-1.6);
+  \draw[vecA] (0,0) -- (1,0.5)
+    node[below right,fill=white,inner sep=1pt,font=\scriptsize]{$\bv_1$};
+  \draw[vecB] (0,0) -- (0.6,-0.8)
+    node[below right,fill=white,inner sep=1pt,font=\scriptsize]{$\bv_2$};
+  \draw[vecA,dashed] (0,0) -- (1.8,0.9)
+    node[above right,fill=white,inner sep=1pt,font=\scriptsize]{$A\bv_1=\lambda_1 \bv_1$};
+  \draw[vecB,dashed] (0,0) -- (0.3,-0.4);
+  \node[figred,fill=white,inner sep=1pt,font=\scriptsize,anchor=north west]
+    at (0.42,-0.44) {$A\bv_2=\lambda_2 \bv_2$};
+  \draw[black!55,very thick,->] (0,0) -- (-1,1)
+    node[left,fill=white,inner sep=1pt,font=\scriptsize]{$\bu$};
+  \draw[black!55,very thick,dotted,->] (0,0) -- (-0.4,1.55)
+    node[above right,fill=white,inner sep=1pt,font=\scriptsize]{$A\bu$};
+  \node[anchor=south east,fill=white,inner sep=1pt,font=\scriptsize]
+    at (2.2,-1.5) {$\lambda_1 \approx 1.8,\ \lambda_2\approx 0.5$};
+\end{tikzpicture}
+\caption[Eigenvectors: invariant directions]{Invariant lines (eigenspaces) in light colors:
+  $\bv_1$ is stretched ($\lambda_1>1$), $\bv_2$ is contracted ($0<\lambda_2<1$), both remaining
+  on their respective lines; the generic vector $\bu$ (gray) is also rotated.}
+\label{fig:ch8-eigenvectors}
+\end{figure}
+
+The characterization of eigenvalues in terms of the characteristic equation yields a systematic three-step procedure for determining the eigenvalues and eigenvectors of a given matrix. The first step consists of finding the values of $t \in \mathbb{R}$ satisfying $\operatorname{Det}(A - tI) = 0$; this is a polynomial equation of degree $n$ in $t$, whose real solutions, if any, are precisely the real eigenvalues of $A$, and from whose factorization one determines the algebraic multiplicity $a_\lambda$ of each eigenvalue $\lambda$ found. The second step consists of writing, for each eigenvalue $\lambda$ found in the first step, the corresponding homogeneous linear system with coefficient matrix $A - \lambda I$. The third step consists of solving this homogeneous system $(A - \lambda I)\mathbf{x} = \vec{0}$; every nonzero solution $\mathbf{x}$ of this system is an eigenvector of $A$ corresponding to the eigenvalue $\lambda$, and the dimension of the solution space $\operatorname{Ker}(A - \lambda I)$ determines the geometric multiplicity $g_\lambda$.
+
+\begin{example}
+We determine the eigenvalues and eigenvectors of
+\[
+A = \begin{pmatrix} 2 & 0 \\ 2 & 1 \end{pmatrix}.
+\]
+We first use the characteristic equation to determine the eigenvalues:
+\[
+\operatorname{Det}(A - \lambda I) = \begin{vmatrix} 2-\lambda & 0 \\ 2 & 1-\lambda \end{vmatrix} = (1-\lambda)(2-\lambda),
+\]
+so that the eigenvalues are $\lambda_1 = 1$ and $\lambda_2 = 2$. To determine the eigenvectors corresponding to $\lambda_i$, we solve $A\mathbf{x} = \lambda_i \mathbf{x}$ with $\mathbf{x} = (x,y)$, that is, the system $2x - \lambda_i x = 0$, $2x + y - \lambda_i y = 0$. For $\lambda_1 = 1$, this system yields
+\[
+\mathbf{x} = (0,t) = t(0,1),
+\]
+for $t \neq 0$; for $\lambda_2 = 2$, it yields
+\[
+\mathbf{x} = (t, 2t) = t(1,2),
+\]
+for $t \neq 0$.
+\end{example}
+
+Several general remarks concerning the multiplicities $g_\lambda$ and $a_\lambda$ are worth recording. The geometric multiplicity $g_\lambda$ equals the maximum number of linearly independent eigenvectors associated with the eigenvalue $\lambda$, and satisfies $g_\lambda \geq 1$, since every eigenvalue has at least one associated eigenvector by definition. A further, more difficult result, whose proof we omit, shows that $g_\lambda \leq a_\lambda$ always; this inequality may be strict, and whenever $g_\lambda = a_\lambda$ one says that $\lambda$ is a regular eigenvalue. In particular, if $\lambda$ is simple, that is, if $a_\lambda = 1$, then necessarily $\lambda$ is regular, since
+\[
+\begin{aligned}
+1 &\leq g_\lambda \\
+&\leq a_\lambda \\
+&= 1
+\end{aligned}
+\]
+forces
+\[
+\begin{aligned}
+g_\lambda &= a_\lambda \\
+&= 1.
+\end{aligned}
+\]
+
+\begin{proposition}
+Two eigenvectors corresponding to two different eigenvalues are linearly independent.
+\end{proposition}
+
+\begin{proof}
+Suppose $A\mathbf{v}^1 = \lambda_1 \mathbf{v}^1$ and $A\mathbf{v}^2 = \lambda_2 \mathbf{v}^2$ for some $\lambda_1 \neq \lambda_2$. To show that $\mathbf{v}^1, \mathbf{v}^2$ are linearly independent, consider a linear combination
+\[
+c_1 \mathbf{v}^1 + c_2 \mathbf{v}^2 = \vec{0}.
+\]
+Applying $A$ to both sides, and using linearity together with the eigenvalue equations, yields
+\[
+\vec{0} = c_1 \lambda_1 \mathbf{v}^1 + c_2 \lambda_2 \mathbf{v}^2.
+\]
+Multiplying the original relation
+\[
+c_1 \mathbf{v}^1 + c_2 \mathbf{v}^2 = \vec{0}
+\]
+by $\lambda_2$ and subtracting the two resulting equations, we obtain
+\[
+\vec{0} = c_1(\lambda_2 - \lambda_1) \mathbf{v}^1.
+\]
+
+Since an eigenvector is, by definition, nonzero, and $\lambda_2 \neq \lambda_1$, this forces $c_1 = 0$; substituting back into the original relation then yields $c_2 = 0$ as well, establishing linear independence.
+\end{proof}
+
+\subsection{Diagonalization and Spectral Coordinates}
+
+We now investigate under which conditions a matrix $A \in M_n$ possesses the maximum possible number, namely $n$, of linearly independent eigenvectors. Since the total number of linearly independent eigenvectors of $A$ equals
+\[
+\sum_\lambda g_\lambda,
+\]
+summed over the distinct eigenvalues $\lambda$ of $A$, and since this sum cannot exceed $n$, the dimension of the ambient space, one seeks conditions under which the sum
+\[
+\sum_\lambda g_\lambda
+\]
+attains exactly the value $n$.
+
+\begin{proposition}
+Let $A \in M_n$ be such that $A$ has exactly $n$ real eigenvalues, not necessarily distinct, that is,
+\[
+\sum_\lambda a_\lambda = n,
+\]
+and each eigenvalue $\lambda$ is regular, that is, $g_\lambda = a_\lambda$. Then there exists a basis of $\mathbb{R}^n$ made up of eigenvectors of $A$.
+\end{proposition}
+
+An important special class of matrices automatically satisfies these hypotheses, as recorded in the following theorem.
+
+\begin{theorem}[Spectral Theorem]
+Let $A \in M_n$ be a symmetric matrix. Then $A$ has $n$ real eigenvalues, not necessarily distinct, and $A$ has $n$ linearly independent, mutually orthogonal eigenvectors. Consequently, for every symmetric matrix $A \in M_n$, there exists an orthonormal basis of $\mathbb{R}^n$ made up of eigenvectors of $A$.
+\end{theorem}
+
+
+When a matrix $A \in M_n$ possesses $n$ linearly independent eigenvectors, it can be decomposed in a particularly illuminating way, known as its eigendecomposition. Let $\mathbf{u}^1, \dots, \mathbf{u}^n$ be $n$ linearly independent eigenvectors of $A$, with corresponding eigenvalues $\lambda_1, \dots, \lambda_n$. Construct the nonsingular matrix $P = [\mathbf{u}^1 | \cdots | \mathbf{u}^n]$, called the change of basis matrix, and the diagonal matrix
+\[
+D = \operatorname{Diag}(\lambda_1, \dots, \lambda_n) = \begin{pmatrix} \lambda_1 & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda_n \end{pmatrix}.
+\]
+The product $AP$ is computed as
+\[
+\begin{aligned}
+AP &= A[\mathbf{u}^1 | \cdots | \mathbf{u}^n] \\
+&= [A\mathbf{u}^1 | \cdots | A\mathbf{u}^n] \\
+&= [\lambda_1 \mathbf{u}^1 | \cdots | \lambda_n \mathbf{u}^n],
+\end{aligned}
+\]
+using the defining property of eigenvectors applied to each column separately. On the other hand, the product $PD$ is computed as
+\[
+PD = [\mathbf{u}^1 | \cdots | \mathbf{u}^n] \begin{pmatrix} \lambda_1 & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda_n \end{pmatrix} = [\lambda_1 \mathbf{u}^1 | \cdots | \lambda_n \mathbf{u}^n],
+\]
+by the definition of matrix multiplication applied to a diagonal matrix. Since these two computations agree, we conclude that $AP = PD$, and hence, since $P$ is nonsingular,
+\[
+A = PDP^{-1}.
+\]
+
+Summarizing, if the eigenvectors of $A$ form a basis of $\mathbb{R}^n$, then $A$ can be decomposed into the product of the matrix $P$, whose columns are the eigenvectors of $A$, the diagonal matrix $D$, whose diagonal entries are the corresponding eigenvalues of $A$, called the diagonal form of $A$, and the inverse $P^{-1}$ of the eigenvector matrix; this decomposition is called the eigendecomposition of the matrix.
+
+\begin{definition}[Similar Matrices]
+Given two matrices $A, B \in M_n$, we say that they are similar if there exists an invertible matrix $M \in M_n$ such that $A = MBM^{-1}$, or equivalently $M^{-1}AM = B$.
+\end{definition}
+
+\begin{definition}
+A matrix $A \in M_n$ is diagonalizable, over $\mathbb{R}$, if it is similar to a diagonal matrix $D \in M_n$. In this case, $D$ is called the diagonal form of $A$.
+\end{definition}
+
+The eigendecomposition constructed above shows immediately that if $\mathbb{R}^n$ has a basis of eigenvectors of $A$, then $A$ is diagonalizable, since $A = PDP^{-1}$ exhibits the required similarity with a diagonal matrix. The converse also holds, essentially by reversing the argument: if $A$ is diagonalizable, so that $A = PDP^{-1}$ for some invertible matrix $P$ and diagonal matrix $D$, then the columns of $P$ are $n$ linearly independent eigenvectors of $A$, with the corresponding diagonal entries of $D$ giving the associated eigenvalues. This yields the following characterization.
+
+\begin{theorem}[Diagonalization Test I]
+$A \in M_n$ is diagonalizable over $\mathbb{R}$ if and only if $\mathbb{R}^n$ has a basis of eigenvectors of $A$.
+\end{theorem}
+
+Combining this criterion with the earlier discussion of algebraic and geometric multiplicities yields an equivalent, and often more directly verifiable, criterion.
+
+\begin{theorem}[Diagonalization Test II]
+$A \in M_n$ is diagonalizable over $\mathbb{R}$ if and only if $A$ has exactly $n$ real eigenvalues, not necessarily distinct, and each eigenvalue is regular.
+\end{theorem}
+
+Two particular situations guarantee diagonalizability automatically, and are worth recording as sufficient conditions of frequent practical use. If $A \in M_n$ has $n$ distinct eigenvalues, that is, if its characteristic polynomial has $n$ distinct roots, then $A$ is diagonalizable, since every simple eigenvalue is automatically regular, as observed earlier. If $A \in M_n$ is symmetric, then $A$ is diagonalizable, as guaranteed directly by the Spectral Theorem.
+
+\begin{example}
+The matrix
+\[
+C = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}
+\]
+is not diagonalizable: it has a single eigenvalue $\lambda = 0$, of algebraic multiplicity $2$, but the corresponding eigenspace has dimension only $1$, so that this eigenvalue is not regular.
+\end{example}
+
+\begin{example}
+The matrix
+\[
+B = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}
+\]
+is not diagonalizable over $\mathbb{R}$, since it possesses no real eigenvalues at all: its characteristic polynomial has only complex roots.
+\end{example}
+
+\begin{example}
+The matrix
+\[
+A = \begin{pmatrix} 2 & 0 \\ 2 & 1 \end{pmatrix}
+\]
+considered earlier is diagonalizable, since it has two distinct eigenvalues, $\lambda = 1$ and $\lambda = 2$.
+\end{example}
+
+\begin{example}
+We investigate whether
+\[
+A = \begin{pmatrix} -1 & 0 & 1 \\ 1 & -1 & 0 \\ 0 & 1 & 1 \end{pmatrix}
+\]
+is diagonalizable. Expanding the characteristic polynomial along a convenient row or column yields
+\[
+\begin{aligned}
+P(\lambda) &= \operatorname{Det}(A - \lambda I) \\
+&= (1-\lambda)[\lambda(\lambda-1) - 1] + (\lambda - 1) \\
+&= (1-\lambda)(\lambda+1)(\lambda-2),
+\end{aligned}
+\]
+so that $A$ has three distinct real eigenvalues, $\lambda_1 = -1$, $\lambda_2 = 1$, $\lambda_3 = 2$; since these are distinct, $A$ is diagonalizable. One may further note that, since $A$ is not itself symmetric, its eigenvectors need not be automatically orthogonal, though a basis of $\mathbb{R}^3$ consisting of its eigenvectors nonetheless exists by the criterion of distinct eigenvalues.
+\end{example}
+
+\begin{example}
+We investigate whether
+\[
+A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 1 & -1 \\ 0 & 2 & 4 \end{pmatrix}
+\]
+is diagonalizable. A direct computation of the eigenvalues and their multiplicities yields $\lambda_1 = 2$, with algebraic multiplicity $a_{\lambda_1} = 2$ but geometric multiplicity $g_{\lambda_1} = 1$, and $\lambda_2 = 3$, with algebraic and geometric multiplicity both equal to $1$. Since $\lambda_1$ fails to be regular, being
+\[
+g_{\lambda_1} = 1 < 2 = a_{\lambda_1},
+\]
+we conclude that $A$ is not diagonalizable. Explicitly, one finds
+\[
+\begin{gathered}
+V_{\lambda_1} = \operatorname{span}((1,0,0)) \\
+V_{\lambda_2} = \operatorname{span}((1,1,-2)).
+\end{gathered}
+\]
+
+\end{example}
+
+\begin{example}
+We investigate whether
+\[
+A = \begin{pmatrix} -3 & 5 & -1 \\ -1 & 3 & -1 \\ -3 & 3 & 1 \end{pmatrix}
+\]
+is diagonalizable. A direct computation gives the following two eigenvalues and their algebraic and geometric multiplicities:
+\[
+\begin{aligned}
+\lambda_1 &= 1, & a_{\lambda_1} &= g_{\lambda_1} = 1, \\
+\lambda_2 &= 2, & a_{\lambda_2} &= g_{\lambda_2} = 2.
+\end{aligned}
+\]
+The sum of the algebraic multiplicities is
+\[
+\begin{aligned}
+a_{\lambda_1} + a_{\lambda_2} &= 1 + 2 \\
+&= 3.
+\end{aligned}
+\]
+
+Both eigenvalues are regular, so we conclude that $A$ is diagonalizable. The corresponding diagonal form $D$ and change of basis matrix $P$ can be shown to be
+\[
+D = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}, \qquad P = \begin{pmatrix} 1 & 1 & 0 \\ 1 & 1 & -1 \\ 1 & 0 & 3 \end{pmatrix}.
+\]
+
+\end{example}
+
+As further exercises illustrating these criteria, one may show that the matrix
+\[
+\begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}
+\]
+is not diagonalizable, since its unique eigenvalue $\lambda=1$ has algebraic multiplicity $2$ but geometric multiplicity only $1$; and one may determine the eigenvalues and eigenvectors of the matrix
+\[
+A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 1 & -1 \\ 0 & 2 & 4 \end{pmatrix}
+\]
+considered above, confirming explicitly that $\lambda_1 = 2$ has algebraic multiplicity $2$ but geometric multiplicity $1$, with eigenspace
+\[
+V_{\lambda_1} = \operatorname{span}((1,0,0)),
+\]
+and that $\lambda_2 = 3$ has algebraic and geometric multiplicity both equal to $1$, with eigenspace
+\[
+V_{\lambda_2} = \operatorname{span}((1,1,-2)),
+\]
+thereby confirming once more the non-diagonalizability of this matrix.
+
+\subsection{Singular Values, Least Squares, and the Pseudoinverse}
+
+
+The eigendecomposition studied earlier applies only to square matrices possessing a full set of linearly independent eigenvectors, and even then it treats the domain and codomain of the associated linear map as the same space. The singular value decomposition removes both restrictions: it applies to every real matrix, of any shape, and it reveals how the matrix distorts lengths and directions by relating an orthonormal basis of the domain to an orthonormal basis of the codomain.
+
+Given $A \in M_{m,n}$, the matrix $A^{\top}A \in M_n$ is symmetric, and consequently, by the Spectral Theorem, it possesses $n$ real, nonnegative eigenvalues
+\[
+\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0,
+\]
+together with an orthonormal basis of eigenvectors $\mathbf{v}_1, \dots, \mathbf{v}_n$ of $\mathbb{R}^n$. Nonnegativity follows from the identity
+\[
+\begin{aligned}
+\mathbf{v}_i^{\top} A^{\top} A \mathbf{v}_i &= \|A\mathbf{v}_i\|^2 \\
+&= \lambda_i \|\mathbf{v}_i\|^2 \\
+&\geq 0.
+\end{aligned}
+\]
+This observation motivates the following definition.
+
+\begin{definition}[Singular Values]
+Given $A \in M_{m,n}$, the singular values of $A$ are the numbers $\sigma_i = \lambda_i^{1/2}$, for $i = 1, \dots, n$, where $\lambda_1 \geq \cdots \geq \lambda_n \geq 0$ are the eigenvalues of $A^{\top}A$.
+\end{definition}
+
+The singular values, together with the associated eigenvectors of $A^{\top}A$, assemble into a factorization of $A$ that is valid without any assumption of squareness or diagonalizability.
+
+\begin{theorem}[Singular Value Decomposition]
+Given $A \in M_{m,n}$ with $\operatorname{Rank}(A) = r$, there exist an orthogonal matrix $U \in M_m$, an orthogonal matrix $V \in M_n$, and a matrix $\Sigma \in M_{m,n}$ whose only nonzero entries are $\Sigma_{ii} = \sigma_i$ for $i = 1, \dots, r$, arranged so that $\sigma_1 \geq \cdots \geq \sigma_r > 0$, such that $A = U \Sigma V^{\top}$.
+\end{theorem}
+
+\begin{proof}
+Let $\mathbf{v}_1, \dots, \mathbf{v}_n$ be an orthonormal basis of eigenvectors of $A^{\top}A$, ordered so that the corresponding eigenvalues satisfy $\lambda_1 \geq \cdots \geq \lambda_n \geq 0$, and set
+\[
+\sigma_i = \lambda_i^{1/2}.
+\]
+The rank identity gives
+\[
+\begin{aligned}
+\operatorname{Rank}(A^{\top}A) &= \operatorname{Rank}(A) \\
+&= r,
+\end{aligned}
+\]
+
+Therefore, exactly $r$ of the $\lambda_i$ are nonzero, say $\lambda_1, \dots, \lambda_r$. For $i = 1, \dots, r$, define $\mathbf{u}_i = \sigma_i^{-1} A \mathbf{v}_i$; these vectors are orthonormal, since
+\[
+\begin{aligned}
+\mathbf{u}_i \cdot \mathbf{u}_j &= (\sigma_i \sigma_j)^{-1} \mathbf{v}_i^{\top} A^{\top} A \mathbf{v}_j \\
+&= (\sigma_i \sigma_j)^{-1} \lambda_j \mathbf{v}_i \cdot \mathbf{v}_j,
+\end{aligned}
+\]
+which equals $1$ if $i=j$ and $0$ otherwise by orthonormality of the $\mathbf{v}_i$. Complete $\mathbf{u}_1, \dots, \mathbf{u}_r$ to an orthonormal basis $\mathbf{u}_1, \dots, \mathbf{u}_m$ of $\mathbb{R}^m$, and let $U = [\mathbf{u}_1 | \cdots | \mathbf{u}_m]$ and $V = [\mathbf{v}_1 | \cdots | \mathbf{v}_n]$, both orthogonal by construction, since their columns form orthonormal bases. For $i \leq r$, one has $A\mathbf{v}_i = \sigma_i \mathbf{u}_i$ by definition of $\mathbf{u}_i$; for $i > r$, one has $\lambda_i = 0$, so
+\[
+\begin{aligned}
+\|A\mathbf{v}_i\|^2 &= \mathbf{v}_i^{\top}A^{\top}A\mathbf{v}_i \\
+&= \lambda_i \|\mathbf{v}_i\|^2 \\
+&= 0,
+\end{aligned}
+\]
+forcing $A\mathbf{v}_i = \vec{0}$. Consequently $AV = U\Sigma$, where $\Sigma$ has entries $\sigma_i$ on its first $r$ diagonal positions and zero elsewhere, and since $V$ is orthogonal, hence invertible with $V^{-1} = V^{\top}$, one obtains
+\[
+\begin{aligned}
+A &= AVV^{\top} \\
+&= U\Sigma V^{\top}.
+\end{aligned}
+\]
+
+\end{proof}
+
+The rank of $A$ therefore equals the number of nonzero singular values, and the decomposition exposes the four fundamental subspaces of $A$ directly: the columns $\mathbf{u}_1, \dots, \mathbf{u}_r$ of $U$ form a basis of $\operatorname{Col}(A)$, the columns $\mathbf{u}_{r+1}, \dots, \mathbf{u}_m$ form a basis of $\operatorname{Ker}(A^{\top})$, the columns $\mathbf{v}_1, \dots, \mathbf{v}_r$ form a basis of $\operatorname{Col}(A^{\top})$, and the columns $\mathbf{v}_{r+1}, \dots, \mathbf{v}_n$ form a basis of $\operatorname{Ker}(A)$. This last fact deserves justification: since $A\mathbf{v}_i = \vec{0}$ for $i > r$, the span of $\mathbf{v}_{r+1}, \dots, \mathbf{v}_n$ is certainly contained in $\operatorname{Ker}(A)$; and since these $n-r$ vectors are linearly independent, while the Nullity--Rank Theorem gives
+\[
+\begin{aligned}
+\operatorname{Dim}(\operatorname{Ker}(A)) &= n - \operatorname{Rank}(A) \\
+&= n-r,
+\end{aligned}
+\]
+the inclusion is in fact an equality. The uniqueness properties of the decomposition are worth recording explicitly. The singular values $\sigma_1 \geq \cdots \geq \sigma_r$ are always uniquely determined by $A$, being the square roots of the nonzero eigenvalues of $A^{\top}A$, themselves an intrinsic invariant of $A$; the vectors $\mathbf{u}_i$ and $\mathbf{v}_i$, however, are unique only up to simultaneous rotation within eigenspaces of repeated singular values, since any orthonormal basis of such an eigenspace serves equally well in the construction above.
+
+\begin{example}
+Consider the matrix
+\[
+A = \begin{pmatrix} 2 & 0 \\ 0 & -3 \end{pmatrix}.
+\]
+The following product is already diagonal:
+\[
+A^{\top}A = \begin{pmatrix} 4 & 0 \\ 0 & 9 \end{pmatrix}
+\]
+
+Its eigenvalues are $\lambda_1 = 9$, $\lambda_2 = 4$, with eigenvectors $\mathbf{v}_1 = (0,1)$, $\mathbf{v}_2 = (1,0)$, giving singular values $\sigma_1 = 3$, $\sigma_2 = 2$. Computing
+\[
+\begin{gathered}
+\mathbf{u}_1 = \sigma_1^{-1}A\mathbf{v}_1 = (0,-1) \\
+\mathbf{u}_2 = \sigma_2^{-1}A\mathbf{v}_2 = (1,0),
+\end{gathered}
+\]
+one obtains the decomposition $A = U\Sigma V^{\top}$ with
+\[
+U = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix},
+\qquad
+\Sigma = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix},
+\qquad
+V = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.
+\]
+As a verification,
+\[
+\begin{aligned}
+U\Sigma V^{\top}
+&= \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \\
+&= \begin{pmatrix} 0 & 2 \\ -3 & 0 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \\
+&= \begin{pmatrix} 2 & 0 \\ 0 & -3 \end{pmatrix} = A,
+\end{aligned}
+\]
+as required.
+\end{example}
+
+Beyond its structural role, the singular value decomposition provides the optimal low-rank approximation of a matrix in a precise sense, a fact that underlies its widespread use in data compression and dimensionality reduction. To state the result, one measures the size of a matrix using the operator norm,
+\[
+\|B\| = \max_{\|\mathbf{x}\|=1} \|B\mathbf{x}\|,
+\]
+and one first records an elementary but essential fact.
+
+\begin{theorem}
+If $A \in M_{m,n}$ has singular values
+\[
+\sigma_1 \geq \cdots \geq \sigma_r > 0,
+\]
+then $\|A\| = \sigma_1$.
+\end{theorem}
+
+\begin{proof}
+Write $A = U\Sigma V^{\top}$ as above. Since $U$ and $V$ are orthogonal, they preserve Euclidean norms, so
+\[
+\begin{aligned}
+\|A\mathbf{x}\| &= \|U\Sigma V^{\top}\mathbf{x}\| \\
+&= \|\Sigma V^{\top}\mathbf{x}\|
+\end{aligned}
+\]
+for every $\mathbf{x}$, and as $\mathbf{x}$ ranges over the unit sphere, so does $\mathbf{y} = V^{\top}\mathbf{x}$, by orthogonality of $V$. It therefore suffices to compute
+\[
+\max_{\|\mathbf{y}\|=1} \|\Sigma \mathbf{y}\|.
+\]
+Multiplication by $\Sigma$ gives
+\[
+\Sigma \mathbf{y} = (\sigma_1 y_1, \dots, \sigma_r y_r, 0, \dots, 0),
+\]
+The squared norm therefore satisfies
+\[
+\begin{aligned}
+\|\Sigma\mathbf{y}\|^2 &= \sum_{i=1}^{r} \sigma_i^2 y_i^2 \\
+&\leq \sigma_1^2 \sum_{i=1}^{r} y_i^2 \\
+&\leq \sigma_1^2,
+\end{aligned}
+\]
+with equality when $\mathbf{y} = \mathbf{e}_1$, so the maximum equals $\sigma_1$.
+\end{proof}
+
+\begin{theorem}[Eckart--Young Theorem]
+Let $A = U\Sigma V^{\top}$ be the singular value decomposition of $A \in M_{m,n}$, with singular values $\sigma_1 \geq \cdots \geq \sigma_r > 0$, and for $k < r$, let
+\[
+A_k = \sum_{i=1}^{k} \sigma_i \mathbf{u}_i \mathbf{v}_i^{\top}.
+\]
+
+Then $\operatorname{Rank}(A_k) \leq k$, and $A_k$ minimizes $\|A - B\|$ among all $B \in M_{m,n}$ of rank at most $k$; moreover $\|A - A_k\| = \sigma_{k+1}$.
+\end{theorem}
+
+\begin{proof}
+Since $A_k$ is a sum of $k$ rank-one matrices $\mathbf{u}_i\mathbf{v}_i^{\top}$, $\operatorname{Rank}(A_k) \leq k$. Writing
+\[
+A - A_k = \sum_{i=k+1}^{r} \sigma_i \mathbf{u}_i \mathbf{v}_i^{\top},
+\]
+this is itself the singular value decomposition of $A-A_k$, restricted to indices $k+1, \dots, r$, so by the previous theorem $\|A - A_k\| = \sigma_{k+1}$.
+
+It remains to show that no matrix of rank at most $k$ does better. Let $B \in M_{m,n}$ with $\operatorname{Rank}(B) \leq k$, so that
+\[
+\operatorname{Dim}(\operatorname{Ker}(B)) \geq n-k
+\]
+by the Nullity--Rank Theorem. Consider the subspace
+\[
+W = \operatorname{span}(\mathbf{v}_1, \dots, \mathbf{v}_{k+1}),
+\]
+of dimension $k+1$; since
+\[
+\operatorname{Dim}(\operatorname{Ker}(B)) + \operatorname{Dim}(W) \geq (n-k) + (k+1) = n+1 > n,
+\]
+the two subspaces must intersect nontrivially, so there exists a unit vector $\mathbf{w} \in W \cap \operatorname{Ker}(B)$. Expand this vector in the basis of $W$:
+\[
+\mathbf{w} = \sum_{i=1}^{k+1} c_i \mathbf{v}_i.
+\]
+The unit-norm constraint is
+\[
+\sum_i c_i^2 = 1.
+\]
+Using orthonormality of the $\mathbf{v}_i$ and $\mathbf{u}_i$, we obtain
+\[
+\begin{aligned}
+\|(A-B)\mathbf{w}\|^2
+&= \|A\mathbf{w}\|^2
+= \left\| \sum_{i=1}^{k+1} c_i \sigma_i \mathbf{u}_i \right\|^2 \\
+&= \sum_{i=1}^{k+1} c_i^2 \sigma_i^2
+\geq \sigma_{k+1}^2 \sum_{i=1}^{k+1} c_i^2
+= \sigma_{k+1}^2,
+\end{aligned}
+\]
+where the inequality uses $\sigma_i \geq \sigma_{k+1}$ for $i \leq k+1$. Since $\mathbf{w}$ is a unit vector, this shows
+\[
+\begin{aligned}
+\|A-B\| &\geq \sigma_{k+1} \\
+&= \|A-A_k\|,
+\end{aligned}
+\]
+establishing the optimality of $A_k$.
+\end{proof}
+
+Figure~\ref{fig:ch10-svd} shows the geometric action of the singular value decomposition on the unit circle.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.5,>=Stealth]
+  \begin{scope}
+    \draw[->] (-1.6,0) -- (1.6,0);
+    \draw[->] (0,-1.6) -- (0,1.6);
+    \draw[figblue,thick] (0,0) circle (1);
+    \draw[vecB] (0,0) -- (30:1) node[above right,font=\scriptsize]{$\bv_1$};
+    \draw[vecC] (0,0) -- (120:1) node[above left,font=\scriptsize]{$\bv_2$};
+  \end{scope}
+  \draw[->,very thick] (2.0,0.7) -- (3.1,0.7) node[midway,above,font=\scriptsize]{$A=U\Sigma V^\top$};
+  \begin{scope}[xshift=5.6cm]
+    \draw[->] (-1.9,0) -- (1.9,0);
+    \draw[->] (0,-1.3) -- (0,1.3);
+    \draw[figblue,thick,rotate=15] (0,0) ellipse (1.6 and 0.7);
+    \draw[vecB] (0,0) -- (15:1.6) node[right,font=\scriptsize]{$\sigma_1 \bu_1$};
+    \draw[vecC] (0,0) -- (105:0.7) node[above,font=\scriptsize]{$\sigma_2 \bu_2$};
+  \end{scope}
+\end{tikzpicture}
+\caption[Singular Value Decomposition (SVD)]{Left: the unit circle and the orthonormal domain basis $\{\bv_1,\bv_2\}$. Right: the image ellipse, with orthogonal semi-axis vectors $\sigma_1\bu_1$ and $\sigma_2\bu_2$. The map $A=U\Sigma V^\top$ rotates or reflects, scales along perpendicular directions, and rotates or reflects again; the semi-axis lengths are $\sigma_1,\sigma_2$.}
+\label{fig:ch10-svd}
+\end{figure}
+
+The inverse of a matrix, as defined earlier, exists only for nonsingular square matrices, yet many of the systems arising in applications are either rectangular or singular, and one still wishes to associate to them a canonical generalized inverse. The singular value decomposition supplies exactly such a generalization.
+
+\begin{definition}[Pseudoinverse]
+Given $A \in M_{m,n}$ with singular value decomposition $A = U\Sigma V^{\top}$, the Moore--Penrose pseudoinverse of $A$ is the matrix
+\[
+A^{+} = V \Sigma^{+} U^{\top} \in M_{n,m},
+\]
+where $\Sigma^{+} \in M_{n,m}$ is obtained from $\Sigma^{\top}$ by replacing every nonzero diagonal entry $\sigma_i$ with $\sigma_i^{-1}$.
+\end{definition}
+
+When $A$ is square and nonsingular, every singular value is nonzero and $\Sigma$ is itself square and invertible, with $\Sigma^{+} = \Sigma^{-1}$, so that
+\[
+\begin{aligned}
+A^{+} &= V\Sigma^{-1}U^{\top} \\
+&= (U\Sigma V^{\top})^{-1} \\
+&= A^{-1};
+\end{aligned}
+\]
+the pseudoinverse indeed extends the ordinary inverse. Its defining property, independent of the particular decomposition used to construct it, is captured by the following characterization, which we now prove directly from the definition above.
+
+\begin{theorem}[Penrose Conditions]
+The pseudoinverse $A^{+}$ satisfies the four conditions
+\[
+AA^{+}A = A, \qquad A^{+}AA^{+} = A^{+}, \qquad (AA^{+})^{\top} = AA^{+}, \qquad (A^{+}A)^{\top} = A^{+}A,
+\]
+and it is the unique matrix in $M_{n,m}$ satisfying all four simultaneously.
+\end{theorem}
+
+\begin{proof}
+Write $A = U\Sigma V^{\top}$ and $A^{+} = V\Sigma^{+}U^{\top}$. A direct computation, using $U^{\top}U = I_m$ and $V^{\top}V = I_n$, gives
+\[
+\begin{aligned}
+AA^{+} &= U\Sigma V^{\top}V\Sigma^{+}U^{\top} \\
+&= U(\Sigma \Sigma^{+})U^{\top};
+\end{aligned}
+\]
+since $\Sigma\Sigma^{+} \in M_m$ is diagonal with entries $1$ in the first $r$ positions and $0$ elsewhere, it is symmetric, and hence $AA^{+} = U(\Sigma\Sigma^{+})U^{\top}$ is symmetric as a product of a symmetric matrix conjugated by an orthogonal one, establishing $(AA^{+})^{\top} = AA^{+}$. The identical argument, with the roles of $U$ and $V$ exchanged, gives $A^{+}A = V(\Sigma^{+}\Sigma)V^{\top}$ symmetric, establishing $(A^{+}A)^{\top} = A^{+}A$. For the first two conditions, one checks directly that $\Sigma\Sigma^{+}\Sigma = \Sigma$ and $\Sigma^{+}\Sigma\Sigma^{+} = \Sigma^{+}$, since both sides act identically on the first $r$ standard basis vectors, where $\Sigma$ and $\Sigma^{+}$ are mutually inverse scalars, and both sides vanish on the remaining basis vectors, where $\Sigma$ has zero rows or columns; substituting these identities into
+\[
+\begin{aligned}
+AA^{+}A &= U\Sigma V^{\top}V\Sigma^{+}U^{\top}U\Sigma V^{\top} \\
+&= U(\Sigma\Sigma^{+}\Sigma)V^{\top} \\
+&= U\Sigma V^{\top} \\
+&= A,
+\end{aligned}
+\]
+and analogously for $A^{+}AA^{+} = A^{+}$. For uniqueness, suppose $B \in M_{n,m}$ also satisfies all four conditions. One shows $B = A^{+}$ by a sequence of substitutions exploiting the four identities for both $A^{+}$ and $B$; we omit the lengthy but entirely mechanical verification, which proceeds by repeatedly inserting
+\[
+\begin{aligned}
+AA^{+}A &= A \\
+&= ABA
+\end{aligned}
+\]
+and the symmetry conditions into the expression for $B$ until it is transformed into $A^{+}$.
+\end{proof}
+
+The practical importance of the pseudoinverse stems from its role in solving linear systems that admit no exact solution, or that admit infinitely many.
+
+\begin{theorem}[Least Squares via the Pseudoinverse]
+Given $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$, the vector $\mathbf{x}^{*} = A^{+}\mathbf{b}$ minimizes $\|A\mathbf{x} - \mathbf{b}\|$ over all $\mathbf{x} \in \mathbb{R}^n$, and among all such minimizers it is the one of smallest Euclidean norm.
+\end{theorem}
+
+\begin{proof}
+Write $A = U\Sigma V^{\top}$, and set $\mathbf{y} = V^{\top}\mathbf{x}$ and $\mathbf{c} = U^{\top}\mathbf{b}$; since $U$ and $V$ are orthogonal,
+\[
+\begin{aligned}
+\|A\mathbf{x}-\mathbf{b}\| &= \|U\Sigma V^{\top}\mathbf{x} - \mathbf{b}\| \\
+&= \|\Sigma \mathbf{y} - \mathbf{c}\|.
+\end{aligned}
+\]
+Moreover, $\mathbf{x}$ ranges over $\mathbb{R}^n$ exactly as $\mathbf{y}$ does. Multiplication by $\Sigma$ gives
+\[
+\Sigma \mathbf{y} = (\sigma_1 y_1, \dots, \sigma_r y_r, 0, \dots, 0).
+\]
+The squared residual is therefore
+\[
+\|\Sigma\mathbf{y} - \mathbf{c}\|^2 = \sum_{i=1}^r (\sigma_i y_i - c_i)^2 + \sum_{i=r+1}^{m} c_i^2.
+\]
+
+Over all choices of $y_1, \dots, y_n$, it is minimized precisely by taking $y_i = c_i/\sigma_i$ for $i \leq r$, which eliminates the first sum entirely, while $y_{r+1}, \dots, y_n$ remain unconstrained by the minimization; the second sum is independent of $\mathbf{y}$ and represents the unavoidable residual. Among all minimizers, the one of smallest norm is obtained by setting the free components $y_{r+1}, \dots, y_n$ to zero, since $\|\mathbf{y}\|^2 = \|\mathbf{x}\|^2$ by orthogonality of $V$, and this choice corresponds precisely to
+\[
+\begin{aligned}
+\mathbf{y} &= \Sigma^{+}\mathbf{c} \\
+&= \Sigma^{+}U^{\top}\mathbf{b}.
+\end{aligned}
+\]
+Thus, the minimizer has the equivalent representations
+\[
+\begin{aligned}
+\mathbf{x}^{*} &= V\mathbf{y} \\
+&= V\Sigma^{+}U^{\top}\mathbf{b} \\
+&= A^{+}\mathbf{b}.
+\end{aligned}
+\]
+
+\end{proof}
+
+\begin{example}
+Consider the matrix
+\[
+A = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.
+\]
+Its singular values are $\sigma_1 = 1$, $\sigma_2 = 0$, with
+\[
+\begin{aligned}
+U &= V \\
+&= I,
+\end{aligned}
+\]
+so
+\[
+\Sigma^{+} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}
+\]
+and hence $A^{+} = A$. For $\mathbf{b} = (1,1)$, the vector
+\[
+\mathbf{x}^{*} = A^{+}\mathbf{b} = (1,0)
+\]
+is the minimum-norm least squares solution of $A\mathbf{x} = \mathbf{b}$: indeed $A\mathbf{x} = (x_1, 0)$ for every $\mathbf{x} = (x_1,x_2)$, so
+\[
+\|A\mathbf{x}-\mathbf{b}\|^2 = (x_1-1)^2 + 1
+\]
+is minimized precisely when $x_1=1$, regardless of $x_2$, and among these infinitely many minimizers the one of least norm is $(1,0)$, obtained by additionally setting $x_2=0$.
+\end{example}
+
+\input{figures/least-squares-projection.tex}

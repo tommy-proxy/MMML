@@ -1,0 +1,21 @@
+Figure~\ref{fig:atlas-residue-contour} identifies the enclosed pole and contour orientation in the residue calculation.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+\draw[->,black!40] (-3,0) -- (3.2,0) node[right] {$\mathrm{Re}$};
+\draw[->,black!40] (0,-1.5) -- (0,3) node[above] {$\mathrm{Im}$};
+\draw[figblue,very thick] (-2.5,0) -- (2.5,0) arc[start angle=0,end angle=180,radius=2.5];
+\draw[figblue,very thick,->] (-1.8,0) -- (-0.8,0);
+\draw[figblue,very thick,->] (35:2.5) arc[start angle=35,end angle=65,radius=2.5];
+\node[below] at (-2.5,0) {$-R$};
+\node[below] at (2.5,0) {$R$};
+\node[above right,figblue] at (45:2.5) {$C_R$};
+\node[figred] at (0,1) {$\times$};
+\node[right,figred] at (0.1,1) {$i$};
+\node[black!65] at (0,-1) {$\times$};
+\node[right] at (0.1,-1) {$-i$};
+\end{tikzpicture}
+\caption{For $1/(1+z^2)$, the real segment from $-R$ to $R$ is closed by an upper semicircle traversed counterclockwise. Only the pole at $i$ lies inside; the pole at $-i$ lies outside. For $R>1$, the arc contribution tends to zero as $R$ grows, leaving the real-line integral.}
+\label{fig:atlas-residue-contour}
+\end{figure}

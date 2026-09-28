@@ -1,0 +1,24 @@
+Figure~\ref{fig:atlas-determinant-area} interprets the determinant as an oriented area scale factor.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{scope}[scale=1.25]
+\fill[figblue!15] (0,0) rectangle (1,1);
+\draw[black!35] (0,0) rectangle (1,1);
+\draw[vecA] (0,0) -- (1,0) node[below] {$e_1$};
+\draw[vecB] (0,0) -- (0,1) node[left] {$e_2$};
+\node at (0.5,0.5) {$1$};
+\end{scope}
+\draw[->,thick] (2,0.8) -- (3,0.8) node[midway,above] {$A$};
+\begin{scope}[shift={(4,0)},scale=1.25]
+\fill[figgreen!15] (0,0) -- (2,0.5) -- (3,2.5) -- (1,2) -- cycle;
+\draw[black!35] (2,0.5) -- (3,2.5) -- (1,2);
+\draw[vecA] (0,0) -- (2,0.5) node[below right] {$Ae_1$};
+\draw[vecB] (0,0) -- (1,2) node[above left] {$Ae_2$};
+\node at (1.5,1.25) {$7/2$};
+\end{scope}
+\end{tikzpicture}
+\caption{The unit square on the left is mapped to the parallelogram spanned by $(2,1/2)$ and $(1,2)$ on the right. Its area is $7/2$, the absolute determinant of the matrix with those columns. The positive determinant preserves the orientation of the ordered basis.}
+\label{fig:atlas-determinant-area}
+\end{figure}

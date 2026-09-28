@@ -1,0 +1,15 @@
+Figure~\ref{fig:atlas-least-squares-projection} shows least squares as orthogonal projection onto the column space.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.45,>=Stealth]
+\draw[black!45] (-0.6,-0.3) -- (4.1,2.05) node[right] {$\operatorname{Col}A$};
+\draw[vecA] (0,0) -- (1,3) node[above] {$b$};
+\draw[vecB] (0,0) -- (2,1) node[below right] {$A\hat{x}$};
+\draw[vecC] (2,1) -- (1,3) node[midway,right] {$r$};
+\draw[black!60] (2.25,1.125) -- (2.125,1.375) -- (1.875,1.25);
+\node[below] at (0,0) {$0$};
+\end{tikzpicture}
+\caption{The vector $b$ is decomposed into its projection $A\hat{x}$ onto the column space and a perpendicular residual $r=b-A\hat{x}$. Orthogonality gives the normal equations $A^{\top}r=0$. Here the column space is represented by a line in the plane.}
+\label{fig:atlas-least-squares-projection}
+\end{figure}

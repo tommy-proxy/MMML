@@ -1,0 +1,19 @@
+Figure~\ref{fig:atlas-step-derivative} contrasts the Heaviside function with its distributional derivative.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=5.8cm,height=4.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$H$},xmin=-2,xmax=2,ymin=-0.2,ymax=1.5,xtick={-1,0,1},ytick={0,1}]
+\addplot[figblue,very thick] coordinates {(-2,0)(0,0)};
+\addplot[figblue,very thick] coordinates {(0,1)(2,1)};
+\addplot[only marks,mark=*,mark options={fill=white,draw=figblue},mark size=2.5pt] coordinates {(0,0)};
+\addplot[only marks,figblue,mark=*] coordinates {(0,1)};
+\end{axis}
+\begin{axis}[width=5.8cm,height=4.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},at={(6.2cm,0)},xlabel={$x$},xmin=-2,xmax=2,ymin=-0.2,ymax=1.5,xtick={-1,0,1},ytick=\empty]
+\draw[->,figred,very thick] (axis cs:0,0) -- (axis cs:0,1.1);
+\node[above right,figred] at (axis cs:0,1.1) {$\delta$};
+\end{axis}
+\end{tikzpicture}
+\caption{Left: the unit step has a jump of size one at the origin; its chosen value at that single point does not affect the associated distribution. Right: the arrow symbolizes a unit Dirac mass, not a finite-height function. Distributional differentiation records the jump through $H^{\prime}=\delta$.}
+\label{fig:atlas-step-derivative}
+\end{figure}

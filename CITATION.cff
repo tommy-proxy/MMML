@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this compendium in your study or research, please cite it as below."
+title: "Mathematical Methods for Machine Learning"
+abstract: >-
+  A unified pathway from the foundations of mathematical analysis to advanced
+  methods for modeling and inference, covering calculus, linear and functional
+  analysis, optimization, Fourier methods, distribution theory, differential
+  equations, probability, and stochastic differential equations. Chapters on
+  analysis build on the course taught by Prof. Monica Conti at Politecnico
+  di Milano.
+type: software
+authors:
+  - family-names: "Vescio"
+    given-names: "Tommaso"
+version: "1.0.0"
+date-released: "2026-09-28"
+year: 2026
+license: CC-BY-NC-SA-4.0
+repository-code: "https://github.com/tommy-proxy/mathematical-methods-for-ml"
+url: "https://github.com/tommy-proxy/mathematical-methods-for-ml"
+keywords:
+  - mathematics
+  - machine learning
+  - mathematical analysis
+  - linear algebra
+  - optimization
+  - functional analysis
+  - Fourier analysis
+  - differential equations
+  - stochastic differential equations
+  - computational neuroscience
+  

@@ -1,0 +1,20 @@
+Figure~\ref{fig:atlas-discontinuities} compares a removable discontinuity with a jump discontinuity.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=5.8cm,height=5.2cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$f(x)$},xmin=-1.2,xmax=1.2,ymin=-0.3,ymax=2.5,xtick={-1,0,1},ytick={1,2}]
+\addplot[figblue,very thick,domain=-1:1] {x+1};
+\addplot[only marks,mark=*,mark options={fill=white,draw=figblue},mark size=3pt] coordinates {(0,1)};
+\addplot[only marks,figred,mark=*] coordinates {(0,2)};
+\end{axis}
+\begin{axis}[width=5.8cm,height=5.2cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},at={(6.2cm,0)},xlabel={$x$},ylabel={$f(x)$},xmin=-1.2,xmax=1.2,ymin=-0.3,ymax=2.5,xtick={-1,0,1},ytick={1,2}]
+\addplot[figblue,very thick] coordinates {(-1,0)(0,0)};
+\addplot[figred,very thick] coordinates {(0,1)(1,1)};
+\addplot[only marks,mark=*,mark options={fill=white,draw=figblue},mark size=3pt] coordinates {(0,0)};
+\addplot[only marks,figred,mark=*] coordinates {(0,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{Left: the graph agrees with $x+1$ away from zero, but its assigned value at zero is $2$; the hole at height $1$ can be repaired by redefining that value. Right: a unit jump at zero has unequal one-sided limits, so changing the value at the jump cannot restore continuity.}
+\label{fig:atlas-discontinuities}
+\end{figure}

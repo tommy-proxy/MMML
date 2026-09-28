@@ -1,0 +1,15 @@
+Figure~\ref{fig:atlas-alternating-bounds} illustrates the nested upper and lower estimates supplied by alternating partial sums.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=5.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$n$},ylabel={$S_n$},xmin=0,xmax=15,ymin=0.45,ymax=1.06,xtick={2,4,6,8,10,12,14}]
+\addplot[black!65,dashed,domain=0:15] {ln(2)};
+\addplot[figred,thick,mark=*] coordinates {(1,1.00000000) (3,0.83333333) (5,0.78333333) (7,0.75952381) (9,0.74563492) (11,0.73654401) (13,0.73013376)};
+\addplot[figblue,thick,mark=square*] coordinates {(2,0.50000000) (4,0.58333333) (6,0.61666667) (8,0.63452381) (10,0.64563492) (12,0.65321068) (14,0.65870518)};
+\node[above left] at (axis cs:14,0.693147) {$S$};
+\end{axis}
+\end{tikzpicture}
+\caption{Partial sums of the alternating harmonic series bracket its sum $S=\log 2$. Odd partial sums decrease from above and even partial sums increase from below. The gap between consecutive partial sums is the next term, giving the alternating-series error bound.}
+\label{fig:atlas-alternating-bounds}
+\end{figure}

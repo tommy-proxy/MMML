@@ -1,0 +1,17 @@
+Figure~\ref{fig:atlas-heat-mode-decay} illustrates the different decay rates of separated heat-equation modes.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=5.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$u(x,t)$},xmin=0,xmax=1.05,ymin=0,ymax=1.3,xtick={0,0.5,1},legend columns=3,legend pos=north east]
+\addplot[figblue,very thick,domain=0:1,samples=150] {sin(deg(pi*x))+0.35*sin(deg(3*pi*x))};
+\addlegendentry{$t=0$}
+\addplot[figred,thick,dashed,domain=0:1,samples=150] {exp(-pi^2*0.03)*sin(deg(pi*x))+0.35*exp(-9*pi^2*0.03)*sin(deg(3*pi*x))};
+\addlegendentry{$t=0.03$}
+\addplot[figgreen,thick,dashdotted,domain=0:1,samples=150] {exp(-pi^2*0.1)*sin(deg(pi*x))+0.35*exp(-9*pi^2*0.1)*sin(deg(3*pi*x))};
+\addlegendentry{$t=0.1$}
+\end{axis}
+\end{tikzpicture}
+\caption{Three profiles solve $u_t=u_{xx}$ on $[0,1]$ with zero boundary values. The initial profile combines the first sine mode with $0.35$ times the third. The third mode decays nine times faster in the exponent, so small-scale structure disappears before the main profile relaxes to zero.}
+\label{fig:atlas-heat-mode-decay}
+\end{figure}

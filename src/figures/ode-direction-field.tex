@@ -1,0 +1,89 @@
+Figure~\ref{fig:atlas-ode-direction-field} relates a differential equation to its direction field and family of solutions.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[
+  width=12.5cm,height=6.5cm,
+  axis lines=left,
+  ticklabel style={font=\small},label style={font=\small},
+  xlabel={$t$},ylabel={$y$},
+  xmin=0,xmax=2.1,ymin=0,ymax=3.3,
+  xtick={0,0.5,1,1.5,2},ytick={0,1,2,3},
+  legend style={at={(0.5,1.02)},anchor=south,legend columns=3,
+    font=\scriptsize,draw=black!20,fill=white,column sep=1em}
+]
+\draw[black!25] (axis cs:-0.07500,0.00000) -- (axis cs:0.07500,0.00000);
+\draw[black!25] (axis cs:-0.06708,0.46646) -- (axis cs:0.06708,0.53354);
+\draw[black!25] (axis cs:-0.05303,0.94697) -- (axis cs:0.05303,1.05303);
+\draw[black!25] (axis cs:-0.04160,1.43760) -- (axis cs:0.04160,1.56240);
+\draw[black!25] (axis cs:-0.03354,1.93292) -- (axis cs:0.03354,2.06708);
+\draw[black!25] (axis cs:-0.02785,2.43036) -- (axis cs:0.02785,2.56964);
+\draw[black!25] (axis cs:-0.02372,2.92885) -- (axis cs:0.02372,3.07115);
+\draw[black!25] (axis cs:0.17500,0.00000) -- (axis cs:0.32500,0.00000);
+\draw[black!25] (axis cs:0.18292,0.46646) -- (axis cs:0.31708,0.53354);
+\draw[black!25] (axis cs:0.19697,0.94697) -- (axis cs:0.30303,1.05303);
+\draw[black!25] (axis cs:0.20840,1.43760) -- (axis cs:0.29160,1.56240);
+\draw[black!25] (axis cs:0.21646,1.93292) -- (axis cs:0.28354,2.06708);
+\draw[black!25] (axis cs:0.22215,2.43036) -- (axis cs:0.27785,2.56964);
+\draw[black!25] (axis cs:0.22628,2.92885) -- (axis cs:0.27372,3.07115);
+\draw[black!25] (axis cs:0.42500,0.00000) -- (axis cs:0.57500,0.00000);
+\draw[black!25] (axis cs:0.43292,0.46646) -- (axis cs:0.56708,0.53354);
+\draw[black!25] (axis cs:0.44697,0.94697) -- (axis cs:0.55303,1.05303);
+\draw[black!25] (axis cs:0.45840,1.43760) -- (axis cs:0.54160,1.56240);
+\draw[black!25] (axis cs:0.46646,1.93292) -- (axis cs:0.53354,2.06708);
+\draw[black!25] (axis cs:0.47215,2.43036) -- (axis cs:0.52785,2.56964);
+\draw[black!25] (axis cs:0.47628,2.92885) -- (axis cs:0.52372,3.07115);
+\draw[black!25] (axis cs:0.67500,0.00000) -- (axis cs:0.82500,0.00000);
+\draw[black!25] (axis cs:0.68292,0.46646) -- (axis cs:0.81708,0.53354);
+\draw[black!25] (axis cs:0.69697,0.94697) -- (axis cs:0.80303,1.05303);
+\draw[black!25] (axis cs:0.70840,1.43760) -- (axis cs:0.79160,1.56240);
+\draw[black!25] (axis cs:0.71646,1.93292) -- (axis cs:0.78354,2.06708);
+\draw[black!25] (axis cs:0.72215,2.43036) -- (axis cs:0.77785,2.56964);
+\draw[black!25] (axis cs:0.72628,2.92885) -- (axis cs:0.77372,3.07115);
+\draw[black!25] (axis cs:0.92500,0.00000) -- (axis cs:1.07500,0.00000);
+\draw[black!25] (axis cs:0.93292,0.46646) -- (axis cs:1.06708,0.53354);
+\draw[black!25] (axis cs:0.94697,0.94697) -- (axis cs:1.05303,1.05303);
+\draw[black!25] (axis cs:0.95840,1.43760) -- (axis cs:1.04160,1.56240);
+\draw[black!25] (axis cs:0.96646,1.93292) -- (axis cs:1.03354,2.06708);
+\draw[black!25] (axis cs:0.97215,2.43036) -- (axis cs:1.02785,2.56964);
+\draw[black!25] (axis cs:0.97628,2.92885) -- (axis cs:1.02372,3.07115);
+\draw[black!25] (axis cs:1.17500,0.00000) -- (axis cs:1.32500,0.00000);
+\draw[black!25] (axis cs:1.18292,0.46646) -- (axis cs:1.31708,0.53354);
+\draw[black!25] (axis cs:1.19697,0.94697) -- (axis cs:1.30303,1.05303);
+\draw[black!25] (axis cs:1.20840,1.43760) -- (axis cs:1.29160,1.56240);
+\draw[black!25] (axis cs:1.21646,1.93292) -- (axis cs:1.28354,2.06708);
+\draw[black!25] (axis cs:1.22215,2.43036) -- (axis cs:1.27785,2.56964);
+\draw[black!25] (axis cs:1.22628,2.92885) -- (axis cs:1.27372,3.07115);
+\draw[black!25] (axis cs:1.42500,0.00000) -- (axis cs:1.57500,0.00000);
+\draw[black!25] (axis cs:1.43292,0.46646) -- (axis cs:1.56708,0.53354);
+\draw[black!25] (axis cs:1.44697,0.94697) -- (axis cs:1.55303,1.05303);
+\draw[black!25] (axis cs:1.45840,1.43760) -- (axis cs:1.54160,1.56240);
+\draw[black!25] (axis cs:1.46646,1.93292) -- (axis cs:1.53354,2.06708);
+\draw[black!25] (axis cs:1.47215,2.43036) -- (axis cs:1.52785,2.56964);
+\draw[black!25] (axis cs:1.47628,2.92885) -- (axis cs:1.52372,3.07115);
+\draw[black!25] (axis cs:1.67500,0.00000) -- (axis cs:1.82500,0.00000);
+\draw[black!25] (axis cs:1.68292,0.46646) -- (axis cs:1.81708,0.53354);
+\draw[black!25] (axis cs:1.69697,0.94697) -- (axis cs:1.80303,1.05303);
+\draw[black!25] (axis cs:1.70840,1.43760) -- (axis cs:1.79160,1.56240);
+\draw[black!25] (axis cs:1.71646,1.93292) -- (axis cs:1.78354,2.06708);
+\draw[black!25] (axis cs:1.72215,2.43036) -- (axis cs:1.77785,2.56964);
+\draw[black!25] (axis cs:1.72628,2.92885) -- (axis cs:1.77372,3.07115);
+\draw[black!25] (axis cs:1.92500,0.00000) -- (axis cs:2.07500,0.00000);
+\draw[black!25] (axis cs:1.93292,0.46646) -- (axis cs:2.06708,0.53354);
+\draw[black!25] (axis cs:1.94697,0.94697) -- (axis cs:2.05303,1.05303);
+\draw[black!25] (axis cs:1.95840,1.43760) -- (axis cs:2.04160,1.56240);
+\draw[black!25] (axis cs:1.96646,1.93292) -- (axis cs:2.03354,2.06708);
+\draw[black!25] (axis cs:1.97215,2.43036) -- (axis cs:2.02785,2.56964);
+\draw[black!25] (axis cs:1.97628,2.92885) -- (axis cs:2.02372,3.07115);
+\addplot[figblue,very thick,domain=0:2,samples=100] {0.2*exp(x)};
+\addlegendentry{$C=0.2$}
+\addplot[figred,thick,domain=0:2,samples=100] {0.3*exp(x)};
+\addlegendentry{$C=0.3$}
+\addplot[figgreen,thick,domain=0:2,samples=100] {0.4*exp(x)};
+\addlegendentry{$C=0.4$}
+\end{axis}
+\end{tikzpicture}
+\caption{Short segments indicate the slope $y$ prescribed by $y^{\prime}=y$. The curves are exact solutions $y(t)=Ce^t$ for three positive initial values. Each initial value selects one curve; the direction field itself represents all such solutions, not a single trajectory.}
+\label{fig:atlas-ode-direction-field}
+\end{figure}

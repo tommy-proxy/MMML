@@ -1,0 +1,468 @@
+\section{Distribution Theory}
+
+In physics, the Dirac delta $\delta(t)$ is often described as a function that is zero everywhere except at $t=0$, where it is ``infinite'', such that its integral over the real line is 1. However, no such function exists within the framework of standard Lebesgue or Riemann integration. If a function $f(t)$ is zero almost everywhere, its Lebesgue integral is strictly zero, which contradicts the requirement that the integral equals 1.
+
+To resolve this contradiction and make the Dirac delta mathematically rigorous, we must abandon the idea of evaluating a function at a specific point. Instead, we shift our perspective from the \textit{values} of a function to its \textit{action} on other functions. This requires moving from the space of classical functions to the space of \textit{distributions} (or generalized functions).
+
+\subsection{Test Functions and Generalized Functions}
+
+To define a distribution, we need a space of ``test functions'' upon which the distribution will act. For the Dirac delta and most physical applications, we require test functions that are infinitely differentiable and decay rapidly at infinity. This ensures that when we perform operations like integration by parts, boundary terms at infinity vanish.
+
+\begin{definition}[Schwartz Space $\mathcal{S}(\R)$]
+The Schwartz space $\mathcal{S}(\R)$ is the space of all complex-valued, infinitely differentiable ($C^\infty$) functions $\varphi: \R \to \C$ such that the function and all its derivatives decay faster than any polynomial as $|t| \to \infty$. Formally, $\varphi \in \mathcal{S}(\R)$ if for all nonnegative integers $j, k \in \N \cup \{0\}$:
+\begin{equation}
+\|\varphi\|_{j,k} := \sup_{t \in \R} \left| t^j \frac{\mathrm{d}^k \varphi}{\mathrm{d}t^k}(t) \right| < \infty
+\end{equation}
+
+\end{definition}
+
+\begin{remark}[Topology and Seminorms]
+The quantities $\|\cdot\|_{j,k}$ are called \textit{seminorms}. A seminorm satisfies all the properties of a norm (nonnegativity, absolute homogeneity, and the triangle inequality) except that $\|\varphi\|_{j,k} = 0$ does not necessarily imply $\varphi = 0$ (though in this specific case, if all seminorms are zero, the function is indeed zero).
+The family of seminorms $\{\|\cdot\|_{j,k}\}_{j,k}$ induces a topology on $\mathcal{S}(\R)$, making it a Fréchet space. A sequence of functions $\varphi_n$ converges to $\varphi$ in $\mathcal{S}(\R)$ if and only if $\|\varphi_n - \varphi\|_{j,k} \to 0$ for every pair $(j,k)$. This means the functions and all their derivatives converge uniformly to the limit function and its derivatives, while maintaining rapid decay.
+\end{remark}
+
+
+With the test functions defined, we can define the distributions as mappings that act on these test functions.
+
+\begin{definition}[Linear Functional and Tempered Distribution]
+A \textit{linear functional} on a vector space $V$ is a linear map $T: V \to \C$.
+A \textit{tempered distribution} $T$ is a continuous linear functional on the Schwartz space $\mathcal{S}(\R)$. That is, $T: \mathcal{S}(\R) \to \C$ satisfies:
+\begin{enumerate}
+\item \textit{Linearity}: the following identity holds:
+
+\[
+T[a\varphi + b\psi] = a T[\varphi] + b T[\psi]
+\]
+for all $\varphi, \psi \in \mathcal{S}(\R)$ and $a, b \in \C$.
+\item \textit{Continuity}: if a sequence $\varphi_n \to \varphi$ in the topology of $\mathcal{S}(\R)$, then the sequence of complex numbers $T[\varphi_n] \to T[\varphi]$ in $\C$.
+\end{enumerate}
+The space of all tempered distributions is denoted $\mathcal{S}'(\R)$ and is called the continuous dual space of $\mathcal{S}(\R)$.
+\end{definition}
+
+\begin{remark}[Why ``Tempered''?]
+The term ``tempered'' indicates that the growth of these distributions at infinity is restricted (or ``tempered'') by the rapid decay of the Schwartz test functions. Specifically, tempered distributions can grow at most polynomially at infinity. This is a much broader class than distributions with compact support, allowing us to include standard functions like polynomials and constants, which are essential in physics.
+\end{remark}
+
+We can now rigorously define the Dirac delta not as a function, but as a specific rule that maps a test function to a complex number.
+
+\begin{definition}[The Dirac Delta Distribution]
+The Dirac delta $\delta \in \mathcal{S}'(\R)$ is the evaluation functional at zero. For every $\varphi \in \mathcal{S}(\R)$, it is defined by
+\begin{equation}
+\delta[\varphi] := \varphi(0).
+\end{equation}
+
+\end{definition}
+
+\begin{remark}[Verification of Validity]
+To ensure $\delta$ is a valid tempered distribution, we must explicitly verify linearity and continuity.
+\textit{Linearity:}
+
+\[
+\begin{aligned}
+\delta[a\varphi + b\psi] &= (a\varphi + b\psi)(0) \\
+&= a\varphi(0) + b\psi(0) \\
+&= a\delta[\varphi] + b\delta[\psi].
+\end{aligned}
+\]
+
+\textit{Continuity:} Suppose $\varphi_n \to \varphi$ in $\mathcal{S}(\R)$. By the definition of the seminorm $\|\cdot\|_{0,0}$, this implies
+
+\[
+\sup_{t \in \R} |\varphi_n(t) - \varphi(t)| \to 0.
+\]
+Evaluating this supremum at $t=0$, we get
+\[
+|\varphi_n(0) - \varphi(0)| \leq \sup_{t \in \R} |\varphi_n(t) - \varphi(t)| \to 0.
+\]
+Thus, $\delta[\varphi_n] \to \delta[\varphi]$.
+\end{remark}
+
+Many classical functions can be embedded into the space of distributions.
+
+\begin{definition}[Regular Distributions]
+A function $f: \R \to \C$ is \textit{locally integrable} if
+\[
+\int_K |f(t)| \dd t < \infty
+\]
+for every compact set $K \subset \R$. It has \textit{at most polynomial growth} if there exist constants $C > 0$ and $N \in \N$ such that
+\[
+|f(t)| \leq C(1 + |t|)^N
+\]
+for all $t \in \R$.
+Any such function $f$ defines a \textit{regular distribution} $T_f \in \mathcal{S}'(\R)$ via the action:
+\begin{equation}
+T_f[\varphi] = \int_\R f(t) \varphi(t) \dd t
+\end{equation}
+
+\end{definition}
+
+\begin{remark}[Convergence of the Regular Distribution Integral]
+We must prove that the integral
+\[
+\int_\R f(t) \varphi(t) \dd t
+\]
+converges absolutely. Because $\varphi \in \mathcal{S}(\R)$, the seminorm
+\[
+\|\varphi\|_{N+2, 0} = \sup_t |t^{N+2}\varphi(t)| = M < \infty.
+\]
+For $|t| \geq 1$, we have
+\[
+|\varphi(t)| \leq M / |t|^{N+2}.
+\]
+Thus, the integrand is bounded by:
+\begin{equation}
+|f(t) \varphi(t)| \leq C(1 + |t|)^N \frac{M}{|t|^{N+2}}
+\end{equation}
+As $|t| \to \infty$, the right side behaves asymptotically as $CM / |t|^2$. Since
+\[
+\int_{|t| \geq 1} |t|^{-2} \dd t < \infty,
+\]
+the integral converges absolutely by the comparison test. Continuity of $T_f$ follows similarly by bounding $|T_f[\varphi]|$ using the seminorms of $\varphi$.
+\end{remark}
+
+\begin{remark}[Physicist's Notation and Shifted Delta]
+The common physicist notation
+\[
+\int_\R \delta(t-t') f(t') \dd t' = f(t)
+\]
+is a formal shorthand. Rigorously, we define the \textit{shifted delta distribution} $\delta_{t_0} \in \mathcal{S}'(\R)$ by its action on a test function:
+\begin{equation}
+\delta_{t_0}[\varphi] := \varphi(t_0)
+\end{equation}
+
+The integral notation is merely a symbolic way of writing the action of the functional $\delta_t$ on the function $f$ (assuming $f$ is sufficiently well-behaved to act as a test function or can be approximated by one).
+\end{remark}
+
+\input{figures/delta-evaluation.tex}
+
+\subsection{The Distributional Derivative}
+
+Classical differentiation requires a function to be continuous. Distribution theory allows us to differentiate \textit{any} tempered distribution, including discontinuous functions, by transferring the derivative onto the smooth test functions.
+
+\begin{definition}[Distributional Derivative]
+For any tempered distribution $T \in \mathcal{S}'(\R)$, its distributional derivative $T' \in \mathcal{S}'(\R)$ is defined by its action on any test function $\varphi \in \mathcal{S}(\R)$:
+\begin{equation}
+T'[\varphi] := -T[\varphi']
+\end{equation}
+where $\varphi'$ is the classical derivative of the test function. (Note: $\varphi' \in \mathcal{S}(\R)$ because the derivative of a Schwartz function is also a Schwartz function.)
+\end{definition}
+
+\begin{remark}[Justification via Integration by Parts]
+Why is there a minus sign? This definition is motivated by the behavior of regular distributions. Suppose $T = T_f$ for a continuously differentiable function $f$ with at most polynomial growth. We evaluate
+\[
+T_f'[\varphi]
+\]
+using the definition:
+\begin{equation}
+\begin{aligned}
+T_f'[\varphi] &= -T_f[\varphi'] \\
+&= -\int_\R f(t) \varphi'(t) \dd t
+\end{aligned}
+\end{equation}
+If we were to use classical integration by parts on the integral
+\[
+\int_\R f'(t) \varphi(t) \dd t,
+\]
+we would get:
+\begin{equation}
+\int_\R f'(t) \varphi(t) \dd t = \Big[ f(t)\varphi(t) \Big]_{-\infty}^\infty - \int_\R f(t) \varphi'(t) \dd t
+\end{equation}
+The boundary term
+\[
+[ f(t)\varphi(t) ]_{-\infty}^\infty
+\]
+vanishes strictly because $\varphi \in \mathcal{S}(\R)$ decays faster than any polynomial, while $f(t)$ grows at most polynomially. Thus, their product approaches zero as $t \to \pm \infty$.
+This leaves
+\[
+\int_\R f'(t) \varphi(t) \dd t = -\int_\R f(t) \varphi'(t) \dd t,
+\]
+which perfectly matches the definition
+\[
+T_{f'}[\varphi] = -T_f[\varphi'].
+\]
+
+This proves that the distributional derivative is a consistent generalization of the classical derivative.
+\end{remark}
+
+\begin{remark}[Example: Derivative of the Heaviside Step Function]
+Let $H(t)$ be the Heaviside step function ($H(t) = 1$ for $t > 0$, and $0$ for $t < 0$). $H$ is locally integrable, so it defines a regular distribution
+\[
+T_H[\varphi] = \int_0^\infty \varphi(t) \dd t.
+\]
+Using the distributional derivative definition:
+\begin{equation}
+\begin{aligned}
+T_H'[\varphi] &= -T_H[\varphi'] \\
+&= -\int_0^\infty \varphi'(t) \dd t
+\end{aligned}
+\end{equation}
+By the Fundamental Theorem of Calculus,
+\[
+\int_0^\infty \varphi'(t) \dd t = \lim_{t \to \infty} \varphi(t) - \varphi(0).
+\]
+Since $\varphi \in \mathcal{S}(\R)$,
+\[
+\lim_{t \to \infty} \varphi(t) = 0.
+\]
+Thus:
+\begin{equation}
+\begin{aligned}
+T_H'[\varphi] &= -(0 - \varphi(0)) \\
+&= \varphi(0) \\
+&= \delta[\varphi]
+\end{aligned}
+\end{equation}
+
+This explicitly proves that the distributional derivative of the discontinuous Heaviside function is the Dirac delta distribution: $T_H' = \delta$.
+\end{remark}
+
+\input{figures/step-derivative.tex}
+
+\subsection{Weak Convergence and Delta Sequences}
+
+Although $\delta$ is not a function, we can approximate it using sequences of classical functions that become increasingly concentrated at the origin.
+
+\begin{definition}[Weak-* Convergence]
+A sequence of distributions $T_n \in \mathcal{S}'(\R)$ converges to $T \in \mathcal{S}'(\R)$ in the \textit{weak-* topology} if, for every test function $\varphi \in \mathcal{S}(\R)$, the sequence of complex numbers $T_n[\varphi]$ converges to $T[\varphi]$.
+\end{definition}
+
+The following proposition gives a general convergence criterion for nascent delta sequences.
+
+\begin{proposition}[Nascent Delta Sequences]
+Let $(\rho_n)_{n \in \N}$ be a sequence of functions in $L^1(\R)$ satisfying:
+\begin{enumerate}
+\item \textit{Non-negativity}: $\rho_n(t) \geq 0$ for all $t$.
+\item \textit{Normalization}: the following identity holds:
+
+\[
+\int_\R \rho_n(t) \dd t = 1.
+\]
+
+\item \textit{Concentration}: for every $\eta > 0$,
+
+\[
+\lim_{n \to \infty} \int_{|t| > \eta} \rho_n(t) \dd t = 0.
+\]
+
+\end{enumerate}
+Then the sequence of regular distributions $T_{\rho_n}$ converges to the Dirac delta $\delta$ in the weak-* topology of $\mathcal{S}'(\R)$. That is, for every $\varphi \in \mathcal{S}(\R)$:
+\begin{equation}
+\begin{aligned}
+\lim_{n \to \infty} \int_\R \rho_n(t) \varphi(t) \dd t &= \varphi(0) \\
+&= \delta[\varphi]
+\end{aligned}
+\end{equation}
+
+\end{proposition}
+
+\begin{proof}
+We must show that the difference
+\[
+D_n = \int_\R \rho_n(t) \varphi(t) \dd t - \varphi(0)
+\]
+approaches zero as $n \to \infty$.
+
+\textit{Step 1: Algebraic manipulation of the difference.}
+The normalizing identity is
+\[
+\int_\R \rho_n(t) \dd t = 1,
+\]
+Therefore, we can multiply $\varphi(0)$ by this integral without changing its value:
+\begin{equation}
+\begin{aligned}
+\varphi(0) &= \varphi(0) \int_\R \rho_n(t) \dd t \\
+&= \int_\R \rho_n(t) \varphi(0) \dd t
+\end{aligned}
+\end{equation}
+Substituting this into $D_n$ and combining the integrals yields:
+\begin{equation}
+\begin{aligned}
+D_n &= \int_\R \rho_n(t) \varphi(t) \dd t - \int_\R \rho_n(t) \varphi(0) \dd t \\
+&= \int_\R \rho_n(t) \big(\varphi(t) - \varphi(0)\big) \dd t
+\end{aligned}
+\end{equation}
+
+\textit{Step 2: Bounding the absolute value.}
+Taking the absolute value and using the triangle inequality for integrals (and the fact that $\rho_n(t) \geq 0$):
+\begin{equation}
+|D_n| \leq \int_\R \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t
+\end{equation}
+
+\textit{Step 3: Splitting the integral domain.}
+Let $\varepsilon > 0$ be arbitrary. Because $\varphi$ is continuous at $t=0$, there exists a radius $\eta > 0$ such that for all $|t| \leq \eta$, we have $|\varphi(t) - \varphi(0)| < \varepsilon$. We split the integral into two regions: $|t| \leq \eta$ and $|t| > \eta$.
+\begin{equation}
+|D_n| \leq \underbrace{\int_{|t| \leq \eta} \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t}_{\text{Term 1}} + \underbrace{\int_{|t| > \eta} \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t}_{\text{Term 2}}
+\end{equation}
+
+\textit{Step 4: Bounding Term 1 (Inner region).}
+In the region $|t| \leq \eta$, we apply the continuity bound $|\varphi(t) - \varphi(0)| < \varepsilon$:
+\begin{equation}
+\text{Term 1} < \varepsilon \int_{|t| \leq \eta} \rho_n(t) \dd t \leq \varepsilon \int_\R \rho_n(t) \dd t = \varepsilon \cdot 1 = \varepsilon
+\end{equation}
+
+\textit{Step 5: Bounding Term 2 (Outer region).}
+Because $\varphi \in \mathcal{S}(\R)$, it is bounded. Let
+\[
+M = \sup_{t \in \R} |\varphi(t)| < \infty.
+\]
+By the triangle inequality,
+\[
+\begin{aligned}
+|\varphi(t) - \varphi(0)| &\leq |\varphi(t)| + |\varphi(0)| \\
+&\leq 2M.
+\end{aligned}
+\]
+Thus:
+\begin{equation}
+\text{Term 2} \leq 2M \int_{|t| > \eta} \rho_n(t) \dd t
+\end{equation}
+By the concentration property of the sequence $\rho_n$,
+\[
+\lim_{n \to \infty} \int_{|t| > \eta} \rho_n(t) \dd t = 0.
+\]
+Therefore, there exists an integer $N$ such that for all $n > N$:
+\begin{equation}
+\int_{|t| > \eta} \rho_n(t) \dd t < \frac{\varepsilon}{2M}
+\end{equation}
+Substituting this bound into Term 2 gives:
+\begin{equation}
+\text{Term 2} < 2M \cdot \frac{\varepsilon}{2M} = \varepsilon
+\end{equation}
+
+\textit{Step 6: Conclusion.}
+Combining the bounds for Term 1 and Term 2, we find that for all $n > N$:
+\begin{equation}
+|D_n| < \varepsilon + \varepsilon = 2\varepsilon
+\end{equation}
+Since $\varepsilon > 0$ was chosen arbitrarily, this proves that
+\[
+\lim_{n \to \infty} D_n = 0,
+\]
+which means
+\[
+\lim_{n \to \infty} \int_\R \rho_n(t) \varphi(t) \dd t = \varphi(0).
+\]
+
+\end{proof}
+
+Common examples of such nascent delta sequences include the square pulse
+\[
+\rho_n(t) = n \mathbf{1}_{[-1/2n, 1/2n]}(t)
+\]
+and the Gaussian
+\[
+\rho_n(t) = (n/(2\pi))^{1/2} e^{-nt^2/2}.
+\]
+
+Figure~\ref{fig:ch13-delta-sequence} shows Gaussian profiles concentrating at the origin while preserving their unit integral:
+\[
+\int_\R \delta_n = 1.
+\]
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=13cm,height=7.5cm, axis lines=middle,
+  xlabel={$x$}, ylabel={$\delta_n(x)$},
+  xmin=-2,xmax=2,ymin=0,ymax=4.8, ytick=\empty,
+  legend pos=north east, legend style={font=\scriptsize, draw=black!30}
+  ]
+  \addplot[figblue!55,thick,domain=-2:2,samples=150] {1/sqrt(pi)*exp(-x^2)};
+  \addlegendentry{$n=1$}
+  \addplot[figblue,thick,domain=-2:2,samples=150] {2/sqrt(pi)*exp(-4*x^2)};
+  \addlegendentry{$n=2$}
+  \addplot[figred,thick,domain=-2:2,samples=150] {4/sqrt(pi)*exp(-16*x^2)};
+  \addlegendentry{$n=4$}
+  \addplot[figgreen,very thick,domain=-2:2,samples=200] {8/sqrt(pi)*exp(-64*x^2)};
+  \addlegendentry{$n=8$}
+  \draw[black!50,dashed] (axis cs:0,0) -- (axis cs:0,4.8);
+\end{axis}
+\end{tikzpicture}
+\caption[Delta-converging sequence]{Family $\delta_n(x) = (n/\sqrt{\pi})e^{-n^2x^2}$
+becoming narrower and taller as $n$ increases, with constant unit area:
+$\delta_n \to \delta$ in the sense of distributions.}
+\label{fig:ch13-delta-sequence}
+\end{figure}
+
+\subsection{The Fourier Representation of the Delta}
+
+Physicists frequently write the Dirac delta as a Fourier integral:
+\begin{equation}
+\delta(t) = \frac{1}{2\pi} \int_\R e^{i\omega t} \dd \omega
+\end{equation}
+Classically, this integral diverges because
+\[
+\begin{aligned}
+\int_\R |e^{i\omega t}| \dd \omega &= \int_\R 1 \dd \omega \\
+&= \infty.
+\end{aligned}
+\]
+However, this formula is rigorously valid if interpreted as a distributional limit.
+
+\begin{proposition}[Distributional Limit of the Fourier Integral]
+For $t \neq 0$, the truncated integral can be evaluated as follows:
+\[
+\begin{aligned}
+I_R(t) &= \frac{1}{2\pi} \int_{-R}^R e^{i\omega t} \dd \omega \\
+&= \frac{\sin(Rt)}{\pi t}
+\end{aligned}
+\]
+
+As $R \to \infty$, the regular distributions $T_{I_R}$ converge to the Dirac delta $\delta$ in the weak-* topology of $\mathcal{S}'(\R)$.
+\end{proposition}
+
+\begin{proof}
+We must evaluate the action of $I_R$ on an arbitrary test function $\varphi \in \mathcal{S}(\R)$ and take the limit as $R \to \infty$:
+\begin{equation}
+\lim_{R \to \infty} \int_\R I_R(t) \varphi(t) \dd t = \lim_{R \to \infty} \int_\R \left( \frac{1}{2\pi} \int_{-R}^R e^{i\omega t} \dd \omega \right) \varphi(t) \dd t
+\end{equation}
+
+Because $\varphi \in \mathcal{S}(\R)$, it is absolutely integrable ($\varphi \in L^1(\R)$). The function $|e^{i\omega t}| = 1$, and the domain of $\omega$ is the finite interval $[-R, R]$. The double integral of the absolute value is:
+\begin{equation}
+\int_{-R}^R \int_\R |e^{i\omega t} \varphi(t)| \dd t \dd \omega = \int_{-R}^R \|\varphi\|_{L^1} \dd \omega = 2R \|\varphi\|_{L^1} < \infty
+\end{equation}
+
+Since the double integral is absolutely convergent, the Fubini--Tonelli theorem permits us to swap the order of integration:
+\begin{equation}
+\int_\R I_R(t) \varphi(t) \dd t = \frac{1}{2\pi} \int_{-R}^R \left( \int_\R \varphi(t) e^{i\omega t} \dd t \right) \dd \omega
+\end{equation}
+We define the Fourier transform of $\varphi$ as
+\[
+\hat{\varphi}(\omega) = \int_\R \varphi(t) e^{-i\omega t} \dd t.
+\]
+Notice that the inner integral in our expression is exactly $\hat{\varphi}(-\omega)$. Substituting this in:
+\begin{equation}
+\int_\R I_R(t) \varphi(t) \dd t = \frac{1}{2\pi} \int_{-R}^R \hat{\varphi}(-\omega) \dd \omega
+\end{equation}
+
+Because $\varphi \in \mathcal{S}(\R)$, its Fourier transform $\hat{\varphi}$ is also in $\mathcal{S}(\R)$, meaning $\hat{\varphi}$ is absolutely integrable over $\R$. Therefore, we can take the limit $R \to \infty$ inside the integral:
+\begin{equation}
+\lim_{R \to \infty} \frac{1}{2\pi} \int_{-R}^R \hat{\varphi}(-\omega) \dd \omega = \frac{1}{2\pi} \int_\R \hat{\varphi}(-\omega) \dd \omega
+\end{equation}
+
+By the Fourier inversion theorem, any Schwartz function can be recovered from its Fourier transform via
+\[
+\varphi(t) = \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) e^{i\omega t} \dd \omega.
+\]
+Evaluating this at $t=0$ yields:
+\begin{equation}
+\varphi(0) = \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) \dd \omega
+\end{equation}
+
+Applying the change of variables $\omega \to -\omega$ to the integral (which spans the entire real line, so the limits remain $-\infty$ to $\infty$), we get:
+\begin{equation}
+\begin{aligned}
+\frac{1}{2\pi} \int_\R \hat{\varphi}(-\omega) \dd \omega &= \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) \dd \omega \\
+&= \varphi(0)
+\end{aligned}
+\end{equation}
+Thus,
+\[
+\begin{aligned}
+\lim_{R \to \infty} \int_\R I_R(t) \varphi(t) \dd t &= \varphi(0) \\
+&= \delta[\varphi],
+\end{aligned}
+\]
+proving that the Fourier integral representation is rigorously valid in the sense of distributions.
+\end{proof}

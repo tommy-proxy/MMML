@@ -1,0 +1,29 @@
+Figure~\ref{fig:atlas-path-dependent-limit} compares two paths approaching the same point with incompatible limiting values.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[
+  width=12.5cm,height=6.2cm,
+  axis lines=left,
+  ticklabel style={font=\small},label style={font=\small},
+  xlabel={$t$},ylabel={$f$},
+  xmin=-1.2,xmax=1.2,ymin=-0.15,ymax=0.72,
+  xtick={-1,0,1},ytick={0,0.5},
+  legend style={at={(0.5,1.02)},anchor=south,legend columns=2,
+    font=\scriptsize,draw=black!20,fill=white}
+]
+\addplot[figblue,very thick] coordinates {(-1,0)(1,0)};
+\addlegendentry{$f(t,0)$}
+\addplot[figred,very thick] coordinates {(-1,0.5)(1,0.5)};
+\addlegendentry{$f(t,t)$}
+\draw[black!35,densely dotted] (axis cs:0,-0.15) -- (axis cs:0,0.62);
+\addplot[only marks,mark=*,mark options={fill=white,draw=figblue},mark size=3pt,forget plot] coordinates {(0,0)};
+\addplot[only marks,mark=*,mark options={fill=white,draw=figred},mark size=3pt,forget plot] coordinates {(0,0.5)};
+\node[figblue,below right,font=\scriptsize] at (axis cs:0.04,0) {$0$};
+\node[figred,above right,font=\scriptsize] at (axis cs:0.04,0.5) {$1/2$};
+\end{axis}
+\end{tikzpicture}
+\caption{For $f(x,y)=xy/(x^2+y^2)$ away from the origin, the path $(t,0)$ gives value zero and the path $(t,t)$ gives value $1/2$ whenever $t\ne0$. The holes mark the excluded parameter value. These distinct limits rule out a two-variable limit at the origin.}
+\label{fig:atlas-path-dependent-limit}
+\end{figure}

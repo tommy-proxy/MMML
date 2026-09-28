@@ -1,0 +1,23 @@
+Figure~\ref{fig:atlas-delta-evaluation} shows the action of the Dirac distribution as evaluation of a test function.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[
+  width=12cm,height=6.2cm,
+  axis lines=left,
+  ticklabel style={font=\small},label style={font=\small},
+  xlabel={$x$},ylabel={$\varphi(x)$},
+  xmin=-3,xmax=3,ymin=-0.05,ymax=1.28,
+  xtick={-2,0,2},ytick={0,1}
+]
+\addplot[figblue,very thick,domain=-3:3,samples=150] {exp(-x^2)};
+\addplot[only marks,figred,mark=*,mark size=3pt] coordinates {(0,1)};
+\draw[figred,dashed] (axis cs:0,0) -- (axis cs:0,1);
+\node[above right,figred,fill=white,inner sep=1.5pt,font=\small]
+  at (axis cs:0.08,1.01) {$\delta[\varphi]=\varphi(0)=1$};
+\end{axis}
+\end{tikzpicture}
+\caption{For the Schwartz test function $\varphi(x)=e^{-x^2}$, the Dirac functional returns the marked value $\varphi(0)=1$. The curve is the test function, not a graph of the Dirac distribution. Evaluation selects a value rather than an area under this curve.}
+\label{fig:atlas-delta-evaluation}
+\end{figure}

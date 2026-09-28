@@ -1,0 +1,19 @@
+Figure~\ref{fig:atlas-inverse-reflection} relates inverse functions to reflection across the diagonal.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=7cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$y$},xmin=0,xmax=4.7,ymin=0,ymax=4.7,axis equal image]
+\addplot[black!40,dashed,domain=0:4.5] {x};
+\addplot[figblue,very thick,domain=0:2.12,samples=100] {x^2};
+\addplot[figred,very thick,domain=0:4.5,samples=150] {sqrt(x)};
+\addplot[only marks,figblue,mark=*] coordinates {(2,4)};
+\addplot[only marks,figred,mark=*] coordinates {(4,2)};
+\draw[black!40,dotted] (axis cs:2,4) -- (axis cs:4,2);
+\node[left,figblue] at (axis cs:2,4) {$(2,4)$};
+\node[below,figred] at (axis cs:4,2) {$(4,2)$};
+\end{axis}
+\end{tikzpicture}
+\caption{The graph of $f(x)=x^2$, restricted to nonnegative inputs, and the graph of its inverse $f^{-1}(x)=\sqrt{x}$ are reflections across $y=x$. The marked points $(2,4)$ and $(4,2)$ exchange their coordinates.}
+\label{fig:atlas-inverse-reflection}
+\end{figure}

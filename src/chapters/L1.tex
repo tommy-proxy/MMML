@@ -1,0 +1,1105 @@
+\chapter{Convergence Theory and Numerical Series}
+
+\section{Real Sequences and Their Basic Properties}
+
+\subsection{Sequences as Functions and Their Graphs}
+
+A sequence is a list of real numbers arranged in a definite order, which we denote by
+\[
+a_1, a_2, a_3, \dots, a_n, \dots
+\]
+
+The real number $a_n$ occupying the $n$-th position in this ordered list is called the $n$-th term of the sequence. More formally, a sequence is a
+rule that assigns to every positive integer $n \in \mathbb{N}$ a unique real number $a_n \in \mathbb{R}$; equivalently, a sequence is simply a function
+\[
+\mathbb{N} \to \mathbb{R}, \qquad n \mapsto a_n
+\]
+
+Throughout this text a sequence will be denoted either by $\{a_n\}_{n \in \mathbb{N}}$, by $\{a_n\}$, or, when no ambiguity arises, simply by $a_n$.
+Several elementary examples illustrate this notion.
+\begin{align*}
+a_n =& 1/n \quad \rightarrow \quad 1, 1/2, 1/3, \dots, 1/n, \dots, \\
+a_n =& (-1)^n \quad \rightarrow \quad -1, 1, -1, 1, \dots, \\
+a_n =& n^2 \quad \rightarrow \quad 1, 4, 9, \dots, \\
+a_n =& n/(n+1) \quad \rightarrow \quad 1/2, 2/3, 3/4, 4/5, \dots.
+\end{align*}
+
+A sequence can be visualized by plotting its graph. Since a sequence is, by definition, a function whose domain is the set of positive integers,
+its graph consists of an isolated collection of points with coordinates $(n, a_n)$, rather than a continuous curve.
+
+
+\subsection{Boundedness, Monotonicity, and Eventual Properties}
+
+Before studying the limiting behavior of a sequence, it is useful to introduce two qualitative properties that a sequence may possess, namely
+boundedness and monotonicity. A sequence $\{a_n\}$ is said to be bounded above if there exists a real number $M$ such that $a_n \leq M$ for
+every $n \in \mathbb{N}$, and it is said to be bounded below if there exists a real number $m$ such that $m \leq a_n$ for every $n \in \mathbb{N}$.
+When a sequence is simultaneously bounded above and bounded below, it is simply called a bounded sequence. A closely related but distinct notion is
+that of monotonicity.
+\begin{itemize}
+\item \textit{Increasing sequences}: if $a_n \leq a_{n+1}$ for every integer $n$, the sequence $\{a_n\}$ of real numbers is called increasing.
+\item \textit{Decreasing sequences}: it is called decreasing if $a_n \geq a_{n+1}$ for every integer $n$.
+\end{itemize}
+
+A sequence is called monotonic if it is either increasing or decreasing. It is also convenient to introduce
+terminology that will recur throughout the discussion of limits: a sequence $\{a_n\}$ is said to
+satisfy a property \emph{eventually} if that property holds from some index onward, that is, for every sufficiently large $n$.
+
+\section{Limits and Monotone Convergence}
+
+\subsection{The Limit of a Sequence}
+
+The central goal of the theory of sequences is to study the behavior of the terms $a_n$ as the index $n$ becomes
+arbitrarily large; this behavior is encoded by the limit
+\[
+\lim_{n \to \infty} a_n
+\]
+
+Let $L \in \mathbb{R}$ be a given real number. The sequence $\{a_n\}$ converges to $L$ if its terms can be made as close to $L$ as desired by taking $n$ sufficiently large. We use either of the following equivalent notations:
+\[
+\begin{gathered}
+\lim_{n \to \infty} a_n = L, \\
+a_n \to L.
+\end{gathered}
+\]
+The following definition makes this intuitive idea precise.
+
+\begin{definition}
+The statement $a_n \to L$ means that, for every $\varepsilon > 0$, there exists $N \in \mathbb{N}$ for which the following implication holds:
+\[
+n > N \implies |a_n - L| < \varepsilon.
+\]
+
+\end{definition}
+
+An analogous definition applies when the terms grow without bound. The sequence $\{a_n\}$ diverges to positive infinity if its terms can be made as large as desired by taking $n$ sufficiently large. The two equivalent notations are
+\[
+\begin{gathered}
+\lim_{n \to \infty} a_n = +\infty, \\
+a_n \to +\infty.
+\end{gathered}
+\]
+
+\begin{definition}
+The statement $a_n \to +\infty$ means that, for every $M > 0$, there exists $N \in \mathbb{N}$ for which the following implication holds:
+\[
+n > N \implies a_n > M.
+\]
+
+\end{definition}
+
+These notions allow us to classify sequences according to their limiting behavior. A sequence
+$\{a_n\}$ is said to be convergent if, for some finite real number $L$,
+\[
+\lim_{n \to \infty} a_n = L.
+\]
+
+It is said to diverge to infinity if one of the following alternatives holds:
+\[
+\begin{gathered}
+\lim_{n \to \infty} a_n = +\infty, \\
+\lim_{n \to \infty} a_n = -\infty.
+\end{gathered}
+\]
+
+If none of these alternatives holds, the sequence has no limit, even in the extended real line. Two representative examples are $a_n = (-1)^n$ and $a_n = \cos n$,
+both of which oscillate indefinitely without settling toward any particular value. A particularly instructive
+family of sequences is provided by the geometric sequences, which are sequences of the form $a_n = q^n, \qquad n \in \mathbb{N}$ for a fixed real number $q$, generating the terms $1, q, q^2, q^3, q^4, \dots$. The limiting behavior of a
+geometric sequence depends entirely on the value of the common ratio $q$, according to the following
+classification.
+\[
+\lim_{n \to \infty} q^n =
+\begin{cases}
+0 & \text{if } 0 \leq q < 1, \\
+1 & \text{if } q = 1, \\
++\infty & \text{if } q > 1, \\
+\text{no limit} & \text{if } q \leq -1
+\end{cases}
+\]
+
+This result can be established directly from the $\varepsilon$--$N$ definition of limit, and its verification is
+a valuable exercise for the reader.
+
+\input{figures/oscillating-sequence.tex}
+
+\subsection{The Monotone Convergence Theorem and Euler's Number}
+
+One of the most important results concerning monotonic sequences is the following theorem, which guarantees
+convergence purely on the basis of boundedness and monotonicity, without requiring any explicit knowledge of the
+limiting value.
+
+\begin{theorem}[Monotone Sequence Theorem]
+Every bounded monotonic sequence is convergent.
+\end{theorem}
+
+\begin{remark}
+If the sequence under consideration is increasing, it will be shown below that it converges precisely to its
+least upper bound, whose existence is guaranteed by the Completeness Axiom of the real numbers.
+\end{remark}
+
+\begin{proof}
+Suppose that $\{a_n\}$ is an increasing sequence; an entirely analogous argument, based on the greatest lower
+bound, applies when $\{a_n\}$ is decreasing. Since $\{a_n\}$ is bounded, the set $\{a_n : n \in \mathbb{N}\}$
+admits an upper bound, and therefore, by the Completeness Axiom, it admits a least upper bound, which we denote
+by $L$. Fix $\varepsilon > 0$; we shall show that the terms of the sequence eventually lie in the interval
+$(L - \varepsilon, L + \varepsilon)$. Since $L - \varepsilon$ is not an upper bound of the set, there exists an
+index $N$ such that $a_N > L - \varepsilon$. Because the sequence is increasing, we have $a_n \geq a_N$ for every
+$n > N$, and hence $a_n > L - \varepsilon$ for every $n > N$. On the other hand, since $L$ is an upper bound of
+the set, we know that $a_n \leq L$ for every integer $n$. For every $n > N$, combining these two facts gives
+\[
+L - \varepsilon < a_n < L + \varepsilon,
+\]
+which is precisely the statement that
+\[
+\lim_{n \to \infty} a_n = L.
+\]
+
+\end{proof}
+
+The conclusions of this theorem may be summarized as follows. If $\{a_n\}$ is increasing and bounded, then
+\[
+\lim_{n \to \infty} a_n = \sup_n \{a_n\}
+\]
+While if $\{a_n\}$ is decreasing and bounded, then
+\[
+\lim_{n \to \infty} a_n = \inf_n \{a_n\}
+\]
+An analogous argument establishes a companion result for unbounded monotonic sequences.
+
+\begin{theorem}[Monotone Divergence Theorem]
+Every unbounded monotonic sequence is divergent.
+\end{theorem}
+
+Figure~\ref{fig:ch3-monotone-convergence} illustrates convergence to the supremum for a bounded increasing sequence.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+  \begin{axis}[
+    width=13cm, height=7cm,
+    xlabel={$n$}, ylabel={$a_n$},
+    axis lines=middle,
+    xmin=0, xmax=16.3, ymin=0, ymax=3.6,
+    ytick={3}, yticklabels={$L=\sup\nolimits_n a_n$},
+    xtick=\empty,
+    ]
+    \addplot[figred, thick, dashed, domain=0:14] {3};
+    \addplot[figblue, mark=*, mark size=2pt, only marks] coordinates {
+      (1,0.6) (2,1.3) (3,1.85) (4,2.25) (5,2.5) (6,2.68) (7,2.8)
+      (8,2.88) (9,2.93) (10,2.96) (11,2.98) (12,2.99) (13,3.0)
+    };
+    \draw[figgreen, dashed] (axis cs:0,3.15) -- (axis cs:14,3.15)
+      node[pos=1,anchor=west,figgreen,font=\scriptsize] {$L+\varepsilon$};
+    \draw[figgreen, dashed] (axis cs:0,2.85) -- (axis cs:14,2.85)
+      node[pos=1,anchor=west,figgreen,font=\scriptsize] {$L-\varepsilon$};
+    \draw[black!50,dotted] (axis cs:6.4,0) -- (axis cs:6.4,3.6)
+      node[pos=1,above,font=\scriptsize,black!70]{$N$};
+  \end{axis}
+\end{tikzpicture}
+\caption[Convergence of a bounded monotone sequence]{Increasing and bounded
+  sequence $(a_n)$: the band $(L-\varepsilon,L+\varepsilon)$ contains all terms from a certain
+  index $N$ onwards.}
+\label{fig:ch3-monotone-convergence}
+\end{figure}
+
+A remarkable application of the Monotone Sequence Theorem concerns the sequence
+\[
+\left( 1 + \frac{1}{n} \right)^n, \qquad n \in \mathbb{N}
+\]
+
+It can be shown that this sequence is monotone increasing and bounded above; consequently, by the Monotone
+Convergence Theorem, it admits a finite limit. This limit is a fundamental mathematical constant known as Euler's
+number, defined by
+\[
+\begin{aligned}
+e &:= \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n \\
+&\approx 2.7182818284\ldots
+\end{aligned}
+\]
+
+The origin of this constant is closely tied to a classical problem in finance. Jacob Bernoulli discovered it in
+1683 while studying a question concerning compound interest. Consider an account that starts with one dollar and
+pays one hundred percent interest per year; if the interest is credited only once, at the end of the year, the
+value of the account will be two dollars. The natural question is what happens if the interest is computed and
+credited more frequently throughout the year. If the interest is credited twice per year, the rate applicable to
+each six-month period is fifty percent, so the initial dollar is multiplied by $1.5$ twice, yielding
+\[
+1 \times (1.5)^2 = 2.25
+\]
+dollars at the end of the year. Compounding quarterly yields
+\[
+1 \times (1.25)^4 = 2.4414\ldots
+\]
+dollars, while compounding monthly yields
+\[
+1 \times (1 + 1/12)^{12} = 2.613035\ldots
+\]
+dollars. More generally,
+if there are $n$ compounding intervals within the year, the interest rate applicable to each interval is
+$100\%/n$, and the value of the account at the end of the year is precisely $1 \times (1 + 1/n)^n$ dollars,
+which is exactly the term of the sequence considered above.
+
+\subsection{Uniqueness and Boundedness of Limits}
+
+Two natural questions arise once the notion of limit has been introduced: how many limits may a given sequence
+possess, and what qualitative properties must a convergent sequence necessarily satisfy. The first question is
+answered by the following uniqueness theorem.
+
+\begin{theorem}[Uniqueness of the Limit]
+Whenever a sequence has a finite or infinite limit, that limit is unique.
+\end{theorem}
+
+\begin{proof}
+Suppose, for the sake of contradiction, that $a_n \to L_1$ and $a_n \to L_2$ with $L_1, L_2 \in \mathbb{R}$ and
+$L_1 \neq L_2$. Set
+\[
+d := |L_1 - L_2| > 0
+\]
+
+By the definition of limit, there exist integers $N_1 \in \mathbb{N}$ and $N_2 \in \mathbb{N}$ such that the first bound holds for every $n > N_1$ and the second for every $n > N_2$:
+\[
+\begin{aligned}
+|a_n - L_1| &< \frac{d}{2}, \\
+|a_n - L_2| &< \frac{d}{2}.
+\end{aligned}
+\]
+Consequently, for every $n > \max\{N_1, N_2\}$ we obtain, using the triangle inequality,
+\[
+|L_1 - L_2| = |L_1 - a_n + a_n - L_2| \leq |a_n - L_1| + |a_n - L_2| < \frac{d}{2} + \frac{d}{2} = d
+\]
+
+We have thus shown that $|L_1 - L_2| < d$, which contradicts the definition of $d$ and establishes the theorem.
+\end{proof}
+
+The second question concerns the relationship between convergence and boundedness.
+
+\begin{theorem}
+If a sequence is convergent, then it is bounded.
+\end{theorem}
+
+\begin{proof}
+Suppose $a_n \to L$. Applying the definition of limit with $\varepsilon = 1$, we find an integer
+$N \in \mathbb{N}$ such that $|a_n - L| < 1$ for every $n > N$. In particular, for such $n$ we obtain
+\[
+|a_n| = |a_n - L + L| \leq |a_n - L| + |L| < |L| + 1
+\]
+
+Combining this estimate with the finitely many terms $a_1, \dots, a_N$ gives a bound valid for every $n \in \mathbb{N}$:
+\[
+|a_n| \leq \max\{|a_1|, |a_2|, \dots, |a_N|, |L| + 1\},
+\]
+which shows that the sequence is bounded.
+\end{proof}
+
+\begin{remark}
+The converse of this theorem is false: the sequence $\{(-1)^n\}$ is bounded, yet it is not convergent.
+\end{remark}
+
+\section{Asymptotic Comparison and Limit Laws}
+
+\subsection{Comparing Infinities and Infinitesimals}
+
+We call a sequence $\{a_n\}$ infinite if
+\[
+\lim_{n \to \infty} a_n = +\infty.
+\]
+
+A natural question that arises
+once several infinite sequences are available is which one grows faster; for instance, one may ask which is the
+stronger infinity between $n$ and $n^2$, or, equivalently, which of the two diverges to $+\infty$ more rapidly.
+In order to compare two infinite sequences $a_n \to +\infty$ and $b_n \to +\infty$, it is customary to examine
+the limit of their quotient,
+\[
+\lim_{n \to \infty} \frac{a_n}{b_n}
+\]
+
+If this limit equals $+\infty$, we say that $a_n$ is an infinite of higher order than $b_n$, and we write
+$b_n \prec a_n$. If instead the limit equals $0$, we say that $a_n$ is an infinite of lower order than $b_n$,
+and we write $a_n \prec b_n$. A third possibility, of particular importance, occurs when the quotient tends to
+one.
+
+\begin{definition}
+If
+\[
+\lim_{n \to \infty} a_n / b_n = 1,
+\]
+we say that $a_n$ is asymptotically equivalent to $b_n$, and we write
+$a_n \sim b_n$. In this case $a_n$ and $b_n$ are said to be infinities of the same order.
+\end{definition}
+
+This comparison mechanism applies in particular to powers of $n$. To compare $n^a$ with $n^b$ for exponents
+$a > b$, one computes the limit of the quotient $n^b / n^a \to 0$, from which it follows that $n^a$ is an
+infinity of higher order than $n^b$; symbolically, $n^b \prec n^a$ whenever $b < a$. More generally, a sequence
+$a_n$ is said to be an infinity of order $\beta$ if
+\[
+\lim_{n \to \infty} \frac{a_n}{n^\beta} = k
+\]
+for suitable constants $k > 0$ and $\beta > 0$; the expression $k n^\beta$ is then called the leading part of
+$a_n$. For example, the sequence $a_n = -2n^3 + n^2$ satisfies $a_n \sim -2n^3$, since the cubic term dominates
+the quadratic one as $n \to \infty$. A more refined classification is obtained by comparing infinities of
+essentially different kinds, such as logarithms, powers, exponentials, and factorials. The following collection
+of special limits, which we state without proof, provides a hierarchy of increasingly rapid growth. For every
+choice of real constants $\alpha, \beta > 0$ and $b > 1$, one has
+\[
+\begin{gathered}
+\lim_{n \to \infty} \frac{(\ln n)^\beta}{n^\alpha} = 0, \qquad
+\lim_{n \to \infty} \frac{n^\alpha}{b^n} = 0, \\
+\lim_{n \to +\infty} \frac{b^n}{n!} = 0, \qquad
+\lim_{n \to +\infty} \frac{n!}{n^n} = 0
+\end{gathered}
+\]
+
+These four special limits together yield the following hierarchy of infinities, ordered from the slowest to the
+fastest growing:
+\[
+(\ln n)^\beta \prec n^\alpha \prec b^n \prec n! \prec n^n
+\]
+
+An entirely dual theory applies to sequences that tend to zero. We call a sequence $\{\varepsilon_n\}$
+infinitesimal if
+\[
+\lim_{n \to \infty} \varepsilon_n = 0;
+\]
+a natural question, in analogy with the case of
+infinities, is which of two infinitesimals, for instance $1/n$ and $1/n^2$, tends to zero more rapidly. A useful
+family of infinitesimal sequences is generated by composing an elementary function with an infinitesimal argument,
+as in the sequences $\ln(1 + 1/n)$, $\sin(1/n^2)$, and $e^{1/n} - 1$. The fact that these sequences are indeed
+infinitesimal follows from the following general rule.
+
+\begin{theorem}[Composition Rule]
+Let $f$ be an elementary function. If $a_n \to a$ with $a \in \operatorname{Dom}(f)$, then $f(a_n) \to f(a)$.
+\end{theorem}
+
+In particular, this rule guarantees that $\sin a_n \to \sin a$, that $e^{a_n} \to e^a$, that $\ln a_n \to \ln a$
+(whenever the logarithm is defined), and that $a_n^\alpha \to a^\alpha$. Just as for infinities, two
+infinitesimal sequences $a_n \to 0$ and $b_n \to 0$ are compared by examining the limit of their quotient
+\[
+\lim_{n \to \infty} a_n / b_n.
+\]
+
+If this limit equals zero, we say that $a_n$ is an infinitesimal of higher order
+than $b_n$; if the limit equals infinity, we say that $a_n$ is an infinitesimal of lower order than $b_n$.
+As before, a special case deserves its own definition.
+
+\begin{definition}
+If
+\[
+\lim_{n \to \infty} a_n / b_n = 1,
+\]
+we say that $a_n$ is asymptotically equivalent to $b_n$, and we write
+$a_n \sim b_n$. In this case $a_n$ and $b_n$ are said to be infinitesimals of the same order.
+\end{definition}
+
+A number of special limits, again stated without proof and valid for an arbitrary infinitesimal sequence
+$\{\varepsilon_n\}$, establish that certain elementary infinitesimals are asymptotically equivalent to
+$\varepsilon_n$ itself. These are
+\[
+\begin{aligned}
+\lim_{n \to \infty} \frac{\ln(1 + \varepsilon_n)}{\varepsilon_n} = 1
+&\ \longleftrightarrow\ \ln(1 + \varepsilon_n) \sim \varepsilon_n, \\
+\lim_{n \to \infty} \frac{e^{\varepsilon_n} - 1}{\varepsilon_n} = 1
+&\ \longleftrightarrow\ e^{\varepsilon_n} - 1 \sim \varepsilon_n
+\end{aligned}
+\]
+and, for every $\alpha > 0$,
+\[
+\lim_{n \to \infty} \frac{(1 + \varepsilon_n)^\alpha - 1}{\varepsilon_n} = \alpha \ \longleftrightarrow\ (1 + \varepsilon_n)^\alpha - 1 \sim \alpha \, \varepsilon_n
+\]
+In the same spirit, one also has
+\[
+\begin{aligned}
+\lim_{n \to \infty} \frac{\sin \varepsilon_n}{\varepsilon_n} = 1
+&\ \longleftrightarrow\ \sin \varepsilon_n \sim \varepsilon_n, \\
+\lim_{n \to \infty} \frac{1 - \cos \varepsilon_n}{(\varepsilon_n)^2} = \frac{1}{2}
+&\ \longleftrightarrow\ 1 - \cos \varepsilon_n \sim \frac{1}{2} \varepsilon_n^2
+\end{aligned}
+\]
+
+\subsection{Comparison Theorems for Limits of Sequences}
+
+The comparison of sequences with respect to order of magnitude, discussed above, relies on a more fundamental
+set of results concerning the compatibility of limits with inequalities. The first such result concerns the sign
+of the terms of a convergent sequence.
+
+\begin{theorem}[Sign Preserving Property]
+Let $a_n \to L$. If $L > 0$, then $a_n > 0$ for every $n$ sufficiently large. Conversely, if $a_n > 0$ for every
+$n$ sufficiently large, then $L \geq 0$.
+\end{theorem}
+
+A second fundamental result allows one to pass inequalities between sequences to the limit.
+
+\begin{theorem}[Comparison Theorem I]
+If $a_n \geq b_n$ for every $n$ and both sequences possess a limit, then
+\[
+\lim_{n \to \infty} a_n \geq \lim_{n \to \infty} b_n
+\]
+In particular,
+\[
+\begin{gathered}
+\lim_{n \to \infty} b_n = +\infty\quad\text{implies}\quad \lim_{n \to \infty} a_n = +\infty, \\
+\lim_{n \to \infty} a_n = -\infty\quad\text{implies}\quad \lim_{n \to \infty} b_n = -\infty.
+\end{gathered}
+\]
+
+\end{theorem}
+
+A third comparison result, often called the Squeeze Theorem, is particularly useful when the limit of a sequence
+cannot be computed directly but can be bounded between two sequences with a common, known limit.
+
+\begin{theorem}[Comparison Theorem II, Squeeze Theorem]
+Suppose the following inequalities hold for every $n$ sufficiently large:
+\[
+c_n \leq b_n \leq a_n.
+\]
+If also $a_n \to L$ and $c_n \to L$, then $b_n \to L$.
+\end{theorem}
+
+An immediate and frequently used consequence of the Squeeze Theorem is the following.
+
+\begin{corollary}
+If $a_n \to 0$ and $b_n$ is bounded, then $a_n \cdot b_n \to 0$.
+\end{corollary}
+
+The proofs of the Sign Preserving Property and of the above corollary are left to the reader as instructive
+exercises.
+
+\subsection{Algebraic Limit Laws}
+
+Having established the qualitative comparison theorems, we now turn to the quantitative problem of computing
+limits explicitly. The following theorem collects the elementary algebraic operations under which convergence
+is preserved.
+
+\begin{theorem}[Algebraic Limit Laws]
+Let $\{a_n\}$ and $\{b_n\}$ be two convergent sequences, with $a_n \to a$ and $b_n \to b$. Then
+\[
+a_n + b_n \to a + b, \qquad a_n \cdot b_n \to a \cdot b, \qquad \frac{a_n}{b_n} \to \frac{a}{b} \ \text{ if } b \neq 0
+\]
+
+\end{theorem}
+
+We present the proof of the product law, as it illustrates a technique of general usefulness.
+
+\begin{proof}[Proof of the product law]
+We must show that $|a_n b_n - ab| \to 0$. Adding and subtracting the term $a b_n$, we obtain
+\[
+|a_n b_n - ab| = |a_n b_n - a b_n + a b_n - ab| \leq |b_n| \, |a_n - a| + |a| \, |b_n - b|
+\]
+
+Since $\{b_n\}$ is convergent, it is bounded, so there exists $M > 0$ such that $|b_n| \leq M$ for every
+$n \in \mathbb{N}$. Hence
+\[
+|a_n b_n - ab| \leq M |a_n - a| + |a| \, |b_n - b|
+\]
+
+Fix $\varepsilon > 0$. By the convergence $a_n \to a$, there exists $N_1$ such that
+$|a_n - a| < \varepsilon / (2M)$ for every $n > N_1$. Likewise, by the convergence $b_n \to b$, there exists
+$N_2$ such that $|b_n - b| < \varepsilon / (2|a|)$ for every $n > N_2$. Combining these two estimates, we obtain
+$|a_n b_n - ab| < \varepsilon$ for every $n > \max\{N_1, N_2\}$, which proves the claim.
+\end{proof}
+
+\subsection{The Algebra of Infinity and Indeterminate Forms}
+
+The algebraic limit laws stated above apply, strictly speaking, only to finite limits, and one may naturally ask
+how similar operations behave when one or both of the sequences diverge to infinity. The answer must be handled
+with considerable care, since some conclusions remain valid while others are entirely unjustified. The following
+list collects the valid algebraic laws governing infinite limits, for a finite real number $a$:
+\[
+a + \infty = +\infty, \qquad a - \infty = -\infty, \qquad +\infty + \infty = +\infty, \qquad -\infty - \infty = -\infty
+\]
+
+\[
+a \cdot \infty = \infty, \qquad \frac{a}{0} = \infty \ \text{ if } a \neq 0, \qquad \frac{a}{\infty} = 0
+\]
+
+The shorthand notation $a + \infty = +\infty$ should be understood in the following operational sense: if
+$a_n \to a$ and $b_n \to +\infty$, then $a_n + b_n \to +\infty$, and analogous interpretations apply to the
+remaining rules. By contrast, certain combinations of infinite or infinitesimal limits do not determine the
+resulting limit uniquely, and are accordingly called indeterminate forms. These are
+\[
++\infty - \infty, \qquad 0 \cdot \infty, \qquad \frac{0}{0}, \qquad \frac{\infty}{\infty}
+\]
+
+In each of these situations, essentially any outcome is possible depending on the specific sequences involved,
+as illustrated by the three sequences
+\[
+b_n = \frac{n^3}{n^2 + 1}, \qquad c_n = \frac{1 + 4n^2}{5 + 3n + n^2}, \qquad d_n = \frac{4 + n^2}{3n - n^5}
+\]
+all of which present the indeterminate form $\infty / \infty$ yet exhibit different limiting behaviors.
+A useful heuristic for resolving such indeterminate forms consists of identifying, within each expression, the
+dominant term, that is, the infinity of highest order, and factoring it out; the reader is encouraged to practice
+this technique on limits such as
+\[
+\lim_{n \to \infty} \frac{e^{1/n} - 1}{\sin(2/n)}, \qquad
+\lim_{n \to \infty} \frac{\ln(1 + 1/n)}{n \sin(1/n^2)}, \qquad
+\lim_{n \to \infty} \frac{1 - \cos(1/n)}{1/n^2}
+\]
+which involve infinitesimal sequences and can be resolved using the special limits collected in the previous
+subsection. A systematic and powerful method for handling such indeterminate quotients and products is furnished
+by the following substitution principle, which allows one to replace each factor by any sequence to which it is
+asymptotically equivalent.
+
+\begin{theorem}[Substitution Principle]
+If $a_n \sim A_n$, $b_n \sim B_n$, and $c_n \sim C_n$, then
+\[
+\frac{a_n \cdot b_n}{c_n} \sim \frac{A_n \cdot B_n}{C_n}
+\]
+or, equivalently,
+\[
+\lim_{n \to \infty} \frac{a_n \cdot b_n}{c_n} = \lim_{n \to \infty} \frac{A_n \cdot B_n}{C_n}
+\]
+
+\end{theorem}
+
+The reader is invited to revisit the exercises considered so far and to solve them anew by exploiting this
+substitution principle. Besides the indeterminate forms already discussed, further indeterminate forms arise
+when studying limits of the type
+\[
+\lim_{n \to \infty} a_n^{b_n},
+\]
+namely the forms $1^{\infty}$, $0^0$, and
+$\infty^0$. To handle these cases, one takes the logarithm, writing
+\[
+\begin{aligned}
+a_n^{b_n} &= e^{\ln a_n^{b_n}} \\
+&= e^{b_n \ln a_n}
+\end{aligned}
+\]
+and observes that the exponent $b_n \ln a_n$ itself reduces to one of the previously discussed indeterminate
+forms: if $a_n \to 1$ and $b_n \to \infty$, then $b_n \ln a_n$ has the form $\infty \cdot 0$; if $a_n \to 0$ and
+$b_n \to 0$, then $b_n \ln a_n$ has the form $0 \cdot (-\infty)$; and if $a_n \to \infty$ and $b_n \to 0$, then
+$b_n \ln a_n$ has the form $0 \cdot \infty$. Once it has been shown that $b_n \ln a_n \to L$, possibly with
+$L = \pm \infty$, one concludes that
+\[
+\begin{aligned}
+\lim_{n \to \infty} a_n^{b_n} &= \lim_{n \to \infty} e^{b_n \ln a_n} \\
+&= e^L
+\end{aligned}
+\]
+
+A particularly important special limit of the form $1^\infty$ generalizes the definition of Euler's number
+encountered earlier: if $b_n \to \infty$, then
+\[
+\lim_{n \to \infty} \left( 1 + \frac{1}{b_n} \right)^{b_n} = e
+\]
+
+Summarizing the discussion of this section, the principal tools available for resolving indeterminate forms in
+the computation of limits of sequences are algebraic manipulation and simplification, the hierarchy of infinities,
+the collection of special limits, and the substitution principle based on asymptotic equivalence.
+
+We close this section by proving one of the special limits invoked above, namely $\sin \varepsilon_n / \varepsilon_n \to 1$
+for an infinitesimal sequence $\varepsilon_n \to 0$.
+
+\begin{proof}
+Assume, without loss of generality, that $\varepsilon_n \in (0, \pi/2)$. The following chain of inequalities
+holds for such values:
+\[
+\begin{aligned}
+\sin \varepsilon_n &\leq \varepsilon_n \\
+&\leq \tan \varepsilon_n
+\end{aligned}
+\]
+Dividing throughout by $\sin \varepsilon_n$, which is positive, we obtain
+\[
+\begin{aligned}
+1 &\leq \frac{\varepsilon_n}{\sin \varepsilon_n} \\
+&\leq \frac{\tan \varepsilon_n}{\sin \varepsilon_n} \\
+&= \frac{1}{\cos \varepsilon_n}
+\end{aligned}
+\]
+Taking reciprocals reverses the inequalities and yields
+\[
+\begin{aligned}
+\cos \varepsilon_n &\leq \frac{\sin \varepsilon_n}{\varepsilon_n} \\
+&\leq 1
+\end{aligned}
+\]
+
+Since $\cos \varepsilon_n \to 1$ as $n \to \infty$, the Squeeze Theorem allows us to conclude that
+$\sin \varepsilon_n / \varepsilon_n \to 1$, as claimed.
+\end{proof}
+
+\section{Infinite Series and Partial Sums}
+
+\subsection{From Infinite Decimals to Infinite Series}
+
+The theory of series arises naturally from a question that is implicit in ordinary decimal notation: what
+precisely do we mean when we express a number as an infinite decimal expansion? For instance, what does it mean
+to write
+\[
+\pi = 3.14159265358979323846264338327950288 \cdots?
+\]
+
+The convention underlying decimal notation is that any real number can be represented as an infinite sum, so
+that
+\[
+\pi = 3 + \frac{1}{10} + \frac{4}{10^2} + \frac{1}{10^3} + \frac{5}{10^4} + \cdots
+\]
+where the ellipsis indicates that the sum continues indefinitely, and where the more terms one adds, the closer
+the resulting partial sum approaches the true value of $\pi$. This idea of summing infinitely many terms is
+formalized by the notion of an infinite series. If one attempts to add the terms of an infinite sequence
+$\{a_n\}$, one obtains an expression of the form
+\[
+a_0 + a_1 + a_2 + a_3 + \cdots + a_n + \cdots
+\]
+which is called an infinite series, or simply a series, and is denoted for brevity by the symbol
+\[
+\sum_{n=0}^{\infty} a_n.
+\]
+
+It is important to emphasize that this expression is, at this stage, merely a formal
+symbol and not yet a rigorous definition of what it means for the series to have a value; the precise definition requires the auxiliary notion of partial sum.
+
+\begin{definition}[Partial Sum]
+Given a sequence $\{a_n\}_{n \in \mathbb{N}}$, for every $k \in \mathbb{N}$ we denote by
+\[
+s_k = a_0 + a_1 + a_2 + \cdots + a_k
+\]
+the sum of the terms $a_i$ up to index $k$, called the $k$-th partial sum. The resulting sequence $\{s_k\}_{k \in \mathbb{N}}$ is called the sequence of partial sums associated with $\{a_n\}$.
+\end{definition}
+
+With this notion in hand, the series of general term $a_n$ can be rigorously defined as the limit of its sequence of partial sums.
+
+\begin{definition}[Series]
+The series of term $a_n$, denoted by
+\[
+a_0 + a_1 + a_2 + \cdots + a_n + \cdots = \sum_{n=0}^{\infty} a_n,
+\]
+is defined as the limit of the sequence of its partial sums,
+\[
+\begin{aligned}
+\sum_{n=0}^{\infty} a_n &:= \lim_{k \to \infty} s_k \\
+&= \lim_{k \to \infty} \sum_{n=0}^{k} a_n.
+\end{aligned}
+\]
+
+\end{definition}
+
+\subsection{Geometric and Basel Series}
+
+Just as for sequences, the limiting behavior of the sequence of partial sums determines the convergence behavior of a series.
+
+\begin{definition}[Convergence and Divergence of a Series]
+If the limit
+\[
+\lim_{k \to \infty} s_k
+\]
+exists and is finite, we say that the series
+\[
+\sum_{n=0}^{\infty} a_n
+\]
+is convergent. If
+\[
+\lim_{k \to \infty} s_k = +\infty
+\]
+or $-\infty$, we say that the series diverges to the corresponding infinity. If the limit does not exist, the series is also called divergent.
+\end{definition}
+
+The paradigmatic example illustrating this classification is the geometric series.
+
+\begin{definition}[Geometric Series]
+Given a real number $q$, the series
+\[
+\sum_{n=0}^{\infty} q^n
+\]
+is called the geometric series of common ratio $q$.
+\end{definition}
+
+The convergence behavior of a geometric series depends entirely on the value of $q$:
+\[
+\begin{cases}
+\text{divergent} & \text{if } q \geq 1, \\
+\text{convergent} & \text{if } |q| < 1, \\
+\text{divergent} & \text{if } q \leq -1.
+\end{cases}
+\]
+Moreover, whenever $|q| < 1$, the sum of the series admits the explicit closed-form expression
+\[
+\sum_{n=0}^{\infty} q^n = \frac{1}{1 - q}.
+\]
+
+This result follows from the classical formula for the partial sums of a geometric progression: for every $q \neq 1$, one has
+\[
+\sum_{n=0}^{k} q^n = \frac{1 - q^{k+1}}{1 - q}.
+\]
+
+The value of the series is then obtained by letting $k \to \infty$ in this explicit expression for the partial sums, using the results on the limit of $q^n$ established in the previous section.
+
+Having established this concrete example, the general goal of the theory of series becomes clear: given an arbitrary sequence $\{a_n\}$, one wishes to determine the convergence behavior of the associated series
+\[
+\sum_{n=0}^{\infty} a_n,
+\]
+that is, to decide whether it is convergent or divergent, and, if it converges, to compute or at least estimate its sum.
+
+
+A celebrated example illustrating the subtlety of this problem is the Basel series, defined as the sum of the reciprocals of the squares of all positive integers,
+\[
+\sum_{n=1}^{\infty} \frac{1}{n^2} = 1 + \frac{1}{4} + \frac{1}{9} + \cdots + \frac{1}{n^2} + \cdots.
+\]
+
+It will be shown below that this series is convergent; however, unlike the geometric series, no explicit closed-form formula is available for its partial sums, which raises the question of how one might determine the exact value of the sum. Computing the exact value of a convergent series can indeed be a very difficult problem in general. It is a celebrated fact, established by Euler in 1735 in his solution to the so-called Basel Problem, that
+\[
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}.
+\]
+More generally, Euler obtained an explicit formula for the sum
+\[
+\sum_{n=1}^{\infty} 1/n^\alpha =: \zeta(\alpha)
+\]
+whenever the exponent $\alpha$ is a positive even integer. In striking contrast, for odd values of $\alpha$ the exact value of the sum remains unknown to this day; it is only known, since 1977, that the constant $\zeta(3)$, called Apéry's number, is irrational.
+
+\subsection{Necessary Conditions, Finite Changes, and Algebraic Operations}
+
+Our principal objective in the remainder of this section is to develop systematic techniques for determining the convergence behavior of a given series without necessarily computing its exact sum. A first useful observation is that altering a finite number of terms of a series does not affect its convergence or divergence, since
+\[
+\sum_{n=0}^{\infty} a_n = a_0 + a_1 + \cdots + a_N + \sum_{n=N+1}^{\infty} a_n
+\]
+for any fixed integer $N$; naturally, the numerical values of the two series appearing on either side of this identity generally differ when both are convergent, even though their convergence behavior is the same. Because of this observation, when one is interested only in convergence and not in the precise value of the sum, it is customary to denote the series simply by $\sum a_n$ or
+\[
+\sum_n a_n,
+\]
+omitting the starting index. A first necessary condition for convergence, applicable to series with arbitrary terms, is provided by the following theorem.
+
+\begin{theorem}[Necessary Condition for Convergence]
+If the series of term $a_n$ is convergent, then
+\[
+\lim_{n \to \infty} a_n = 0.
+\]
+
+\end{theorem}
+
+\begin{proof}
+By assumption, there exists $s \in \mathbb{R}$ such that
+\[
+\lim_{n \to \infty} s_n = s.
+\]
+Here the $n$-th partial sum is defined by
+\[
+s_n = a_1 + \cdots + a_{n-1} + a_n.
+\]
+The partial sum with index $n-1$ is
+\[
+s_{n-1} = a_1 + \cdots + a_{n-1}.
+\]
+Shifting the index does not change the limit, so
+\[
+\lim_{n \to \infty} s_{n-1} = s.
+\]
+Subtracting the two sequences, we find $s_n - s_{n-1} = a_n$, and hence
+\[
+\begin{aligned}
+\lim_{n \to \infty} a_n &= \lim_{n \to \infty} s_n - \lim_{n \to \infty} s_{n-1} \\
+&= s - s \\
+&= 0,
+\end{aligned}
+\]
+which proves the theorem.
+\end{proof}
+
+\begin{remark}
+The condition
+\[
+\lim_{n \to \infty} a_n = 0
+\]
+is necessary but by no means sufficient for the convergence of the series $\sum a_n$. The harmonic series, discussed below, provides the standard counterexample: its general term $a_n = 1/n$ tends to zero, yet the series $\sum 1/n$ is divergent.
+\end{remark}
+
+
+Convergent series inherit certain algebraic properties from the corresponding limit laws for sequences, as recorded in the following theorem.
+
+\begin{theorem}
+If $\sum a_n$ and $\sum b_n$ are convergent series, then so are $\sum c \cdot a_n$, for any constant $c \in \mathbb{R}$, and $\sum (a_n + b_n)$. Moreover,
+\[
+\sum_{n=0}^{\infty} c \cdot a_n = c \sum_{n=0}^{\infty} a_n, \qquad \sum_{n=0}^{\infty} (a_n + b_n) = \sum_{n=0}^{\infty} a_n + \sum_{n=0}^{\infty} b_n.
+\]
+
+\end{theorem}
+
+These properties follow directly from the corresponding algebraic limit laws for sequences, applied to the associated sequences of partial sums. As an exercise illustrating this theorem, the reader may verify the convergence of the series
+\[
+\sum_{n=1}^{\infty} ( (-1)^n / 3^n + 1/2^n )
+\]
+and compute its sum, and may also show, arguing by contradiction, that if $\sum a_n$ is convergent while $\sum b_n$ is divergent, then the series $\sum (a_n + b_n)$ is necessarily divergent.
+
+\section{Positive Series and Convergence Tests}
+
+\subsection{Harmonic and Generalized Harmonic Series}
+
+We now return to the two celebrated series introduced earlier, providing convergence and divergence proofs that do not require an explicit formula for the partial sums.
+
+\begin{theorem}
+The Basel series
+\[
+\sum_{n=1}^{\infty} 1/n^2 = 1 + 1/4 + 1/9 + \cdots + 1/n^2 + \cdots
+\]
+is convergent.
+\end{theorem}
+
+\begin{proof}
+Although the partial sums of this series cannot be computed explicitly, they can be compared with those of a suitable telescopic series. For every $k \geq 1$ we have
+\[
+s_k = \sum_{n=1}^{k} \frac{1}{n^2} < 1 + \sum_{n=2}^{k} \frac{1}{n(n-1)} = 1 + \sum_{n=2}^{k} \left( \frac{1}{n-1} - \frac{1}{n} \right).
+\]
+The sum on the right-hand side telescopes, so that
+\[
+1 + \left(1 - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \left(\frac{1}{3} - \frac{1}{4}\right) + \cdots + \left(\frac{1}{k-1} - \frac{1}{k}\right) = 1 + 1 - \frac{1}{k}.
+\]
+
+This shows that $s_k < 2$ for every $k$, so that the sequence $\{s_k\}$ is bounded. Since $\{s_k\}$ is also increasing, being the sequence of partial sums of a series with positive terms, the Monotone Convergence Theorem guarantees that it possesses a finite limit; by definition of series, this proves that the Basel series is convergent.
+\end{proof}
+
+\begin{theorem}
+The harmonic series
+\[
+\sum_{n=1}^{\infty} 1/n = 1 + 1/2 + 1/3 + \cdots + 1/n + \cdots
+\]
+is divergent.
+\end{theorem}
+
+\begin{proof}
+As with the Basel series, the partial sums of the harmonic series cannot be computed explicitly, but they can be compared with those of a computable divergent series. Using the elementary inequality $x \geq \ln(1 + x)$, valid for every $x \in \mathbb{R}$, we estimate the $k$-th partial sum from below as
+\[
+\begin{aligned}
+s_k &= \sum_{n=1}^{k} \frac{1}{n} \\
+&\geq \sum_{n=1}^{k} \ln \left(1 + \frac{1}{n}\right) \\
+&= \sum_{n=1}^{k} \big( \ln(n+1) - \ln n \big).
+\end{aligned}
+\]
+The right-hand side is again a telescopic sum,
+\[
+\begin{aligned}
+\sum_{n=1}^{k} \big( \ln(n+1) - \ln n \big) &= (\ln 2 - \ln 1) + (\ln 3 - \ln 2) + \cdots + \big(\ln(k+1) - \ln k\big) \\
+&= \ln(k+1),
+\end{aligned}
+\]
+and hence $s_k \geq \ln(k+1)$ for every $k$. Since
+\[
+\lim_{k \to \infty} \ln(k+1) = \infty,
+\]
+it follows that
+\[
+\lim_{k \to \infty} s_k = \infty,
+\]
+which proves that the harmonic series is divergent.
+\end{proof}
+
+The harmonic series is the special case $\alpha = 1$ of a broader family known as the generalized harmonic series, defined for a real parameter $\alpha$ as
+\[
+\sum_{n=1}^{\infty} 1/n^\alpha.
+\]
+
+This series is convergent for $\alpha > 1$ and divergent for $\alpha \leq 1$; the cases $\alpha > 2$ and $\alpha < 1$ follow directly from the Comparison Test discussed in the next subsection, while the boundary case $\alpha = 1$ is precisely the harmonic series treated above.
+
+The divergence of the harmonic series, despite the fact that its general term $a_n = 1/n$ tends to zero, provides the promised counterexample confirming that the necessary condition for convergence established earlier is not sufficient: although
+\[
+\lim_{n \to \infty} 1/n = 0,
+\]
+the series $\sum 1/n$ is nonetheless divergent.
+
+\subsection{Comparison and Asymptotic Comparison Tests}
+
+A series is called a positive series if its general term satisfies $a_n > 0$ for every $n$. Positive series enjoy a particularly simple qualitative property, recorded in the following theorem.
+
+\begin{theorem}
+A positive series either converges to a finite value or diverges to $+\infty$.
+\end{theorem}
+
+\begin{proof}
+The sequence $s_n$ of partial sums of a positive series is monotone increasing, since $s_{n+1} = s_n + a_{n+1}$ and $a_{n+1} > 0$ implies $s_{n+1} > s_n$ for every integer $n$. By the Monotone Convergence Theorem, $s_n$ has a finite limit if it is bounded above and tends to $+\infty$ otherwise, which proves the theorem.
+\end{proof}
+
+A first practical criterion, useful for quickly identifying divergence, is the following.
+
+\begin{theorem}[Divergence Test for Positive Series]
+If $a_n > 0$ eventually and
+\[
+\lim_{n \to \infty} a_n \neq 0,
+\]
+then the series $\sum a_n$ diverges.
+\end{theorem}
+
+As an application, one may consider the series
+\[
+\sum_{n=1}^{\infty} (4n+5)/(3n+1),
+\]
+whose general term does not tend to zero and which is therefore divergent by the Divergence Test.
+
+A more refined tool for determining the convergence behavior of a positive series by comparison with another, better-understood series is the Comparison Test.
+
+\begin{theorem}[Comparison Test]
+Given two positive sequences $\{a_n\}$ and $\{b_n\}$ such that $a_n \leq b_n$ for every $n$ sufficiently large, the following implications hold: if $\sum a_n$ is divergent, then $\sum b_n$ is divergent; and if $\sum b_n$ is convergent, then $\sum a_n$ is convergent.
+\end{theorem}
+
+\begin{proof}
+By assumption, $a_n \leq b_n$ for every $n$, and consequently
+\[
+\sum_{n=1}^{k} a_n \leq \sum_{n=1}^{k} b_n
+\]
+for every $k$. Passing to the limit as $k \to \infty$ and invoking the Comparison Theorem for limits of sequences, we obtain
+\[
+\lim_{k \to \infty} \sum_{n=1}^{k} a_n \leq \lim_{k \to \infty} \sum_{n=1}^{k} b_n.
+\]
+If $\sum a_n$ is known to be divergent, then
+\[
+\lim_{k \to \infty} \sum_{n=1}^{k} a_n = +\infty,
+\]
+and the inequality above forces
+\[
+\lim_{k \to \infty} \sum_{n=1}^{k} b_n = +\infty
+\]
+as well, so that $\sum b_n$ is divergent too. The second assertion of the theorem is proved analogously.
+\end{proof}
+
+As an application of the Comparison Test, one may consider the series
+\[
+\sum_{n=1}^{\infty} 1/(n^4 + n - 1),
+\]
+whose convergence follows by comparison with the convergent generalized harmonic series of exponent four.
+
+A variant of the Comparison Test, often more convenient in practice, replaces the pointwise inequality between the two sequences with an asymptotic equivalence.
+
+\begin{theorem}[Asymptotic Comparison Test]
+Given two positive sequences $\{a_n\}$ and $\{b_n\}$ such that $a_n \sim b_n$ as $n \to \infty$, the series $\sum a_n$ and $\sum b_n$ have the same convergence behavior: either both converge or both diverge.
+\end{theorem}
+
+\begin{proof}
+The asymptotic equivalence gives the limit
+\[
+\lim_{n \to \infty} a_n / b_n = 1
+\]
+Consequently, there exists an integer $N$ such that the following bounds hold for every $n > N$:
+\[
+\frac{1}{2} < \frac{a_n}{b_n} < 2,
+\]
+that is, $(1/2) b_n < a_n < 2 b_n$ for every $n > N$. We now invoke the ordinary Comparison Test twice. If $\sum b_n$ converges, then so does $\sum 2 b_n$, and hence $\sum a_n$ converges by the Comparison Test, since $a_n < 2 b_n$. Conversely, if $\sum b_n$ diverges, then so does $\sum (1/2) b_n$, and hence $\sum a_n$ diverges by the Comparison Test, since $a_n > (1/2) b_n$. This establishes the equivalence of their convergence behavior.
+\end{proof}
+
+As an application, one may consider the series
+\[
+\sum_{n=1}^{\infty} (4n+5)/(n^4 + 3n + 1),
+\]
+whose general term is asymptotically equivalent to $4/n^3$, from which convergence follows immediately by the Asymptotic Comparison Test together with the convergence of the generalized harmonic series of exponent three. It is worth noting that, beyond the comparison-based criteria discussed here, additional tests are available for positive series, most notably the Ratio Test and the Root Test, which will not be developed further in the present text.
+
+\section{Absolute and Alternating Convergence}
+
+\subsection{Series with Terms of Arbitrary Sign}
+
+The theory developed so far applies specifically to positive series, for which the sequence of partial sums is automatically monotone. When the general term $a_n$ is allowed to have arbitrary sign, this monotonicity is lost. The archetypal example is the series
+\[
+\sum_{n=0}^{\infty} (-1)^n,
+\]
+whose partial sums satisfy $s_{2n} = 1$ and $s_{2n+1} = 0$ for every integer $n \geq 0$; since the sequence $\{s_n\}$ oscillates between these two values without converging, the series diverges. In general, when $a_n$ has arbitrary sign, the sequence of partial sums need not be monotone and may fail to converge.
+
+To extend the comparison-based techniques developed for positive series to this more general setting, it is natural to associate with an arbitrary series $\sum a_n$ the auxiliary positive series $\sum |a_n|$, obtained by taking absolute values of the terms. This leads to a stronger notion of convergence.
+
+\begin{definition}[Absolute Convergence]
+We say that the series $\sum a_n$ is absolutely convergent if the series of absolute values $\sum |a_n|$ is convergent.
+\end{definition}
+
+\begin{theorem}
+If a series is absolutely convergent, then it is convergent.
+\end{theorem}
+
+\begin{proof}
+Observe first that
+\[
+\begin{aligned}
+0 &\leq a_n + |a_n| \\
+&\leq 2 |a_n|
+\end{aligned}
+\]
+for every $n$. If $\sum a_n$ is absolutely convergent, then $\sum |a_n|$ is convergent, and hence $\sum 2 |a_n|$ is convergent as well. By the Comparison Test, applied to the positive series $\sum (a_n + |a_n|)$, we conclude that this series is convergent. Finally, writing
+\[
+\sum_n a_n = \sum_n (a_n + |a_n|) - \sum_n |a_n|
+\]
+as the difference of two convergent series, we conclude that $\sum a_n$ is itself convergent, as required.
+\end{proof}
+
+This theorem provides a powerful sufficient criterion for the convergence of series with arbitrary sign, applicable for instance to
+\[
+\sum_n (-1)^n n^2 / n^n
+\]
+and to
+\[
+\sum_n \sin n / n^2,
+\]
+both of which can be shown to be absolutely convergent.
+
+\subsection{Alternating Series and the Leibniz Test}
+
+A particularly important class of series with terms of arbitrary sign is provided by the alternating series. The alternating harmonic series,
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} \frac{1}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots,
+\]
+furnishes a natural example: it is not absolutely convergent, since the associated series of absolute values is precisely the divergent harmonic series, yet the question of whether the alternating series itself converges remains open at this point. In general, an alternating series is defined as follows.
+
+\begin{definition}
+A series of the form
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} b_n = b_1 - b_2 + b_3 - \cdots,
+\]
+where every term $b_n$ is positive, is called an alternating series.
+\end{definition}
+
+The convergence of alternating series is governed by a simple and elegant criterion, known as the Alternating Series Test or Leibniz's Test.
+
+\begin{theorem}[Leibniz's Test]
+Assume that the alternating series
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} b_n = b_1 - b_2 + b_3 - b_4 + \cdots
+\]
+satisfies the following two conditions: first,
+\[
+\lim_{n \to \infty} b_n = 0;
+\]
+second, the sequence $\{b_n\}$ decreases monotonically. Then the alternating series converges.
+\end{theorem}
+
+As a direct application of this criterion, the alternating harmonic series
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} / n = 1 - 1/2 + 1/3 - 1/4 + \cdots
+\]
+is convergent, since its general term $b_n = 1/n$ decreases monotonically to zero. The reader is encouraged to apply Leibniz's Test to establish the convergence of the series
+\[
+\begin{gathered}
+\sum_{n=1}^{\infty} (-1)^{n-1} \, 2n/(n+4) \\
+\sum_{n=1}^{\infty} (-1)^n \, n^2/(n^3+1),
+\end{gathered}
+\]
+and to consider whether the series
+\[
+\sum_{n=1}^{\infty} (-1)^n (2 + (-1)^n)/n
+\]
+can be analyzed by means of Leibniz's Test, and, more fundamentally, whether this series is convergent at all, since one of the two hypotheses of the test may fail to hold.
+
+\subsection{Estimating the Sum of an Alternating Series}
+
+A partial sum of any convergent series can, in principle, be used as an approximation to the value of the entire sum; however, such an approximation is of little practical use unless one can also estimate its accuracy. For alternating series satisfying the hypotheses of Leibniz's Test, such an estimate is available in a remarkably simple form.
+
+\begin{theorem}[Estimation Theorem]
+Under the hypotheses of Leibniz's Test, let $S$ denote the sum of the series
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} b_n.
+\]
+Then the $k$-th partial sum
+\[
+S_k = \sum_{n=1}^{k} (-1)^{n-1} b_n
+\]
+approximates $S$ with an error $E_k$ bounded by the magnitude of the first omitted term, that is,
+\[
+\begin{aligned}
+E_k &= |S_k - S| \\
+&\leq b_{k+1}.
+\end{aligned}
+\]
+
+\end{theorem}
+
+As an application of this estimation theorem, the reader may compute the sum of the series
+\[
+\sum_{n=0}^{\infty} (-1)^n / n!
+\]
+to within an accuracy of three decimal places, by choosing an index $k$ large enough that the bound
+\[
+b_{k+1} = 1/(k+1)!
+\]
+guarantees the required precision.
+
+\input{figures/alternating-bounds.tex}

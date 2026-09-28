@@ -1,0 +1,17 @@
+Figure~\ref{fig:atlas-mean-value} illustrates the parallel chord and tangent in the Mean Value Theorem.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=5.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$f(x)$},xmin=-0.15,xmax=2.3,ymin=-0.4,ymax=4.7,xtick={0,2},ytick={1,2,3,4}]
+\addplot[figblue,very thick,domain=0:2.15,samples=100] {x^2};
+\addplot[figred,thick] coordinates {(0,0)(2,4)};
+\addplot[figgreen,thick,domain=0.5:2] {2*x-1};
+\addplot[only marks,mark=*,figblue] coordinates {(0,0)(1,1)(2,4)};
+\draw[dotted] (axis cs:1,0) -- (axis cs:1,1);
+\node[below] at (axis cs:1,0) {$c$};
+\end{axis}
+\end{tikzpicture}
+\caption{For $f(x)=x^2$ on $[0,2]$, the endpoint chord has slope $2$. The tangent at $c=1$ has the same slope, as required by the Mean Value Theorem. The red chord records average change; the green tangent records instantaneous change.}
+\label{fig:atlas-mean-value}
+\end{figure}

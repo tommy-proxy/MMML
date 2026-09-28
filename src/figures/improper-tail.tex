@@ -1,0 +1,16 @@
+Figure~\ref{fig:atlas-improper-tail} visualizes the remainder left when a convergent improper integral is truncated.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[>=Stealth]
+\begin{axis}[width=11cm,height=5.8cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$1/x^2$},xmin=0,xmax=8.5,ymin=0,ymax=1.15,xtick={1,3,5,7},ytick={0.5,1}]
+\addplot[draw=none,fill=figred!25,domain=3:8,samples=100] {1/x^2} \closedcycle;
+\addplot[figblue,very thick,domain=1:8,samples=130] {1/x^2};
+\draw[dashed,figred] (axis cs:3,0) -- (axis cs:3,0.32);
+\node[above,figred] at (axis cs:3,0.32) {$R=3$};
+\draw[->,figred] (axis cs:6,0.09) -- (axis cs:8,0.09);
+\end{axis}
+\end{tikzpicture}
+\caption{For the integrable function $1/x^2$ on $[1,\infty)$, truncation at $R=3$ leaves a tail with integral $1/3$. Only the portion of that tail up to $x=8$ is shaded; the arrow indicates its continuation to infinity.}
+\label{fig:atlas-improper-tail}
+\end{figure}
