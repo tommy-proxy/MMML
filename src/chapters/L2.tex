@@ -52,7 +52,24 @@ f^{-1}(y) = x \iff f(x) = y.
 
 \end{definition}
 
-The graph of the inverse function $f^{-1}$ is obtained from the graph of $f$ by reflecting it about the line $y = x$, since the roles of the input and output variables are exchanged. In practice, given an explicitly defined one-to-one function $f$, the inverse $f^{-1}$ can be computed by means of a simple three-step procedure, which can be illustrated on the example $y = x^3 + 2$. The first step consists of writing the defining relation in the form $y = f(x)$. The second step consists of solving this equation for $x$ in terms of $y$, whenever this is algebraically possible. The third and final step consists of interchanging the roles of $x$ and $y$ in the resulting expression, so as to express $f^{-1}$ as a function of the variable $x$; the equation obtained in this way is precisely $y = f^{-1}(x)$.
+The graph of the inverse function $f^{-1}$ is obtained from the graph of $f$ by reflecting it about the line $y=x$. For example, starting from
+\[
+y=x^3+2,
+\]
+we subtract $2$ and take the real cube root:
+\[
+y-2=x^3 \quad\Longrightarrow\quad x=\sqrt[3]{y-2}.
+\]
+Interchanging $x$ and $y$ gives
+\[
+f^{-1}(x)=\sqrt[3]{x-2}.
+\]
+The two compositions verify the result:
+\[
+f(f^{-1}(x))=(\sqrt[3]{x-2})^3+2=x,
+\qquad
+f^{-1}(f(x))=\sqrt[3]{x^3}=x.
+\]
 
 \input{figures/inverse-reflection.tex}
 
@@ -84,7 +101,7 @@ b^{\alpha} &:= (b^m)^{1/n} \\
 
 The remaining and most delicate case concerns an irrational exponent $\alpha$, which we illustrate by constructing the value
 \[
-3^{\sqrt{2}}.
+3^{\,\sqrt{2}}.
 \]
 The construction proceeds in four steps. First, one writes the decimal expansion
 \[
@@ -111,7 +128,7 @@ A = \{3^1, 3^{1.4}, 3^{1.41}, 3^{1.414}, 3^{1.4142}, \ldots\}
 \]
 and observes that $A$ is bounded above, an explicit upper bound being $3^2$. Fourth, by the Axiom of Completeness, the supremum of $A$ exists, and one defines
 \[
-3^{\sqrt{2}} := \sup A.
+3^{\,\sqrt{2}} := \sup A.
 \]
 
 The same construction applies verbatim to define quantities such as $2^\pi$, $\pi^e$, and $e^\pi$; more generally, for any irrational number $x$ and any base $b > 1$, one sets
@@ -156,14 +173,18 @@ so that reaching $\ln n$ requires $n$ elementary steps. The fastest computers cu
 \[
 \begin{aligned}
 x &= e^{100} \\
-&\approx 10^{43},
+&\approx 2.688\times10^{43},
 \end{aligned}
 \]
-the computer would require approximately $10^{43-18} = 10^{25}$ seconds to complete the computation. This duration should be compared with the age of the universe, estimated at approximately $14$ billion years, or $14 \times 10^9$ years; converting to seconds using
+the computer would require approximately
 \[
-14 \times 10^9 \times 365 \times 24 \times 3600 \approx 4.5 \times 10^{17}
+\frac{2.688\times10^{43}}{10^{18}}=2.688\times10^{25}
 \]
-seconds, we see that the hypothetical computation would take vastly longer than the age of the universe itself, vividly illustrating the extraordinary slowness of logarithmic growth.
+seconds, or about $8.52\times10^{17}$ years. This duration should be compared with the age of the universe, approximately $14$ billion years; converting to seconds using
+\[
+14 \times 10^9 \times 365.25 \times 24 \times 3600 \approx 4.42 \times 10^{17}
+\]
+seconds, the hypothetical computation would take about $6.1\times10^7$ times the age of the universe, vividly illustrating the extraordinary slowness of logarithmic growth.
 
 \subsection{Trigonometric Functions and Their Inverses}
 
@@ -375,11 +396,25 @@ if this second limit fails to exist or is infinite, then again $f$ has no slant 
 \[
 \lim_{x \to +\infty} [f(x) - mx] = q \in \mathbb{R},
 \]
-then the line $y = mx + q$ is indeed the slant asymptote of $f$ as $x \to +\infty$. As an illustrative exercise, one may formulate the precise definition of
+then the line $y = mx + q$ is indeed the slant asymptote of $f$ as $x \to +\infty$. Consider now
+\[
+f(x)=-x+e^{-x}.
+\]
+Since $e^{-x}\to0$, one has $f(x)\to-\infty$. The asymptote coefficients are
+\[
+\begin{aligned}
+m&=\lim_{x\to+\infty}\frac{-x+e^{-x}}{x}
+=-1+\lim_{x\to+\infty}\frac{e^{-x}}{x}=-1,\\
+q&=\lim_{x\to+\infty}\bigl(f(x)-mx\bigr)
+=\lim_{x\to+\infty}e^{-x}=0.
+\end{aligned}
+\]
+Thus the slant asymptote is $y=-x$. The precise definition of
 \[
 \lim_{x \to +\infty} f(x) = -\infty
 \]
-by analogy with the definition given above for $+\infty$, and one may verify, for the function $f(x) = -x + e^{-x}$, that its limit as $x \to +\infty$ equals $-\infty$, while separately investigating whether this function possesses a slant asymptote.
+is: for every $M<0$ there exists $R>0$ such that $x>R$ implies
+$f(x)<M$.
 
 An entirely analogous set of definitions applies to the behavior of a function $f : (-\infty, r) \to \mathbb{R}$ as $x$ tends to $-\infty$, that is, as $x$ becomes larger and larger in absolute value while remaining negative, again allowing for the three possible outcomes
 \[
@@ -651,10 +686,11 @@ since the sine function is bounded between $-1$ and $1$, the product $x^2 \sin(1
 A further essential tool concerns the interchange of limits with the application of an elementary function, generalizing the Composition Rule already established for sequences.
 
 \begin{theorem}[Composition Rule]
-Let $g$ be an elementary function, and suppose that
+Let $g$ be defined on a set $D$ and continuous at $L\in D$. Suppose that
 \[
 \lim_{x \to x_0} f(x) = L \in \mathbb{R}.
 \]
+If $f(x)\in D$ for every $x$ sufficiently close to $x_0$, then
 The limit of the composition is given by
 \[
 \begin{aligned}
@@ -665,7 +701,18 @@ The limit of the composition is given by
 
 \end{theorem}
 
-In particular, as $x \to x_0$, one has $\sin f(x) \to \sin L$, $e^{f(x)} \to e^L$, $\ln f(x) \to \ln L$, and $[f(x)]^\alpha \to L^\alpha$. It is worth noting that the last three of these rules extend naturally to the case $L = \pm \infty$, adopting the conventions $e^{+\infty} = +\infty$, $e^{-\infty} = 0$, $\ln(+\infty) = +\infty$, and $\ln 0 = -\infty$.
+In particular, as $x \to x_0$, one has $\sin f(x) \to \sin L$ and
+$e^{f(x)}\to e^L$ without additional domain restrictions. For logarithms
+one must have $L>0$ and $f(x)>0$ eventually, in which case
+$\ln f(x)\to\ln L$. For an arbitrary real exponent $\alpha$, the formula
+$[f(x)]^\alpha\to L^\alpha$ follows from
+$y^\alpha=e^{\alpha\ln y}$ when $L>0$ and $f(x)>0$ eventually. Rational or
+integer exponents may admit larger real domains, but those cases must be
+treated according to the natural domain of the particular power function.
+The extended-limit conventions $e^{+\infty}=+\infty$,
+$e^{-\infty}=0$, and $\ln(+\infty)=+\infty$ are also useful; the notation
+$\ln0=-\infty$ refers only to the one-sided limit as the argument tends to
+$0$ through positive values.
 
 The algebraic operations of sum, product, and quotient likewise behave well under limits, exactly as in the theory of sequences, subject to the usual restrictions concerning indeterminate forms.
 
@@ -681,7 +728,8 @@ with $a, b \in \mathbb{R}$. Then, as $x \to x_0$,
 \[
 f(x) \pm g(x) \to a \pm b, \qquad f(x) \cdot g(x) \to a \cdot b, \qquad \frac{f(x)}{g(x)} \to \frac{a}{b},
 \]
-unless one falls into one of the indeterminate forms $+\infty - \infty$, $0 \cdot \infty$, $0/0$, or $\infty/\infty$.
+where the quotient conclusion requires $b\neq0$ (and hence $g(x)\neq0$
+eventually).
 \end{theorem}
 
 \section{Asymptotic Methods and Special Limits}
@@ -703,14 +751,20 @@ As a first illustration of this comparison, one may examine how the family of te
 A more refined classification assigns to each infinity, respectively infinitesimal, a definite order, together with an explicit leading term.
 
 \begin{definition}[Order of Infinity]
-Let $f(x) \to +\infty$ as $x \to +\infty$. We say that $f$ is an infinity of order $\beta$ as $x \to +\infty$ if
+Let $|f(x)|\to\infty$ as $x\to+\infty$. We say that $f$ is an infinity of order $\beta$ as $x \to +\infty$ if
 \[
 \lim_{x \to +\infty} \frac{f(x)}{k x^\beta} = 1, \qquad \text{equivalently} \qquad f(x) \sim k x^\beta,
 \]
-for suitable numbers $k > 0$ and $\beta > 0$. The expression $k x^\beta$ is then called the leading part of $f$ as $x \to +\infty$.
+for suitable numbers $k\neq0$ and $\beta>0$. The expression $kx^\beta$
+is then called the leading part of $f$ as $x\to+\infty$. The sign of
+$k$ records whether $f$ tends to $+\infty$ or $-\infty$.
 \end{definition}
 
-As an exercise illustrating this definition, one may determine the leading part, as $x \to +\infty$, of the function $f(x) = x^2 - 2x^3$; since the cubic term dominates the quadratic term for large $x$, the leading part is $-2x^3$.
+For $f(x)=x^2-2x^3$, the leading part as $x\to+\infty$ is
+$-2x^3$, because
+\[
+\frac{x^2-2x^3}{-2x^3}=1-\frac{1}{2x}\longrightarrow1.
+\]
 
 \begin{definition}[Order of Infinitesimal]
 Let $a \in \mathbb{R}$, and let $f$ be infinitesimal as $x \to a$, that is,
@@ -724,7 +778,12 @@ We say that $f$ is infinitesimal of order $\gamma$ as $x \to a$ if
 for suitable numbers $h \neq 0$ and $\gamma > 0$. The expression $h(x-a)^\gamma$ is then called the leading part of $f$ as $x \to a$.
 \end{definition}
 
-As a companion exercise to the one given above, one may determine the leading part, as $x \to 0$, of the same function $f(x) = x^2 - 2x^3$; in this case the quadratic term dominates near the origin, so the leading part as $x \to 0$ is $x^2$, in contrast with the leading part $-2x^3$ found earlier as $x \to +\infty$.
+For the same function, the leading part as $x\to0$ is $x^2$, since
+\[
+\frac{x^2-2x^3}{x^2}=1-2x\longrightarrow1.
+\]
+Thus the dominant term is $x^2$ near the origin and $-2x^3$ at
+positive infinity.
 
 \subsection{Indeterminate Forms, Substitution, and Euler's Number}
 
@@ -794,11 +853,21 @@ If it can be shown that $g(x) \ln f(x) \to L$, possibly with $L = \pm \infty$, t
 [f(x)]^{g(x)} = e^{g(x) \ln f(x)} \to e^L.
 \]
 
-The indeterminate forms to which this technique applies are precisely $1^\infty$, $0^0$, and $\infty^0$; as an illustrative example, one may compute the limit
+The indeterminate forms to which this technique applies are precisely $1^\infty$, $0^0$, and $\infty^0$. For example, let
 \[
-\lim_{x \to 0^+} ((1+x)^{1/2})^{1/\sin x}
+L=\lim_{x \to 0^+} ((1+x)^{1/2})^{1/\sin x}.
 \]
-by this method. A particularly important special case of the indeterminate form $1^\infty$ generalizes the definition of Euler's number already encountered in the theory of sequences.
+Taking logarithms gives
+\[
+\begin{aligned}
+\ln L
+&=\lim_{x\to0^+}\frac{\ln(1+x)}{2\sin x}\\
+&=\frac12\left(\lim_{x\to0^+}\frac{\ln(1+x)}{x}\right)
+\left(\lim_{x\to0^+}\frac{x}{\sin x}\right)\\
+&=\frac12.
+\end{aligned}
+\]
+Exponentiating yields $L=e^{1/2}=\sqrt e$. A particularly important special case of the indeterminate form $1^\infty$ generalizes the definition of Euler's number already encountered in the theory of sequences.
 
 \begin{theorem}[Special Limit of Type $1^\infty$]
 For every $k \in \mathbb{R}$,
@@ -890,7 +959,9 @@ We aim to prove that
 \lim_{n \to \infty} \frac{\ln(1+\varepsilon_n)}{\varepsilon_n} = 1.
 \]
 
-Setting $b_n := 1/\varepsilon_n$, and assuming that $\varepsilon_n > 0$ for $n$ sufficiently large, so that $b_n \to +\infty$, the generalized limit established in the preceding subsection gives
+First suppose that $\varepsilon_n>0$. Setting
+$b_n:=1/\varepsilon_n$, the generalized limit established in the preceding
+subsection gives
 \[
 \lim_{n \to \infty} (1+\varepsilon_n)^{1/\varepsilon_n} = e.
 \]
@@ -912,6 +983,21 @@ Using the logarithmic identity $\ln(a^b) = b \ln(a)$, the expression inside the 
 \end{aligned}
 \]
 from which the desired conclusion follows immediately.
+
+If instead $\varepsilon_n<0$, define
+\[
+\delta_n=-\frac{\varepsilon_n}{1+\varepsilon_n}>0.
+\]
+For all sufficiently large $n$, $\delta_n$ is defined, tends to zero, and
+$1+\varepsilon_n=(1+\delta_n)^{-1}$. Therefore
+\[
+\frac{\ln(1+\varepsilon_n)}{\varepsilon_n}
+=(1+\delta_n)\frac{\ln(1+\delta_n)}{\delta_n}\longrightarrow1.
+\]
+For a sequence whose signs vary, apply the two arguments to its positive
+and negative subsequences; terms with $\varepsilon_n=0$ may be omitted
+when evaluating the punctured quotient. Every subsequence has the same
+limit, so the original quotient tends to $1$.
 
 \end{remark}
 
@@ -981,16 +1067,26 @@ We aim to prove that
 \lim_{n \to \infty} \frac{\sin(\varepsilon_n)}{\varepsilon_n} = 1.
 \]
 
-Assume, without loss of generality, that $\varepsilon_n \in (0, \pi/2)$ for $n$ sufficiently large. A classical geometric argument, comparing the areas of a triangle, a circular sector, and a larger triangle inscribed in the unit circle, establishes the inequality $\sin(\theta) < \theta < \tan(\theta)$ for every $\theta \in (0,\pi/2)$. Substituting $\theta = \varepsilon_n$ and dividing throughout by $\sin(\varepsilon_n)$, which is positive on this interval, yields
+For every sufficiently large $n$ with $\varepsilon_n\neq0$, set
+$\theta_n=|\varepsilon_n|\in(0,\pi/2)$. A classical geometric argument,
+comparing the areas of a triangle, a circular sector, and a larger triangle
+in the unit circle, establishes
+$\sin\theta<\theta<\tan\theta$ for $\theta\in(0,\pi/2)$. Hence
 \[
-1 < \frac{\varepsilon_n}{\sin(\varepsilon_n)} < \frac{1}{\cos(\varepsilon_n)}.
+1 < \frac{\theta_n}{\sin(\theta_n)} < \frac{1}{\cos(\theta_n)}.
 \]
 Taking reciprocals, which reverses the direction of both inequalities, gives
 \[
-\cos(\varepsilon_n) < \frac{\sin(\varepsilon_n)}{\varepsilon_n} < 1.
+\cos(\theta_n) < \frac{\sin(\theta_n)}{\theta_n} < 1.
 \]
 
-As $n \to \infty$, we have $\varepsilon_n \to 0$, and hence $\cos(\varepsilon_n) \to 1$; since both the lower bound $\cos(\varepsilon_n)$ and the upper bound $1$ converge to the common value $1$, the Squeeze Theorem yields the desired conclusion,
+Because sine is odd,
+\[
+\frac{\sin(\varepsilon_n)}{\varepsilon_n}
+=\frac{\sin(\theta_n)}{\theta_n}.
+\]
+As $n\to\infty$, $\theta_n\to0$ and $\cos\theta_n\to1$; the Squeeze
+Theorem therefore yields
 \[
 \lim_{n \to \infty} \sin(\varepsilon_n)/\varepsilon_n = 1.
 \]
@@ -1120,7 +1216,12 @@ Starting from the elementary facts that the constant function, the identity func
 \item \textit{Rational functions}: the continuity of polynomial functions follows from the sum and product rules, while the continuity of rational functions additionally requires the quotient rule.
 \item \textit{Root and fractional power functions}: the continuity of the root functions $x^{1/n}$ follows from the Inverse Theorem applied to the power function $x^n$, and the continuity of $x^{m/n}$ follows by composition of a power function with a root function.
 \item \textit{Logarithmic and hyperbolic functions}: the continuity of the exponential function implies, via the Inverse Theorem, the continuity of the logarithmic functions, and consequently also the continuity of the hyperbolic functions, which are defined in terms of exponentials.
-\item \textit{Real power functions}: the continuity of $x^\alpha$ for an arbitrary real exponent $\alpha \in \mathbb{R}$ follows by composition, using the representation $x^\alpha = e^{\alpha \ln x}$.
+\item \textit{Real power functions}: for an arbitrary real exponent
+$\alpha$, the representation $x^\alpha=e^{\alpha\ln x}$ proves continuity
+on $(0,\infty)$. Integer powers extend continuously to all of
+$\mathbb{R}$, and rational powers may have larger real domains depending
+on the parity of the denominator; these extensions must be considered
+separately.
 \item \textit{Trigonometric functions}: the continuity of $\sin x$ implies, by composition, the continuity of $\cos x$; the continuity of $\tan x$ then follows from the quotient rule, and the continuity of the inverse trigonometric functions follows from the Inverse Theorem.
 \end{itemize}
 
@@ -1198,7 +1299,12 @@ then $c = (a_0+b_0)/2$ is a root of $f$, and the proof is complete. If instead $
 f(a_1) < 0, \qquad f(b_1) > 0, \qquad b_1 - a_1 = \frac{L}{2}.
 \]
 
-This bisection procedure can be iterated: applying the same construction to the interval $[a_1, b_1]$ produces a further interval $[a_2, b_2] \subset [a_1, b_1]$ satisfying $f(a_2) < 0$, $f(b_2) > 0$, and $b_2 - a_2 = L/2^2$. Repeating the procedure $n$ times yields a subinterval $[a_n, b_n]$ such that
+This bisection procedure can be iterated. At a generic step $k$, it
+produces an interval $[a_k,b_k]\subset[a_{k-1},b_{k-1}]$ satisfying
+\[
+f(a_k)<0,\qquad f(b_k)>0,\qquad b_k-a_k=\frac{L}{2^k}.
+\]
+Consequently, after $n$ steps one obtains $[a_n,b_n]$ such that
 \[
 f(a_n) < 0, \qquad f(b_n) > 0, \qquad b_n - a_n = \frac{L}{2^n},
 \]

@@ -315,10 +315,7 @@ Finally, a collection of comparison properties allows one to bound the value of 
 \item \textit{Boundedness}: if
 
 \[
-\begin{aligned}
-k &\leq f(x) \\
-&\leq K
-\end{aligned}
+k \leq f(x) \leq K
 \]
 throughout $[a,b]$, then
 \begin{align*}
@@ -432,19 +429,33 @@ A useful extension of this result concerns integral functions whose limits of in
 \]
 which can be obtained by combining the Fundamental Theorem of Calculus with the Chain Rule and the additivity property of the integral. It is also worth noting that continuity of $f$, while sufficient, is not strictly necessary for the continuity of the area function: if $f$ is merely assumed to be integrable, but not necessarily continuous, on $[a,b]$, one can still prove that the corresponding area function $g$ remains continuous on $[a,b]$, although in general it need no longer be differentiable.
 
-As applications of these ideas, one may compute the derivative of the sine integral function, defined by
+As applications of these ideas, consider the sine integral
 \[
 \operatorname{Si}(x) = \int_0^x (\sin t)/t \, dt,
 \]
-or the derivative of the function
+where the integrand is continuously extended at $t=0$ by the value $1$.
+The Fundamental Theorem gives
 \[
-\int_0^{x^4} \sin(t^2) \, dt,
+\operatorname{Si}'(x)=\frac{\sin x}{x}\quad(x\neq0),
+\qquad \operatorname{Si}'(0)=1.
 \]
-both of which follow directly from the Fundamental Theorem of Calculus together with the Chain Rule. A further instructive exercise consists of proving that the integral function
+For the function
+\[
+G(x)=\int_0^{x^4} \sin(t^2) \, dt,
+\]
+the upper limit is $u(x)=x^4$. Combining the Fundamental Theorem with
+the Chain Rule yields
+\[
+G'(x)=\sin\bigl((x^4)^2\bigr)\,4x^3
+=4x^3\sin(x^8).
+\]
+Finally, let
 \[
 F(x) = \int_0^x f(t) \, dt
 \]
-of a continuous function $f$ on $\mathbb{R}$ is odd whenever $f$ is even, and, symmetrically, that $F$ is even whenever $f$ is odd.
+for a continuous function $f$. If $f$ is even, then the substitution
+$t=-u$ gives $F(-x)=-F(x)$, so $F$ is odd. If $f$ is odd, the same
+substitution gives $F(-x)=F(x)$, so $F$ is even.
 
 \subsection{Antiderivatives}
 
@@ -825,7 +836,21 @@ Setting $u = x+1/4$, so that $du = dx$, the integral becomes
 \[
 \int \frac{1}{4u^2 + 3/4} \, du = \int \frac{1}{\tfrac{3}{4}\left( \tfrac{16}{3} u^2 + 1 \right)} \, du,
 \]
-which reduces to the arctangent form given above once the further substitution $v = 4u/\sqrt{3}$ is applied, yielding a standard arctangent integral.
+and the further substitution $v=4u/\sqrt{3}$ gives
+\[
+\begin{aligned}
+\int \frac{\dd u}{4u^2+3/4}
+&=\frac{1}{\sqrt{3}}\int\frac{\dd v}{1+v^2}\\
+&=\frac{1}{\sqrt{3}}\arctan v+C.
+\end{aligned}
+\]
+Substituting back first $v=4u/\sqrt{3}$ and then $u=x+1/4$
+produces the explicit result
+\[
+\boxed{\int\frac{\dd x}{4x^2+2x+1}
+=\frac{1}{\sqrt{3}}
+\arctan\!\left(\frac{4x+1}{\sqrt{3}}\right)+C.}
+\]
 
 
 The two cases examined above extend to a general strategy applicable to an arbitrary rational function. If the degree of the numerator is greater than or equal to the degree of the denominator, one performs polynomial long division first, obtaining a polynomial part, which is integrated immediately term by term, together with a proper rational function, that is, one in which the degree of the numerator is strictly smaller than the degree of the denominator. The resulting proper rational function is then decomposed into partial fractions according to the factorization of the denominator into linear and irreducible quadratic factors, according to the general decomposition
@@ -895,21 +920,39 @@ It is instructive to contrast the convergent example above with the closely rela
 \[
 \int_1^{\infty} (1/x) \, dx,
 \]
-which one can show, by a similar direct computation, is divergent, so that the area under the curve $y = 1/x$ above the horizontal axis and to the right of $x = 1$ is in fact infinite.
+for which
+\[
+\int_1^R\frac{\dd x}{x}=[\ln x]_1^R=\ln R\longrightarrow+\infty.
+\]
+Thus it diverges, and the corresponding area is infinite.
 
 \begin{remark}
 Both $1/x^2$ and $1/x$ tend to $0$ as $x \to \infty$, yet the corresponding improper integrals exhibit opposite behavior: the former converges, while the latter diverges. This shows that the values of $1/x$ simply do not decrease fast enough, as $x \to \infty$, for the corresponding improper integral to attain a finite value.
 \end{remark}
 
-Two further standard examples deserve mention. The integral
+More generally, for $p\neq1$,
 \[
 \int_1^{\infty} x^{-p} \, dx
 \]
-can be shown, by direct computation, to be convergent when $p > 1$ and divergent when $p \leq 1$, generalizing the two examples discussed above. Likewise, the integral
+satisfies
+\[
+\begin{aligned}
+\int_1^R x^{-p}\,\dd x
+&=\left[\frac{x^{1-p}}{1-p}\right]_1^R\\
+&=\frac{R^{1-p}-1}{1-p}.
+\end{aligned}
+\]
+If $p>1$, then $R^{1-p}\to0$ and the integral converges to
+$1/(p-1)$. If $p<1$, it diverges; the case $p=1$ is the logarithmic
+case above. Finally,
 \[
 \int_0^{\infty} e^{-x} \, dx
 \]
-can be shown to be convergent by direct evaluation of the corresponding antiderivative.
+satisfies
+\[
+\int_0^R e^{-x}\,\dd x=[-e^{-x}]_0^R=1-e^{-R}\longrightarrow1,
+\]
+so it converges to $1$.
 
 \input{figures/improper-tail.tex}
 
@@ -1089,22 +1132,45 @@ From this point onward, whenever the symbol
 is encountered, one must first examine the behavior of $f$ on $[a,b]$ in order to determine whether the expression represents an ordinary definite integral or an improper integral, since the two require different definitions and different tests for existence.
 \end{remark}
 
-As applications of these definitions, one may compute the improper integrals
+We now evaluate the standard endpoint examples directly. First,
 \[
-\begin{gathered}
-\int_0^1 x^{-1} \, dx \\
-\int_0^1 \ln x \, dx
-\end{gathered}
+\begin{aligned}
+\int_0^1\frac{\dd x}{x}
+&=\lim_{t\to0^+}\int_t^1\frac{\dd x}{x}\\
+&=\lim_{t\to0^+}[\ln x]_t^1\\
+&=\lim_{t\to0^+}(-\ln t)=+\infty,
+\end{aligned}
 \]
-directly from the definition, and one may show, again by direct computation, that the integral
+so the integral diverges. By contrast,
+\[
+\begin{aligned}
+\int_0^1\ln x\,\dd x
+&=\lim_{t\to0^+}[x\ln x-x]_t^1\\
+&=-1-\lim_{t\to0^+}(t\ln t-t)\\
+&=-1,
+\end{aligned}
+\]
+because $t\ln t\to0$ as $t\to0^+$. More generally, for $p\neq1$,
 \[
 \int_0^1 x^{-p} \, dx
 \]
-is convergent for $p \in (0,1)$ and divergent for $p \geq 1$; it is instructive to compare this behavior with that of the corresponding integral
+satisfies
+\[
+\begin{aligned}
+\int_0^1x^{-p}\,\dd x
+&=\lim_{t\to0^+}\left[\frac{x^{1-p}}{1-p}\right]_t^1\\
+&=\lim_{t\to0^+}\frac{1-t^{1-p}}{1-p}.
+\end{aligned}
+\]
+If $p<1$, then $t^{1-p}\to0$ and the value is $1/(1-p)$; if
+$p>1$, then $t^{1-p}\to+\infty$ and the integral diverges. The case
+$p=1$ is the logarithmic divergence computed above. Thus the integral
+converges exactly for $p<1$ and diverges for $p\geq1$. This behavior is
+opposite to that of
 \[
 \int_1^{\infty} x^{-p} \, dx
 \]
-studied earlier, since the two exhibit, in a precise sense, opposite conditions on the parameter $p$ for convergence.
+which converges exactly for $p>1$.
 
 \subsection{Improper Integrals and Probability}
 
@@ -1120,10 +1186,17 @@ Since probabilities are measured on a scale from $0$ to $1$, a density function 
 \[
 \int_{-\infty}^{\infty} f(x) \, dx = 1,
 \]
-expressed precisely as an improper integral over the whole real line. Associated with any probability density function $f$ is its mean, defined as the improper integral
+expressed precisely as an improper integral over the whole real line. If
+the first absolute moment is finite,
 \[
-\mu = \int_{-\infty}^{\infty} x f(x) \, dx.
+\int_{-\infty}^{\infty}|x|f(x)\,\dd x<\infty,
 \]
+the distribution has a finite mean, defined by
+\[
+\mu = \int_{-\infty}^{\infty} x f(x) \,\dd x.
+\]
+Not every probability density satisfies this condition; the Cauchy
+distribution is a standard example for which no finite mean exists.
 
 
 Many important random phenomena encountered in practice, such as test scores on aptitude tests, the heights and weights of individuals from a homogeneous population, or the annual rainfall recorded at a given location, are well modeled by a normal distribution. This means that the probability density function of the corresponding random variable $X$ belongs to the family of functions

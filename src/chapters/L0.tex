@@ -45,10 +45,7 @@ This proves the theorem.
 The real numbers comprise both rational and irrational numbers. Familiar irrational numbers include $\sqrt{2}$, $\pi$, Euler's number $e$,
 and the golden ratio $\varphi$. For two lengths $a$ and $b$ in that ratio, the defining proportion is
 \[
-\begin{aligned}
-\varphi &= \frac{a+b}{a} \\
-&= \frac{a}{b}.
-\end{aligned}
+\varphi = \frac{a+b}{a} = \frac{a}{b}.
 \]
 
 The numbers $\sqrt{2}$ and $\varphi$ also belong to the class of algebraic numbers. A real number $x$ is algebraic if it is a root of a
@@ -331,8 +328,12 @@ and the result follows by taking the limit in the finite-sum formula.
 
 The Geometric Series Formula resolves a familiar question about decimal notation: whether $0.\overline{9}$ is equal to $1$.
 
-\begin{theorem}[Repeating Nines]
-The repeating decimal $0.\overline{9}$ is equal to $1$, that is, $0.\overline{9} = 1$.
+\begin{theorem}[Repeating Nines: $0.999\ldots=1$]
+The repeating decimal $0.\overline{9}=0.999\ldots$ is equal to $1$; that
+is,
+\[
+0.\overline{9}=1.
+\]
 \end{theorem}
 
 \begin{proof}
@@ -371,40 +372,22 @@ Every real number can be approximated to any desired degree of accuracy by ratio
 \end{theorem}
 
 \begin{proof}
-Given a real number
+Let $x\in\mathbb{R}$. For each positive integer $n$, define
 \[
-x = b_0.b_1 b_2 \ldots
+r_n=\frac{\lfloor 10^n x\rfloor}{10^n}.
 \]
-with $b_0 > 0$, we construct the sequence of rational numbers
+The numerator is an integer, so $r_n$ is rational and has a finite
+decimal representation. From the defining property of the floor function,
 \[
-r_1, r_2, r_3, \ldots,
+\lfloor 10^n x\rfloor\leq 10^n x<\lfloor 10^n x\rfloor+1.
 \]
-each having a
-finite decimal representation, by successively truncating the decimal expansion of $x$,
+Dividing by $10^n$ gives
 \[
-\begin{aligned}
-r_1 &= b_0.b_1, \\
-r_2 &= b_0.b_1 b_2, \\
-r_3 &= b_0.b_1 b_2 b_3, \\
-&\ldots, \\
-r_n &= b_0.b_1 b_2 b_3 \cdots b_n, \\
-&\ldots
-\end{aligned}
+0\leq x-r_n<10^{-n}.
 \]
-
-Observe that $r_n < x$ for every integer $n$, since $r_n$ omits all the digits of $x$ beyond the $n$-th decimal place, each of which is nonnegative.
-We then estimate the resulting error as
-\[
-\begin{aligned}
-x - r_n &= \sum_{k=n+1}^{\infty} \frac{b_k}{10^k}
-< 9 \sum_{k=n+1}^{\infty} \frac{1}{10^k} \\
-&= \frac{9}{10^{n+1}} \sum_{k=0}^{\infty} \frac{1}{10^k} \\
-&= \frac{9}{10^{n+1}} \cdot \frac{1}{1 - \frac{1}{10}}\\
-&= \frac{1}{10^n},
-\end{aligned}
-\]
-
-Here we have used the bound $b_k \leq 9$ for every digit and the Geometric Series Formula. Thus, $0 < x - r_n < 1/10^n$, for every $n$. Taking $n$ sufficiently large makes the upper bound arbitrarily small, so $r_n$ approximates $x$ to any desired accuracy.
+This argument includes $x=0$, negative real numbers, and terminating
+decimals; in the terminating case equality may occur on the left. Since
+$10^{-n}\to0$, the sequence $r_n$ converges to $x$.
 \end{proof}
 
 The same series methods show that the repeating decimal $8.4\overline{35}$ equals
@@ -556,7 +539,18 @@ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
 \]
 
 \begin{example}
-The quadratic formula gives the roots of $x^2 + x + 1 = 0$ as $x = (-1 \pm \sqrt{3}\, i)/2$. \end{example}
+For $x^2+x+1=0$ we have $a=b=c=1$, hence
+\[
+\Delta=b^2-4ac=1-4=-3.
+\]
+Using $\sqrt{-3}=i\sqrt{3}$ in the quadratic formula gives
+\[
+x=\frac{-1\pm\sqrt{-3}}{2}
+=\frac{-1\pm i\sqrt{3}}{2}.
+\]
+Substitution provides a direct check: each root satisfies
+$x^2+x+1=0$.
+\end{example}
 
 The two roots in this example are complex conjugates. In general, the nonreal roots of a quadratic equation with real coefficients $a$, $b$, $c$
 occur in conjugate pairs, while each real root coincides with its own conjugate.
@@ -692,6 +686,19 @@ Using the polar representations of $1+i$ and $\sqrt{3}-i$ found above, the multi
 &= 2\sqrt{2} \left[ \cos(\pi/12) + i \sin(\pi/12) \right].
 \end{aligned}
 \]
+To verify the result in Cartesian form, multiply directly:
+\[
+\begin{aligned}
+(1+i)(\sqrt{3}-i)
+&=\sqrt{3}-i+i\sqrt{3}-i^2\\
+&=(1+\sqrt{3})+i(\sqrt{3}-1).
+\end{aligned}
+\]
+The two forms agree because
+\[
+2\sqrt{2}\cos(\pi/12)=1+\sqrt{3},\qquad
+2\sqrt{2}\sin(\pi/12)=\sqrt{3}-1.
+\]
 
 \end{example}
 
@@ -736,6 +743,21 @@ The calculation uses the following factorization and the polar form of $1+i$ fou
 \end{aligned}
 \]
 De Moivre's Theorem gives the tenth power from this modulus and argument.
+Indeed,
+\[
+\frac12+\frac12i
+=\frac{1}{\sqrt2}\left(\cos\frac{\pi}{4}+i\sin\frac{\pi}{4}\right),
+\]
+and therefore
+\[
+\begin{aligned}
+\left(\frac12+\frac12i\right)^{10}
+&=\left(\frac{1}{\sqrt2}\right)^{10}
+\left(\cos\frac{10\pi}{4}+i\sin\frac{10\pi}{4}\right)\\
+&=\frac1{32}\left(\cos\frac{5\pi}{2}+i\sin\frac{5\pi}{2}\right)\\
+&=\frac{i}{32}.
+\end{aligned}
+\]
 \end{example}
 
 De Moivre's Theorem also gives the $n$-th roots of a complex number. An $n$-th root of $z$ is a complex number $w$ satisfying $w^n = z$.
@@ -785,6 +807,24 @@ Applying the formula with $n = 6$, we obtain the six roots by taking $k = 0, 1, 
 8^{1/6} \left[ \cos\left( \frac{\pi + 2k\pi}{6} \right) + i \sin\left( \frac{\pi+2k\pi}{6} \right) \right];
 \]
 all six resulting points lie on the circle of radius $8^{1/6} = \sqrt{2}$ in the complex plane, equally spaced around it.
+Their arguments and Cartesian forms are
+\[
+\begin{aligned}
+w_0&=\sqrt2\,e^{i\pi/6}
+=\frac{\sqrt6}{2}+i\frac{\sqrt2}{2},\\
+w_1&=\sqrt2\,e^{i\pi/2}=i\sqrt2,\\
+w_2&=\sqrt2\,e^{i5\pi/6}
+=-\frac{\sqrt6}{2}+i\frac{\sqrt2}{2},\\
+w_3&=\sqrt2\,e^{i7\pi/6}
+=-\frac{\sqrt6}{2}-i\frac{\sqrt2}{2},\\
+w_4&=\sqrt2\,e^{i3\pi/2}=-i\sqrt2,\\
+w_5&=\sqrt2\,e^{i11\pi/6}
+=\frac{\sqrt6}{2}-i\frac{\sqrt2}{2}.
+\end{aligned}
+\]
+For every $k$, raising $w_k$ to the sixth power multiplies its argument
+by $6$ and raises its modulus $\sqrt{2}$ to the sixth power, yielding
+$(\sqrt{2})^6=8$ and hence $w_k^6=-8$.
 \end{example}
 
 Figure~\ref{fig:sixth-roots-minus-eight} displays these six roots and the equal angular spacing between successive ones.
@@ -876,6 +916,7 @@ e^{1+i\pi/2} &= e^1 (\cos(\pi/2) + i \sin(\pi/2)) \\
 
 \end{example}
 
+\enlargethispage{3\baselineskip}
 Euler's formula also gives a short proof of De Moivre's Theorem. Writing $z = re^{i\theta}$, we obtain
 \[
 \begin{aligned}

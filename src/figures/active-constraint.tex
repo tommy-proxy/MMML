@@ -3,16 +3,19 @@ Figure~\ref{fig:atlas-active-constraint} illustrates a constrained optimum on an
 \begin{figure}[!htbp]
 \centering
 \begin{tikzpicture}[>=Stealth]
-\begin{axis}[width=11cm,height=6.5cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},legend style={font=\scriptsize,draw=black!20,fill=white},xlabel={$x$},ylabel={$y$},xmin=-0.2,xmax=2.6,ymin=-0.2,ymax=2.6,axis equal image,xtick={0,1,2},ytick={0,1,2}]
-\path[fill=figgreen!12] (axis cs:-0.2,2.2) -- (axis cs:-0.2,2.6) -- (axis cs:2.6,2.6) -- (axis cs:2.6,-0.2) -- (axis cs:2.2,-0.2) -- cycle;
-\addplot[figgreen,thick,domain=-0.2:2.2] {2-x};
-\addplot[figblue,domain=0:90,samples=100] ({sqrt(2)*cos(x)},{sqrt(2)*sin(x)});
-\addplot[figblue!40,domain=0:90,samples=100] ({2*cos(x)},{2*sin(x)});
-\addplot[only marks,figred,mark=*] coordinates {(1,1)};
-\draw[->,figred,thick] (axis cs:1,1) -- (axis cs:1.7,1.7) node[above right] {$\nabla f$};
-\draw[->,black!70,thick] (axis cs:1,1) -- (axis cs:0.55,0.55) node[below left] {$\nabla g$};
+\begin{axis}[width=11cm,height=6.5cm,axis lines=middle,ticklabel style={font=\small},label style={font=\small},xlabel={$x$},ylabel={$y$},xmin=-0.2,xmax=1.6,ymin=-0.2,ymax=1.6,axis equal image,xtick={0,0.5,1,1.5},ytick={0,0.5,1,1.5}]
+\path[fill=figgreen!12] (axis cs:-0.2,1.2) -- (axis cs:-0.2,1.6) -- (axis cs:1.6,1.6) -- (axis cs:1.6,-0.2) -- (axis cs:1.2,-0.2) -- cycle;
+\addplot[figgreen,thick,domain=-0.2:1.2] {1-x};
+\addplot[figblue,domain=0:90,samples=100] ({sqrt(0.5)*cos(x)},{sqrt(0.5)*sin(x)});
+\addplot[figblue!40,domain=0:90,samples=100] ({1.15*cos(x)},{1.15*sin(x)});
+\addplot[only marks,figred,mark=*] coordinates {(0.5,0.5)};
+\draw[->,figred,thick] (axis cs:0.5,0.5) -- (axis cs:1.05,1.05) node[above right] {$\nabla f$};
+\draw[->,black!70,thick] (axis cs:0.5,0.5) -- (axis cs:0.1,0.1) node[below left] {$\nabla g$};
 \end{axis}
 \end{tikzpicture}
-\caption{Minimizing $f(x,y)=x^2+y^2$ subject to $x+y\ge2$ gives the tangency point $(1,1)$. The shaded half-plane is feasible. At this point the active constraint $g=2-x-y$ has gradient opposite to that of $f$, so the KKT stationarity relation holds with multiplier $2$.}
+\caption{Minimizing $f(x,y)=x^2+y^2$ subject to $x+y\ge1$ gives the
+tangency point $(1/2,1/2)$ from Example~9.1.2. The shaded half-plane is
+feasible. For $g=1-x-y$, stationarity
+$\nabla f+\mu\nabla g=0$ holds with $\mu=1$.}
 \label{fig:atlas-active-constraint}
 \end{figure}

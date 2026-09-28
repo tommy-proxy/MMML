@@ -1,1161 +1,949 @@
-\chapter{Integral Calculus in Multidimensional Spaces}
+\chapter[Multivariable Calculus, Vector Operators, and Tensors]{Multivariable Differential Calculus, Vector Operators and Tensor Theory}
 
-\section{Double Integrals and Planar Regions}
-\label{sec:double-integrals}
+\section{Multivariable Functions and Partial Derivatives}
 
-The Riemann integral, as developed for functions of a single real variable, measures the signed area between the graph of a function and the interval on which it is defined, via a limiting process applied to sums that approximate this area by finitely many rectangles. The same idea extends, with only notational complications, to functions of several variables: a function of two variables may be integrated over a planar region to yield a signed volume, a function of three variables integrated over a solid region yields a signed hypervolume, and the construction generalizes without further conceptual difficulty to functions on $\mathbb{R}^n$. This chapter develops the theory of multiple integration from its definition via partitions and Darboux sums, through Fubini's Theorem, which reduces the computation of a multiple integral to a sequence of ordinary single-variable integrations, to the change of variables formula, which generalizes $u$-substitution to several dimensions and relies essentially on the Jacobian matrix introduced in the preceding chapter.
+\subsection{Definition, Graphs, and Level Curves}
 
-\subsection{Construction of the Double Integral on Rectangles}
-
-As in the one-dimensional theory, the integral is defined first over the simplest possible domain, a rectangle, and is subsequently extended to more general regions.
-
-\begin{definition}[Partition of a Rectangle]
-Consider the rectangle
+A function $f$ of two variables is a rule that assigns to each ordered pair of real numbers $(x,y)$ belonging to a set $D \subset \mathbb{R}^2$ a unique real number, denoted by $f(x,y)$; symbolically,
 \[
-R = [a,b]\times[c,d] \subset \mathbb{R}^2.
+f : D \subset \mathbb{R}^2 \to \mathbb{R}, \qquad (x,y) \mapsto f(x,y).
 \]
-A partition of $R$ is a pair $P = (P_x, P_y)$, where
+
+The domain $D$ is a subset of the $xy$-plane, and consists of the set of all admissible inputs of the function. Several elementary examples illustrate this notion, such as
 \[
 \begin{gathered}
-P_x : a = x_0 < x_1 < \cdots < x_m = b \\
-P_y : c = y_0 < y_1 < \cdots < y_n = d
+z = (1-x-y)^{1/2}/(x-y), \\[0.5em]
+z = \ln(y^2-x), \\[0.5em]
+z = 4 - x^2 - y^2,
 \end{gathered}
 \]
-are partitions of $[a,b]$ and $[c,d]$ respectively. The partition $P$ divides $R$ into $mn$ closed subrectangles
+each defined on a suitable domain determined by the requirement that the corresponding algebraic expression be well defined.
+
+One method for visualizing the behavior of a function of two variables is to consider its graph. If $f$ is a function of two variables with domain $D$, the graph of $f$ is defined as the set of all points $(x,y,z) \in \mathbb{R}^3$ such that $z = f(x,y)$ and $(x,y) \in D$; this graph typically takes the form of a surface in three-dimensional space.
+
+A second, complementary method for visualizing such functions, borrowed from the practice of mapmakers, relies on two-dimensional maps annotated with level curves.
+
+\begin{definition}[Level Curve]
+The level curves of a function $f$ of two variables are the curves in the $xy$-plane with equations $f(x,y) = k$, where $k$ is a constant belonging to the range of $f$.
+\end{definition}
+
+As illustrations of this notion, one may sketch the level-curve map of the function
 \[
-R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j],
+z = 6 - 3x - 2y,
 \]
-of area
+whose level curves form a family of parallel straight lines, or of the function
 \[
-\Delta A_{ij} = \Delta x_i \, \Delta y_j = (x_i - x_{i-1})(y_j-y_{j-1}).
+g(x,y) = 9 - x^2 - y^2,
 \]
-The mesh of $P$ is
+whose level curves form a family of concentric circles centered at the origin.
+
+\subsection{Limits of Functions of Two Variables}
+
+Let $f$ be a function of two variables whose domain $D$ includes a neighborhood $U(a,b)$ of a given point $(a,b)$, that is, a disc centered at $(a,b)$.
+
+The notion of limit developed earlier for functions of a single real variable extends naturally to this two-dimensional setting, with the absolute distance $|x-a|$ replaced by the Euclidean distance between the points $(x,y)$ and $(a,b)$.
+
+\begin{definition}
+We write
 \[
-\|P\| = \max_{i,j} \max(\Delta x_i, \Delta y_j).
+\lim_{(x,y) \to (a,b)} f(x,y) = L,
 \]
+and say that the limit of $f(x,y)$ as $(x,y)$ approaches $(a,b)$ is $L$, if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+\[
+0 < \sqrt{(x-a)^2 + (y-b)^2} < \delta \implies |f(x,y) - L| < \varepsilon.
+\]
+
+Equivalently, the distance between $f(x,y)$ and $L$ can be made arbitrarily small by making the distance from $(x,y)$ to $(a,b)$ sufficiently small, though not equal to zero.
+\end{definition}
+
+\begin{remark}
+This definition refers exclusively to the Euclidean distance between $(x,y)$ and $(a,b)$, and makes no reference whatsoever to the particular direction along which $(x,y)$ approaches $(a,b)$.
+
+Consequently, if the limit exists, then $f(x,y)$ must approach the very same value $L$ regardless of the specific path along which $(x,y)$ approaches $(a,b)$; this observation provides a standard technique for proving the nonexistence of a two-variable limit, namely by exhibiting two distinct paths of approach along which $f$ tends to two different values. As an illustration of this phenomenon, one may investigate whether the limit
+\[
+\lim_{(x,y) \to (0,0)} f(x,y)
+\]
+exists for the function
+\[
+f(x,y) = xy/(x^2+y^2),
+\]
+and discover, by comparing the limiting values obtained along the two coordinate axes and along the line $y=x$, that no common limiting value exists.
+\end{remark}
+
+\input{figures/path-dependent-limit.tex}
+
+\subsection{Continuity of Functions of Two Variables}
+
+\begin{definition}
+A function $f$ of two variables is called continuous at $(a,b)$ if
+\[
+\lim_{(x,y) \to (a,b)} f(x,y) = f(a,b).
+\]
+We say that $f$ is continuous on $D$ if $f$ is continuous at every point of $D$.
+\end{definition}
+
+Using the algebraic properties of limits, entirely analogous to those established for functions of a single variable, one readily verifies that sums, differences, products, and quotients of continuous functions of two variables remain continuous on their respective domains. Consequently, any polynomial function of two variables, such as
+\[
+f(x,y) = x^4 + 5x^3y^2 - 6xy^4 + 7y^2,
+\]
+is continuous throughout $\mathbb{R}^2$. Likewise, since a rational function is a ratio of two polynomials, it is continuous wherever its denominator does not vanish; the function
+\[
+f(x,y) = x^2y/(x^2+y^2)
+\]
+provides a standard example of such a rational function, continuous throughout $\mathbb{R}^2 \setminus \{(0,0)\}$.
+
+\subsection{Partial Derivatives: Definition and Computation}
+
+
+Let $f(x,y)$ be a function of two variables, defined on a neighborhood $U(a,b)$ of a point $(a,b)$.
+
+Suppose that we allow only the variable $x$ to vary, while keeping $y$ fixed at the value $b$; this amounts to considering the function of a single variable $g(x) = f(x,b)$.
+
+If $g$ is differentiable at $x=a$, we say that $f$ has a partial derivative with respect to $x$ at $(a,b)$, denoted $f_x(a,b)$ or $\partial f/\partial x \, (a,b)$, defined by $f_x(a,b) = g'(a)$; equivalently, unwinding the definition of ordinary derivative,
+\[
+\begin{aligned}
+f_x(a,b) &= \lim_{h \to 0} \frac{g(a+h) - g(a)}{h} \\[0.5em]
+&= \lim_{h \to 0} \frac{f(a+h,b) - f(a,b)}{h}.
+\end{aligned}
+\]
+
+An entirely analogous construction, obtained by keeping $x$ fixed at the value $a$ and letting $y$ vary, defines the partial derivative of $f$ with respect to $y$ at $(a,b)$, denoted $f_y(a,b)$ or $\partial f/\partial y \, (a,b)$; setting $G(y) = f(a,y)$, one has $f_y(a,b) = G'(b)$, that is,
+\[
+f_y(a,b) = \lim_{k \to 0} \frac{f(a,b+k) - f(a,b)}{k}.
+\]
+
+If the point $(a,b)$ is allowed to vary throughout the domain, the partial derivatives $f_x$ and $f_y$ themselves become functions of the two variables $x$ and $y$,
+\[
+\begin{aligned}
+f_x(x,y) &= \lim_{h \to 0} \frac{f(x+h,y) - f(x,y)}{h}, \\[0.5em]
+f_y(x,y) &= \lim_{k \to 0} \frac{f(x,y+k) - f(x,y)}{k}.
+\end{aligned}
+\]
+
+In practice, partial derivatives are computed according to the following simple rule: to find $f_x$, one regards $y$ as a constant and differentiates the resulting expression with respect to $x$ using the ordinary rules of single-variable differentiation; symmetrically, to find $f_y$, one regards $x$ as a constant and differentiates with respect to $y$. For
+\[
+f(x,y) = x^3 + x^2 y^3 - 2y^2.
+\]
+holding $y$ constant gives
+\[
+f_x(x,y)=3x^2+2xy^3,
+\]
+whereas holding $x$ constant gives
+\[
+f_y(x,y)=3x^2y^2-4y.
+\]
+Differentiating once more also gives
+\[
+f_{xx}=6x+2y^3,\quad
+f_{xy}=f_{yx}=6xy^2,\quad
+f_{yy}=6x^2y-4,
+\]
+which explicitly illustrates Clairaut's equality of the mixed derivatives.
+
+If $f$ is a function of two variables, its partial derivatives $f_x$ and $f_y$ are themselves functions of two variables, and one may accordingly consider their own partial derivatives, namely $(f_x)_x$, $(f_x)_y$, $(f_y)_x$, and $(f_y)_y$, collectively called the second-order partial derivatives of $f$. Writing $z = f(x,y)$, one adopts the standard notation $f_{xy} = \partial^2 f / \partial y\, \partial x$ to indicate that differentiation is performed first with respect to $x$, and subsequently with respect to $y$; the notation $f_{yx}$ indicates the reverse order of differentiation. Although these two mixed partial derivatives are computed in opposite orders, they in fact coincide under mild regularity assumptions, as the following classical result shows.
+
+\begin{theorem}[Clairaut's Theorem]
+Suppose $f$ is defined on a neighborhood $U(a,b)$. If the functions $f_{xy}$ and $f_{yx}$ are both continuous on $U(a,b)$, then
+\[
+f_{xy}(a,b) = f_{yx}(a,b).
+\]
+
+\end{theorem}
+
+Partial derivatives occur pervasively in the formulation of partial differential equations expressing fundamental physical laws, and it is instructive to record a few celebrated examples. The Laplace equation, $\Delta u = 0$, where
+\[
+\Delta = \partial^2/\partial x^2 + \partial^2/\partial y^2
+\]
+denotes the two-dimensional Laplacian operator already introduced in the study of vector calculus, has solutions called harmonic functions, which play a central role in problems of heat conduction, fluid flow, and electric potential. If $u(t,x)$ represents the displacement of a vibrating violin string at time $t$ and at a distance $x$ from one end of the string, then $u$ satisfies the wave equation,
+\[
+\partial^2 u/\partial t^2 = a^2 \, \partial^2 u/\partial x^2,
+\]
+for a suitable constant $a$ related to the physical properties of the string. Finally, the celebrated Navier--Stokes equation, governing the velocity field $\mathbf{u}$ of an incompressible fluid, takes the form
+\[
+\partial \mathbf{u}/\partial t + (\mathbf{u} \cdot \nabla)\mathbf{u} - \nu \Delta \mathbf{u} = -\nabla w + \mathbf{g},
+\]
+where $\nu$, $w$, and $\mathbf{g}$ denote, respectively, the viscosity, pressure, and external force density of the fluid.
+
+\section{Scalar and Vector Fields: Differential Operators}
+\label{sec:vector-operators}
+
+Vector calculus is a fundamental tool in mathematical analysis, differential geometry, and mathematical physics. It extends the concepts of differential calculus, already developed for functions of a single real variable, to the setting of scalar and vector fields defined on regions of three-dimensional space.
+
+\subsection{Scalar and Vector Fields and First-Order Operators}
+
+Let $\Omega \subseteq \mathbb{R}^3$ be a given open set. Two distinct types of fields naturally arise on such a domain, and it is useful to introduce a unified notation before distinguishing between them. A scalar field is a function $f : \Omega \to \mathbb{R}$ that assigns a single real number to every point $\mathbf{x} = (x,y,z) \in \Omega$; a vector field, by contrast, is a function $\mathbf{F} : \Omega \to \mathbb{R}^3$ that assigns an entire vector, rather than a single number, to every point of $\Omega$, and is accordingly written in components as
+\[
+\mathbf{F}(x,y,z) = P(x,y,z) \, \mathbf{i} + Q(x,y,z) \, \mathbf{j} + R(x,y,z) \, \mathbf{k} = \begin{pmatrix} P(x,y,z) \\ Q(x,y,z) \\ R(x,y,z) \end{pmatrix}.
+\]
+
+In order to express directional derivatives and the various differential operations acting on scalar and vector fields in a compact and systematic notation, it is convenient to introduce the symbolic Nabla operator,
+\[
+\nabla = \mathbf{i} \frac{\partial}{\partial x} + \mathbf{j} \frac{\partial}{\partial y} + \mathbf{k} \frac{\partial}{\partial z} = \begin{pmatrix} \dfrac{\partial}{\partial x} \\[2mm] \dfrac{\partial}{\partial y} \\[2mm] \dfrac{\partial}{\partial z} \end{pmatrix}.
+\]
+
+Although $\nabla$ is not itself a vector in the ordinary sense, but rather a formal symbol representing a vector of partial differentiation operators, it can be manipulated according to many of the familiar rules of vector algebra, and this formal analogy underlies the definitions of the gradient, divergence, and curl introduced in the following subsection.
+
+
+Three fundamental first-order differential operators act on scalar and vector fields, each capturing a distinct geometric aspect of how the field varies from point to point; we now introduce each of them in turn, together with its defining formula in terms of the Nabla operator.
+
+The gradient of a differentiable scalar field $f$ is a vector field that points, at every point of $\Omega$, in the direction of the maximum rate of increase of $f$, and whose magnitude equals that maximum rate of increase. It is defined by applying the Nabla operator to $f$, yielding
+\[
+\begin{aligned}
+\operatorname{grad} f &= \nabla f \\[0.5em]
+&= \frac{\partial f}{\partial x} \, \mathbf{i} + \frac{\partial f}{\partial y} \, \mathbf{j} + \frac{\partial f}{\partial z} \, \mathbf{k}.
+\end{aligned}
+\]
+
+The divergence, by contrast, acts on a vector field $\mathbf{F}$ rather than on a scalar field, and produces a scalar rather than a vector; it measures the magnitude of the source or sink of the vector field at a given point, that is, the extent to which the field appears to originate from or converge toward that point. It is defined, formally, as the dot product of $\nabla$ with $\mathbf{F}$,
+\[
+\begin{aligned}
+\operatorname{div} \mathbf{F} &= \nabla \cdot \mathbf{F} \\[0.5em]
+&= \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}.
+\end{aligned}
+\]
+
+The curl, finally, again acts on a vector field, but unlike the divergence it returns another vector field rather than a scalar, and it measures the tendency of the field to rotate about a given point. It is defined, formally, as the cross product of $\nabla$ with $\mathbf{F}$, evaluated symbolically as the determinant
+\[
+\operatorname{curl} \mathbf{F} = \nabla \times \mathbf{F} = \det \begin{pmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\[1mm] \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\[2mm] P & Q & R \end{pmatrix}.
+\]
+
+\subsection{Second-Order Differential Operators}
+
+Beyond the three first-order operators just introduced, it is natural to consider differential operators obtained by applying two differentiations in succession; the most important such operator, arising throughout mathematical physics, is the Laplacian.
+
+The Laplacian is the second-order differential operator obtained by taking
+the divergence of the gradient of a scalar field. Some literature writes
+it as $\nabla^2 f$; throughout this volume we use $\Delta f$ for the
+Laplacian and reserve $\nabla^2 f$ for the Hessian matrix. Thus
+\[
+\begin{aligned}
+\Delta f &= \nabla \cdot (\nabla f) \\[0.5em]
+&= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2}.
+\end{aligned}
+\]
+
+Scalar fields satisfying $\Delta f = 0$ throughout their domain are called harmonic functions, and they play a central role in potential theory and in the study of steady-state physical phenomena. The Laplacian operator can furthermore be extended to act on a vector field $\mathbf{F}$, by applying it separately, or component-wise, to each of the three scalar components of the field,
+\[
+\Delta \mathbf{F} = (\Delta P) \, \mathbf{i} + (\Delta Q) \, \mathbf{j} + (\Delta R) \, \mathbf{k}.
+\]
+
+When the theory of vector calculus is extended from ordinary three-dimensional space to the four-dimensional Minkowski spacetime with coordinates $(t,x,y,z)$, a setting frequently employed in the study of wave propagation and in relativity, the Laplacian itself is generalized into a further second-order operator, known as the D'Alembertian, or wave operator, and denoted by $\dalembert$. This operator incorporates, in addition to the spatial Laplacian, a second derivative with respect to time, suitably balanced by the speed of light $c$, or by the value $c=1$ if natural units are adopted; explicitly,
+\[
+\begin{aligned}
+\dalembert f &= \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2} - \Delta f \\
+&= \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2}
+- \left( \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} \right).
+\end{aligned}
+\]
+
+\begin{remark}
+Depending on the metric signature adopted in a given treatment of theoretical physics, either the mostly-minus or the mostly-plus convention, one may instead encounter the opposite sign convention for the D'Alembertian, namely
+\[
+\dalembert f = \Delta f - \frac{1}{c^2} \frac{\partial^2 f}{\partial t^2}.
+\]
+
+Regardless of which sign convention is adopted, the equation $\dalembert f = 0$ represents the homogeneous wave equation, which describes how electromagnetic or acoustic waves propagate through space as time evolves.
+\end{remark}
+
+\section{Quadratic Forms, Least Squares, and Multivariable Extrema}
+
+\subsection{Gradients and Hessians of Quadratic Forms}
+
+Quadratic forms occur pervasively in optimization and in statistics, most notably in the least squares problem, and it is therefore essential to compute their gradients and Hessians explicitly.
+
+\begin{definition}[Quadratic Form]
+Given a matrix $A \in M_n$, the quadratic form associated with $A$ is the function $Q : \mathbb{R}^n \to \mathbb{R}$ defined by $Q(\mathbf{x}) = \mathbf{x}^{\top} A \mathbf{x}$.
 
 \end{definition}
 
-\begin{definition}[Darboux Sums and the Double Integral]
-Let $f : R \to \mathbb{R}$ be bounded, and let $P$ be a partition of $R$ with subrectangles $R_{ij}$. Set
+\begin{theorem}[Gradient and Hessian of a Quadratic Form]
+Given $A \in M_n$, the gradient and Hessian of $Q(\mathbf{x}) = \mathbf{x}^{\top}A\mathbf{x}$ are
 \[
-M_{ij} = \sup_{(x,y)\in R_{ij}} f(x,y), \qquad m_{ij} = \inf_{(x,y)\in R_{ij}} f(x,y),
+\begin{aligned}
+\nabla Q(\mathbf{x}) &= (A + A^{\top})\mathbf{x}, \\[0.5em]
+\nabla^2 Q(\mathbf{x}) &= A + A^{\top}.
+\end{aligned}
 \]
-and define the upper and lower Darboux sums
-\[
-U(f,P) = \sum_{i,j} M_{ij}\,\Delta A_{ij}, \qquad L(f,P) = \sum_{i,j} m_{ij}\,\Delta A_{ij}.
-\]
-The function $f$ is (Darboux) integrable on $R$ if
-\[
-\sup_P L(f,P) = \inf_P U(f,P),
-\]
-
-In this case, the common value is called the double integral of $f$ over $R$. The following two notations are equivalent:
+In particular, if $A$ is symmetric,
 \[
 \begin{gathered}
-\iint_R f \, dA, \\
-\iint_R f(x,y)\, dx\, dy.
+\nabla Q(\mathbf{x}) = 2A\mathbf{x} \\[0.5em]
+\nabla^2 Q(\mathbf{x}) = 2A.
 \end{gathered}
-\]
-
-\end{definition}
-
-Since refining a partition can only decrease upper sums and increase lower sums, one has
-\[
-L(f,P) \leq \sup_{P'} L(f,P') \leq \inf_{P'} U(f,P') \leq U(f,P)
-\]
-for every partition $P$, exactly as in the one-dimensional theory; the content of integrability is that these two bounding quantities coincide.
-
-\begin{theorem}[Continuity Implies Integrability]
-If $f$ is continuous on the closed rectangle
-\[
-R = [a,b]\times[c,d],
-\]
-then $f$ is integrable on $R$.
-\end{theorem}
-
-\begin{proof}
-Since $R$ is closed and bounded, it is compact, and since $f$ is continuous on $R$, it is uniformly continuous on $R$ by the Heine--Cantor theorem: given $\varepsilon>0$, there exists $\delta>0$ such that $\|(x,y)-(x',y')\| < \delta$ implies
-\[
-|f(x,y)-f(x',y')| < \varepsilon / \operatorname{Area}(R).
-\]
-Choose any partition $P$ with mesh
-\[
-\|P\| < \delta/\sqrt{2},
-\]
-so that every subrectangle $R_{ij}$ has diameter
-\[
-((\Delta x_i)^2 + (\Delta y_j)^2)^{1/2} < \delta.
-\]
-
-On each $R_{ij}$, which is compact, $f$ attains its supremum $M_{ij}$ and infimum $m_{ij}$ at some points $\mathbf{p}_{ij}, \mathbf{q}_{ij} \in R_{ij}$ by the Extreme Value Theorem; since $\|\mathbf{p}_{ij}-\mathbf{q}_{ij}\| < \delta$, uniform continuity gives
-\[
-M_{ij}-m_{ij} = f(\mathbf{p}_{ij})-f(\mathbf{q}_{ij}) < \varepsilon/\operatorname{Area}(R).
-\]
-Consequently
-\[
-U(f,P) - L(f,P) = \sum_{i,j}(M_{ij}-m_{ij})\,\Delta A_{ij} < \frac{\varepsilon}{\operatorname{Area}(R)}\sum_{i,j}\Delta A_{ij} = \varepsilon,
-\]
-since
-\[
-\sum_{i,j}\Delta A_{ij} = \operatorname{Area}(R).
-\]
-For every partition, the following two inequalities hold:
-\[
-\begin{gathered}
-\sup_{P'}L(f,P') \geq L(f,P) \\
-\inf_{P'}U(f,P') \leq U(f,P)
-\end{gathered}
-\]
-For the particular partition $P$ chosen above, they imply
-\[
-0 \leq \inf_{P'}U(f,P') - \sup_{P'}L(f,P') \leq U(f,P)-L(f,P) < \varepsilon
-\]
-Since $\varepsilon>0$ was arbitrary, it follows that
-\[
-\inf_{P'}U(f,P') = \sup_{P'}L(f,P'),
-\]
-that is, $f$ is integrable on $R$.
-\end{proof}
-
-Fubini's Theorem is the principal computational tool of multivariable integration: it asserts that, under mild hypotheses, a double integral may be evaluated as an iterated sequence of two ordinary one-dimensional integrals, performed one variable at a time.
-
-\begin{theorem}[Fubini's Theorem, Rectangular Case]
-Let $f$ be continuous on
-\[
-R = [a,b]\times[c,d].
-\]
-
-Then, for every fixed $x \in [a,b]$, the function $y \mapsto f(x,y)$ is continuous on $[c,d]$ and hence integrable there, and the resulting function
-\[
-A(x) = \int_c^d f(x,y)\, dy
-\]
-is continuous, hence integrable, on $[a,b]$. Moreover,
-\[
-\iint_R f\, dA = \int_a^b A(x)\, dx = \int_a^b \left( \int_c^d f(x,y)\, dy \right) dx.
-\]
-The same conclusion holds with the roles of $x$ and $y$ exchanged, so that in particular
-\[
-\int_a^b \left( \int_c^d f(x,y)\, dy \right) dx = \int_c^d \left( \int_a^b f(x,y)\, dx \right) dy.
 \]
 
 \end{theorem}
 
 \begin{proof}
-Fix $x \in [a,b]$; since $f$ is continuous on $R$, the single-variable function $y \mapsto f(x,y)$ is continuous on $[c,d]$, and therefore integrable there by the one-dimensional theory, so $A(x)$ is well defined. Let $P = (P_x,P_y)$ be any partition of $R$, with subrectangles
+Writing
 \[
-R_{ij} = [x_{i-1},x_i]\times[y_{j-1},y_j],
+Q(\mathbf{x}) = \sum_{i,j} a_{ij} x_i x_j
 \]
-and retain the notation $M_{ij}, m_{ij}$ of the preceding section. Fix $i$, and let $x \in [x_{i-1},x_i]$. For every $j$ and every $y \in [y_{j-1},y_j]$, one has
+and differentiating with respect to $x_k$, the terms with $i=k$, namely
 \[
-m_{ij} \leq f(x,y) \leq M_{ij},
+\sum_j a_{kj}x_k x_j,
 \]
-since $(x,y) \in R_{ij}$; integrating this inequality over $y \in [y_{j-1},y_j]$ gives
+contribute
 \[
-m_{ij}\,\Delta y_j \;\leq\; \int_{y_{j-1}}^{y_j} f(x,y)\, dy \;\leq\; M_{ij}\,\Delta y_j.
+\sum_j a_{kj} x_j
 \]
-
-Summing over $j = 1, \dots, n$, and using additivity of the one-dimensional integral over the subintervals of $[c,d]$,
+upon differentiation, while the terms with $j=k$, namely
 \[
-\sum_{j} m_{ij}\,\Delta y_j \;\leq\; A(x) = \int_c^d f(x,y)\, dy \;\leq\; \sum_j M_{ij}\, \Delta y_j,
+\sum_i a_{ik}x_ix_k,
 \]
-valid for every $x \in [x_{i-1},x_i]$. Integrating this inequality over $x \in [x_{i-1},x_i]$ and summing over $i = 1, \dots, m$ gives
+contribute
 \[
-\sum_{i,j} m_{ij}\, \Delta x_i \, \Delta y_j \;\leq\; \int_a^b A(x)\, dx \;\leq\; \sum_{i,j} M_{ij}\,\Delta x_i\, \Delta y_j,
+\sum_i a_{ik} x_i;
 \]
-For every partition $P$ of $R$, this gives the bounds
+the single term with
 \[
-L(f,P) \;\leq\; \int_a^b A(x)\, dx \;\leq\; U(f,P),
+\begin{aligned}
+i &= j \\
+&= k
+\end{aligned}
 \]
-Since $f$ is continuous on $R$, it is integrable there by the previous theorem, so
+is counted correctly by either contribution alone and not twice, since it is a single term $a_{kk}x_k^2$ whose derivative $2a_{kk}x_k$ equals the sum of the two separate contributions $a_{kk}x_k$ from each. One obtains
 \[
-\sup_P L(f,P) = \inf_P U(f,P) = \iint_R f\, dA;
+\partial Q / \partial x_k = \sum_j a_{kj}x_j + \sum_i a_{ik}x_i,
 \]
-as the fixed number
+which is the $k$-th component of $A\mathbf{x} + A^{\top}\mathbf{x}$; since this holds for every $k$,
 \[
-\int_a^b A(x)\, dx
-\]
-is squeezed between $L(f,P)$ and $U(f,P)$ for every partition $P$, it must equal this common value, giving
-\[
-\int_a^b A(x)\, dx = \iint_R f\, dA.
+\nabla Q(\mathbf{x}) = (A+A^{\top})\mathbf{x}.
 \]
 
-Continuity of $A$ follows from uniform continuity of $f$ on the compact rectangle $R$: given $\varepsilon>0$, choose $\delta>0$ so that $\|(x,y)-(x',y)\|<\delta$ implies
+Differentiating this expression once more with respect to $x_l$, since $A+A^{\top}$ is a constant matrix, yields directly
 \[
-|f(x,y)-f(x',y)| < \varepsilon/(d-c)
+\partial^2 Q/\partial x_l \partial x_k = (A+A^{\top})_{kl},
 \]
-for all $y$; then $|x-x'|<\delta$ implies
+Hence the Hessian is
 \[
-|A(x)-A(x')| \leq \int_c^d |f(x,y)-f(x',y)|\, dy < \varepsilon,
+\nabla^2 Q(\mathbf{x}) = A+A^{\top}.
 \]
-establishing continuity, hence integrability, of $A$. The identity with the roles of $x$ and $y$ exchanged follows by the identical argument applied with the two coordinates interchanged throughout.
+
 \end{proof}
 
-\begin{example}
-Let $R = [0,1]\times[0,2]$ and $f(x,y) = xy^2$. By Fubini's Theorem,
-\begin{align*}
-\iint_R xy^2\, dA &= \int_0^1 \left( \int_0^2 xy^2\, dy \right) dx = \int_0^1 x \left[ \frac{y^3}{3} \right]_0^2 dx \\
-&= \int_0^1 \frac{8x}{3}\, dx = \frac{8}{3}\left[\frac{x^2}{2}\right]_0^1 = \frac{4}{3}.
-\end{align*}
-Integrating in the opposite order gives the same value:
+Together with the linearity of differentiation, this result yields the gradient and Hessian of the general quadratic function
 \[
-\int_0^2\left(\int_0^1 xy^2\,dx\right)dy = \int_0^2 \frac{y^2}{2}\,dy = \left[\frac{y^3}{6}\right]_0^2 = \frac{8}{6} = \frac{4}{3},
+\begin{gathered}
+f(\mathbf{x}) = \mathbf{x}^{\top}A\mathbf{x} + \mathbf{b}^{\top}\mathbf{x} + c, \\[0.5em]
+\text{namely}\quad \nabla f(\mathbf{x}) = (A+A^{\top})\mathbf{x} + \mathbf{b} \\[0.5em]
+\nabla^2 f(\mathbf{x}) = A + A^{\top},
+\end{gathered}
 \]
-confirming the theorem.
+since $\nabla(\mathbf{b}^{\top}\mathbf{x}) = \mathbf{b}$, directly from the definition of the gradient applied to the linear function
+\[
+\mathbf{b}^{\top}\mathbf{x} = \sum_i b_i x_i,
+\]
+and the constant $c$ contributes nothing to either derivative.
+
+\subsection{Least Squares and the Normal Equations}
+
+\begin{example}[Derivation of the Normal Equations]
+Consider the least squares problem of minimizing
+\[
+f(\mathbf{x}) = \|A\mathbf{x} - \mathbf{b}\|^2
+\]
+over $\mathbf{x} \in \mathbb{R}^n$, for $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$. Expanding,
+\[
+\begin{aligned}
+f(\mathbf{x}) &= (A\mathbf{x}-\mathbf{b})^{\top}(A\mathbf{x}-\mathbf{b}) \\[0.5em]
+&= \mathbf{x}^{\top}A^{\top}A\mathbf{x} - 2\mathbf{b}^{\top}A\mathbf{x} + \mathbf{b}^{\top}\mathbf{b},
+\end{aligned}
+\]
+a quadratic function with symmetric matrix $A^{\top}A$ and linear coefficient $-2A^{\top}\mathbf{b}$. Its gradient is
+\[
+\nabla f(\mathbf{x}) = 2A^{\top}A\mathbf{x} - 2A^{\top}\mathbf{b},
+\]
+and its Hessian is the constant matrix $2A^{\top}A$, which is positive semidefinite since
+\[
+\begin{aligned}
+\mathbf{v}^{\top}(A^{\top}A)\mathbf{v} &= \|A\mathbf{v}\|^2 \\
+&\geq 0
+\end{aligned}
+\]
+for every $\mathbf{v}$, so that every critical point of $f$ is automatically a global minimum. Setting $\nabla f(\mathbf{x}) = \vec{0}$ yields the normal equations
+\[
+A^{\top}A\mathbf{x} = A^{\top}\mathbf{b},
+\]
+whose solutions are precisely the least squares solutions of the original, generally inconsistent, system $A\mathbf{x} = \mathbf{b}$; when $A^{\top}A$ is nonsingular, the unique solution is $\mathbf{x} = (A^{\top}A)^{-1}A^{\top}\mathbf{b}$, and this expression coincides with $A^{+}\mathbf{b}$, the pseudoinverse solution obtained in the previous section, whenever $A$ has full column rank.
 \end{example}
 
-\subsection{Integrability on General Planar Regions}
+\subsection{Multivariable Extrema and Second-Derivative Tests}
 
+\begin{definition}
+A function $f$ of two variables has a local maximum at $(a,b)$ if $f(x,y) \leq f(a,b)$ for every $(x,y)$ in some neighborhood $U(a,b)$; the number $f(a,b)$ is then called a local maximum value. An analogous definition, with the inequality reversed, defines a local minimum and the corresponding local minimum value.
+\end{definition}
 
-Most regions of interest are not rectangles, and the integral must be extended to accommodate them.
+As in the single-variable theory, the vanishing of an appropriate derivative provides a necessary condition for the presence of a local extremum, and this condition is furnished by the following two-variable generalization of Fermat's Theorem.
 
-\begin{definition}[Content Zero]
-A bounded set $Z \subset \mathbb{R}^2$ has content zero if, for every $\varepsilon>0$, there exist finitely many rectangles $S_1,\dots,S_k$ with
+\begin{theorem}[Fermat's Theorem for Functions of Two Variables]
+If $f$ has a local maximum or minimum at $(a,b)$, and the first-order partial derivatives of $f$ exist there, then $\nabla f(a,b) = (0,0)$, that is, $f_x(a,b) = 0$ and $f_y(a,b) = 0$.
+
+\end{theorem}
+
+The idea underlying the proof is that, if $f$ has a local maximum at $(a,b)$, then the restriction of $f$ along the line $y=b$, namely the single-variable function $g(x) = f(x,b)$, itself has a local maximum at $x=a$; the single-variable Fermat's Theorem therefore yields $g'(a) = 0$, and since $g'(a) = f_x(a,b)$, one concludes that $f_x(a,b) = 0$.
+
+An entirely analogous argument, applied to the restriction of $f$ along the line $x=a$, yields $f_y(a,b) = 0$.
+
+\begin{definition}
+A point $(a,b)$ is called a critical point of $f$ if $\nabla f(a,b) = (0,0)$.
+\end{definition}
+
+Fermat's Theorem, restated in this terminology, asserts that if $f$ has a local maximum or minimum at $(a,b)$, and the partial derivatives of $f$ exist at $(a,b)$, then $(a,b)$ must be a critical point of $f$. It is important to observe, however, that, exactly as in the single-variable theory, not every critical point corresponds to a local maximum or minimum; a critical point may instead be a saddle point, at which the function increases along some directions and decreases along others.
+
+In order to determine whether a given critical point actually corresponds to a local extremum, or instead to a saddle point, one relies on the following test, formulated in terms of the second-order partial derivatives of $f$.
+
+\begin{theorem}[Second Derivatives Test]
+Suppose the second partial derivatives of $f$ are continuous on a neighborhood $U(a,b)$, and suppose that $(a,b)$ is a critical point of $f$. Let
+\[
+D = f_{xx}(a,b) \, f_{yy}(a,b) - \big[ f_{xy}(a,b) \big]^2.
+\]
+
+If $D < 0$, then $(a,b)$ is neither a local maximum nor a local minimum, but a saddle point. If $D > 0$ and $f_{xx}(a,b) > 0$, then $f(a,b)$ is a local minimum. If $D > 0$ and $f_{xx}(a,b) < 0$, then $f(a,b)$ is a local maximum.
+\end{theorem}
+
+\begin{remark}
+If $D = 0$, the test is inconclusive: the function $f$ could have a local maximum, a local minimum, or a saddle point at $(a,b)$, and no further information can be extracted from the sign of $D$ alone. This ambiguity is illustrated by the three functions
 \[
 \begin{gathered}
-Z \subseteq \bigcup_{l=1}^{k} S_l \\
-\sum_{l=1}^{k}\operatorname{Area}(S_l) < \varepsilon.
+z = x^4+y^4, \\[0.5em]
+z = -x^4-y^4, \\[0.5em]
+z = x^4-y^4,
 \end{gathered}
 \]
+all of which have a critical point with $D=0$ at the origin, yet exhibit, respectively, a local minimum, a local maximum, and a saddle point there.
+\end{remark}
+
+The four second-order partial derivatives of $f$ at $(a,b)$ can be conveniently organized into a matrix, called the Hessian matrix of $f$ at $(a,b)$,
+\[
+H_f(a,b) = \begin{pmatrix} f_{xx}(a,b) & f_{xy}(a,b) \\ f_{yx}(a,b) & f_{yy}(a,b) \end{pmatrix},
+\]
+and the quantity $D$ appearing in the Second Derivatives Test is precisely the determinant of this Hessian matrix. Consider
+\[
+f(x,y) = x^4+y^4-4xy+1.
+\]
+Its gradient vanishes when
+\[
+\begin{aligned}
+f_x&=4x^3-4y=0,\\
+f_y&=4y^3-4x=0.
+\end{aligned}
+\]
+Thus $y=x^3$ and $x=y^3$, so $x=x^9$. Hence
+$x\in\{-1,0,1\}$ and the critical points are
+\[
+(-1,-1),\qquad(0,0),\qquad(1,1).
+\]
+The Hessian and its determinant are
+\[
+H_f(x,y)=\begin{pmatrix}12x^2&-4\\-4&12y^2\end{pmatrix},
+\qquad D(x,y)=144x^2y^2-16.
+\]
+At $(0,0)$, $D=-16<0$, so the origin is a saddle point. At
+$(1,1)$ and $(-1,-1)$, $D=128>0$ and $f_{xx}=12>0$, so both are
+local minima. Their common value is
+\[
+f(1,1)=f(-1,-1)=1+1-4+1=-1.
+\]
+There are no local maxima among the critical points.
+
+\input{figures/saddle-surface.tex}
+
+\section{Differentiability, Directional Derivatives, and Jacobians}
+
+\subsection{Tangent Planes and Differentiability}
+
+Before introducing the notion of differentiability for a function of two variables, it is useful to recall that any plane in $\mathbb{R}^3$ passing through a point $P(x_0,y_0,z_0)$ admits an equation of the form
+\[
+A(x-x_0) + B(y-y_0) + C(z-z_0) = 0,
+\]
+or equivalently $Ax+By+Cz=D$; the particular planes $z=z_0$, $y=y_0$, and $x=x_0$ arise as special cases of this general form.
+
+Let $S$ denote the graph of a function $z = f(x,y)$, regarded as a surface in $\mathbb{R}^3$, and let $C_1$ and $C_2$ denote the traces of this surface in the planes $y=b$ and $x=a$ respectively, that is, the curves obtained by intersecting $S$ with these two coordinate planes. The partial derivatives $f_x(a,b)$ and $f_y(a,b)$ admit a direct geometric interpretation as the slopes of the tangent lines $T_1$ and $T_2$ to the traces $C_1$ and $C_2$ at the common point $P(a,b,c)$, where $c = f(a,b)$; this geometric interpretation is well illustrated by the graph of
+\[
+f(x,y) = 4-x^2-2y^2,
+\]
+together with the corresponding tangent lines at the point $(1,1)$.
+
+\begin{remark}
+A function may possess both partial derivatives at a point $(a,b)$ without being continuous at that same point. This somewhat surprising phenomenon is illustrated by the function
+\[
+f(x,y) =
+\begin{cases}
+\dfrac{xy}{x^2+y^2} & (x,y) \neq (0,0), \\[1mm]
+0 & (x,y) = (0,0).
+\end{cases}
+\]
+Both partial derivatives of this function exist at the origin, and in fact
+\[
+f_x(0,0) = f_y(0,0) = 0;
+\]
+however, $f(x,y) = 1/2$ at every point on the line $y=x$ other than the origin, while $f(x,y) = 0$ at every point on the line $y=0$, so that $f$ fails to be continuous at the origin, since it does not approach a common limiting value along these two distinct lines.
+\end{remark}
+
+The plane containing the two tangent lines $T_1$ and $T_2$ discussed above is called the tangent plane to the graph of $f$ at the point $(a,b,f(a,b))$, and its equation is given explicitly by
+\[
+z = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b).
+\]
+
+Recall that, for a function of a single variable, differentiability of $f$ at $x=a$ means precisely that the tangent line
+\[
+L(x) = f(a) + f'(a)(x-a)
+\]
+provides the best possible linear approximation of $f$ near $x=a$, in the sense that
+\[
+\lim_{x \to a} [f(x)-L(x)]/(x-a) = 0.
+\]
+
+This notion extends naturally to functions of two variables, with the tangent line replaced by the tangent plane introduced above. Denote by $L(x,y)$ the linear function whose graph is precisely this tangent plane, that is,
+\[
+L(x,y) = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b).
+\]
+
+\begin{definition}
+We say that $f$ is differentiable at $(a,b)$ if the tangent plane provides a good approximation of the function near $(a,b)$, in the sense that
+\[
+\lim_{(x,y) \to (a,b)} \frac{f(x,y) - L(x,y)}{\sqrt{(x-a)^2+(y-b)^2}} = 0.
+\]
 
 \end{definition}
 
-The graph of a continuous function on a closed bounded interval has content zero, a fact used implicitly below without separate proof, since it follows from uniform continuity in the same manner as the theorem above: covering $[a,b]$ by finitely many subintervals of total length $\varepsilon'$ and small enough that the corresponding oscillation of the function is at most $\varepsilon/(b-a)$, the rectangles built from these subintervals and this oscillation bound cover the graph with total area at most $\varepsilon$.
+As already observed, a function may possess partial derivatives at a point without being continuous there; however, this pathology cannot occur once the function is known to be differentiable at that point, as the following theorem shows.
 
-\begin{theorem}[Integrability with a Content-Zero Set of Discontinuities]
-Let $\tilde{f} : R \to \mathbb{R}$ be bounded on a rectangle $R$, say $|\tilde{f}| \leq M$, and continuous at every point of $R$ except possibly on a set $Z \subset R$ of content zero. Then $\tilde{f}$ is integrable on $R$.
+\begin{theorem}
+If $f$ is differentiable at $(a,b)$, then $f$ is continuous at $(a,b)$.
+
 \end{theorem}
 
-\begin{proof}
-Let $\varepsilon > 0$. Since $Z$ has content zero, cover $Z$ by finitely many open rectangles $S_1,\dots,S_k$ with
+While the definition of differentiability given above is precise, it is often cumbersome to verify directly from the definition. The following theorem provides a convenient sufficient condition for differentiability, expressed purely in terms of the continuity of the partial derivatives, and is the criterion most frequently applied in practice.
+
+\begin{theorem}[Sufficient Condition for Differentiability]
+If the partial derivatives $f_x$ and $f_y$ exist on a neighborhood $U(a,b)$ and are continuous at $(a,b)$, then $f$ is differentiable at $(a,b)$.
+
+\end{theorem}
+
+\subsection{Directional Derivatives and the Gradient}
+
+The partial derivatives $f_x(x_0,y_0)$ and $f_y(x_0,y_0)$ represent the rates of change of $z=f(x,y)$ at the point $(x_0,y_0)$ specifically in the $x$- and $y$-directions, that is, in the directions of the unit vectors $\mathbf{i}$ and $\mathbf{j}$ respectively. It is natural to seek a corresponding notion of rate of change in an arbitrary direction, specified by an arbitrary unit vector $\mathbf{u} = a\mathbf{i} + b\mathbf{j}$, satisfying $a^2+b^2=1$.
+
+\begin{definition}[Directional Derivative]
+The directional derivative of $f$ at $(x_0,y_0)$ in the direction of the unit vector $\mathbf{u} = a\mathbf{i}+b\mathbf{j}$, denoted $D_{\mathbf{u}} f(x_0,y_0)$, is defined as
 \[
-\sum_l \operatorname{Area}(S_l) < \varepsilon/(4M).
+D_{\mathbf{u}} f(x_0,y_0) = \lim_{t \to 0} \frac{f(x_0+ta, y_0+tb) - f(x_0,y_0)}{t},
 \]
-
-The set $K = R \setminus \bigcup_l S_l$ is closed and bounded, hence compact, and $\tilde{f}$ is continuous at every point of $K$, since $K$ contains no point of $Z$; $\tilde{f}$ is therefore uniformly continuous on $K$. Choose a partition $P$ of $R$ fine enough that: (i) every subrectangle of $P$ meeting $\bigcup_l S_l$ is contained in a slightly enlarged union of the $S_l$ whose total area remains below $\varepsilon/(2M)$, which is possible since finitely many rectangles have a boundary of content zero and the $S_l$ may be taken slightly larger at the outset to absorb this adjustment; and (ii) the mesh of $P$ is small enough that, on every subrectangle disjoint from $\bigcup_l S_l$ (hence contained in $K$), the oscillation of $\tilde f$ is less than $\varepsilon/(2\operatorname{Area}(R))$, which is possible by uniform continuity of $\tilde f$ on $K$. Splitting the sum defining $U(f,P)-L(f,P)$ into subrectangles of the first kind and of the second kind,
-\[
-U(\tilde f,P) - L(\tilde f,P) = \sum_{\text{meets } \cup S_l} (M_{ij}-m_{ij})\Delta A_{ij} \;+\; \sum_{\text{in } K} (M_{ij}-m_{ij}) \Delta A_{ij}.
-\]
-
-In the first sum, $M_{ij}-m_{ij} \leq 2M$ always, so this sum is at most $2M \cdot \varepsilon/(4M) = \varepsilon/2$; in the second sum, $M_{ij}-m_{ij} < \varepsilon/(2\operatorname{Area}(R))$, so this sum is less than
-\[
-\varepsilon/(2\operatorname{Area}(R)) \cdot \operatorname{Area}(R) = \varepsilon/2.
-\]
-
-Hence $U(\tilde f,P)-L(\tilde f,P) < \varepsilon$; since $\varepsilon>0$ was arbitrary, $\tilde f$ is integrable on $R$, exactly as in the proof of the theorem for continuous functions above.
-\end{proof}
-
-\begin{definition}[Integral over a General Bounded Region]
-Let $D \subset \mathbb{R}^2$ be bounded, with $\partial D$ of content zero, and let $f$ be bounded on $D$ and continuous except possibly on a set of content zero. Choose any rectangle $R \supseteq D$, and extend $f$ to $\tilde f$ on $R$ by setting $\tilde f = f$ on $D$ and $\tilde f = 0$ on $R \setminus D$. The double integral of $f$ over $D$ is defined as
-\[
-\iint_D f\, dA := \iint_R \tilde f\, dA.
-\]
-
+provided this limit exists and is finite. Geometrically, this quantity represents the slope of the tangent line $T$ at the point $P(x_0,y_0,z_0)$ to the trace $C$ obtained by intersecting the graph of $f$ with the vertical plane through $(x_0,y_0)$ in the direction $\mathbf{u}$.
 \end{definition}
 
-The discontinuities of $\tilde f$ occur only within $\partial D$, together with the discontinuities of $f$ already present in $D$, together forming a set of content zero; the preceding theorem guarantees that $\tilde f$ is integrable on $R$, so this definition is meaningful, and it is independent of the choice of enclosing rectangle $R$, since $\tilde f$ vanishes outside $D$ regardless.
+When $f$ is known to be differentiable at $(x_0,y_0)$, its directional derivatives in every direction can be computed very efficiently by means of the following formula, which reduces the computation of a directional derivative to a simple dot product involving the gradient vector.
 
-\begin{definition}[Type I and Type II Regions]
-A region $D \subset \mathbb{R}^2$ is of Type I if
+\begin{theorem}[Gradient Formula]
+Suppose $f$ is differentiable at $(x_0,y_0)$. Then $f$ has a directional derivative $D_{\mathbf{u}} f(x_0,y_0)$ in the direction of every unit vector $\mathbf{u} = a\mathbf{i}+b\mathbf{j}$, given by
 \[
-D = \{(x,y) : a \leq x \leq b, \; g_1(x) \leq y \leq g_2(x)\}
+\begin{aligned}
+D_{\mathbf{u}} f(x_0,y_0) &= \nabla f(x_0,y_0) \cdot \mathbf{u} \\[0.5em]
+&= f_x(x_0,y_0) \, a + f_y(x_0,y_0) \, b.
+\end{aligned}
 \]
-for continuous functions $g_1 \leq g_2$ on $[a,b]$; it is of Type II if
-\[
-D = \{(x,y) : c \leq y \leq d, \; h_1(y) \leq x \leq h_2(y)\}
-\]
-for continuous functions $h_1 \leq h_2$ on $[c,d]$.
-\end{definition}
 
-For a Type I region, $\partial D$ consists of the graphs of $g_1$ and $g_2$, each of content zero as noted above, together with the two vertical segments $x=a$ and $x=b$, also visibly of content zero; hence $\partial D$ has content zero, being a finite union of sets of content zero, and the integral over $D$ is defined. Applying Fubini's Theorem on an enclosing rectangle $R = [a,b]\times[c,d]$ to the extension $\tilde f$, and noting that $\tilde f(x,y) = 0$ for $y \notin [g_1(x),g_2(x)]$, gives the following practical evaluation formula.
-
-\begin{theorem}[Iterated Integral over a Type I Region]
-If $D$ is a Type I region as above and $f$ is continuous on $D$, then
-\[
-\iint_D f\, dA = \int_a^b \left( \int_{g_1(x)}^{g_2(x)} f(x,y)\, dy \right) dx.
-\]
-An analogous formula, with the roles of $x$ and $y$ exchanged, holds for a Type II region.
 \end{theorem}
 
-\begin{proof}
-Let $R = [a,b]\times[c,d]$ enclose $D$, with $c \leq g_1(x)$ and $g_2(x) \leq d$ for all $x \in [a,b]$. By Fubini's Theorem applied to $\tilde f$ on $R$,
+The proof of this formula relies on the Chain Rule for partial derivatives of composite functions, a tool that extends the single-variable Chain Rule to functions of several variables and that will be developed in subsequent material.
+
+The Gradient Formula established above has an important consequence concerning the direction in which a function increases most rapidly at a given point.
+
+\begin{theorem}
+The maximum value of the directional derivative $D_{\mathbf{u}} f(x_0,y_0)$, taken over all unit vectors $\mathbf{u}$, equals $\| \nabla f(x_0,y_0) \|$, and this maximum value is attained precisely when $\mathbf{u}$ has the same direction as the gradient vector $\nabla f(x_0,y_0)$, that is, when
 \[
-\iint_D f \, dA = \iint_R \tilde f \, dA = \int_a^b \left( \int_c^d \tilde f(x,y)\, dy \right) dx.
+\mathbf{u} = \frac{\nabla f(x_0,y_0)}{\| \nabla f(x_0,y_0) \|}.
 \]
 
-For fixed $x \in [a,b]$, $\tilde f(x,y) = f(x,y)$ for $y \in [g_1(x),g_2(x)]$ and $\tilde f(x,y) = 0$ otherwise, so by additivity of the one-dimensional integral over subintervals,
-\[
-\int_c^d \tilde f(x,y)\, dy = \int_c^{g_1(x)} 0 \, dy + \int_{g_1(x)}^{g_2(x)} f(x,y)\, dy + \int_{g_2(x)}^d 0\, dy = \int_{g_1(x)}^{g_2(x)} f(x,y)\, dy,
-\]
-which, substituted into the displayed identity above, gives the claimed formula.
-\end{proof}
-
-\begin{theorem}[Basic Properties of the Double Integral]
-Let $f,g$ be integrable on a region $D$, and let $\alpha,\beta \in \mathbb{R}$. Then:
-\begin{enumerate}
-\item[(i)] \textit{Linearity}: the following identity holds:
-
-\[
-\iint_D (\alpha f + \beta g)\, dA = \alpha \iint_D f\, dA + \beta \iint_D g\, dA.
-\]
-
-\item[(ii)] \textit{Monotonicity}: if $f \leq g$ on $D$, then
-
-\[
-\iint_D f\, dA \leq \iint_D g\, dA.
-\]
-
-\item[(iii)] \textit{Additivity over regions}: if $D = D_1 \cup D_2$ with $D_1, D_2$ overlapping at most on a set of content zero, then
-
-\[
-\iint_D f\, dA = \iint_{D_1} f\, dA + \iint_{D_2} f\, dA.
-\]
-
-\end{enumerate}
 \end{theorem}
 
-\begin{proof}
-(i) and (ii) follow directly from the corresponding properties of upper and lower Darboux sums: since
+For the function
 \[
-M_{ij}[\alpha f + \beta g] = \alpha M_{ij}[f] + \beta M_{ij}[g]
+f(x,y) = x^2 y + \sqrt{y}
 \]
-whenever $\alpha,\beta \geq 0$ (with the analogous relation for $m_{ij}$ when either scalar is negative, upon exchanging the roles of $M_{ij}$ and $m_{ij}$), the Darboux sums of $\alpha f + \beta g$ are the corresponding linear combinations of the Darboux sums of $f$ and $g$ for every partition, and passing to the common limiting value defining the integral yields (i); (ii) follows since $f \leq g$ on $D$ forces $L(f,P) \leq L(g,P)$ for every partition $P$ of an enclosing rectangle (applied to the zero-extensions), hence
+at $(2,1)$, the gradient is
 \[
-\iint_D f\,dA = \sup_P L(f,P) \leq \sup_P L(g,P) = \iint_D g\, dA.
+\nabla f(x,y)=\left(2xy,\,x^2+\frac{1}{2\sqrt y}\right),
+\]
+and hence
+\[
+\nabla f(2,1)=\left(4,\frac92\right).
+\]
+The maximum rate of change is the gradient norm,
+\[
+\left\|\nabla f(2,1)\right\|
+=\sqrt{4^2+\left(\frac92\right)^2}
+=\frac{\sqrt{145}}{2},
+\]
+and it occurs in the unit direction
+\[
+\mathbf{u}_{\max}
+=\frac{\nabla f(2,1)}{\|\nabla f(2,1)\|}
+=\left(\frac8{\sqrt{145}},\frac9{\sqrt{145}}\right).
 \]
 
-For (iii), extend $f$ by zero to a common enclosing rectangle $R$; the zero-extension of $f$ from $D$ agrees with the sum of the zero-extensions from $D_1$ and from $D_2$ except on $D_1 \cap D_2$, a set of content zero which therefore does not affect any Darboux sum in the limit, by the same estimate used in the proof of the integrability theorem above; hence
-\[
-\iint_D f \, dA = \iint_{D_1} f\, dA + \iint_{D_2} f \, dA
-\]
-by linearity applied to the (almost everywhere) sum of the two zero-extensions.
-\end{proof}
+A further important geometric property of the gradient vector, complementing the result just stated, concerns its relationship to the level curves of $f$: the gradient vector $\nabla f(x_0,y_0)$ is always perpendicular to the level curve of $f$ that passes through the point $(x_0,y_0)$, providing a further geometric characterization of the direction of steepest ascent described above.
 
-Figure~\ref{fig:ch11-typeI-region} shows the vertical slices used to evaluate an integral over a Type I region:
+Figure~\ref{fig:ch9-gradient} illustrates the relationship between level curves, the gradient, and directional derivatives. For the scalar field
 \[
-\iint_D f\,dA.
+f(x,y)=x^2+y^2
 \]
+the level curves are concentric circles. The gradient $\nabla f$ is perpendicular to the
+level curve at the point and maximizes the directional derivative $D_{\bu} f = \nabla f \cdot \bu$ when $\bu \parallel \nabla f$.
 
 \begin{figure}[!htbp]
 \centering
 \begin{tikzpicture}[scale=1.15,>=Stealth]
-  \draw[->] (-0.4,0) -- (4.4,0) node[right,font=\scriptsize]{$x$};
-  \draw[->] (0,-0.4) -- (0,3.3) node[above,font=\scriptsize]{$y$};
-  \fill[figblue,opacity=0.30]
-    plot[domain=0.6:3.6,smooth,variable=\x] ({\x},{0.35+0.18*(\x-0.6)*(\x-0.6)})
-    -- plot[domain=3.6:0.6,smooth,variable=\x] ({\x},{2.9-0.28*(\x-2.1)*(\x-2.1)})
-    -- cycle;
-  \draw[vecB,thick,domain=0.6:3.6,smooth,variable=\x]
-    plot ({\x},{0.35+0.18*(\x-0.6)*(\x-0.6)}) node[right,font=\scriptsize]{$y=g_1(x)$};
-  \draw[vecC,thick,domain=0.6:3.6,smooth,variable=\x]
-    plot ({\x},{2.9-0.28*(\x-2.1)*(\x-2.1)}) node[right,font=\scriptsize]{$y=g_2(x)$};
-  \draw[dashed,gray] (0.6,0) -- (0.6,0.35) node[pos=0,below,font=\scriptsize,black]{$a$};
-  \draw[dashed,gray] (3.6,0) -- (3.6,1.62);
-  \node[below,font=\scriptsize] at (3.6,0) {$b$};
-  \node[font=\scriptsize] at (2.0,1.5) {$D$};
+\draw[->] (-3.3,0) -- (3.3,0) node[right,font=\scriptsize]{$x$};
+\draw[->] (0,-3.3) -- (0,3.3) node[above,font=\scriptsize]{$y$};
+\foreach \r/\c in {0.71/figblue!25,1.22/figblue!40,1.73/figblue!55,2.24/figblue!70,2.74/figblue!85,3.24/figblue}{
+\draw[\c,thick,domain=0:360,samples=100,smooth,variable=\t]
+plot ({\r*cos(\t)},{\r*sin(\t)});
+}
+\node[circle,fill=black,inner sep=1.2pt] at (1.2,0.9) {};
+\draw[vecB] (1.2,0.9) -- (2.16,1.62) node[above right,font=\scriptsize]{$\nabla f$};
+\draw[vecC] (1.2,0.9) -- (2.0,0.05) node[below right,yshift=-2pt,font=\scriptsize]{$\bu$};
+\draw[figblue,dashed] (0.05,1.5) -- (2.35,0.3);
+\node[figblue,above left,fill=white,inner sep=1.5pt,font=\scriptsize]
+  at (0.45,1.55) {tangent};
 \end{tikzpicture}
-\caption[Type I region]{A Type I region bounded by two graphs and two vertical lines. Integrating along each vertical slice first, and then across the horizontal interval, gives the double integral over $D$.}
-\label{fig:ch11-typeI-region}
+\caption[Level curves, gradient, and directional derivative]{Concentric level curves of the scalar field, with the gradient shown in red and a comparison direction in green. The gradient is normal to the level curve at the marked point and gives the direction of greatest increase.}
+\label{fig:ch9-gradient}
 \end{figure}
 
-\input{figures/triangular-domain.tex}
+\subsection{Vector-Valued Maps and the Jacobian}
 
-\subsection{Change of Variables in the Plane}
+Differential calculus, as developed for functions of a single variable and subsequently for scalar fields of several variables, associates to a differentiable function a linear approximation of its local behavior. The same idea extends to functions taking values in $\mathbb{R}^m$ rather than in $\mathbb{R}$, and the matrix encoding this linear approximation is called the Jacobian matrix.
 
-The one-dimensional substitution rule
+\begin{definition}[Jacobian Matrix]
+Given a function
 \[
-\int_a^b f(x)\,dx = \int_{\alpha}^{\beta} f(\varphi(u))\,\varphi'(u)\,du,
+\mathbf{f} : \Omega \subseteq \mathbb{R}^n \to \mathbb{R}^m,
 \]
-valid for a differentiable bijection $\varphi$ with $\varphi(\alpha)=a$, $\varphi(\beta)=b$, admits a direct generalization to $\mathbb{R}^2$, in which the scalar factor $\varphi'(u)$ is replaced by the absolute value of the Jacobian determinant introduced in the preceding chapter.
+with components $\mathbf{f} = (f_1, \dots, f_m)$, each admitting all first-order partial derivatives at $\mathbf{x} \in \Omega$, the Jacobian matrix of $\mathbf{f}$ at $\mathbf{x}$ is the matrix $J_{\mathbf{f}}(\mathbf{x}) \in M_{m,n}$ whose $(i,j)$ entry is the partial derivative $\partial f_i / \partial x_j$, evaluated at $\mathbf{x}$.
+\end{definition}
 
-\begin{theorem}[Change of Variables Formula, Two Dimensions]
-Let $T : U \to V$,
-\[
-T(u,v) = (x(u,v),y(u,v)),
-\]
-be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^2$, with $\det J_T(u,v) \neq 0$ for every $(u,v) \in U$. Let $D \subset U$ be a bounded region with $D' = T(D) \subset V$, and let $f$ be continuous on $D'$. Then
-\[
-\iint_{D'} f(x,y)\, dx\, dy = \iint_D f\big(T(u,v)\big)\, |\det J_T(u,v)|\, du\, dv.
-\]
+As with scalar fields, the mere existence of the partial derivatives comprising the Jacobian matrix does not by itself guarantee that this matrix furnishes a genuine local linear approximation of $\mathbf{f}$; the appropriate strengthening of this notion is differentiability.
 
-\end{theorem}
-
-\begin{proof}[Derivation]
-Partition $D$ by a fine grid of small rectangles
+\begin{definition}[Differentiability of a Vector-Valued Function]
+The function $\mathbf{f} : \Omega \to \mathbb{R}^m$ is differentiable at $\mathbf{x} \in \Omega$ if there exists a matrix $J \in M_{m,n}$ such that
 \[
-R_{ij} = [u_{i-1},u_i]\times[v_{j-1},v_j],
-\]
-of dimensions $\Delta u \times \Delta v$, and fix a corner $(u_i,v_j)$ of $R_{ij}$. By differentiability of $T$ at $(u_i,v_j)$ -- precisely the statement that $J_T(u_i,v_j)$ furnishes the best local linear approximation to $T$, established in the preceding chapter -- the image of $R_{ij}$ under $T$ satisfies
-\begin{align*}
-T(u_i + \Delta u, v_j) &\approx T(u_i,v_j) + \frac{\partial T}{\partial u}(u_i,v_j)\,\Delta u, \\
-T(u_i, v_j+\Delta v) &\approx T(u_i,v_j) + \frac{\partial T}{\partial v}(u_i,v_j)\, \Delta v,
-\end{align*}
-with error terms that are $o(\Delta u)$ and $o(\Delta v)$ respectively as $\Delta u, \Delta v \to 0$. Consequently, $T(R_{ij})$ is approximated, to leading order, by the parallelogram based at $T(u_i,v_j)$ and spanned by the two vectors $\partial T/\partial u\, \Delta u$ and $\partial T/\partial v\, \Delta v$, which are precisely the two columns of $J_T(u_i,v_j)$, each scaled respectively by $\Delta u$ and $\Delta v$. The area of a parallelogram spanned by two vectors equals the absolute value of the determinant of the matrix formed by those vectors as columns; hence
-\begin{align*}
-\operatorname{Area}\big(T(R_{ij})\big) &\;\approx\; \left| \det \begin{pmatrix} \partial T/\partial u \, \Delta u & \partial T/\partial v \, \Delta v \end{pmatrix} \right| \\
-&= |\det J_T(u_i,v_j)| \, \Delta u\, \Delta v = |\det J_T(u_i,v_j)|\, \operatorname{Area}(R_{ij}),
-\end{align*}
-using multilinearity of the determinant to factor $\Delta u$ and $\Delta v$ out of the respective columns. As the mesh of the partition tends to zero, the images $T(R_{ij})$ tile $D'$ with overlaps and gaps of area tending to zero relative to $\operatorname{Area}(D')$, by injectivity and continuity of $T$, so that
-\begin{align*}
-\iint_{D'} f\, dA &= \lim_{\text{mesh}\to 0} \sum_{i,j} f\big(T(u_i,v_j)\big)\, \operatorname{Area}\big(T(R_{ij})\big) \\
-&\;\approx\; \lim_{\text{mesh}\to 0} \sum_{i,j} f\big(T(u_i,v_j)\big)\, |\det J_T(u_i,v_j)|\, \Delta u \, \Delta v,
-\end{align*}
-and the right-hand side is precisely a Riemann sum, over the partition $\{R_{ij}\}$ of $D$, for the integrand $f(T(u,v))\,|\det J_T(u,v)|$, which is continuous on $D$ since $f$, $T$, and $\det J_T$ are all continuous, hence integrable there. Passing to the limit converts both approximate equalities into exact ones, since the accumulated error, controlled by the uniform continuity of $J_T$ on the compact closure of $D$, vanishes in the limit; we omit the fully detailed uniform error estimates, which require only a routine, if tedious, application of uniform continuity of $DT$ on compact subsets. This establishes the formula.
-\end{proof}
-
-\begin{corollary}[Polar Coordinates]
-Define the polar-coordinate map by
-\[
-T(r,\theta) = (r\cos\theta, r\sin\theta).
-\]
-
-As computed in the example of the preceding chapter, $\det J_T(r,\theta) = r$ (see Figure~\ref{fig:ch10-jacobian-polar}), so that for a region $D'$ described in polar coordinates by
-\[
-D = \{(r,\theta) : \alpha \leq \theta \leq \beta, \; r_1(\theta) \leq r \leq r_2(\theta)\},
-\]
-
-\[
-\iint_{D'} f(x,y)\, dx\, dy = \int_{\alpha}^{\beta} \int_{r_1(\theta)}^{r_2(\theta)} f(r\cos\theta, r\sin\theta)\; r\, dr\, d\theta.
-\]
-
-\end{corollary}
-
-\begin{example}[The Gaussian Integral]
-The improper integral
-\[
-I = \int_{-\infty}^{\infty} e^{-x^2}\, dx
-\]
-admits no elementary antiderivative, yet its value can be found exactly by passing to two dimensions and then to polar coordinates. Since
-\[
-I = \int_{-\infty}^\infty e^{-y^2}\,dy
-\]
-as well, Fubini's Theorem (extended to the improper setting, valid here since the integrand is nonnegative) gives
-\[
-I^2 = \left(\int_{-\infty}^{\infty} e^{-x^2}\, dx\right)\left(\int_{-\infty}^{\infty} e^{-y^2}\, dy\right) = \iint_{\mathbb{R}^2} e^{-x^2-y^2}\, dA.
-\]
-
-Passing to polar coordinates, with $x^2+y^2 = r^2$ and the region $\mathbb{R}^2$ described by $r \in [0,\infty)$, $\theta \in [0,2\pi)$,
-\[
-\begin{aligned}
-I^2 &= \int_0^{2\pi}\int_0^{\infty} e^{-r^2}\, r\, dr\, d\theta \\
-&= 2\pi \int_0^{\infty} e^{-r^2} r\, dr \\
-&= 2\pi \left[ -\frac{1}{2} e^{-r^2} \right]_0^{\infty}
-= 2\pi \cdot \frac{1}{2} = \pi,
-\end{aligned}
-\]
-where the substitution $t=r^2$, $dt = 2r\,dr$ converts
-\[
-\int_0^\infty e^{-r^2}r\,dr
-\]
-into the elementary
-\[
-\frac12\int_0^\infty e^{-t}\,dt = \frac12.
-\]
-Since $I > 0$, this gives the classical identity
-\[
-\int_{-\infty}^{\infty} e^{-x^2}\, dx = \sqrt{\pi}.
-\]
-
-\end{example}
-
-\section{Triple Integrals and Spatial Coordinates}
-
-\subsection{Triple Integrals over Boxes}
-
-The construction of Section~\ref{sec:double-integrals} extends verbatim to three dimensions, replacing rectangles by boxes and areas by volumes.
-
-\begin{definition}[Triple Integral over a Box]
-Consider the box
-\[
-B = [a_1,b_1]\times[a_2,b_2]\times[a_3,b_3] \subset \mathbb{R}^3,
-\]
-
-Let $f : B \to \mathbb{R}$ be bounded. A partition of $B$ is obtained by partitioning each edge, dividing $B$ into subboxes $B_{ijk}$ of volume $\Delta V_{ijk}$. With
-\[
-\begin{gathered}
-M_{ijk} = \sup_{B_{ijk}} f \\
-m_{ijk} = \inf_{B_{ijk}} f,
-\end{gathered}
-\]
-define
-\[
-\begin{gathered}
-U(f,P) = \sum M_{ijk}\Delta V_{ijk} \\
-L(f,P) = \sum m_{ijk} \Delta V_{ijk}
-\end{gathered}
-\]
-exactly as before; $f$ is integrable on $B$ if
-\[
-\sup_P L(f,P) = \inf_P U(f,P),
-\]
-and this common value is the triple integral
-\[
-\iiint_B f\, dV.
+\lim_{\mathbf{h} \to \vec{0}} \frac{\|\mathbf{f}(\mathbf{x}+\mathbf{h}) - \mathbf{f}(\mathbf{x}) - J\mathbf{h}\|}{\|\mathbf{h}\|} = 0.
 \]
 
 \end{definition}
 
-The proofs that continuous functions on a box are integrable, and that integrability persists under a content-zero (now, volume-zero) set of discontinuities, are entirely analogous to the two-dimensional case, replacing the Heine--Cantor and covering arguments given above by their immediate three-variable counterparts; we do not repeat the details. The corresponding version of Fubini's Theorem likewise follows the same squeeze argument as before, applied with one variable singled out at a time.
+\begin{theorem}
+If $\mathbf{f}$ is differentiable at $\mathbf{x}$, then the matrix $J$ in the definition above is unique and equals $J_{\mathbf{f}}(\mathbf{x})$.
 
-\begin{theorem}[Fubini's Theorem, Box Case]
-If $f$ is continuous on
-\[
-B = [a_1,b_1]\times[a_2,b_2]\times[a_3,b_3],
-\]
-Fubini's formula gives
-\[
-\iiint_B f\, dV = \int_{a_1}^{b_1}\int_{a_2}^{b_2}\int_{a_3}^{b_3} f(x,y,z)\; dz\, dy\, dx,
-\]
-
-The iterated integral may equally be evaluated in any of the six orders obtained by permuting $x,y,z$.
 \end{theorem}
 
 \begin{proof}
-Group the last two variables together: writing
+Applying the defining limit with $\mathbf{h} = t\mathbf{e}_j$ for $t \to 0$ shows that the $j$-th column of $J$ equals the directional derivative of $\mathbf{f}$ in the direction $\mathbf{e}_j$, which is precisely $\partial \mathbf{f}/\partial x_j (\mathbf{x})$, the $j$-th column of $J_{\mathbf{f}}(\mathbf{x})$; since this holds for every $j = 1, \dots, n$, the two matrices coincide, and uniqueness follows since a matrix is determined by its columns.
+\end{proof}
+
+\begin{example}
+Consider the transformation from polar to Cartesian coordinates,
+\[
+\mathbf{f}(r,\theta) = (r\cos\theta, r\sin\theta).
+\]
+Its Jacobian matrix is
+\[
+J_{\mathbf{f}}(r,\theta) = \begin{pmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{pmatrix},
+\]
+with determinant
+\[
+\begin{aligned}
+\operatorname{Det}(J_{\mathbf{f}}) &= r\cos^2\theta + r\sin^2\theta \\[0.5em]
+&= r,
+\end{aligned}
+\]
+recovering the familiar Jacobian factor of polar coordinates used in the change of variables formula for double integrals. Since this determinant is nonzero for $r \neq 0$, the Inverse Function Theorem guarantees that $\mathbf{f}$ is locally invertible near every point with $r \neq 0$. On a domain with a chosen angular branch, for example $\theta\in(-\pi,\pi)$ with the nonpositive $x$-axis removed from the Cartesian image, an inverse is
 \[
 \begin{gathered}
-\mathbf{y} = (y,z) \in \mathbb{R}^2 \\
-R = [a_2,b_2]\times[a_3,b_3],
+r = (x^2+y^2)^{1/2}, \\[0.5em]
+\theta = \operatorname{atan2}(y,x)
 \end{gathered}
 \]
-the two-dimensional Fubini Theorem, applied to the function $\mathbf{y} \mapsto f(x,\mathbf{y})$ for fixed $x$, together with the identical squeeze argument of the rectangular case applied with $x$ playing the role of the single ``outer'' variable and $R$ playing the role of the two-dimensional ``inner'' rectangle, yields
-\[
-\iiint_B f\, dV = \int_{a_1}^{b_1}\left(\iint_R f(x,y,z)\, dy\,dz\right) dx;
-\]
-applying the two-dimensional Fubini Theorem once more to the inner double integral, for each fixed $x$, resolves it into the iterated integral over $y$ then $z$ (or $z$ then $y$), giving the stated formula. Since the grouping of variables was arbitrary, the same argument applied with a different variable singled out as ``outer'' establishes the remaining orders of integration.
-\end{proof}
-
-\subsection{Triple Integrals over General Regions}
-
-\begin{definition}[Type I Solid Region]
-A solid region $E \subset \mathbb{R}^3$ is of Type I if
-\[
-E = \big\{ (x,y,z) : (x,y) \in D, \; u_1(x,y) \leq z \leq u_2(x,y) \big\}
-\]
-for a Type I or Type II planar region $D \subset \mathbb{R}^2$ and continuous functions $u_1 \leq u_2$ on $D$. Regions defined analogously with the roles of $x,y,z$ permuted are of Type II and Type III.
-\end{definition}
-
-As in the planar case, extending $f$ by zero outside $E$ and applying Fubini's Theorem on an enclosing box yields, for a Type I region,
-\[
-\iiint_E f\, dV = \iint_D \left( \int_{u_1(x,y)}^{u_2(x,y)} f(x,y,z)\, dz \right) dA,
-\]
-and the inner double integral over $D$ is then evaluated by the planar methods of the preceding sections.
-
-\begin{example}[Volume of a Tetrahedron]
-Let $E$ be the solid tetrahedron bounded by the coordinate planes $x=0$, $y=0$, $z=0$ and the plane $x+y+z=1$. Regarding $E$ as a Type I region over the planar triangle
-\[
-D = \{(x,y): x\geq0,\,y\geq0,\,x+y\leq1\},
-\]
-The vertical bounds over this base are
-\[
-\begin{aligned}
-0 &\leq z \\
-&\leq 1-x-y,
-\end{aligned}
-\]
-
-\[
-\operatorname{Vol}(E) = \iiint_E dV = \iint_D (1-x-y)\, dA = \int_0^1 \int_0^{1-x} (1-x-y)\, dy\, dx.
-\]
-The inner integral is
-\[
-\int_0^{1-x}(1-x-y)\,dy = \left[(1-x)y - \tfrac{y^2}{2}\right]_0^{1-x} = (1-x)^2 - \tfrac{(1-x)^2}{2} = \tfrac{(1-x)^2}{2},
-\]
-so
-\[
-\operatorname{Vol}(E) = \int_0^1 \frac{(1-x)^2}{2}\, dx = \left[-\frac{(1-x)^3}{6}\right]_0^1 = \frac{1}{6},
-\]
-matching the familiar formula
-\[
-\operatorname{Vol} = (1/6)|abc|
-\]
-for a coordinate tetrahedron with
-\[
-\begin{aligned}
-a &= b \\
-&= c \\
-&= 1.
-\end{aligned}
-\]
-
+The function $\operatorname{atan2}$ is discontinuous across its branch
+cut, so this formula does not define a single globally smooth inverse on
+$\mathbb{R}^2\setminus\{0\}$.
 \end{example}
 
-\subsection{Cylindrical Coordinates}
+The chain rule established for functions of one and several variables generalizes to compositions of vector-valued functions, taking the particularly clean form of a matrix product.
 
-
-The three-dimensional change of variables formula is the direct generalization of the planar one, with the parallelogram of the earlier derivation replaced by a parallelepiped, whose volume is likewise the absolute value of the determinant of the matrix formed by its three spanning vectors -- here, the three columns of the Jacobian matrix, scaled by the corresponding side lengths of the small box.
-
-\begin{theorem}[Change of Variables Formula, Three Dimensions]
-Let $T : U \to V$ be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^3$ with $\det J_T \neq 0$ on $U$. Let $E \subset U$ with $E' = T(E) \subset V$, and let $f$ be continuous on $E'$. Then
+\begin{theorem}[Chain Rule, Matrix Form]
+Let $\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^m$ be differentiable at $\mathbf{x}$ and $\mathbf{g} : \mathbb{R}^m \to \mathbb{R}^p$ be differentiable at $\mathbf{f}(\mathbf{x})$. Then $\mathbf{g} \circ \mathbf{f}$ is differentiable at $\mathbf{x}$, and
 \[
-\iiint_{E'} f\, dV = \iiint_E f\big(T(u,v,w)\big)\, |\det J_T(u,v,w)| \; du\, dv\, dw.
+J_{\mathbf{g} \circ \mathbf{f}}(\mathbf{x}) = J_{\mathbf{g}}(\mathbf{f}(\mathbf{x})) \, J_{\mathbf{f}}(\mathbf{x}).
 \]
 
 \end{theorem}
 
-\begin{proof}[Derivation]
-The argument is identical, mutatis mutandis, to the two-dimensional derivation above: partitioning $E$ into small boxes, approximating the image of each box under $T$ by the parallelepiped spanned by the three columns of $J_T$ scaled by $\Delta u, \Delta v, \Delta w$, whose volume is $|\det J_T|\,\Delta u\,\Delta v\,\Delta w$, and passing to the limit of Riemann sums; we do not repeat the details.
-\end{proof}
-
-Cylindrical coordinates $(r,\theta,z)$ describe a point via its polar coordinates $(r,\theta)$ in the $xy$-plane together with its height $z$, via the map
-\[
-T(r,\theta,z) = (r\cos\theta, \, r\sin\theta, \, z).
-\]
-
-\begin{proposition}[Jacobian of Cylindrical Coordinates]
-$\det J_T(r,\theta,z) = r$.
-\end{proposition}
-
 \begin{proof}
-The Jacobian matrix, with columns indexed by $r,\theta,z$ and rows by $x,y,z$, is
+Writing $\mathbf{y} = \mathbf{f}(\mathbf{x})$, the componentwise chain rule for scalar functions of several variables, applied to each component $g_i \circ \mathbf{f}$ in turn, gives, for each $i = 1, \dots, p$ and $j = 1, \dots, n$,
 \[
-J_T(r,\theta,z) = \begin{pmatrix} \cos\theta & -r\sin\theta & 0 \\ \sin\theta & r\cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+\frac{\partial (g_i \circ \mathbf{f})}{\partial x_j}(\mathbf{x}) = \sum_{k=1}^{m} \frac{\partial g_i}{\partial y_k}(\mathbf{y}) \frac{\partial f_k}{\partial x_j}(\mathbf{x}),
 \]
-
-Expanding the determinant along the third row, which has only the single nonzero entry $1$ in the $(3,3)$ position, gives
-\begin{align*}
-\det J_T &= 1 \cdot \det \begin{pmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{pmatrix} = \cos\theta(r\cos\theta) - (-r\sin\theta)(\sin\theta) \\
-&= r\cos^2\theta + r\sin^2\theta = r,
-\end{align*}
-as claimed.
+which is precisely the $(i,j)$ entry of the matrix product
+\[
+J_{\mathbf{g}}(\mathbf{f}(\mathbf{x})) J_{\mathbf{f}}(\mathbf{x});
+\]
+since this identity holds entrywise, the two matrices coincide.
 \end{proof}
 
-Hence, since $r \geq 0$ throughout the natural domain of cylindrical coordinates, $|\det J_T| = r$, and the change of variables formula reads
+When $n=m$, the Jacobian matrix is square, and its determinant, called the Jacobian determinant, measures the local factor by which $\mathbf{f}$ distorts $n$-dimensional volume near a given point; its sign, moreover, indicates whether $\mathbf{f}$ preserves or reverses orientation locally. As already illustrated, the nonvanishing of this determinant at a point is, by the Inverse Function Theorem, sufficient to guarantee that $\mathbf{f}$ admits a differentiable local inverse near that point, whose Jacobian is then obtained by inverting $J_{\mathbf{f}}$: differentiating the identity
 \[
-\iiint_{E'} f(x,y,z)\, dV = \iiint_E f(r\cos\theta, r\sin\theta, z) \; r\, dr\, d\theta\, dz.
+\mathbf{f}^{-1}(\mathbf{f}(\mathbf{x})) = \mathbf{x}
+\]
+via the Chain Rule gives
+\[
+\begin{gathered}
+J_{\mathbf{f}^{-1}}(\mathbf{f}(\mathbf{x})) J_{\mathbf{f}}(\mathbf{x}) = I, \\[0.5em]
+\text{so that}\quad J_{\mathbf{f}^{-1}}(\mathbf{f}(\mathbf{x})) = J_{\mathbf{f}}(\mathbf{x})^{-1}.
+\end{gathered}
 \]
 
-\begin{example}[Volume of a Solid Cylinder by Cylindrical Coordinates]
-Let $E'$ be the solid cylinder $x^2+y^2 \leq R^2$,
+When $m=1$, the function $\mathbf{f}$ reduces to a scalar field $f : \Omega \to \mathbb{R}$, and its Jacobian matrix $J_f(\mathbf{x}) \in M_{1,n}$ is the single row vector
 \[
-\begin{aligned}
-0 &\leq z \\
-&\leq h.
-\end{aligned}
+( \partial f/\partial x_1, \dots, \partial f/\partial x_n ),
 \]
-In cylindrical coordinates, $E$ is the box
-\[
-\begin{aligned}
-0 &\leq r \\
-&\leq R,
-\end{aligned}
-\]
-
+that is, precisely the transpose of the gradient $\nabla f(\mathbf{x})$ introduced earlier for scalar fields. The Chain Rule in matrix form then recovers, as a special case, the familiar formula for the directional derivative: if $\boldsymbol{\gamma}(t)$ is a differentiable curve with $\boldsymbol{\gamma}(0) = \mathbf{x}$ and $\boldsymbol{\gamma}'(0) = \mathbf{u}$, then
 \[
 \begin{aligned}
-0 &\leq \theta \\
-&\leq 2\pi,
+\frac{d}{dt}\Big|_{t=0} f(\boldsymbol{\gamma}(t)) &= J_f(\mathbf{x}) \boldsymbol{\gamma}'(0) \\[0.5em]
+&= \nabla f(\mathbf{x}) \cdot \mathbf{u},
 \end{aligned}
 \]
-
+recovering the directional derivative formula
 \[
-\begin{aligned}
-0 &\leq z \\
-&\leq h,
-\end{aligned}
+D_{\mathbf{u}}f(\mathbf{x}) = \nabla f(\mathbf{x}) \cdot \mathbf{u}
 \]
-so
-\[
-\operatorname{Vol}(E') = \int_0^{2\pi}\int_0^R \int_0^h r\, dz\, dr\, d\theta = 2\pi \cdot h \cdot \int_0^R r\, dr = 2\pi h \cdot \frac{R^2}{2} = \pi R^2 h,
-\]
-recovering the elementary formula for the volume of a cylinder.
-\end{example}
-
-\subsection{Spherical Coordinates}
-
-Spherical coordinates $(\rho,\varphi,\theta)$ describe a point by its distance $\rho \geq 0$ from the origin, the polar angle $\varphi \in [0,\pi]$ measured from the positive $z$-axis, and the azimuthal angle $\theta \in [0,2\pi)$ measured in the $xy$-plane from the positive $x$-axis, via
-\[
-T(\rho,\varphi,\theta) = \big( \rho\sin\varphi\cos\theta, \; \rho\sin\varphi\sin\theta, \; \rho\cos\varphi \big).
-\]
-
-\begin{proposition}[Jacobian of Spherical Coordinates]
-
-\[
-\det J_T(\rho,\varphi,\theta) = \rho^2 \sin\varphi.
-\]
-
-\end{proposition}
-
-\begin{proof}
-Differentiating each component of $T$ with respect to each of $\rho,\varphi,\theta$ gives the Jacobian matrix
-\[
-\setlength{\arraycolsep}{3pt}
-J_T = \begin{pmatrix} \sin\varphi\cos\theta & \rho\cos\varphi\cos\theta & -\rho\sin\varphi\sin\theta \\ \sin\varphi\sin\theta & \rho\cos\varphi\sin\theta & \rho\sin\varphi\cos\theta \\ \cos\varphi & -\rho\sin\varphi & 0 \end{pmatrix}.
-\]
-
-Expand the determinant along the third row. The $(3,3)$ entry is $0$, so only the first two entries of that row contribute:
-\begin{align*}
-\setlength{\arraycolsep}{3pt}
-\det J_T &= \cos\varphi \cdot \det\begin{pmatrix} \rho\cos\varphi\cos\theta & -\rho\sin\varphi\sin\theta \\ \rho\cos\varphi\sin\theta & \rho\sin\varphi\cos\theta \end{pmatrix} \\
-&\quad -\; (-\rho\sin\varphi)\cdot \det\begin{pmatrix} \sin\varphi\cos\theta & -\rho\sin\varphi\sin\theta \\ \sin\varphi\sin\theta & \rho\sin\varphi\cos\theta \end{pmatrix}.
-\end{align*}
-The first minor equals
-\begin{align*}
-&(\rho\cos\varphi\cos\theta)(\rho\sin\varphi\cos\theta) - (-\rho\sin\varphi\sin\theta)(\rho\cos\varphi\sin\theta) \\
-&\quad= \rho^2\cos\varphi\sin\varphi\cos^2\theta + \rho^2\sin\varphi\cos\varphi\sin^2\theta = \rho^2\sin\varphi\cos\varphi,
-\end{align*}
-using $\cos^2\theta+\sin^2\theta=1$; hence the first term is
-\[
-\cos\varphi \cdot \rho^2\sin\varphi\cos\varphi = \rho^2\sin\varphi\cos^2\varphi.
-\]
-The second minor equals
-\begin{align*}
-&(\sin\varphi\cos\theta)(\rho\sin\varphi\cos\theta) - (-\rho\sin\varphi\sin\theta)(\sin\varphi\sin\theta) \\
-&\quad= \rho\sin^2\varphi\cos^2\theta + \rho\sin^2\varphi\sin^2\theta = \rho\sin^2\varphi,
-\end{align*}
-so the second term is
-\[
-\rho\sin\varphi \cdot \rho\sin^2\varphi = \rho^2\sin^3\varphi.
-\]
-Adding the two contributions,
-\[
-\begin{aligned}
-\det J_T &= \rho^2\sin\varphi\cos^2\varphi + \rho^2\sin^3\varphi \\
-&= \rho^2\sin\varphi\big(\cos^2\varphi+\sin^2\varphi\big) \\
-&= \rho^2\sin\varphi,
-\end{aligned}
-\]
-as claimed.
-\end{proof}
-
-Since $\varphi \in [0,\pi]$, $\sin\varphi \geq 0$, so $|\det J_T| = \rho^2\sin\varphi$, and the change of variables formula reads
-\begin{align*}
-\iiint_{E'} f(x,y,z)\, dV &= \iiint_E f\big(\rho\sin\varphi\cos\theta, \rho\sin\varphi\sin\theta, \rho\cos\varphi\big) \\
-&\quad\times\; \rho^2\sin\varphi\; d\rho\, d\varphi\, d\theta.
-\end{align*}
-
-\begin{example}[Volume of a Ball by Spherical Coordinates]
-Let $E'$ be the solid ball $x^2+y^2+z^2 \leq R^2$. In spherical coordinates, $E$ is the box
-\[
-\begin{aligned}
-0 &\leq \rho \\
-&\leq R,
-\end{aligned}
-\]
-
-\[
-\begin{aligned}
-0 &\leq \varphi \\
-&\leq \pi,
-\end{aligned}
-\]
-
-\[
-\begin{aligned}
-0 &\leq \theta \\
-&\leq 2\pi,
-\end{aligned}
-\]
-so
-\begin{align*}
-\operatorname{Vol}(E') &= \int_0^{2\pi}\!\!\int_0^{\pi}\!\!\int_0^{R} \rho^2\sin\varphi \; d\rho\, d\varphi\, d\theta \\
-&= \left(\int_0^{2\pi} d\theta\right)\left(\int_0^\pi \sin\varphi\, d\varphi\right)\left(\int_0^R \rho^2\, d\rho\right) = 2\pi \cdot 2 \cdot \frac{R^3}{3} = \frac{4}{3}\pi R^3,
-\end{align*}
-where the three factors separate because the integrand is a product of a function of $\rho$ alone and a function of $\varphi$ alone, and Fubini's Theorem applies on the box $[0,R]\times[0,\pi]\times[0,2\pi]$; this recovers the classical formula for the volume of a ball.
-\end{example}
-
-Figure~\ref{fig:ch11-spherical} identifies the radial distance and the two angles used in spherical coordinates.
+established previously for unit vectors $\mathbf{u}$. Figure~\ref{fig:ch10-jacobian-polar} relates the polar coordinate directions to the columns of the Jacobian. The polar grid uses coordinates $(r,\theta)$ on the Cartesian plane; the highlighted
+curvilinear cell has sides $dr$ and $r\,d\theta$ along the directions $\partial/\partial r$, $\partial/\partial\theta$: the columns of the Jacobian $J_f$, with $\det J_f = r$.
 
 \begin{figure}[!htbp]
 \centering
-\begin{tikzpicture}[scale=1.5,>=Stealth]
-  \coordinate (O) at (0,0);
-  \coordinate (Xax) at (-2.05,-1.35);
-  \coordinate (Yax) at (2.85,0);
-  \coordinate (Zax) at (0,3.15);
-  \coordinate (P) at (1.8,2.05);
-  \coordinate (Q) at (1.8,0.48);
-  \draw[->] (O) -- (Xax) node[left,font=\scriptsize]{$x$};
-  \draw[->] (O) -- (Yax) node[right,font=\scriptsize]{$y$};
-  \draw[->] (O) -- (Zax) node[above,font=\scriptsize]{$z$};
-  \draw[dashed,gray!75] (O) -- (Q);
-  \draw[dashed,gray!75] (Q) -- (P);
-  \draw[vecB,thick] (O) -- (P);
-  \node[figred,fill=white,inner sep=1pt,font=\scriptsize]
-    at (1.18,1.48) {$\rho$};
-  \fill (P) circle (1.3pt)
-    node[above right,fill=white,inner sep=1pt,font=\scriptsize]{$P=(\rho,\varphi,\theta)$};
-  \draw[vecC] (90:0.92) arc[start angle=90,end angle=49,radius=0.92];
-  \node[figgreen,fill=white,inner sep=1pt,font=\scriptsize] at (0.33,0.95) {$\varphi$};
-  \draw[gray!80,-{Stealth[length=2mm]}] (0:0.72)
-    arc[start angle=0,end angle=15,radius=0.72];
-  \node[gray!80,below,fill=white,inner sep=1pt,font=\scriptsize]
-    at (0.72,0.18) {$\theta$};
-  \fill (Q) circle (1pt) node[below right,font=\scriptsize]{$Q$};
+\begin{tikzpicture}[scale=1.3,>=Stealth]
+\draw[->] (-2.3,0) -- (2.3,0) node[right,font=\scriptsize]{$x$};
+\draw[->] (0,-2.3) -- (0,2.3) node[above,font=\scriptsize]{$y$};
+\foreach \r in {0.5,1,1.5,2} \draw[gridline] (0,0) circle (\r);
+\foreach \t in {0,30,...,330} \draw[gridline] (0,0) -- (\t:2.1);
+\fill[figblue,opacity=0.35] (55:1) -- (55:1.9) arc (55:95:1.9) -- (95:1) arc (95:55:1);
+\draw[vecB] (55:1) -- (55:1.9) node[midway,right=3pt,font=\scriptsize]{$\partial/\partial r$};
+\draw[vecC] (55:1) arc[start angle=55,end angle=82,radius=1]
+  node[pos=0.65,above left=2pt,font=\scriptsize]{$\partial/\partial\theta$};
+\node[below left,font=\scriptsize] at (55:0.92) {$(r,\theta)$};
 \end{tikzpicture}
-\caption[Spherical coordinates]{The spherical coordinates $(\rho,\varphi,\theta)$ of a point $P$: $\rho$ is the distance from the origin, $\varphi$ the angle from the positive $z$-axis, and $\theta$ the azimuthal angle, measured in the $xy$-plane, of the projection $Q$ of $P$.}
-\label{fig:ch11-spherical}
+\caption[Polar grid and Jacobian]{Polar coordinate grid on Cartesian axes, with a curvilinear cell highlighted in blue. The red and green arrows indicate radial and angular coordinate directions, respectively; the Jacobian accounts for the corresponding local area scaling.}
+\label{fig:ch10-jacobian-polar}
 \end{figure}
 
-\section{Integration in Arbitrary Dimension}
+\section{Multilinear Maps and Tensors}
 
-\subsection{Multiple Integrals and Change of Variables}
+Vectors, linear functionals, and matrices, though introduced separately over the course of this document, are in fact instances of a single unifying algebraic structure: the tensor. Tensor calculus organizes and generalizes these objects, and the operations acting upon them, within one coherent framework, one that becomes indispensable once coordinates are allowed to change in ways more general than the orthonormal changes of basis considered earlier.
 
-The theory developed above for $n=2$ and $n=3$ extends, without any new idea, to functions of $n$ real variables; only the bookkeeping becomes heavier.
-
-\begin{definition}[Integral over a Box in $\mathbb{R}^n$]
-Consider the box
+\begin{definition}[Tensor]
+Given a finite-dimensional vector space $V$ with dual space $V^{*}$, a tensor of type $(r,s)$ on $V$ is a multilinear map
 \[
-B = [a_1,b_1]\times\cdots\times[a_n,b_n] \subset \mathbb{R}^n,
+T : \underbrace{V^{*} \times \cdots \times V^{*}}_{r} \times \underbrace{V \times \cdots \times V}_{s} \longrightarrow \mathbb{R},
 \]
-
-Let $f : B \to \mathbb{R}$ be bounded. A partition of $B$, obtained by partitioning each edge, divides $B$ into subboxes $B_{\mathbf{i}}$, indexed by a multi-index $\mathbf{i} = (i_1,\dots,i_n)$, of $n$-dimensional volume $\Delta V_{\mathbf{i}}$. With
-\[
-M_{\mathbf{i}} = \sup_{B_{\mathbf{i}}} f,
-\]
-
-\[
-m_{\mathbf{i}} = \inf_{B_{\mathbf{i}}} f,
-\]
-define
-\[
-\begin{gathered}
-U(f,P) = \sum_{\mathbf{i}} M_{\mathbf{i}}\, \Delta V_{\mathbf{i}} \\
-L(f,P) = \sum_{\mathbf{i}} m_{\mathbf{i}}\, \Delta V_{\mathbf{i}};
-\end{gathered}
-\]
-$f$ is integrable on $B$ if
-\[
-\sup_P L(f,P) = \inf_P U(f,P),
-\]
-and this common value is denoted
-\[
-\int_B f\, dV.
-\]
-
+that is, a map that is linear separately in each of its $r+s$ arguments.
 \end{definition}
 
-Integrability of continuous functions, and of functions continuous except on a set of $n$-dimensional content zero, follow exactly as before, by the identical uniform continuity arguments applied coordinatewise; the definition of the integral over a general bounded region $D \subset \mathbb{R}^n$ with $\partial D$ of content zero, via zero-extension to an enclosing box, is likewise unchanged.
+This single definition subsumes the objects encountered throughout this document as special cases distinguished only by the pair $(r,s)$. A scalar is a tensor of type $(0,0)$. A vector $\mathbf{v} \in V$ corresponds to a tensor of type $(1,0)$, acting on a covector $\boldsymbol{\varphi} \in V^{*}$ by $\mathbf{v}(\boldsymbol{\varphi}) = \boldsymbol{\varphi}(\mathbf{v})$; this identification of $V$ with the dual of $V^{*}$ is legitimate in finite dimension, where $V$ and its double dual $V^{**}$ are canonically isomorphic. A linear functional, or covector, is itself a tensor of type $(0,1)$.
 
-\begin{theorem}[Fubini's Theorem in $\mathbb{R}^n$]
-Let $B_1 \subset \mathbb{R}^{n-1}$ be a box and define
+A linear map $L : V \to V$, represented in earlier sections by a matrix $A$, corresponds to a tensor of type $(1,1)$, acting on a pair $(\boldsymbol{\varphi}, \mathbf{v})$ by $\boldsymbol{\varphi}(L\mathbf{v})$; one may verify directly that this assignment is linear in $\boldsymbol{\varphi}$, since $\boldsymbol{\varphi}$ itself is linear, and linear in $\mathbf{v}$, since $L$ is linear.
+
+\subsection{Components and the Einstein Summation Convention}
+
+Once a basis $\mathbf{e}_1, \dots, \mathbf{e}_n$ of $V$, and the corresponding dual basis $\boldsymbol{\varepsilon}^1, \dots, \boldsymbol{\varepsilon}^n$ of $V^{*}$ satisfying $\boldsymbol{\varepsilon}^i(\mathbf{e}_j) = \delta^i_j$, are fixed, every tensor is fully described by its components with respect to these bases, and it becomes conventional to place indices referring to the dual space as superscripts, called contravariant indices, and indices referring to $V$ itself as subscripts, called covariant indices.
+
+\begin{definition}[Einstein Summation Convention]
+Whenever an index appears once as a superscript and once as a subscript within a single term, summation over that index, from $1$ to $n$, is implied without an explicit summation symbol.
+\end{definition}
+
+Under this convention, a vector $\mathbf{v} = v^i \mathbf{e}_i$ is described by its contravariant components $v^i$, while a covector $\boldsymbol{\varphi} = \varphi_i \boldsymbol{\varepsilon}^i$ is described by its covariant components $\varphi_i$; the pairing $\boldsymbol{\varphi}(\mathbf{v}) = \varphi_i v^i$ is a contraction, discussed further below.
+
+\begin{theorem}[Transformation Law for Components]
+Let $\hat{\mathbf{e}}_j = P_j^{\;i}\mathbf{e}_i$ define a new basis of $V$ via an invertible change of basis matrix $P$, with inverse having entries $(P^{-1})^i_{\;j}$. Then the contravariant components of a fixed vector $\mathbf{v}$ transform as
 \[
-B = B_1 \times [c,d] \subset \mathbb{R}^{n-1}\times\mathbb{R} = \mathbb{R}^n,
+\hat{v}^i = (P^{-1})^i_{\;j}v^j,
 \]
-Let $f$ be continuous on $B$. Then
-\[
-\int_B f \, dV = \int_{B_1} \left( \int_c^d f(\mathbf{x}',x_n)\, dx_n \right) dV',
-\]
-and the inner $(n-1)$-dimensional integral over $B_1$ may itself be evaluated as a further iterated integral, one variable at a time, in any order.
+while the covariant components of a fixed covector $\boldsymbol{\varphi}$ transform as $\hat\varphi_i = P_i^{\;j}\varphi_j$.
 \end{theorem}
 
 \begin{proof}
-By induction on $n$. The base case $n=2$ is the rectangular Fubini Theorem established above. For the inductive step, assume the theorem holds in dimension $n-1$; the identical squeeze argument used in the proof of the two-dimensional case, applied with $x_n$ playing the role of the single distinguished ``outer'' variable and $B_1$ playing the role of the ``inner'' rectangle -- with sums over subrectangles of $B_1$ replacing sums over the index $i$, and Darboux sums over $B_1$-partitions replacing the one-dimensional Darboux sums of that proof -- shows that
+The vector $\mathbf{v}$ itself does not depend on the choice of basis, so
 \[
-A(x_n) := \int_{B_1} f(\mathbf{x}',x_n)\, dV'
-\]
-is well defined and continuous, and that
-\[
-\int_B f\, dV = \int_c^d A(x_n)\, dx_n.
+\begin{aligned}
+\mathbf{v} &= v^i\mathbf{e}_i \\[0.5em]
+&= \hat{v}^j\hat{\mathbf{e}}_j \\[0.5em]
+&= \hat{v}^j P_j^{\;i}\mathbf{e}_i.
+\end{aligned}
 \]
 
-By the inductive hypothesis, applied to the continuous function $\mathbf{x}' \mapsto f(\mathbf{x}',x_n)$ on $B_1 \subset \mathbb{R}^{n-1}$ for each fixed $x_n$, the integral $A(x_n)$ may be evaluated as a further iterated integral over the $n-1$ remaining variables, one at a time, in any order; combined with the outer integration over $x_n$, this yields the theorem for dimension $n$, completing the induction.
+Comparing coefficients of $\mathbf{e}_i$ on both sides, since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, gives $v^i = P_j^{\;i}\hat{v}^j$; multiplying both sides by $(P^{-1})^i_{\;k}$ and summing over $i$ recovers
+\[
+\hat{v}^k = (P^{-1})^k_{\;i}v^i,
+\]
+as claimed, after relabeling the free index. For the covector, the dual basis vectors transform by the inverse-transpose relation
+\[
+\hat{\boldsymbol{\varepsilon}}^i = (P^{-1})^i_{\;j}\boldsymbol{\varepsilon}^j,
+\]
+since this is precisely the unique transformation making
+\[
+\begin{aligned}
+\hat{\boldsymbol{\varepsilon}}^i(\hat{\mathbf{e}}_k) &= (P^{-1})^i_{\;j}P_k^{\;l}\boldsymbol{\varepsilon}^j(\mathbf{e}_l) \\[0.5em]
+&= (P^{-1})^i_{\;j}P_k^{\;j} \\[0.5em]
+&= \delta^i_k
+\end{aligned}
+\]
+hold, as required of a dual basis. Since
+\[
+\begin{aligned}
+\boldsymbol{\varphi} &= \varphi_i\boldsymbol{\varepsilon}^i \\[0.5em]
+&= \hat\varphi_j\hat{\boldsymbol{\varepsilon}}^j \\[0.5em]
+&= \hat\varphi_j (P^{-1})^j_{\;i}\boldsymbol{\varepsilon}^i,
+\end{aligned}
+\]
+comparing coefficients gives
+\[
+\varphi_i = (P^{-1})^j_{\;i}\hat\varphi_j;
+\]
+multiplying by $P_i^{\;k}$ and summing over $i$, and using
+\[
+P_i^{\;k}(P^{-1})^j_{\;i} = \delta^{jk}.
+\]
+More directly, inverting the relation
+\[
+\varphi_i = (P^{-1})^j_{\;i}\hat\varphi_j
+\]
+by the matrix $P$ gives $\hat\varphi_k = P_k^{\;i}\varphi_i$, as claimed.
 \end{proof}
 
-\begin{theorem}[Change of Variables Formula in $\mathbb{R}^n$]
-Let $T : U \to V$ be a bijective $C^1$ map between open sets $U,V \subset \mathbb{R}^n$ with $\det J_T \neq 0$ on $U$, let $D \subset U$ with $D' = T(D) \subset V$, and let $f$ be continuous on $D'$. Then
+The terminology ``covariant'' and ``contravariant'' is justified precisely by this theorem: covariant components transform directly with $P$, in the same way as the basis vectors themselves, while contravariant components transform with the inverse of $P$, compensating the change of basis so that the vector $\mathbf{v}$ itself remains unchanged; this is consistent with, and generalizes, the earlier formula
 \[
-\int_{D'} f\, dV = \int_D f\big(T(\mathbf{u})\big) \, |\det J_T(\mathbf{u})| \; dV_{\mathbf{u}}.
+\hat{\mathbf{x}} = M^{-1}\mathbf{x}
 \]
+obtained for coordinates with respect to a new basis $\mathcal{B}$.
 
-\end{theorem}
+\subsection{The Metric Tensor}
 
-\begin{proof}[Derivation]
-Exactly as in the two- and three-dimensional cases, partition $D$ into small $n$-dimensional boxes and approximate the image, under $T$, of each box by the parallelotope spanned by the $n$ columns of $J_T$, each scaled by the corresponding side length; the $n$-dimensional volume of this parallelotope is the absolute value of the determinant of the matrix formed by its $n$ spanning vectors, that is, $|\det J_T|$ times the volume of the original box, by the same multilinearity argument used above. Passing to the limit of the associated Riemann sums, exactly as before, yields the formula; we omit the details, which repeat those of the two-dimensional derivation verbatim with $n$ coordinates in place of two.
-\end{proof}
+Among tensors of type $(0,2)$, one plays a distinguished geometric role: it encodes the inner product of the underlying space, and thereby provides a canonical means of converting contravariant components into covariant ones, and conversely.
 
-\subsection{Radial Integrals and Volumes of Balls}
+\begin{definition}[Metric Tensor]
+Given a basis $\mathbf{e}_1, \dots, \mathbf{e}_n$ of an inner product space $V$, the metric tensor is the tensor of type $(0,2)$ with components $g_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j$.
 
-\begin{lemma}[Spherical Shell Formula in $\mathbb{R}^n$]
-Let $g : [0,\infty) \to \mathbb{R}$ be continuous, and let $S_{n-1}$ denote the $(n-1)$-dimensional measure of the unit sphere
-\[
-\{\mathbf{x} \in \mathbb{R}^n : \|\mathbf{x}\|=1\}.
-\]
-Then
-\[
-\int_{\mathbb{R}^n} g(\|\mathbf{x}\|)\, dV = S_{n-1} \int_0^{\infty} g(\rho)\, \rho^{n-1}\, d\rho.
-\]
-
-\end{lemma}
-
-\begin{proof}[Justification]
-This is the direct $n$-dimensional generalization of polar coordinates ($n=2$, where the Jacobian factor $\rho^{n-1}=\rho$ matches the factor $r$ derived above) and spherical coordinates ($n=3$, where $\rho^{n-1}=\rho^2$ matches the factor $\rho^2\sin\varphi$ derived above upon integrating out the angular variable $\varphi,\theta$ over the full unit sphere, which by definition contributes precisely $S_2 = 4\pi$). In general, let $\boldsymbol{\omega}$ range over the unit sphere $S^{n-1}$ and use the radial representation
-\[
-\begin{aligned}
-\mathbf{x} &= \rho\boldsymbol{\omega}, \\
-\rho &= \|\mathbf{x}\| \geq 0.
-\end{aligned}
-\]
-
-The change of variables formula applied to this generalized polar map yields a Jacobian factor depending on $\rho$ alone as $\rho^{n-1}$, exactly as in the cases $n=2,3$ verified explicitly above, times a factor depending only on the angular coordinates of $\boldsymbol\omega$; integrating $g(\rho)\rho^{n-1}$ against this angular factor over all angular coordinates, for each fixed $\rho$, yields by definition the total measure $S_{n-1}$ of the unit sphere, giving the stated formula.
-\end{proof}
-
-\begin{example}[Volume of the Unit Ball in $\mathbb{R}^n$]
-The volume
-\[
-V_n = \operatorname{Vol}(\{\mathbf{x}\in\mathbb{R}^n : \|\mathbf{x}\|\leq 1\})
-\]
-of the unit ball in $\mathbb{R}^n$ can be computed in closed form using the Gaussian integral together with the shell formula above. By Fubini's Theorem in $\mathbb{R}^n$, the $n$-fold Gaussian integral separates into a product of $n$ one-dimensional Gaussian integrals, each equal to $\sqrt{\pi}$ by the earlier example:
-\[
-\int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV = \left( \int_{-\infty}^{\infty} e^{-t^2}\, dt \right)^n = \pi^{n/2}.
-\]
-On the other hand, applying the shell formula with $g(\rho) = e^{-\rho^2}$,
-\[
-\int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV = S_{n-1} \int_0^{\infty} e^{-\rho^2}\, \rho^{n-1}\, d\rho.
-\]
-Substituting $t = \rho^2$, $dt = 2\rho\, d\rho$, so that
-\[
-\rho^{n-1}\, d\rho = \rho^{n-2}\cdot \rho\, d\rho = t^{(n-2)/2} \cdot (1/2)\, dt,
-\]
-
-\[
-\int_0^{\infty} e^{-\rho^2}\rho^{n-1}\, d\rho = \frac{1}{2}\int_0^{\infty} e^{-t}\, t^{n/2-1}\, dt = \frac{1}{2}\Gamma\!\left(\frac{n}{2}\right),
-\]
-by definition of the Gamma function
-\[
-\Gamma(s) = \int_0^\infty e^{-t}t^{s-1}\,dt.
-\]
-Equating the two expressions for
-\[
-\int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV
-\]
-and solving,
-\[
-\pi^{n/2} = S_{n-1}\cdot \frac{1}{2}\Gamma\!\left(\frac{n}{2}\right) \qquad\Longrightarrow\qquad S_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}.
-\]
-Finally, applying the shell formula with $g \equiv 1$ but restricted to $\rho \in [0,1]$,
-\[
-\begin{aligned}
-V_n &= \int_0^1 S_{n-1}\, \rho^{n-1}\, d\rho
-= S_{n-1} \left[\frac{\rho^n}{n}\right]_0^1 \\
-&= \frac{S_{n-1}}{n}
-= \frac{2\pi^{n/2}}{n\,\Gamma(n/2)}
-= \frac{\pi^{n/2}}{\Gamma\!\left(\frac{n}{2}+1\right)},
-\end{aligned}
-\]
-using the recursive property
-\[
-\Gamma(s+1) = s\,\Gamma(s)
-\]
-of the Gamma function with $s=n/2$. As a consistency check, for $n=2$ this gives
-\[
-\begin{aligned}
-V_2 &= \pi/\Gamma(2) \\
-&= \pi/1 \\
-&= \pi,
-\end{aligned}
-\]
-the area of the unit disk; for $n=3$, using
-\[
-\begin{aligned}
-\Gamma(5/2) &= (3/2)\cdot(1/2)\cdot\sqrt{\pi} \\
-&= (3/4)\sqrt{\pi},
-\end{aligned}
-\]
-one obtains
-\[
-\begin{aligned}
-V_3 &= \pi^{3/2}/((3/4)\sqrt{\pi}) \\
-&= (4/3)\pi,
-\end{aligned}
-\]
-in agreement with the direct spherical-coordinates computation of the preceding section.
-\end{example}
-
-\section{Integral Theorems of Vector Calculus}
-\label{sec:vector-integral-theorems}
-
-The gradient, divergence, and curl introduced in Section~\ref{sec:vector-operators} describe local changes in scalar and vector fields. Recall that $\nabla\phi$ is a vector field, $\nabla\cdot\mathbf{F}$ is a scalar field, and $\nabla\times\mathbf{F}$ is a vector field. Positive divergence indicates a local source, while negative divergence indicates a local sink. The curl describes local circulation: its direction is the axis selected by the right-hand rule, and, for a velocity field, its magnitude is twice the local angular speed of the rotational part of the flow. The following theorems make these interpretations precise by connecting local derivatives to global integrals over boundaries.
-
-\subsection{The Divergence Theorem}
-
-\begin{definition}[Flux through a Closed Surface]
-Let $\Omega\subset\R^3$ be a bounded domain with piecewise smooth boundary $\partial\Omega$, and let $\mathbf{n}(\bx)$ denote the outward unit normal. The \emph{flux} of a continuous vector field $\mathbf{F}$ through $\partial\Omega$ is
-\begin{equation}
-\Phi := \iint_{\partial\Omega}\mathbf{F}\cdot\mathbf{n}\,\dd S,
-\end{equation}
-where $\dd S$ is the surface area element. On a regular parametrized surface $\mathbf{r}(s,t)$, this element is
-\[
-\dd S=|\mathbf{r}_s\times\mathbf{r}_t|\,\dd s\,\dd t;
-\]
-the sign of the unit normal is chosen to agree with the prescribed orientation.
 \end{definition}
 
-\begin{theorem}[Divergence Theorem, Gauss--Ostrogradsky]
-\label{thm:divergence}
-Let $\Omega\subset\R^3$ be a bounded domain with piecewise smooth boundary, and let $\mathbf{F}$ be continuously differentiable on a neighborhood of $\overline\Omega$. Then
-\begin{equation}
-\iiint_\Omega\nabla\cdot\mathbf{F}\,\dd V
-=\iint_{\partial\Omega}\mathbf{F}\cdot\mathbf{n}\,\dd S.
-\end{equation}
-
+\begin{theorem}
+The matrix $[g_{ij}]$ is symmetric and invertible.
 \end{theorem}
 
-\begin{proof}[Proof for Simple Domains]
-By linearity, it is enough to establish the identity for each component. For the third component, we must show that
-\begin{equation}
-\iiint_\Omega\frac{\partial F_3}{\partial z}\,\dd V
-=\iint_{\partial\Omega}F_3n_3\,\dd S.
-\end{equation}
-Assume that $\Omega$ is $z$-simple, with the description
+\begin{proof}
+Symmetry is immediate, since
 \[
-\Omega=\{(x,y,z):(x,y)\in D,\ g_1(x,y)\leq z\leq g_2(x,y)\}.
+\begin{aligned}
+g_{ij} &= \mathbf{e}_i\cdot\mathbf{e}_j \\[0.5em]
+&= \mathbf{e}_j\cdot\mathbf{e}_i \\[0.5em]
+&= g_{ji}
+\end{aligned}
 \]
-Integrating first in $z$ and applying the fundamental theorem of calculus gives
-\begin{align}
-\iiint_\Omega\frac{\partial F_3}{\partial z}\,\dd V
-&=\iint_D\left[\int_{g_1(x,y)}^{g_2(x,y)}\frac{\partial F_3}{\partial z}\,\dd z\right]\dd x\,\dd y\notag\\
-&=\iint_D\big[F_3(x,y,g_2(x,y))-F_3(x,y,g_1(x,y))\big]\,\dd x\,\dd y.
-\end{align}
-
-The boundary consists of the upper graph, the lower graph, and possibly vertical sides. On the upper graph, $n_3\,\dd S=\dd x\,\dd y$; on the lower graph, $n_3\,\dd S=-\dd x\,\dd y$. These signs reflect the outward orientation. On the vertical sides, the normal is horizontal, so $n_3=0$. Therefore
-\begin{align}
-\iint_{\partial\Omega}F_3n_3\,\dd S
-&=\iint_D F_3(x,y,g_2(x,y))\,\dd x\,\dd y\notag\\
-&\quad-\iint_D F_3(x,y,g_1(x,y))\,\dd x\,\dd y,
-\end{align}
-which is exactly the volume integral above. The other components follow by exchanging the roles of $x,y,z$ on domains simple in the corresponding directions. Summing proves the theorem for domains simple in all three directions. For domains decomposable into finitely many such pieces, the fluxes across internal faces cancel because their outward normals are opposite. The extension to general piecewise smooth domains uses localization and approximation, which we omit.
+by symmetry of the inner product. For invertibility, suppose $c^j g_{ij} = 0$ for every $i$, for some scalars $c^1,\dots,c^n$; then, setting $\mathbf{w} = c^j\mathbf{e}_j$, one has
+\[
+\begin{aligned}
+\mathbf{w}\cdot\mathbf{e}_i &= c^jg_{ij} \\[0.5em]
+&= 0
+\end{aligned}
+\]
+for every $i$, so $\mathbf{w}$ is orthogonal to every basis vector, and hence $\mathbf{w}\cdot\mathbf{w} = 0$, forcing $\mathbf{w} = \vec{0}$ by positive-definiteness of the inner product; since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, this forces every $c^j = 0$, showing that $[g_{ij}]$ has trivial kernel, and is therefore invertible.
 \end{proof}
 
-\begin{remark}[A Multidimensional Fundamental Theorem of Calculus]
-The one-dimensional identity
-\[
-\int_a^b g'(x)\,\dd x=g(b)-g(a)
-\]
-expresses an integral of a derivative in terms of boundary values. The signs at $a$ and $b$ are precisely the outward normals $-1$ and $+1$. The divergence theorem has the same structure in three dimensions: the volume integral of a derivative becomes a boundary integral weighted by the outward normal. This explains why its proof closely follows the fundamental theorem of calculus.
-\end{remark}
+Its inverse, denoted $g^{ij}$, is itself the component matrix of a tensor of type $(2,0)$. When the basis is orthonormal, $g_{ij} = \delta_{ij}$, and the metric tensor reduces to the identity matrix, erasing the distinction between covariant and contravariant components that is otherwise essential in a general, non-orthonormal basis.
 
-\begin{example}[The Continuity Equation]
-\label{ex:continuity-equation}
-Let $\rho(\bx,t)$ be the density of a conserved quantity, such as mass, charge, or probability, and let $\mathbf{J}(\bx,t)$ be its associated current. Conservation in a fixed volume $\Omega$ means that the rate of change of the total amount equals minus the net outward flux:
-\begin{equation}
-\frac{\dd}{\dd t}\iiint_\Omega\rho\,\dd V
-=-\iint_{\partial\Omega}\mathbf{J}\cdot\mathbf{n}\,\dd S.
-\end{equation}
+\begin{definition}[Raising and Lowering Indices]
+Given a vector with contravariant components $v^i$, its associated covariant components are $v_i = g_{ij} v^j$; conversely, given covariant components $\varphi_i$, the associated contravariant components are $\varphi^i = g^{ij}\varphi_j$.
 
-Assuming sufficient regularity to differentiate under the integral and apply Theorem~\ref{thm:divergence}, we obtain
-\begin{equation}
-\iiint_\Omega\left(\frac{\partial\rho}{\partial t}+\nabla\cdot\mathbf{J}\right)\dd V=0.
-\end{equation}
-
-This identity holds for every admissible volume. A continuous integrand whose integral vanishes on every such volume must vanish identically: otherwise, continuity would give a neighborhood on which it has a strict, constant sign, contradicting the integral identity. Hence
-\begin{equation}
-\frac{\partial\rho}{\partial t}+\nabla\cdot\mathbf{J}=0,
-\end{equation}
-the \emph{continuity equation}.
-\end{example}
-
-\input{figures/outward-flux.tex}
-
-\subsection{Green's Theorem in the Plane}
-\label{sec:green-plane}
-
-We establish the planar theorem before Stokes' theorem so that the latter can be derived without a circular argument.
-
-\begin{definition}[Line Integrals and Circulation]
-For a piecewise smooth oriented curve $\gamma$ with parametrization $\mathbf{r}:[a,b]\to\R^3$, the line integral of a continuous vector field is
-\begin{equation}
-\int_\gamma\mathbf{F}\cdot\dd\mathbf{r}
-=\int_a^b\mathbf{F}(\mathbf{r}(t))\cdot\mathbf{r}'(t)\,\dd t.
-\end{equation}
-For a closed curve, this is called the \emph{circulation} and is denoted by
-\[
-\oint_\gamma\mathbf{F}\cdot\dd\mathbf{r}.
-\]
-In the plane, with $\mathbf{F}=(P,Q)$, the integrand is $P\,\dd x+Q\,\dd y$.
 \end{definition}
 
-\begin{theorem}[Green's Theorem]
-\label{thm:green-plane}
-Let $D\subset\R^2$ be a bounded domain whose boundary is a piecewise smooth simple closed curve, oriented counterclockwise. If $P,Q$ are continuously differentiable on a neighborhood of $\overline D$, then
-\begin{equation}
-\oint_{\partial D}(P\,\dd x+Q\,\dd y)
-=\iint_D\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)\dd x\,\dd y.
-\end{equation}
+\begin{theorem}
+The two operations of raising and lowering indices are mutually inverse: $g^{ij}(g_{jk}v^k) = v^i$ for every choice of components $v^k$.
 
 \end{theorem}
 
-\begin{proof}[Proof for Simple Domains]
-It is enough to prove the identities for $P\,\dd x$ and $Q\,\dd y$ separately. For a $y$-simple domain
+\begin{proof}
+Since $g^{ij}$ is, by definition, the matrix inverse of $g_{ij}$, one has $g^{ij}g_{jk} = \delta^i_k$; hence
 \[
-D=\{(x,y):a\leq x\leq b,\ h_1(x)\leq y\leq h_2(x)\},
+\begin{aligned}
+g^{ij}(g_{jk}v^k) &= (g^{ij}g_{jk})v^k \\[0.5em]
+&= \delta^i_k v^k \\[0.5em]
+&= v^i,
+\end{aligned}
 \]
-the fundamental theorem of calculus yields
-\begin{equation}
-\iint_D\frac{\partial P}{\partial y}\,\dd x\,\dd y
-=\int_a^b\big[P(x,h_2(x))-P(x,h_1(x))\big]\,\dd x.
-\end{equation}
-
-Counterclockwise orientation traverses the lower boundary from $a$ to $b$ and the upper boundary from $b$ to $a$. Any vertical segments contribute nothing because $\dd x=0$. Consequently,
-\begin{align}
-\oint_{\partial D}P\,\dd x
-&=\int_a^b P(x,h_1(x))\,\dd x-\int_a^b P(x,h_2(x))\,\dd x\notag\\
-&=-\iint_D\frac{\partial P}{\partial y}\,\dd x\,\dd y.
-\end{align}
-Similarly, integration first in $x$ on an $x$-simple domain gives
-\[
-\oint_{\partial D}Q\,\dd y=\iint_D\frac{\partial Q}{\partial x}\,\dd x\,\dd y.
-\]
-
-Adding proves the formula when the domain admits both descriptions. Subdivision and cancellation of internal boundary integrals extend the argument to unions of such pieces; the general piecewise smooth case follows by approximation.
+using the Einstein summation convention to collapse the sum over the repeated index $k$.
 \end{proof}
 
-\begin{remark}[The Divergence Form of Green's Theorem]
-Applying the circulation formula to the rotated field $(-Q,P)$ gives
-\begin{equation}
-\oint_{\partial D}(P\,\dd y-Q\,\dd x)
-=\iint_D\left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}\right)\dd x\,\dd y.
-\end{equation}
-For counterclockwise orientation,
+With this notation, the inner product of two vectors $\mathbf{u} = u^i\mathbf{e}_i$ and $\mathbf{v}=v^j\mathbf{e}_j$ is expressed compactly as
 \[
-\mathbf{n}\,\dd s=(\dd y,-\dd x),
+\begin{aligned}
+\mathbf{u}\cdot\mathbf{v} &= g_{ij}u^iv^j \\[0.5em]
+&= u_jv^j,
+\end{aligned}
 \]
-so the left-hand side is the outward flux of $(P,Q)$. This is the two-dimensional divergence theorem: in the plane, circulation and divergence are related by a rotation through $90^\circ$.
-\end{remark}
+recovering the ordinary dot product $u^iv^i$ once the basis is orthonormal and $g_{ij}=\delta_{ij}$.
 
-\subsection{Stokes' Theorem}
+\subsection{Tensor Product and Contraction}
 
-Let $\Sigma\subset\R^3$ be an oriented piecewise smooth surface with boundary $\partial\Sigma$. The boundary orientation is induced by the right-hand rule: when the right thumb points along the chosen normal $\mathbf{n}$, the fingers indicate the positive direction around the surface.
+Two operations generate new tensors from existing ones: the tensor product, which combines tensors of lower type into one of higher type without any loss of information, and contraction, which reduces the type of a single tensor by pairing a contravariant index with a covariant one and summing.
 
-\begin{theorem}[Kelvin--Stokes Theorem]
-\label{thm:stokes}
-If $\mathbf{F}$ is continuously differentiable on a neighborhood of $\Sigma$, then
-\begin{equation}
-\iint_\Sigma(\nabla\times\mathbf{F})\cdot\mathbf{n}\,\dd S
-=\oint_{\partial\Sigma}\mathbf{F}\cdot\dd\mathbf{r}.
-\end{equation}
+\begin{definition}[Tensor Product]
+Given a tensor $S$ of type $(r_1,s_1)$ and a tensor $T$ of type $(r_2,s_2)$ on $V$, their tensor product $S \otimes T$ is the tensor of type $(r_1+r_2, s_1+s_2)$ defined by evaluating $S$ on the first $r_1$ dual arguments and the first $s_1$ vector arguments, and $T$ on the remaining arguments, and multiplying the two results.
+\end{definition}
 
-\end{theorem}
-
-\begin{proof}[Proof Sketch]
-First suppose that $\Sigma$ is the graph
-\[
-\mathbf{r}(x,y)=(x,y,g(x,y))
-\]
-over a planar domain $D$, oriented upward, with $g$ sufficiently smooth. Writing $\mathbf{F}=(F_1,F_2,F_3)$ and evaluating its components on the graph gives
-\[
-\mathbf{F}\cdot\dd\mathbf{r}
-=(F_1+F_3g_x)\,\dd x+(F_2+F_3g_y)\,\dd y.
-\]
-Set
+In components, if $S$ and $T$ have respective components
 \[
 \begin{gathered}
-P=F_1\circ\mathbf{r}+(F_3\circ\mathbf{r})g_x \\
-Q=F_2\circ\mathbf{r}+(F_3\circ\mathbf{r})g_y.
+S^{i_1\cdots i_{r_1}}_{\;\;\;\;\;\;\;j_1\cdots j_{s_1}} \\
+T^{k_1\cdots k_{r_2}}_{\;\;\;\;\;\;\;l_1\cdots l_{s_2}},
 \end{gathered}
 \]
-The chain rule and cancellation of mixed derivatives show that
+then $S \otimes T$ has components equal to the ordinary product
 \[
-Q_x-P_y=(\nabla\times\mathbf{F})(\mathbf{r}(x,y))\cdot(-g_x,-g_y,1).
+S^{i_1\cdots i_{r_1}}_{\;\;\;\;\;\;\;j_1\cdots j_{s_1}}\, T^{k_1\cdots k_{r_2}}_{\;\;\;\;\;\;\;l_1\cdots l_{s_2}},
 \]
-The oriented surface element is
-\[
-\mathbf{n}\,\dd S=(-g_x,-g_y,1)\,\dd x\,\dd y,
-\]
+a fact which follows directly from multilinearity of the tensor product upon expanding each argument in the chosen basis.
 
-Green's theorem gives the desired equality. A general surface is treated by subdividing it into local graph patches. Adjacent patches traverse their common boundary in opposite directions, so internal contributions cancel, leaving only $\partial\Sigma$.
+\begin{definition}[Contraction]
+Given a tensor $T$ of type $(r,s)$ with $r,s \geq 1$, the contraction of $T$ over a chosen contravariant index and a chosen covariant index is the tensor of type $(r-1,s-1)$ obtained, in components, by setting the two chosen indices equal and summing, following the Einstein convention.
+\end{definition}
+
+\begin{theorem}
+The contraction of a tensor is independent of the basis used to compute it, that is, it defines a genuine tensor of type $(r-1,s-1)$.
+
+\end{theorem}
+
+\begin{proof}
+It suffices to verify the claim for a tensor $T$ of type $(1,1)$, with components $T^i_{\;j}$, since the general case follows by treating the remaining indices as passive labels throughout the argument. Under a change of basis with matrix $P$, the transformation law established above gives
+\[
+\hat{T}^i_{\;j} = (P^{-1})^i_{\;k}P_j^{\;l}T^k_{\;l},
+\]
+since $T^i_{\;j}$ transforms contravariantly in its upper index and covariantly in its lower index. The contraction is
+\[
+\begin{aligned}
+\hat{T}^i_{\;i} &= (P^{-1})^i_{\;k}P_i^{\;l}T^k_{\;l} \\[0.5em]
+&= \delta^l_k T^k_{\;l} \\[0.5em]
+&= T^k_{\;k},
+\end{aligned}
+\]
+using
+\[
+(P^{-1})^i_{\;k}P_i^{\;l} = \delta^l_k,
+\]
+the statement that $P^{-1}$ and $P$ are mutually inverse matrices; hence the contracted quantity $T^k_{\;k}$ is the same scalar regardless of the basis used to compute it, confirming that it is a well-defined, basis-independent scalar, that is, a tensor of type $(0,0)$.
+
 \end{proof}
 
-\begin{remark}[A Common Boundary Principle]
-Stokes' theorem again has the form ``integral of a derivative over a region equals integral of the original field over its boundary.'' Here the derivative is the curl, the region is a two-dimensional surface, and its boundary is a one-dimensional curve. Green's circulation theorem is the special case $\Sigma=D$ in the $xy$-plane, $\mathbf{n}=(0,0,1)$, and $\mathbf{F}=(P,Q,0)$, because $(\nabla\times\mathbf{F})\cdot\mathbf{n}=Q_x-P_y$. Thus the two forms of Green's theorem connect the planar versions of both Stokes' and Gauss' theorems.
-\end{remark}
+The contraction of a tensor of type $(1,1)$, represented in a basis by the matrix $A = [a^i_{\;j}]$, over its single pair of indices yields the scalar $a^i_{\;i}$, which is precisely the trace of $A$, now seen to be basis-independent as a direct consequence of the theorem above, recovering from a different direction the earlier observation that similar matrices, representing the same linear map in different bases, share the same trace. More generally, the divergence, gradient, and curl introduced earlier for vector fields in $\mathbb{R}^3$ reappear within this framework as particular contractions of tensors built from the components of a field and their partial derivatives, a perspective that becomes indispensable once such operators must be expressed in curvilinear, rather than Cartesian, coordinate systems, where the metric tensor $g_{ij}$ varies from point to point and must be accounted for explicitly in any differentiation of tensor components.

@@ -29,8 +29,12 @@ Missing topics or recommended references are welcome. Open an issue to discuss b
 3. Compile locally to confirm it builds cleanly:
 
 ```bash
-cd src && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+make check
 ```
+This command compiles the complete book and rejects unresolved references,
+LaTeX warnings, and overfull or underfull boxes. Use `make build` while
+iterating and `make check` before submitting.
+
 4. Commit with a clear message (e.g., `Fix sign error in Ch. 9 KKT example`).
 5. Open a pull request describing what changed and why.
 
@@ -39,7 +43,12 @@ Please **do not commit the compiled PDF** in pull requests. The maintainer regen
 ## Style guidelines
 
 - Follow the existing notation and macros defined in `src/main.tex`. Do not introduce new symbols for existing concepts.
+- Use Δ for the Laplacian and ∇²f for the Hessian matrix.
+- State domain and regularity hypotheses explicitly, especially for logarithms,
+  real powers, Taylor expansions, and interchange of limits.
 - Keep the definition, theorem, proof, and example environments consistent with the rest of the document.
+- Worked examples should end with the explicit result, not only a verbal
+  description of the final substitution or computation.
 - One logical change per pull request.
 - Use British or American English consistently within a passage, matching the surrounding text.
 - Figures go in `src/figures/`, preferably as TikZ or other vector graphics.

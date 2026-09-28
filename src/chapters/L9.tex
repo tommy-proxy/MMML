@@ -1,1041 +1,565 @@
-\chapter{Functional, Fourier, and Complex Analysis}
+\chapter{Mathematical Optimization and Convex Programming}
 
-\section{Hilbert Spaces and Square-Integrable Functions}
+\section{Equality and Inequality Constraints}
 
-To rigorously generalize the concept of Euclidean space $\mathbb{R}^N$ to infinite dimensions, we must construct a vector space of functions that retains the geometric notions of length (norm) and angle (inner product), while ensuring that the space is \textit{complete}. Completeness guarantees that limits of Cauchy sequences exist within the space, which is an absolute prerequisite for performing calculus and infinite series expansions. The standard choice for physical applications is the space of square-integrable functions, denoted $L^2(\mathbb{R})$.
+\subsection{Equality-Constrained Extrema and Lagrange Multipliers}
 
-However, constructing this space requires addressing several foundational subtleties that are often glossed over. We will build it step-by-step, explicitly justifying every definition.
+The extremum tests developed for functions of several variables locate critical points of $f$ over its entire domain, but many optimization problems require $\mathbf{x}$ to satisfy one or more equality constraints, restricting the search to a lower-dimensional subset of the domain. The method of Lagrange multipliers reduces such constrained problems to an unconstrained search for critical points of an auxiliary function.
 
-\subsection{Measure-Theoretic Construction of \texorpdfstring{$L^2(\mathbb{R})$}{L2(R)}}
-
-Before defining the space, we must address the integral. In elementary calculus, the Riemann integral is used. However, the Riemann integral is inadequate for our purposes because the space of Riemann-integrable functions is \textit{not complete} under the $L^2$ norm. Specifically, a sequence of continuous (and thus Riemann-integrable) functions can converge in the $L^2$ norm to a highly discontinuous function that is not Riemann-integrable. To ensure completeness, we must use the \textit{Lebesgue integral}.
-\begin{itemize}
-\item \textit{Lebesgue measure ($\mu$)}: a function that assigns a ``length'' or ``volume'' to subsets of $\mathbb{R}$. Unlike the intuitive length of an interval, it is defined on a $\sigma$-algebra of sets, allowing us to measure highly fragmented sets (like the rational numbers, which have measure zero).
-\item \textit{Measurable functions}: a function $v: \mathbb{R} \to \mathbb{C}$ is Lebesgue measurable if the preimage of any open set in $\mathbb{C}$ is a Lebesgue measurable set in $\mathbb{R}$. This is the exact class of functions for which the Lebesgue integral
-
+\begin{definition}[Lagrangian]
+Given $f : \mathbb{R}^n \to \mathbb{R}$ and constraints
 \[
-\int_\mathbb{R} |v(t)|^2 \dd t
+g_1(\mathbf{x}) = \cdots = g_k(\mathbf{x}) = 0,
 \]
-is well-defined.
-\end{itemize}
-
-
-Let $\mathcal{L}^2(\mathbb{R})$ be the set of all Lebesgue measurable functions $v: \mathbb{R} \to \mathbb{C}$ such that the integral of their squared modulus is finite:
-\begin{equation}
-\mathcal{L}^2(\mathbb{R}) = \left\{ v \in \mathcal{M}(\mathbb{R}) : \int_\mathbb{R} |v(t)|^2 \dd t < \infty \right\}
-\end{equation}
-where $\mathcal{M}(\mathbb{R})$ denotes the set of all complex-valued Lebesgue measurable functions.
-
-\begin{remark}[The Problem of Positive Definiteness]
-If we attempt to define a norm on $\mathcal{L}^2(\mathbb{R})$ as
+the Lagrangian associated with the problem of extremizing $f$ subject to these constraints is the function
 \[
-\|v\| = \left( \int_\mathbb{R} |v(t)|^2 \dd t \right)^{1/2},
+\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) - \sum_{i=1}^{k} \lambda_i g_i(\mathbf{x}),
 \]
-we encounter a fatal flaw. The integral of a nonnegative function is zero if and only if the function is zero \textit{almost everywhere} (a.e.), meaning the set of points where it is nonzero has Lebesgue measure zero.
-Therefore, $\|v\| = 0$ does \textit{not} imply $v(t) = 0$ for all $t \in \mathbb{R}$; it only implies $v(t) = 0$ except possibly on a set of measure zero. This violates the axiom of positive definiteness for a norm, which strictly requires
-\[
-\|v\| = 0 \implies v = \mathbf{0}.
-\]
-
-\end{remark}
-
-To resolve this, we must introduce an equivalence relation and form a quotient space.
-
-\begin{definition}[Equivalence Relation and Quotient Space]
-We define a relation $\sim$ on $\mathcal{L}^2(\mathbb{R})$ such that $v \sim u$ if and only if $v(t) = u(t)$ for almost every $t \in \mathbb{R}$. Formally, the set $\{t \in \mathbb{R} : v(t) \neq u(t)\}$ has Lebesgue measure zero.
-This relation is reflexive, symmetric, and transitive, making it a valid equivalence relation. It partitions $\mathcal{L}^2(\mathbb{R})$ into disjoint equivalence classes.
-We define the Hilbert space $L^2(\mathbb{R})$ as the quotient space:
-\begin{equation}
-\begin{aligned}
-L^2(\mathbb{R}) &= \mathcal{L}^2(\mathbb{R}) / \\
-&\sim
-\end{aligned}
-\end{equation}
-
-An element of $L^2(\mathbb{R})$ is not a single function, but an equivalence class $[v]$ of functions that differ only on sets of measure zero. By convention, we abuse notation and write $v$ instead of $[v]$, treating functions that are equal almost everywhere as identical elements of the space.
+where $\boldsymbol{\lambda} = (\lambda_1, \dots, \lambda_k) \in \mathbb{R}^k$ are called the Lagrange multipliers.
 \end{definition}
 
-\subsection{The Inner Product and Norm}
+The central result gives a necessary condition: every constrained local
+extremum satisfying the stated regularity assumptions must occur among
+the points where the gradient of $f$ lies in the span of the gradients of
+the constraint functions. A solution of the Lagrange equations need not,
+by itself, be an extremum.
 
-With the elements of the space properly defined as equivalence classes, we can define the geometric structure.
-
-\begin{definition}[Inner Product on $L^2(\mathbb{R})$]
-For any two elements $v, u \in L^2(\mathbb{R})$, we define the inner product as:
-\begin{equation}
-\langle v, u \rangle = \int_\mathbb{R} v(t) \overline{u(t)} \dd t
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Well-definedness and Finiteness of the Inner Product]
-Before using this formula, we must prove the integral actually converges to a finite complex number. We apply the \textit{Cauchy--Schwarz inequality for integrals}, which states that for measurable functions $f, g$:
-\begin{equation}
-\int_\mathbb{R} |f(t) g(t)| \dd t \leq \left( \int_\mathbb{R} |f(t)|^2 \dd t \right)^{1/2} \left( \int_\mathbb{R} |g(t)|^2 \dd t \right)^{1/2}
-\end{equation}
-Setting $f(t) = v(t)$ and $g(t) = \overline{u(t)}$, we get:
-\begin{equation}
-\int_\mathbb{R} |v(t) \overline{u(t)}| \dd t \leq \|v\| \|u\| < \infty
-\end{equation}
-Since the integral of the absolute value is finite, the integral
+\begin{theorem}[Lagrange Multiplier Theorem]
+Let $f, g_1, \dots, g_k$ be continuously differentiable, and suppose $\mathbf{x}^* \in \mathbb{R}^n$ is a local extremum of $f$ subject to $g_i(\mathbf{x}) = 0$ for $i = 1, \dots, k$, at which the gradients
 \[
-\int v \bar{u}
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)
 \]
-is absolutely convergent and thus well-defined. Furthermore, because $v$ and $u$ are equivalence classes, changing the representative functions on a set of measure zero does not change the value of the integral, making the inner product well-defined on the quotient space.
-\end{remark}
-
-The inner product induces a norm via
+are linearly independent. Then there exists $\boldsymbol{\lambda}^* \in \mathbb{R}^k$ such that
 \[
-\|v\| = (\langle v, v \rangle)^{1/2}.
+\nabla f(\mathbf{x}^*) = \sum_{i=1}^{k} \lambda_i^* \nabla g_i(\mathbf{x}^*),
 \]
-Because we quotiented out the null sets,
+equivalently
 \[
-\|v\| = 0 \implies \int |v|^2 = 0 \implies v = 0
-\]
-a.e. $\implies v$ is the zero vector in $L^2(\mathbb{R})$. The triangle inequality for this norm follows directly from the \textit{Minkowski inequality}.
-
-\subsection{Completeness and the Riesz--Fischer Theorem}
-
-A normed space is a \textit{Banach space} if it is complete. A \textit{Hilbert space} is a Banach space whose norm is induced by an inner product.
-
-\begin{definition}[Cauchy Sequence and Completeness]
-A sequence $\{v_n\}$ in $L^2(\mathbb{R})$ is a \textit{Cauchy sequence} if for every $\varepsilon > 0$, there exists an integer $N$ such that for all $m, n > N$, $\|v_m - v_n\| < \varepsilon$.
-The space is \textit{complete} if every Cauchy sequence converges to a limit $v \in L^2(\mathbb{R})$, meaning
-\[
-\lim_{n \to \infty} \|v_n - v\| = 0.
+\nabla_{\mathbf{x}} \mathcal{L}(\mathbf{x}^*, \boldsymbol{\lambda}^*) = \vec{0}.
 \]
 
-\end{definition}
-
-\begin{theorem}[Riesz--Fischer Theorem]
-The space $L^2(\mathbb{R})$ is complete with respect to the norm induced by its inner product. Consequently, $L^2(\mathbb{R})$ is a Hilbert space.
 \end{theorem}
 
-\begin{proof}[Rigorous Sketch of Logic]
-The original text's reliance on the Dominated Convergence Theorem (DCT) is a common logical leap; DCT requires a \textit{pre-existing} dominating function, which a general Cauchy sequence does not possess a priori. The rigorous proof constructs the limit function explicitly using a subsequence.
-
-\textit{Step 1: Extract a rapidly converging subsequence.}
-Since $\{v_n\}$ is Cauchy, we can find a subsequence $\{v_{n_k}\}$ such that
-\[
-\|v_{n_{k+1}} - v_{n_k}\| < 2^{-k}
-\]
-for all $k \geq 1$.
-
-\textit{Step 2: Define a sequence of partial sums of differences.}
-Define the partial sums
-\[
-g_K(t) = \sum_{k=1}^K |v_{n_{k+1}}(t) - v_{n_k}(t)|.
-\]
-This is a monotonically increasing sequence of nonnegative measurable functions.
-
-\textit{Step 3: Apply the Monotone Convergence Theorem (MCT).}
-By Minkowski's inequality, the $L^2$ norm of $g_K$ is bounded:
-\begin{equation}
-\|g_K\| \leq \sum_{k=1}^K \|v_{n_{k+1}} - v_{n_k}\| < \sum_{k=1}^K 2^{-k} < 1
-\end{equation}
-Thus,
-\[
-\int_\mathbb{R} |g_K(t)|^2 \dd t < 1.
-\]
-By the Monotone Convergence Theorem, the pointwise limit
-\[
-g(t) = \lim_{K \to \infty} g_K(t)
-\]
-exists, and
-\[
-\int_\mathbb{R} |g(t)|^2 \dd t \leq 1.
-\]
-Because the integral of $|g(t)|^2$ is finite, $g(t)$ must be finite almost everywhere.
-
-\textit{Step 4: Construct the limit function.}
-Since $g(t) < \infty$ a.e., the series
-\[
-\sum_{k=1}^\infty |v_{n_{k+1}}(t) - v_{n_k}(t)|
-\]
-converges absolutely a.e. This implies that the telescoping series:
-\begin{equation}
-v_{n_1}(t) + \sum_{k=1}^\infty \left( v_{n_{k+1}}(t) - v_{n_k}(t) \right)
-\end{equation}
-converges absolutely a.e. to some measurable function $v(t)$. By construction, $v_{n_k}(t) \to v(t)$ pointwise a.e.
-
-\textit{Step 5: Prove $v \in L^2(\mathbb{R})$ and $v_n \to v$ in norm.}
-Using Fatou's Lemma on the sequence $|v_{n_k} - v_m|^2$ (for fixed $m$), one can show that $v - v_m \in L^2(\mathbb{R})$, which implies $v \in L^2(\mathbb{R})$. Finally, because $\{v_n\}$ is Cauchy and a subsequence converges to $v$ in norm, the entire sequence must converge to $v$ in the $L^2$ norm.
-\end{proof}
-
-\subsection{Separability and Orthonormal Bases}
-
-Completeness allows us to treat $L^2(\mathbb{R})$ as the rigorous infinite-dimensional analogue of $\mathbb{R}^N$. In $\mathbb{R}^N$, any vector is expanded in a finite orthonormal basis. In infinite dimensions, we require a countable basis.
-
-\begin{definition}[Separability]
-A metric space is \textit{separable} if it contains a countable, dense subset. $L^2(\mathbb{R})$ is separable because the set of step functions with rational endpoints and rational heights is countable and dense in $L^2(\mathbb{R})$.
-\end{definition}
-
-Because $L^2(\mathbb{R})$ is a separable Hilbert space, it admits a \textit{countable orthonormal basis} (more formally, a complete orthonormal system) $\{\phi_n\}_{n \in \mathbb{N}}$. ``Orthonormal'' means $\langle \phi_n, \phi_m \rangle = \delta_{nm}$ (the Kronecker delta). ``Complete'' means the only vector orthogonal to all $\phi_n$ is the zero vector.
-
-Just as in $\mathbb{R}^N$, any $v \in L^2(\mathbb{R})$ has an expansion with coefficients given by its inner products with the basis functions:
-\begin{equation}
-\begin{aligned}
-v &= \sum_{n=1}^\infty c_n \phi_n, \\
-c_n &= \langle v, \phi_n \rangle.
-\end{aligned}
-\end{equation}
-
-\begin{remark}[Nature of Convergence]
-The infinite sum
-\[
-\sum_{n=1}^\infty c_n \phi_n
-\]
-does \textit{not} necessarily converge pointwise. The equality $v = \sum c_n \phi_n$ is understood in the \textit{$L^2$-norm sense} (mean-square convergence). Let
-\[
-S_N = \sum_{n=1}^N c_n \phi_n
-\]
-be the partial sum. The expansion means:
-\begin{equation}
-\lim_{N \to \infty} \left\| v - S_N \right\| = 0 \implies \lim_{N \to \infty} \int_\mathbb{R} \left| v(t) - \sum_{n=1}^N c_n \phi_n(t) \right|^2 \dd t = 0
-\end{equation}
-
-This is guaranteed by the completeness of the space and Bessel's inequality becoming an equality (Parseval's identity):
-\[
-\|v\|^2 = \sum_{n=1}^\infty |c_n|^2.
-\]
-
-\end{remark}
-
-\input{figures/orthogonal-modes.tex}
-
-\section{Integral Operators and Spectral Theory}
-
-\subsection{Hilbert--Schmidt Integral Operators}
-
-In linear algebra, linear transformations on $\mathbb{R}^N$ are represented by matrices. In $L^2(\mathbb{R})$, a broad and highly useful class of linear operators is represented by integral kernels.
-
-\begin{definition}[Linear Integral Operator]
-Let $W(t, t')$ be a measurable function on $\mathbb{R} \times \mathbb{R}$. We define a linear operator
-\[
-W: L^2(\mathbb{R}) \to L^2(\mathbb{R})
-\]
-acting on a function $v \in L^2(\mathbb{R})$ via:
-\begin{equation}
-(Wv)(t) = \int_\mathbb{R} W(t, t') v(t') \dd t'
-\end{equation}
-
-\end{definition}
-
-For $W$ to be a valid operator on $L^2(\mathbb{R})$, it must map $L^2$ functions to $L^2$ functions, and ideally, it should be a \textit{bounded operator}. An operator is bounded if there exists a constant $C > 0$ such that $\|Wv\| \leq C\|v\|$ for all $v \in L^2(\mathbb{R})$. Boundedness is equivalent to continuity in normed spaces.
-
-\begin{definition}[Hilbert--Schmidt Kernel and Operator]
-If the kernel $W(t, t')$ is square-integrable over the product space $\mathbb{R}^2$ with respect to the product Lebesgue measure $\dd t \dd t'$, meaning:
-\begin{equation}
-\|W\|_{HS}^2 := \iint_{\mathbb{R}^2} |W(t, t')|^2 \dd t \dd t' < \infty
-\end{equation}
-then $W$ is called a \textit{Hilbert--Schmidt kernel}.
-\end{definition}
-
-\begin{theorem}[Boundedness of Hilbert--Schmidt Operators]
-Every Hilbert--Schmidt kernel defines a bounded linear operator from $L^2(\mathbb{R})$ to $L^2(\mathbb{R})$, with operator norm bounded by $\|W\|_{HS}$.
-\end{theorem}
-
-\begin{proof}[Explicit Derivation of Boundedness]
-We must prove that if $v \in L^2(\mathbb{R})$, then
-\[
-\begin{gathered}
-Wv \in L^2(\mathbb{R}) \\
-\|Wv\| \leq \|W\|_{HS} \|v\|.
-\end{gathered}
-\]
-
-First, we evaluate the pointwise absolute value of $(Wv)(t)$ using the \textit{Cauchy--Schwarz inequality for integrals} with respect to the variable $t'$:
-\begin{align}
-|(Wv)(t)|^2 &= \left| \int_\mathbb{R} W(t, t') v(t') \dd t' \right|^2 \\
-    &\leq \left( \int_\mathbb{R} |W(t, t')|^2 \dd t' \right) \left( \int_\mathbb{R} |v(t')|^2 \dd t' \right) \\
-    &= \|v\|^2 \int_\mathbb{R} |W(t, t')|^2 \dd t'
-\end{align}
-Notice that we factored out $\|v\|^2$ because it does not depend on $t'$. Next, to find the $L^2$ norm of $Wv$, we integrate both sides of this inequality with respect to $t$ over $\mathbb{R}$:
-\begin{align}
-\|Wv\|^2 = \int_\mathbb{R} |(Wv)(t)|^2 \dd t &\leq \int_\mathbb{R} \left( \|v\|^2 \int_\mathbb{R} |W(t, t')|^2 \dd t' \right) \dd t \\
-    &= \|v\|^2 \iint_{\mathbb{R}^2} |W(t, t')|^2 \dd t' \dd t \\
-    &= \|v\|^2 \|W\|_{HS}^2
-\end{align}
-Taking the square root of both sides yields:
-\begin{equation}
-\|Wv\| \leq \|W\|_{HS} \|v\|
-\end{equation}
-
-This explicitly proves that $W$ is a bounded linear operator, and the constant $C$ in the definition of boundedness is precisely the Hilbert--Schmidt norm of the kernel, $\|W\|_{HS}$. Furthermore, because $|Wv(t)|^2$ is bounded by an $L^1$ function of $t$, it guarantees that $Wv \in L^2(\mathbb{R})$.
-\end{proof}
-
-\input{figures/integral-kernel.tex}
-
-\subsection{Eigenfunctions, Self-Adjointness, and Compactness}
-
-In finite-dimensional linear algebra, the Spectral Theorem states that any real symmetric matrix (or complex Hermitian matrix) is diagonalizable by a unitary matrix. To generalize this to infinite-dimensional Hilbert spaces, we must carefully identify which properties of finite matrices survive the transition to infinite dimensions, and which new conditions are required to prevent pathological behavior.
-
-
-Let $\calH$ be a separable Hilbert space with inner product $\langle \cdot, \cdot \rangle$ and induced norm $\|\cdot\|$. Let $W: \calH \to \calH$ be a bounded linear operator. We first define the adjoint and then the two crucial properties required for the spectral theorem.
-
-\begin{definition}[Adjoint and Self-Adjoint Operator]
-The \textit{adjoint} of $W$, denoted $W^\dagger$, is the unique bounded linear operator satisfying $\langle Wv, u \rangle = \langle v, W^\dagger u \rangle$ for all $v, u \in \calH$.
-An operator $W$ is \textit{self-adjoint} (or Hermitian) if $W = W^\dagger$, meaning that the following identity holds for all $v, u \in \calH$:
-\begin{equation}
-\langle Wv, u \rangle = \langle v, Wu \rangle.
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Why Self-Adjointness?]
-Self-adjointness is the infinite-dimensional analogue of matrix symmetry and yields two key spectral consequences:
-\textit{1. Real Eigenvalues:} If $Wv = \lambda v$ for $v \neq 0$, then
-
-\[
-\lambda \langle v, v \rangle = \langle Wv, v \rangle = \langle v, Wv \rangle = \langle v, \lambda v \rangle = \bar{\lambda} \langle v, v \rangle.
-\]
-Since $\langle v, v \rangle > 0$, we must have $\lambda = \bar{\lambda}$, so $\lambda \in \R$.
-\textit{2. Orthogonal Eigenvectors:} If $Wv_1 = \lambda_1 v_1$ and $Wv_2 = \lambda_2 v_2$ with $\lambda_1 \neq \lambda_2$, then
-
-\[
-\lambda_1 \langle v_1, v_2 \rangle = \langle Wv_1, v_2 \rangle = \langle v_1, Wv_2 \rangle = \lambda_2 \langle v_1, v_2 \rangle.
-\]
-Thus,
-\[
-(\lambda_1 - \lambda_2)\langle v_1, v_2 \rangle = 0,
-\]
-which forces $\langle v_1, v_2 \rangle = 0$.
-\end{remark}
-
-\begin{definition}[Compact Operator]
-An operator $W: \calH \to \calH$ is \textit{compact} if it maps every bounded set in $\calH$ to a relatively compact set (a set whose closure is compact). In a metric space like a Hilbert space, compactness is equivalent to sequential compactness. Therefore, $W$ is compact if and only if for every bounded sequence $\{v_n\} \subset \calH$, the image sequence $\{Wv_n\}$ contains a convergent subsequence in $\calH$.
-\end{definition}
-
-\begin{remark}[Why Compactness?]
-In finite dimensions, the closed unit ball is compact (Heine--Borel theorem), so every bounded linear operator is automatically compact. In infinite dimensions, the closed unit ball is \textit{never} compact. Compact operators are those that ``compress'' the infinite-dimensional space enough to mimic finite-dimensional behavior. Without compactness, the spectrum of an operator can be continuous, meaning the operator might have no eigenvectors in $\calH$ at all.
-\end{remark}
-
-\subsection{The Spectral Theorem for Compact Self-Adjoint Operators}
-
-\begin{theorem}[Spectral Theorem]
-Let $W$ be a compact self-adjoint operator on a separable Hilbert space $\calH$. Then:
-\begin{enumerate}
-\item \textit{Real eigenvalues}: the eigenvalues of $W$ are all real.
-\item \textit{Orthonormal eigenvectors}: there exists an orthonormal sequence of eigenvectors $\{\phi_n\}$ with corresponding real eigenvalues $\{\lambda_n\}$.
-\item \textit{Eigenvalue convergence}: if the sequence of nonzero eigenvalues is infinite, then
-
-\[
-\lim_{n \to \infty} \lambda_n = 0.
-\]
-
-\item \textit{Spectral expansion}: any vector $v \in \calH$ can be expanded as:
-
-\begin{equation}
-Wv = \sum_{n} \lambda_n \langle v, \phi_n \rangle \phi_n
-\end{equation}
-where the series converges in the norm of $\calH$. (If $W$ is injective, $\{\phi_n\}$ forms a complete orthonormal basis for $\calH$.)
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}[Explicit Logic for $\lambda_n \to 0$]
-We must explicitly prove why compactness forces the eigenvalues to converge to zero.
-Suppose, for contradiction, that $\lambda_n \not\to 0$. Then there exists some $\varepsilon > 0$ and a subsequence of eigenvalues $\{\lambda_{n_k}\}$ such that $|\lambda_{n_k}| \geq \varepsilon$ for all $k$.
-Consider the corresponding eigenvectors $\{\phi_{n_k}\}$. Because they are orthonormal, they form a bounded sequence ($\|\phi_{n_k}\| = 1$).
-Now, examine the image sequence under $W$: $W\phi_{n_k} = \lambda_{n_k} \phi_{n_k}$.
-For any $j \neq k$, the distance between two terms in this image sequence is:
-\begin{align}
-\|W\phi_{n_j} - W\phi_{n_k}\|^2 &= \|\lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k}\|^2 \notag \\
-    &= \langle \lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k}, \lambda_{n_j} \phi_{n_j} - \lambda_{n_k} \phi_{n_k} \rangle \notag \\
-    &= |\lambda_{n_j}|^2 \|\phi_{n_j}\|^2 + |\lambda_{n_k}|^2 \|\phi_{n_k}\|^2 - 2\Re(\lambda_{n_j} \bar{\lambda}_{n_k} \langle \phi_{n_j}, \phi_{n_k} \rangle)
-\end{align}
-Because the eigenvectors are orthonormal, $\langle \phi_{n_j}, \phi_{n_k} \rangle = 0$ and $\|\phi_{n_k}\| = 1$. Thus:
-\begin{equation}
-\begin{aligned}
-\|W\phi_{n_j} - W\phi_{n_k}\|^2 &= |\lambda_{n_j}|^2 + |\lambda_{n_k}|^2 \\
-&\geq \varepsilon^2 + \varepsilon^2 \\
-&= 2\varepsilon^2
-\end{aligned}
-\end{equation}
-
-This means the distance between any two distinct terms in the sequence $\{W\phi_{n_k}\}$ is at least $\sqrt{2}\varepsilon$. Consequently, this sequence cannot contain any Cauchy subsequence, and therefore cannot contain any convergent subsequence. This directly contradicts the definition of $W$ being a compact operator. Hence, our assumption was false, and we must have $\lambda_n \to 0$.
-\end{proof}
-
-\begin{remark}[Connection to Finite-Dimensional Diagonalization]
-In finite dimensions, diagonalization is written as $W = E \Lambda E^{-1}$, where $E$ is the matrix of eigenvectors and $\Lambda$ is the diagonal matrix of eigenvalues. Because $W$ is self-adjoint, $E$ is unitary, so $E^{-1} = E^\dagger$.
-The infinite-dimensional expansion
-\[
-Wv = \sum_n \lambda_n \langle v, \phi_n \rangle \phi_n
-\]
-is the exact analogue. If we define the operator $E$ by its action
-\[
-E c = \sum_n c_n \phi_n,
-\]
-then $W = E \Lambda E^\dagger$, where $\Lambda$ acts by multiplying the $n$-th component by $\lambda_n$.
-\end{remark}
-
-\subsection{Convolution Operators and the Continuous Spectrum}
-
-When we drop the requirement of compactness, the spectral theorem fails in its discrete form. A prime example in physics and signal processing is the convolution operator.
-
-\begin{definition}[Convolution Operator]
-Let $K \in L^1(\R)$ be a kernel function. The convolution operator $W_K: L^2(\R) \to L^2(\R)$ is defined by:
-\begin{equation}
-\begin{aligned}
-(W_K v)(t) &= (K * v)(t) \\
-&= \int_\R K(t-t') v(t') \dd t'
-\end{aligned}
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Boundedness via Young's Inequality]
-We must verify that $W_K$ actually maps $L^2$ to $L^2$. By \textit{Young's convolution inequality}, if $K \in L^1(\R)$ and $v \in L^2(\R)$, then
-\[
-\begin{gathered}
-K * v \in L^2(\R) \\
-\|K * v\|_{L^2} \leq \|K\|_{L^1} \|v\|_{L^2}.
-\end{gathered}
-\]
-
-Thus, the condition $K \in L^1$ is sufficient to guarantee that $W_K$ is a bounded (continuous) operator on $L^2(\R)$.
-\end{remark}
-
-\begin{proposition}[Action on Complex Exponentials]
-Consider the complex exponential functions $e_\omega(t) = e^{i\omega t}$ for $\omega \in \R$. The action of $W_K$ on $e_\omega$ yields:
-\begin{equation}
-(W_K e_\omega)(t) = \hat{K}(\omega) e_\omega(t)
-\end{equation}
-Here the Fourier transform of $K$ is defined by
-\[
-\hat{K}(\omega) = \int_\R K(\tau) e^{-i\omega \tau} \dd \tau
-\]
-
-\end{proposition}
-
 \begin{proof}
-We evaluate the integral explicitly using the substitution $\tau = t - t'$, which implies $t' = t - \tau$ and $\dd t' = -\dd \tau$. The limits of integration change from $t' \in (-\infty, \infty)$ to $\tau \in (\infty, -\infty)$:
-\begin{align}
-(W_K e_\omega)(t) &= \int_{-\infty}^\infty K(t-t') e^{i\omega t'} \dd t' \notag \\
-    &= \int_{\infty}^{-\infty} K(\tau) e^{i\omega (t-\tau)} (-\dd \tau) \notag \\
-    &= \int_{-\infty}^\infty K(\tau) e^{i\omega t} e^{-i\omega \tau} \dd \tau \notag \\
-    &= e^{i\omega t} \left( \int_{-\infty}^\infty K(\tau) e^{-i\omega \tau} \dd \tau \right) \notag \\
-    &= \hat{K}(\omega) e_\omega(t)
-\end{align}
-This shows that $e_\omega$ is an eigenfunction of the convolution operator with eigenvalue $\hat{K}(\omega)$.
+Define the constraint set by
+\[
+M = \{\mathbf{x} \in \mathbb{R}^n : g_i(\mathbf{x}) = 0, \, i=1,\dots,k\}
+\]
+Since the gradients
+\[
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)
+\]
+are linearly independent, the Implicit Function Theorem guarantees that $M$ is, near $\mathbf{x}^*$, an $(n-k)$-dimensional smooth surface whose tangent space $T_{\mathbf{x}^*}M$ coincides with $\operatorname{Ker}(J),$ where $J \in M_{k,n}$ is the matrix with rows
+\[
+\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*);
+\]
+equivalently, $T_{\mathbf{x}^*}M$ is the orthogonal complement of
+\[
+\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*))
+\]
+in $\mathbb{R}^n$. Let $\mathbf{v} \in T_{\mathbf{x}^*}M$ be an arbitrary tangent vector, and let $\boldsymbol{\gamma}(t)$ be a smooth curve lying in $M$ with $\boldsymbol{\gamma}(0)=\mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{v}$, whose existence is again guaranteed by the Implicit Function Theorem. Since $\mathbf{x}^*$ is a local extremum of $f$ restricted to $M$, the composite function $t \mapsto f(\boldsymbol{\gamma}(t))$ has a local extremum at $t=0$, so its derivative there vanishes; by the Chain Rule, this derivative equals
+\[
+\nabla f(\mathbf{x}^*) \cdot \boldsymbol{\gamma}'(0) = \nabla f(\mathbf{x}^*) \cdot \mathbf{v}.
+\]
+
+Since $\mathbf{v} \in T_{\mathbf{x}^*}M$ was arbitrary, $\nabla f(\mathbf{x}^*)$ is orthogonal to every vector in $T_{\mathbf{x}^*}M$, that is, $\nabla f(\mathbf{x}^*)$ lies in the orthogonal complement of $T_{\mathbf{x}^*}M$, which is exactly
+\[
+\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)).
+\]
+Hence there exist scalars $\lambda_1^*, \dots, \lambda_k^*$ such that
+\[
+\nabla f(\mathbf{x}^*) = \sum_i \lambda_i^* \nabla g_i(\mathbf{x}^*),
+\]
+as claimed.
 \end{proof}
 
-\begin{remark}[Why $e_\omega$ are not true Eigenvectors in $L^2$]
-For $e_\omega$ to be a valid eigenvector in the Hilbert space $L^2(\R)$, it must belong to $L^2(\R)$. However, its norm is:
-\begin{equation}
-\begin{aligned}
-\|e_\omega\|^2 &= \int_{-\infty}^\infty |e^{i\omega t}|^2 \dd t \\
-&= \int_{-\infty}^\infty 1 \dd t \\
-&= \infty
-\end{aligned}
-\end{equation}
-
-Thus, $e_\omega \notin L^2(\R)$. They are ``generalized eigenvectors''. Because the eigenvalues $\hat{K}(\omega)$ form a continuous range (as $\omega$ varies continuously over $\R$), the operator $W_K$ possesses a \textit{continuous spectrum}.
-\end{remark}
-
-\begin{proposition}[Convolution Operators are Never Compact]
-Unless $W_K$ is the zero operator, it is never compact.
-\end{proposition}
-
-\begin{proof}
-We prove this by constructing a bounded sequence with no convergent subsequence in the image.
-Let $v \in L^2(\R)$ be any nonzero function. Define a sequence of translated functions $v_n(t) = v(t - n)$ for $n \in \N$.
-Because translation preserves the $L^2$ norm,
+\begin{example}
+To maximize $f(x,y) = xy$ subject to the constraint
 \[
-\|v_n\|_{L^2} = \|v\|_{L^2},
+g(x,y) = x+y-1 = 0,
 \]
-so $\{v_n\}$ is a bounded sequence.
-The image of this sequence under $W_K$ is:
-\begin{equation}
-\begin{aligned}
-(W_K v_n)(t) &= \int_\R K(t-t') v(t'-n) \dd t' \\
-&= \int_\R K(t - n - \tau) v(\tau) \dd \tau \\
-&= (W_K v)(t - n)
-\end{aligned}
-\end{equation}
-
-Thus, $W_K v_n$ is simply the function $W_K v$ shifted by $n$.
-For $j \neq k$, the squared distance between two terms in the image sequence is:
-\begin{equation}
-\|W_K v_j - W_K v_k\|^2 = \int_\R |(W_K v)(t-j) - (W_K v)(t-k)|^2 \dd t
-\end{equation}
-
-As $j, k \to \infty$, the overlap between the shifted functions $(W_K v)(t-j)$ and $(W_K v)(t-k)$ approaches zero because $W_K v \in L^2(\R)$ (its mass cannot be infinite). Therefore, the cross-terms in the squared integral vanish, leaving:
-\begin{equation}
-\lim_{j,k \to \infty} \|W_K v_j - W_K v_k\|^2 = \|W_K v\|^2 + \|W_K v\|^2 = 2\|W_K v\|^2 > 0
-\end{equation}
-
-Since the distance between terms does not approach zero, the sequence $\{W_K v_n\}$ contains no Cauchy subsequence, and therefore no convergent subsequence. This violates the definition of a compact operator.
-\end{proof}
-
-\begin{remark}[Diagonalization via the Fourier Transform]
-Although $W_K$ lacks a discrete eigenbasis, it is still ``diagonalized'' by the Fourier transform. The \textit{Convolution Theorem} states that
-\[
-\widehat{K * v}(\omega) = \hat{K}(\omega) \hat{v}(\omega).
-\]
-
-In the Fourier domain, the operator $W_K$ acts on $\hat{v}$ by simple pointwise multiplication by the function $\hat{K}(\omega)$. This is the exact continuous analogue of a diagonal matrix multiplying a vector. Rigorously, this is formalized by the theory of \textit{Direct Integrals}, where the discrete sum
-\[
-\sum_n \lambda_n \langle v, \phi_n \rangle \phi_n
-\]
-is replaced by the continuous integral
-\[
-\int_\R \hat{K}(\omega) \hat{v}(\omega) e^{i\omega t} \frac{\dd \omega}{2\pi}.
-\]
-
-\end{remark}
-
-\section{Sobolev Spaces}
-
-\subsection{Unbounded Differential Operators}
-
-In quantum mechanics and field theory, we frequently encounter differential operators, such as the momentum operator $P = -i(\dd/\dd t)$. However, differential operators are inherently \textit{unbounded} on $L^2(\R)$.
-
-\begin{remark}[Why Differential Operators are Unbounded]
-An operator $D$ is bounded if there exists a constant $C$ such that $\|Dv\| \leq C\|v\|$ for all $v$. Consider the sequence of functions
-\[
-v_n(t) = (1/\sqrt{n}) \sin(nt) \chi(t),
-\]
-where $\chi(t)$ is a smooth bump function with compact support.
-The $L^2$ norm of $v_n$ scales as
-\[
-\|v_n\|_{L^2} \sim (1/\sqrt{n}) \to 0.
-\]
-However, the derivative is
-\[
-v_n'(t) = \sqrt{n} \cos(nt) \chi(t) + \dots,
-\]
-so its $L^2$ norm scales as
-\[
-\|v_n'\|_{L^2} \sim \sqrt{n} \to \infty.
-\]
-Because the ratio
-\[
-\|v_n'\| / \|v_n\| \sim n \to \infty,
-\]
-no finite constant $C$ can bound the derivative operator. An unbounded operator cannot be defined on the entire Hilbert space; it requires a restricted, dense domain.
-\end{remark}
-
-To rigorously define the domain of differential operators and ensure they are closed and self-adjoint, we introduce Sobolev spaces. These spaces restrict the domain to functions that possess a specific degree of ``smoothness'' or ``regularity''.
-
-\subsection{Fourier Characterization of Sobolev Regularity}
-
-Instead of defining smoothness via pointwise derivatives (which can be problematic for non-differentiable functions), we define it via the decay of the Fourier transform at high frequencies. Rapid decay in the frequency domain corresponds to smoothness in the time domain.
-
-\begin{definition}[Sobolev Space $H^s(\R)$]
-For any real number $s \geq 0$, the Sobolev space $H^s(\R)$ is defined as the set of all functions $v \in L^2(\R)$ whose Fourier transform $\hat{v}(\omega)$ satisfies:
-\begin{equation}
-\|v\|_{H^s}^2 := \int_\R (1 + \omega^2)^s |\hat{v}(\omega)|^2 \dd \omega < \infty
-\end{equation}
-This space is a Hilbert space equipped with the inner product:
-\begin{equation}
-\langle v, u \rangle_{H^s} = \int_\R (1 + \omega^2)^s \hat{v}(\omega) \overline{\hat{u}(\omega)} \dd \omega
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Equivalence to Weak Derivatives for Integer $s$]
-Why does this Fourier definition control derivatives? We use the property that the Fourier transform turns differentiation into algebraic multiplication. Specifically, if we define the Fourier transform as
-\[
-\hat{v}(\omega) = \frac{1}{\sqrt{2\pi}} \int_\R v(t) e^{-i\omega t} \dd t,
-\]
-then the Fourier transform of the derivative is
-\[
-\widehat{v'}(\omega) = i\omega \hat{v}(\omega).
-\]
-By the \textit{Plancherel Theorem}, the $L^2$ norm is preserved under the Fourier transform:
-\[
-\|\hat{f}\|_{L^2} = \|f\|_{L^2}.
-\]
-Let us evaluate the $H^1$ norm explicitly:
-\begin{align}
-\|v\|_{H^1}^2 &= \int_\R (1 + \omega^2) |\hat{v}(\omega)|^2 \dd \omega \notag \\
-    &= \int_\R |\hat{v}(\omega)|^2 \dd \omega + \int_\R \omega^2 |\hat{v}(\omega)|^2 \dd \omega \notag \\
-    &= \|\hat{v}\|_{L^2}^2 + \|i\omega \hat{v}\|_{L^2}^2 \notag \\
-    &= \|v\|_{L^2}^2 + \|\widehat{v'}\|_{L^2}^2 \notag \\
-    &= \|v\|_{L^2}^2 + \|v'\|_{L^2}^2
-\end{align}
-
-This explicitly proves that $v \in H^1(\R)$ if and only if both $v$ and its first derivative $v'$ are in $L^2(\R)$. For a general integer $s$, expanding $(1+\omega^2)^s$ yields a polynomial in $\omega^2$ of degree $s$, which corresponds exactly to controlling the $L^2$ norms of all weak derivatives up to order $s$.
-\end{remark}
-
-\begin{definition}[Weak Derivative]
-Because functions in $H^s(\R)$ might not be classically differentiable everywhere, we rely on \textit{weak derivatives}. A locally integrable function $g$ is the weak derivative of $f$ if for every smooth test function $\varphi$ with compact support:
-\begin{equation}
-\int_\R g(t) \varphi(t) \dd t = - \int_\R f(t) \varphi'(t) \dd t
-\end{equation}
-
-The Fourier definition of $H^s(\R)$ automatically handles weak derivatives because it only requires the integral of $|\omega|^s |\hat{v}(\omega)|^2$ to be finite, bypassing the need for pointwise classical derivatives.
-\end{definition}
-
-\begin{remark}[Fractional Differentiability for Non-Integer $s$]
-For non-integer $s$ (e.g., $s = 1/2$), the weight $(1+\omega^2)^s$ does not correspond to an integer number of classical derivatives. Instead, it defines \textit{fractional differentiability}.
-The factor $(1+\omega^2)^s$ penalizes high frequencies smoothly rather than abruptly. This measures the ``fractional smoothness'' of the function, interpolating between integer derivative spaces. This is crucial in the analysis of partial differential equations and neural field models, where solutions often exhibit regularity that is not an integer number of derivatives, but still possesses a well-defined, quantifiable degree of smoothness that ensures the convergence of numerical schemes and the well-posedness of the equations.
-\end{remark}
-
-\section{Distribution Theory}
-
-In physics, the Dirac delta $\delta(t)$ is often described as a function that is zero everywhere except at $t=0$, where it is ``infinite'', such that its integral over the real line is 1. However, no such function exists within the framework of standard Lebesgue or Riemann integration. If a function $f(t)$ is zero almost everywhere, its Lebesgue integral is strictly zero, which contradicts the requirement that the integral equals 1.
-
-To resolve this contradiction and make the Dirac delta mathematically rigorous, we must abandon the idea of evaluating a function at a specific point. Instead, we shift our perspective from the \textit{values} of a function to its \textit{action} on other functions. This requires moving from the space of classical functions to the space of \textit{distributions} (or generalized functions).
-
-\subsection{Test Functions and Generalized Functions}
-
-To define a distribution, we need a space of ``test functions'' upon which the distribution will act. For the Dirac delta and most physical applications, we require test functions that are infinitely differentiable and decay rapidly at infinity. This ensures that when we perform operations like integration by parts, boundary terms at infinity vanish.
-
-\begin{definition}[Schwartz Space $\mathcal{S}(\R)$]
-The Schwartz space $\mathcal{S}(\R)$ is the space of all complex-valued, infinitely differentiable ($C^\infty$) functions $\varphi: \R \to \C$ such that the function and all its derivatives decay faster than any polynomial as $|t| \to \infty$. Formally, $\varphi \in \mathcal{S}(\R)$ if for all nonnegative integers $j, k \in \N \cup \{0\}$:
-\begin{equation}
-\|\varphi\|_{j,k} := \sup_{t \in \R} \left| t^j \frac{\mathrm{d}^k \varphi}{\mathrm{d}t^k}(t) \right| < \infty
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Topology and Seminorms]
-The quantities $\|\cdot\|_{j,k}$ are called \textit{seminorms}. A seminorm satisfies all the properties of a norm (nonnegativity, absolute homogeneity, and the triangle inequality) except that $\|\varphi\|_{j,k} = 0$ does not necessarily imply $\varphi = 0$ (though in this specific case, if all seminorms are zero, the function is indeed zero).
-The family of seminorms $\{\|\cdot\|_{j,k}\}_{j,k}$ induces a topology on $\mathcal{S}(\R)$, making it a Fréchet space. A sequence of functions $\varphi_n$ converges to $\varphi$ in $\mathcal{S}(\R)$ if and only if $\|\varphi_n - \varphi\|_{j,k} \to 0$ for every pair $(j,k)$. This means the functions and all their derivatives converge uniformly to the limit function and its derivatives, while maintaining rapid decay.
-\end{remark}
-
-
-With the test functions defined, we can define the distributions as mappings that act on these test functions.
-
-\begin{definition}[Linear Functional and Tempered Distribution]
-A \textit{linear functional} on a vector space $V$ is a linear map $T: V \to \C$.
-A \textit{tempered distribution} $T$ is a continuous linear functional on the Schwartz space $\mathcal{S}(\R)$. That is, $T: \mathcal{S}(\R) \to \C$ satisfies:
-\begin{enumerate}
-\item \textit{Linearity}: the following identity holds:
-
-\[
-T[a\varphi + b\psi] = a T[\varphi] + b T[\psi]
-\]
-for all $\varphi, \psi \in \mathcal{S}(\R)$ and $a, b \in \C$.
-\item \textit{Continuity}: if a sequence $\varphi_n \to \varphi$ in the topology of $\mathcal{S}(\R)$, then the sequence of complex numbers $T[\varphi_n] \to T[\varphi]$ in $\C$.
-\end{enumerate}
-The space of all tempered distributions is denoted $\mathcal{S}'(\R)$ and is called the continuous dual space of $\mathcal{S}(\R)$.
-\end{definition}
-
-\begin{remark}[Why ``Tempered''?]
-The term ``tempered'' indicates that the growth of these distributions at infinity is restricted (or ``tempered'') by the rapid decay of the Schwartz test functions. Specifically, tempered distributions can grow at most polynomially at infinity. This is a much broader class than distributions with compact support, allowing us to include standard functions like polynomials and constants, which are essential in physics.
-\end{remark}
-
-We can now rigorously define the Dirac delta not as a function, but as a specific rule that maps a test function to a complex number.
-
-\begin{definition}[The Dirac Delta Distribution]
-The Dirac delta $\delta \in \mathcal{S}'(\R)$ is the evaluation functional at zero. For every $\varphi \in \mathcal{S}(\R)$, it is defined by
-\begin{equation}
-\delta[\varphi] := \varphi(0).
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Verification of Validity]
-To ensure $\delta$ is a valid tempered distribution, we must explicitly verify linearity and continuity.
-\textit{Linearity:}
-
+the Lagrange condition $\nabla f = \lambda \nabla g$ reads $(y,x) = \lambda(1,1)$, forcing $x=y$, which combined with $x+y=1$ gives
 \[
 \begin{aligned}
-\delta[a\varphi + b\psi] &= (a\varphi + b\psi)(0) \\
-&= a\varphi(0) + b\psi(0) \\
-&= a\delta[\varphi] + b\delta[\psi].
+x &= y \\
+&= 1/2,
 \end{aligned}
 \]
-
-\textit{Continuity:} Suppose $\varphi_n \to \varphi$ in $\mathcal{S}(\R)$. By the definition of the seminorm $\|\cdot\|_{0,0}$, this implies
-
+with $\lambda = 1/2$. Since $\nabla g = (1,1) \neq \vec{0}$ everywhere, the constraint qualification of the theorem holds at every point of the constraint line, and the constrained maximum value is
 \[
-\sup_{t \in \R} |\varphi_n(t) - \varphi(t)| \to 0.
-\]
-Evaluating this supremum at $t=0$, we get
-\[
-|\varphi_n(0) - \varphi(0)| \leq \sup_{t \in \R} |\varphi_n(t) - \varphi(t)| \to 0.
-\]
-Thus, $\delta[\varphi_n] \to \delta[\varphi]$.
-\end{remark}
-
-Many classical functions can be embedded into the space of distributions.
-
-\begin{definition}[Regular Distributions]
-A function $f: \R \to \C$ is \textit{locally integrable} if
-\[
-\int_K |f(t)| \dd t < \infty
-\]
-for every compact set $K \subset \R$. It has \textit{at most polynomial growth} if there exist constants $C > 0$ and $N \in \N$ such that
-\[
-|f(t)| \leq C(1 + |t|)^N
-\]
-for all $t \in \R$.
-Any such function $f$ defines a \textit{regular distribution} $T_f \in \mathcal{S}'(\R)$ via the action:
-\begin{equation}
-T_f[\varphi] = \int_\R f(t) \varphi(t) \dd t
-\end{equation}
-
-\end{definition}
-
-\begin{remark}[Convergence of the Regular Distribution Integral]
-We must prove that the integral
-\[
-\int_\R f(t) \varphi(t) \dd t
-\]
-converges absolutely. Because $\varphi \in \mathcal{S}(\R)$, the seminorm
-\[
-\|\varphi\|_{N+2, 0} = \sup_t |t^{N+2}\varphi(t)| = M < \infty.
-\]
-For $|t| \geq 1$, we have
-\[
-|\varphi(t)| \leq M / |t|^{N+2}.
-\]
-Thus, the integrand is bounded by:
-\begin{equation}
-|f(t) \varphi(t)| \leq C(1 + |t|)^N \frac{M}{|t|^{N+2}}
-\end{equation}
-As $|t| \to \infty$, the right side behaves asymptotically as $CM / |t|^2$. Since
-\[
-\int_{|t| \geq 1} |t|^{-2} \dd t < \infty,
-\]
-the integral converges absolutely by the comparison test. Continuity of $T_f$ follows similarly by bounding $|T_f[\varphi]|$ using the seminorms of $\varphi$.
-\end{remark}
-
-\begin{remark}[Physicist's Notation and Shifted Delta]
-The common physicist notation
-\[
-\int_\R \delta(t-t') f(t') \dd t' = f(t)
-\]
-is a formal shorthand. Rigorously, we define the \textit{shifted delta distribution} $\delta_{t_0} \in \mathcal{S}'(\R)$ by its action on a test function:
-\begin{equation}
-\delta_{t_0}[\varphi] := \varphi(t_0)
-\end{equation}
-
-The integral notation is merely a symbolic way of writing the action of the functional $\delta_t$ on the function $f$ (assuming $f$ is sufficiently well-behaved to act as a test function or can be approximated by one).
-\end{remark}
-
-\input{figures/delta-evaluation.tex}
-
-\subsection{The Distributional Derivative}
-
-Classical differentiation requires a function to be continuous. Distribution theory allows us to differentiate \textit{any} tempered distribution, including discontinuous functions, by transferring the derivative onto the smooth test functions.
-
-\begin{definition}[Distributional Derivative]
-For any tempered distribution $T \in \mathcal{S}'(\R)$, its distributional derivative $T' \in \mathcal{S}'(\R)$ is defined by its action on any test function $\varphi \in \mathcal{S}(\R)$:
-\begin{equation}
-T'[\varphi] := -T[\varphi']
-\end{equation}
-where $\varphi'$ is the classical derivative of the test function. (Note: $\varphi' \in \mathcal{S}(\R)$ because the derivative of a Schwartz function is also a Schwartz function.)
-\end{definition}
-
-\begin{remark}[Justification via Integration by Parts]
-Why is there a minus sign? This definition is motivated by the behavior of regular distributions. Suppose $T = T_f$ for a continuously differentiable function $f$ with at most polynomial growth. We evaluate
-\[
-T_f'[\varphi]
-\]
-using the definition:
-\begin{equation}
-\begin{aligned}
-T_f'[\varphi] &= -T_f[\varphi'] \\
-&= -\int_\R f(t) \varphi'(t) \dd t
-\end{aligned}
-\end{equation}
-If we were to use classical integration by parts on the integral
-\[
-\int_\R f'(t) \varphi(t) \dd t,
-\]
-we would get:
-\begin{equation}
-\int_\R f'(t) \varphi(t) \dd t = \Big[ f(t)\varphi(t) \Big]_{-\infty}^\infty - \int_\R f(t) \varphi'(t) \dd t
-\end{equation}
-The boundary term
-\[
-[ f(t)\varphi(t) ]_{-\infty}^\infty
-\]
-vanishes strictly because $\varphi \in \mathcal{S}(\R)$ decays faster than any polynomial, while $f(t)$ grows at most polynomially. Thus, their product approaches zero as $t \to \pm \infty$.
-This leaves
-\[
-\int_\R f'(t) \varphi(t) \dd t = -\int_\R f(t) \varphi'(t) \dd t,
-\]
-which perfectly matches the definition
-\[
-T_{f'}[\varphi] = -T_f[\varphi'].
+f(1/2,1/2) = 1/4.
 \]
 
-This proves that the distributional derivative is a consistent generalization of the classical derivative.
-\end{remark}
+\end{example}
 
-\begin{remark}[Example: Derivative of the Heaviside Step Function]
-Let $H(t)$ be the Heaviside step function ($H(t) = 1$ for $t > 0$, and $0$ for $t < 0$). $H$ is locally integrable, so it defines a regular distribution
-\[
-T_H[\varphi] = \int_0^\infty \varphi(t) \dd t.
-\]
-Using the distributional derivative definition:
-\begin{equation}
-\begin{aligned}
-T_H'[\varphi] &= -T_H[\varphi'] \\
-&= -\int_0^\infty \varphi'(t) \dd t
-\end{aligned}
-\end{equation}
-By the Fundamental Theorem of Calculus,
-\[
-\int_0^\infty \varphi'(t) \dd t = \lim_{t \to \infty} \varphi(t) - \varphi(0).
-\]
-Since $\varphi \in \mathcal{S}(\R)$,
-\[
-\lim_{t \to \infty} \varphi(t) = 0.
-\]
-Thus:
-\begin{equation}
-\begin{aligned}
-T_H'[\varphi] &= -(0 - \varphi(0)) \\
-&= \varphi(0) \\
-&= \delta[\varphi]
-\end{aligned}
-\end{equation}
-
-This explicitly proves that the distributional derivative of the discontinuous Heaviside function is the Dirac delta distribution: $T_H' = \delta$.
-\end{remark}
-
-\input{figures/step-derivative.tex}
-
-\subsection{Weak Convergence and Delta Sequences}
-
-Although $\delta$ is not a function, we can approximate it using sequences of classical functions that become increasingly concentrated at the origin.
-
-\begin{definition}[Weak-* Convergence]
-A sequence of distributions $T_n \in \mathcal{S}'(\R)$ converges to $T \in \mathcal{S}'(\R)$ in the \textit{weak-* topology} if, for every test function $\varphi \in \mathcal{S}(\R)$, the sequence of complex numbers $T_n[\varphi]$ converges to $T[\varphi]$.
-\end{definition}
-
-The following proposition gives a general convergence criterion for nascent delta sequences.
-
-\begin{proposition}[Nascent Delta Sequences]
-Let $(\rho_n)_{n \in \N}$ be a sequence of functions in $L^1(\R)$ satisfying:
-\begin{enumerate}
-\item \textit{Non-negativity}: $\rho_n(t) \geq 0$ for all $t$.
-\item \textit{Normalization}: the following identity holds:
-
-\[
-\int_\R \rho_n(t) \dd t = 1.
-\]
-
-\item \textit{Concentration}: for every $\eta > 0$,
-
-\[
-\lim_{n \to \infty} \int_{|t| > \eta} \rho_n(t) \dd t = 0.
-\]
-
-\end{enumerate}
-Then the sequence of regular distributions $T_{\rho_n}$ converges to the Dirac delta $\delta$ in the weak-* topology of $\mathcal{S}'(\R)$. That is, for every $\varphi \in \mathcal{S}(\R)$:
-\begin{equation}
-\begin{aligned}
-\lim_{n \to \infty} \int_\R \rho_n(t) \varphi(t) \dd t &= \varphi(0) \\
-&= \delta[\varphi]
-\end{aligned}
-\end{equation}
-
-\end{proposition}
-
-\begin{proof}
-We must show that the difference
-\[
-D_n = \int_\R \rho_n(t) \varphi(t) \dd t - \varphi(0)
-\]
-approaches zero as $n \to \infty$.
-
-\textit{Step 1: Algebraic manipulation of the difference.}
-The normalizing identity is
-\[
-\int_\R \rho_n(t) \dd t = 1,
-\]
-Therefore, we can multiply $\varphi(0)$ by this integral without changing its value:
-\begin{equation}
-\begin{aligned}
-\varphi(0) &= \varphi(0) \int_\R \rho_n(t) \dd t \\
-&= \int_\R \rho_n(t) \varphi(0) \dd t
-\end{aligned}
-\end{equation}
-Substituting this into $D_n$ and combining the integrals yields:
-\begin{equation}
-\begin{aligned}
-D_n &= \int_\R \rho_n(t) \varphi(t) \dd t - \int_\R \rho_n(t) \varphi(0) \dd t \\
-&= \int_\R \rho_n(t) \big(\varphi(t) - \varphi(0)\big) \dd t
-\end{aligned}
-\end{equation}
-
-\textit{Step 2: Bounding the absolute value.}
-Taking the absolute value and using the triangle inequality for integrals (and the fact that $\rho_n(t) \geq 0$):
-\begin{equation}
-|D_n| \leq \int_\R \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t
-\end{equation}
-
-\textit{Step 3: Splitting the integral domain.}
-Let $\varepsilon > 0$ be arbitrary. Because $\varphi$ is continuous at $t=0$, there exists a radius $\eta > 0$ such that for all $|t| \leq \eta$, we have $|\varphi(t) - \varphi(0)| < \varepsilon$. We split the integral into two regions: $|t| \leq \eta$ and $|t| > \eta$.
-\begin{equation}
-|D_n| \leq \underbrace{\int_{|t| \leq \eta} \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t}_{\text{Term 1}} + \underbrace{\int_{|t| > \eta} \rho_n(t) \big|\varphi(t) - \varphi(0)\big| \dd t}_{\text{Term 2}}
-\end{equation}
-
-\textit{Step 4: Bounding Term 1 (Inner region).}
-In the region $|t| \leq \eta$, we apply the continuity bound $|\varphi(t) - \varphi(0)| < \varepsilon$:
-\begin{equation}
-\text{Term 1} < \varepsilon \int_{|t| \leq \eta} \rho_n(t) \dd t \leq \varepsilon \int_\R \rho_n(t) \dd t = \varepsilon \cdot 1 = \varepsilon
-\end{equation}
-
-\textit{Step 5: Bounding Term 2 (Outer region).}
-Because $\varphi \in \mathcal{S}(\R)$, it is bounded. Let
-\[
-M = \sup_{t \in \R} |\varphi(t)| < \infty.
-\]
-By the triangle inequality,
-\[
-\begin{aligned}
-|\varphi(t) - \varphi(0)| &\leq |\varphi(t)| + |\varphi(0)| \\
-&\leq 2M.
-\end{aligned}
-\]
-Thus:
-\begin{equation}
-\text{Term 2} \leq 2M \int_{|t| > \eta} \rho_n(t) \dd t
-\end{equation}
-By the concentration property of the sequence $\rho_n$,
-\[
-\lim_{n \to \infty} \int_{|t| > \eta} \rho_n(t) \dd t = 0.
-\]
-Therefore, there exists an integer $N$ such that for all $n > N$:
-\begin{equation}
-\int_{|t| > \eta} \rho_n(t) \dd t < \frac{\varepsilon}{2M}
-\end{equation}
-Substituting this bound into Term 2 gives:
-\begin{equation}
-\text{Term 2} < 2M \cdot \frac{\varepsilon}{2M} = \varepsilon
-\end{equation}
-
-\textit{Step 6: Conclusion.}
-Combining the bounds for Term 1 and Term 2, we find that for all $n > N$:
-\begin{equation}
-|D_n| < \varepsilon + \varepsilon = 2\varepsilon
-\end{equation}
-Since $\varepsilon > 0$ was chosen arbitrarily, this proves that
-\[
-\lim_{n \to \infty} D_n = 0,
-\]
-which means
-\[
-\lim_{n \to \infty} \int_\R \rho_n(t) \varphi(t) \dd t = \varphi(0).
-\]
-
-\end{proof}
-
-Common examples of such nascent delta sequences include the square pulse
-\[
-\rho_n(t) = n \mathbf{1}_{[-1/2n, 1/2n]}(t)
-\]
-and the Gaussian
-\[
-\rho_n(t) = (n/(2\pi))^{1/2} e^{-nt^2/2}.
-\]
-
-Figure~\ref{fig:ch13-delta-sequence} shows Gaussian profiles concentrating at the origin while preserving their unit integral:
-\[
-\int_\R \delta_n = 1.
-\]
+Figure~\ref{fig:ch11-lagrange} illustrates tangency between a constraint and a level curve at a constrained extremum.
 
 \begin{figure}[!htbp]
 \centering
-\begin{tikzpicture}
-\begin{axis}[
-  width=13cm,height=7.5cm, axis lines=middle,
-  xlabel={$x$}, ylabel={$\delta_n(x)$},
-  xmin=-2,xmax=2,ymin=0,ymax=4.8, ytick=\empty,
-  legend pos=north east, legend style={font=\scriptsize, draw=black!30}
-  ]
-  \addplot[figblue!55,thick,domain=-2:2,samples=150] {1/sqrt(pi)*exp(-x^2)};
-  \addlegendentry{$n=1$}
-  \addplot[figblue,thick,domain=-2:2,samples=150] {2/sqrt(pi)*exp(-4*x^2)};
-  \addlegendentry{$n=2$}
-  \addplot[figred,thick,domain=-2:2,samples=150] {4/sqrt(pi)*exp(-16*x^2)};
-  \addlegendentry{$n=4$}
-  \addplot[figgreen,very thick,domain=-2:2,samples=200] {8/sqrt(pi)*exp(-64*x^2)};
-  \addlegendentry{$n=8$}
-  \draw[black!50,dashed] (axis cs:0,0) -- (axis cs:0,4.8);
-\end{axis}
+\begin{tikzpicture}[scale=3.0,>=Stealth]
+  \draw[->] (-0.25,0) -- (1.45,0) node[right,font=\scriptsize]{$x$};
+  \draw[->] (0,-0.25) -- (0,1.45) node[above,font=\scriptsize]{$y$};
+  \foreach \c/\col in {0.08/figblue!35,0.16/figblue!60,0.25/figblue}{
+    \draw[\col,thick,domain=0.12:1.35,samples=100,smooth,variable=\x]
+      plot ({\x},{\c/\x});
+  }
+  \draw[figred,very thick] (-0.2,1.2) -- (1.2,-0.2);
+  \node[figred,font=\scriptsize,anchor=south west] at (0.83,0.17)
+    {$x+y=1$};
+  \fill (0.5,0.5) circle (0.7pt);
+  \node[font=\scriptsize,above left] at (0.5,0.5) {$(1/2,1/2)$};
+  \draw[vecA] (0.5,0.5) -- (0.78,0.78)
+    node[above right,font=\scriptsize] {$\nabla f$};
+  \draw[vecC] (0.5,0.5) -- (0.9,0.9)
+    node[right,font=\scriptsize] {$\nabla g$};
 \end{tikzpicture}
-\caption[Delta-converging sequence]{Family $\delta_n(x) = (n/\sqrt{\pi})e^{-n^2x^2}$
-becoming narrower and taller as $n$ increases, with constant unit area:
-$\delta_n \to \delta$ in the sense of distributions.}
-\label{fig:ch13-delta-sequence}
+\caption[Lagrange multipliers]{Level curves $xy=c$ (blue) and the constraint
+  $x+y=1$ (red) from Example~9.1.1. At the constrained maximum
+  $(1/2,1/2)$, the level curve $xy=1/4$ is tangent to the constraint and
+  $\nabla f=(1/2,1/2)=\tfrac12\nabla g$.}
+\label{fig:ch11-lagrange}
 \end{figure}
 
-\subsection{The Fourier Representation of the Delta}
+\subsection{Karush--Kuhn--Tucker Conditions}
 
-Physicists frequently write the Dirac delta as a Fourier integral:
-\begin{equation}
-\delta(t) = \frac{1}{2\pi} \int_\R e^{i\omega t} \dd \omega
-\end{equation}
-Classically, this integral diverges because
-\[
-\begin{aligned}
-\int_\R |e^{i\omega t}| \dd \omega &= \int_\R 1 \dd \omega \\
-&= \infty.
-\end{aligned}
-\]
-However, this formula is rigorously valid if interpreted as a distributional limit.
+Many optimization problems of practical interest involve, in addition to equality constraints, inequality constraints of the form $g_i(\mathbf{x}) \leq 0$, which restrict the feasible region without forcing $\mathbf{x}$ onto a lower-dimensional surface everywhere. The Karush--Kuhn--Tucker conditions extend the Lagrange multiplier framework to this more general setting.
 
-\begin{proposition}[Distributional Limit of the Fourier Integral]
-For $t \neq 0$, the truncated integral can be evaluated as follows:
+\begin{definition}[Active Constraint]
+Given a feasible point $\mathbf{x}$, that is, a point satisfying $g_i(\mathbf{x}) \leq 0$ for every $i$, a constraint $g_i$ is called active at $\mathbf{x}$ if $g_i(\mathbf{x}) = 0$, and inactive if $g_i(\mathbf{x}) < 0$.
+\end{definition}
+
+\begin{definition}[KKT Conditions]
+Consider the problem of minimizing $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) \leq 0$ for $i=1,\dots,k$ and $h_j(\mathbf{x}) = 0$ for $j=1,\dots,l$. A point $\mathbf{x}^*$, together with multipliers $\boldsymbol{\mu}^* \in \mathbb{R}^k$ and $\boldsymbol{\lambda}^* \in \mathbb{R}^l$, is said to satisfy the KKT conditions if four requirements hold simultaneously: \textit{Stationarity}, requiring
 \[
-\begin{aligned}
-I_R(t) &= \frac{1}{2\pi} \int_{-R}^R e^{i\omega t} \dd \omega \\
-&= \frac{\sin(Rt)}{\pi t}
-\end{aligned}
+\nabla f(\mathbf{x}^*) + \sum_i \mu_i^* \nabla g_i(\mathbf{x}^*) + \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*) = \vec{0};
 \]
 
-As $R \to \infty$, the regular distributions $T_{I_R}$ converge to the Dirac delta $\delta$ in the weak-* topology of $\mathcal{S}'(\R)$.
-\end{proposition}
+\textit{primal feasibility}, requiring $g_i(\mathbf{x}^*) \leq 0$ and $h_j(\mathbf{x}^*) = 0$ for every $i,j$; \textit{dual feasibility}, requiring $\mu_i^* \geq 0$ for every $i$; and \textit{complementary slackness}, requiring $\mu_i^* g_i(\mathbf{x}^*) = 0$ for every $i$.
+\end{definition}
+
+Complementary slackness expresses a natural economic and geometric intuition: a multiplier $\mu_i^*$ is permitted to be nonzero only when the corresponding constraint $g_i(\mathbf{x}^*) \leq 0$ is active; constraints that are strictly satisfied, being inactive, contribute nothing to the stationarity condition, exactly as one would expect of a constraint that plays no binding role near $\mathbf{x}^*$.
+
+\begin{theorem}[Necessity of the KKT Conditions]
+Suppose $\mathbf{x}^*$ is a local minimum of $f$ subject to $g_i(\mathbf{x}) \leq 0$, $i=1,\dots,k$, and $h_j(\mathbf{x})=0$, $j=1,\dots,l$, and suppose the gradients of the active inequality constraints together with the gradients of all the equality constraints, evaluated at $\mathbf{x}^*$, are linearly independent. Then there exist multipliers $\boldsymbol{\mu}^* \geq \vec{0}$ and $\boldsymbol{\lambda}^*$ satisfying the KKT conditions at $\mathbf{x}^*$.
+\end{theorem}
 
 \begin{proof}
-We must evaluate the action of $I_R$ on an arbitrary test function $\varphi \in \mathcal{S}(\R)$ and take the limit as $R \to \infty$:
-\begin{equation}
-\lim_{R \to \infty} \int_\R I_R(t) \varphi(t) \dd t = \lim_{R \to \infty} \int_\R \left( \frac{1}{2\pi} \int_{-R}^R e^{i\omega t} \dd \omega \right) \varphi(t) \dd t
-\end{equation}
-
-Because $\varphi \in \mathcal{S}(\R)$, it is absolutely integrable ($\varphi \in L^1(\R)$). The function $|e^{i\omega t}| = 1$, and the domain of $\omega$ is the finite interval $[-R, R]$. The double integral of the absolute value is:
-\begin{equation}
-\int_{-R}^R \int_\R |e^{i\omega t} \varphi(t)| \dd t \dd \omega = \int_{-R}^R \|\varphi\|_{L^1} \dd \omega = 2R \|\varphi\|_{L^1} < \infty
-\end{equation}
-
-Since the double integral is absolutely convergent, the Fubini--Tonelli theorem permits us to swap the order of integration:
-\begin{equation}
-\int_\R I_R(t) \varphi(t) \dd t = \frac{1}{2\pi} \int_{-R}^R \left( \int_\R \varphi(t) e^{i\omega t} \dd t \right) \dd \omega
-\end{equation}
-We define the Fourier transform of $\varphi$ as
+Denote the active inequality constraints at $\mathbf{x}^*$ by
 \[
-\hat{\varphi}(\omega) = \int_\R \varphi(t) e^{-i\omega t} \dd t.
+I = \{i : g_i(\mathbf{x}^*) = 0\}
 \]
-Notice that the inner integral in our expression is exactly $\hat{\varphi}(-\omega)$. Substituting this in:
-\begin{equation}
-\int_\R I_R(t) \varphi(t) \dd t = \frac{1}{2\pi} \int_{-R}^R \hat{\varphi}(-\omega) \dd \omega
-\end{equation}
 
-Because $\varphi \in \mathcal{S}(\R)$, its Fourier transform $\hat{\varphi}$ is also in $\mathcal{S}(\R)$, meaning $\hat{\varphi}$ is absolutely integrable over $\R$. Therefore, we can take the limit $R \to \infty$ inside the integral:
-\begin{equation}
-\lim_{R \to \infty} \frac{1}{2\pi} \int_{-R}^R \hat{\varphi}(-\omega) \dd \omega = \frac{1}{2\pi} \int_\R \hat{\varphi}(-\omega) \dd \omega
-\end{equation}
-
-By the Fourier inversion theorem, any Schwartz function can be recovered from its Fourier transform via
+We first argue that $\nabla f(\mathbf{x}^*)$ must lie in the cone generated nonnegatively by $\{\nabla g_i(\mathbf{x}^*)\}_{i \in I}$ together with the span of $\{\nabla h_j(\mathbf{x}^*)\}_{j=1}^l$. Suppose, for the sake of contradiction, that this were not the case; a standard separation argument for convex cones then produces a direction $\mathbf{d} \in \mathbb{R}^n$ satisfying $\nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0$, $\nabla g_i(\mathbf{x}^*) \cdot \mathbf{d} < 0$ for every $i \in I$, and $\nabla h_j(\mathbf{x}^*) \cdot \mathbf{d} = 0$ for every $j$. Since the gradients of the active and equality constraints are linearly independent by hypothesis, the Implicit Function Theorem allows one to construct a feasible curve $\boldsymbol{\gamma}(t)$ with $\boldsymbol{\gamma}(0) = \mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{d}$, remaining feasible for the equality constraints exactly and for the active inequality constraints to first order, while inactive inequality constraints remain strictly satisfied for $t$ small by continuity. Along this curve,
 \[
-\varphi(t) = \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) e^{i\omega t} \dd \omega.
+(d/dt)|_{t=0} f(\boldsymbol{\gamma}(t)) = \nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0,
 \]
-Evaluating this at $t=0$ yields:
-\begin{equation}
-\varphi(0) = \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) \dd \omega
-\end{equation}
-
-Applying the change of variables $\omega \to -\omega$ to the integral (which spans the entire real line, so the limits remain $-\infty$ to $\infty$), we get:
-\begin{equation}
-\begin{aligned}
-\frac{1}{2\pi} \int_\R \hat{\varphi}(-\omega) \dd \omega &= \frac{1}{2\pi} \int_\R \hat{\varphi}(\omega) \dd \omega \\
-&= \varphi(0)
-\end{aligned}
-\end{equation}
-Thus,
+so $f$ strictly decreases for small $t>0$ while remaining feasible, contradicting the local minimality of $\mathbf{x}^*$. Hence
 \[
-\begin{aligned}
-\lim_{R \to \infty} \int_\R I_R(t) \varphi(t) \dd t &= \varphi(0) \\
-&= \delta[\varphi],
-\end{aligned}
+\nabla f(\mathbf{x}^*) = -\sum_{i \in I} \mu_i^* \nabla g_i(\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*)
 \]
-proving that the Fourier integral representation is rigorously valid in the sense of distributions.
+for some $\mu_i^* \geq 0$, $i \in I$, and some $\lambda_j^* \in \mathbb{R}$. Setting $\mu_i^* = 0$ for every inactive constraint $i \notin I$, the stationarity condition
+\[
+\nabla f(\mathbf{x}^*) + \sum_{i=1}^k \mu_i^* \nabla g_i(\mathbf{x}^*) + \sum_j \lambda_j^*\nabla h_j(\mathbf{x}^*) = \vec{0}
+\]
+holds by construction, dual feasibility $\mu_i^* \geq 0$ holds by construction for $i \in I$ and trivially for $i \notin I$, primal feasibility holds since $\mathbf{x}^*$ is feasible by hypothesis, and complementary slackness holds since $\mu_i^* g_i(\mathbf{x}^*) = 0$ automatically, either because $\mu_i^*=0$ for $i \notin I$ or because $g_i(\mathbf{x}^*)=0$ for $i \in I$.
 \end{proof}
+
+\begin{example}
+Minimize $f(x,y) = x^2+y^2$ subject to
+\[
+g(x,y) = 1 - x - y \leq 0.
+\]
+The stationarity condition reads
+\[
+(2x,2y) + \mu(-1,-1) = \vec{0},
+\]
+giving
+\[
+\begin{aligned}
+x &= y \\
+&= \mu/2.
+\end{aligned}
+\]
+If the constraint is active, $x+y=1$ forces
+\[
+\begin{gathered}
+\begin{aligned}
+x &= y \\
+&= 1/2
+\end{aligned} \\
+\begin{aligned}
+\mu &= 1 \\
+&\geq 0,
+\end{aligned}
+\end{gathered}
+\]
+satisfying dual feasibility; complementary slackness is automatic since the constraint is active, and primal feasibility holds since
+\[
+g(1/2,1/2)=0 \leq 0.
+\]
+
+Since $\nabla g = (-1,-1) \neq \vec{0}$, the constraint qualification holds, and $(1/2,1/2)$ with $\mu^*=1$ satisfies the KKT conditions; as the feasible region $\{x+y\geq 1\}$ is convex and $f$ is convex, the discussion below confirms that this point is indeed the global constrained minimizer.
+\end{example}
+
+\input{figures/active-constraint.tex}
+
+\section{Convex Optimization and Duality}
+
+\subsection{Definitions and Differential Characterizations of Convexity}
+
+
+The KKT conditions are, in general, only necessary for a local minimum, and a point satisfying them need not be a global minimizer. Under an
+additional structural hypothesis, however, this gap disappears entirely, and every stationary point becomes automatically a global optimum. This
+hypothesis is \textit{convexity}.
+
+\begin{definition}[Convex Set and Convex Function]
+A set $C \subseteq \mathbb{R}^n$ is convex if $t\mathbf{x} + (1-t)\mathbf{y} \in C$ for every $\mathbf{x}, \mathbf{y} \in C$ and every $t \in [0,1]$. A function $f : C \to \mathbb{R}$, defined on a convex set $C$, is convex if
+\[
+f(t\mathbf{x}+(1-t)\mathbf{y}) \leq t f(\mathbf{x}) + (1-t) f(\mathbf{y})
+\]
+for every $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$; $f$ is strictly convex if this inequality is strict whenever $\mathbf{x} \neq \mathbf{y}$ and $t \in (0,1)$.
+\end{definition}
+
+For differentiable functions, convexity admits two further characterizations, one in terms of the gradient and one in terms of the Hessian, both of which considerably simplify its verification in practice.
+
+\begin{theorem}[First-Order Characterization of Convexity]
+A differentiable function $f$ on a convex open set $C$ is convex if and only if
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})
+\]
+for every $\mathbf{x}, \mathbf{y} \in C$.
+\end{theorem}
+
+\begin{proof}
+Suppose $f$ is convex. For $t \in (0,1]$, convexity gives
+\[
+\begin{aligned}
+f(\mathbf{x}+t(\mathbf{y}-\mathbf{x})) &= f((1-t)\mathbf{x}+t\mathbf{y}) \\
+&\leq (1-t)f(\mathbf{x}) + tf(\mathbf{y}),
+\end{aligned}
+\]
+so that
+\[
+\frac{f(\mathbf{x}+t(\mathbf{y}-\mathbf{x})) - f(\mathbf{x})}{t} \leq f(\mathbf{y}) - f(\mathbf{x}).
+\]
+
+Letting $t \to 0^+$, the left-hand side converges to the directional derivative $\nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})$, giving
+\[
+\nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}) \leq f(\mathbf{y})-f(\mathbf{x}),
+\]
+which is the claimed inequality. Conversely, suppose the inequality holds for every $\mathbf{x},\mathbf{y} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$, and let $\mathbf{z} = t\mathbf{x}+(1-t)\mathbf{y}$. Applying the hypothesis twice, once with the pair $(\mathbf{z},\mathbf{x})$ and once with the pair $(\mathbf{z},\mathbf{y})$, gives
+\[
+\begin{gathered}
+f(\mathbf{x}) \geq f(\mathbf{z}) + \nabla f(\mathbf{z})\cdot(\mathbf{x}-\mathbf{z}) \\
+f(\mathbf{y}) \geq f(\mathbf{z}) + \nabla f(\mathbf{z})\cdot(\mathbf{y}-\mathbf{z}).
+\end{gathered}
+\]
+Multiplying the first by $t$, the second by $1-t$, and adding, the gradient terms combine to
+\[
+\begin{aligned}
+\nabla f(\mathbf{z}) \cdot (t\mathbf{x}+(1-t)\mathbf{y} - \mathbf{z}) &= \nabla f(\mathbf{z}) \cdot \vec{0} \\
+&= 0,
+\end{aligned}
+\]
+yielding
+\[
+\begin{aligned}
+tf(\mathbf{x}) + (1-t)f(\mathbf{y}) &\geq f(\mathbf{z}) \\
+&= f(t\mathbf{x}+(1-t)\mathbf{y}),
+\end{aligned}
+\]
+which is exactly convexity.
+\end{proof}
+
+\begin{theorem}[Second-Order Characterization of Convexity]
+A twice continuously differentiable function $f$ on a convex open set $C$ is convex if and only if $\nabla^2 f(\mathbf{x})$ is positive semidefinite for every $\mathbf{x} \in C$.
+\end{theorem}
+
+\begin{proof}
+Suppose $\nabla^2 f(\mathbf{x})$ is positive semidefinite for every $\mathbf{x} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$; by Taylor's theorem with Lagrange remainder, applied to the function $t \mapsto f(\mathbf{x}+t(\mathbf{y}-\mathbf{x}))$, there exists $\xi \in (0,1)$ such that, writing $\mathbf{z} = \mathbf{x}+\xi(\mathbf{y}-\mathbf{x})$,
+\[
+f(\mathbf{y}) = f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x}) + \tfrac{1}{2}(\mathbf{y}-\mathbf{x})^{\top} \nabla^2 f(\mathbf{z}) (\mathbf{y}-\mathbf{x}).
+\]
+Since $\nabla^2 f(\mathbf{z})$ is positive semidefinite, the final term is nonnegative, giving
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}),
+\]
+which is the first-order characterization above; hence $f$ is convex. Conversely, suppose $f$ is convex but, for contradiction, $\nabla^2 f(\mathbf{x}_0)\mathbf{v} \cdot \mathbf{v} < 0$ for some $\mathbf{x}_0 \in C$ and some $\mathbf{v} \neq \vec{0}$. By continuity of $\nabla^2 f$, this negative quantity persists on a neighborhood of $\mathbf{x}_0$, so for $t$ sufficiently small, the same Taylor expansion as above, applied to $\mathbf{y} = \mathbf{x}_0+t\mathbf{v}$, gives
+\[
+f(\mathbf{x}_0+t\mathbf{v}) < f(\mathbf{x}_0) + t\nabla f(\mathbf{x}_0)\cdot \mathbf{v}
+\]
+for small $t \neq 0$, contradicting the first-order characterization of convexity established above, which is equivalent to convexity itself.
+\end{proof}
+
+\subsection{Global Optimality and Convex KKT Conditions}
+
+The decisive advantage of convexity is that it eliminates the possibility of misleading local optima that are not globally optimal, a phenomenon that plagues general nonlinear optimization.
+
+\begin{theorem}[Local Minima are Global for Convex Functions]
+If $f : C \to \mathbb{R}$ is convex on a convex set $C$, then every local minimum of $f$ on $C$ is also a global minimum.
+\end{theorem}
+
+\begin{proof}
+Suppose $\mathbf{x}^*$ is a local minimum but not a global one, so that some $\mathbf{y} \in C$ satisfies $f(\mathbf{y}) < f(\mathbf{x}^*)$. For $t \in (0,1]$, the point
+\[
+\mathbf{x}_t = (1-t)\mathbf{x}^* + t\mathbf{y}
+\]
+lies in $C$, by convexity of $C$, and $\mathbf{x}_t \to \mathbf{x}^*$ as $t \to 0^+$. By convexity of $f$,
+\[
+f(\mathbf{x}_t) \leq (1-t)f(\mathbf{x}^*) + t f(\mathbf{y}) = f(\mathbf{x}^*) + t(f(\mathbf{y})-f(\mathbf{x}^*)) < f(\mathbf{x}^*)
+\]
+for every $t \in (0,1]$, since $f(\mathbf{y}) < f(\mathbf{x}^*)$; this contradicts the assumption that $\mathbf{x}^*$ is a local minimum, since points $\mathbf{x}_t$ arbitrarily close to $\mathbf{x}^*$ achieve strictly smaller values of $f$.
+\end{proof}
+
+\begin{theorem}[Sufficiency of the KKT Conditions under Convexity]
+Suppose $f$ and $g_1, \dots, g_k$ are convex and differentiable, and $h_1, \dots, h_l$ are affine. If $\mathbf{x}^*$, $\boldsymbol{\mu}^*$, $\boldsymbol{\lambda}^*$ satisfy the KKT conditions, then $\mathbf{x}^*$ is a global minimizer of $f$ over the feasible set.
+\end{theorem}
+
+\begin{proof}
+Let $\mathbf{x}$ be any feasible point. By the first-order characterization of convexity applied to $f$ at $\mathbf{x}^*$,
+\[
+f(\mathbf{x}) \geq f(\mathbf{x}^*) + \nabla f(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*).
+\]
+By stationarity,
+\[
+\nabla f(\mathbf{x}^*) = -\sum_i \mu_i^* \nabla g_i(\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*),
+\]
+so
+\[
+f(\mathbf{x}) - f(\mathbf{x}^*) \geq -\sum_i \mu_i^* \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*).
+\]
+Since each $h_j$ is affine,
+\[
+h_j(\mathbf{x}) - h_j(\mathbf{x}^*) = \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*)
+\]
+exactly, and this vanishes since both $\mathbf{x}$ and $\mathbf{x}^*$ are feasible, hence satisfy $h_j = 0$; the second sum therefore vanishes entirely. By the first-order characterization applied to each convex $g_i$ at $\mathbf{x}^*$,
+\[
+g_i(\mathbf{x}) \geq g_i(\mathbf{x}^*) + \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*),
+\]
+Rearranging gives
+\[
+\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) \leq g_i(\mathbf{x}) - g_i(\mathbf{x}^*).
+\]
+Since $\mu_i^* \geq 0$ by dual feasibility, multiplying preserves the inequality direction, so
+\[
+\begin{aligned}
+-\mu_i^*\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) &\geq -\mu_i^*(g_i(\mathbf{x})-g_i(\mathbf{x}^*)) \\
+&= -\mu_i^* g_i(\mathbf{x}) + \mu_i^*g_i(\mathbf{x}^*).
+\end{aligned}
+\]
+
+By complementary slackness, $\mu_i^*g_i(\mathbf{x}^*)=0$, and by primal feasibility of $\mathbf{x}$, $g_i(\mathbf{x}) \leq 0$, so together with $\mu_i^* \geq 0$ one has $-\mu_i^*g_i(\mathbf{x}) \geq 0$. Combining,
+\[
+-\mu_i^*\nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) \geq 0
+\]
+for every $i$. Substituting back, $f(\mathbf{x}) - f(\mathbf{x}^*) \geq 0$, that is, $f(\mathbf{x}) \geq f(\mathbf{x}^*)$ for every feasible $\mathbf{x}$, establishing global optimality of $\mathbf{x}^*$.
+\end{proof}
+
+\input{figures/convex-chord.tex}
+
+\subsection{Lagrangian Duality}
+
+This class of problems, encompassing linear programs, quadratic programs with positive semidefinite objective, and many others, forms the subject of convex optimization; its tractability in both theory and practice is closely tied to an associated dual problem, obtained by relaxing the constraints into the objective via their multipliers.
+
+\begin{definition}[Lagrangian Dual Function]
+Given the optimization problem of minimizing $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) \leq 0$, $i=1,\dots,k$, and $h_j(\mathbf{x})=0$, $j=1,\dots,l$, over $\mathbf{x} \in D \subseteq \mathbb{R}^n$, the Lagrangian dual function is
+\[
+q(\boldsymbol{\mu}, \boldsymbol{\lambda}) = \inf_{\mathbf{x} \in D} \left( f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \right).
+\]
+
+\end{definition}
+
+\begin{theorem}[Weak Duality]
+For every feasible $\mathbf{x}$ and every $\boldsymbol{\mu} \geq \vec{0}$, $q(\boldsymbol{\mu},\boldsymbol{\lambda}) \leq f(\mathbf{x})$.
+\end{theorem}
+
+\begin{proof}
+Since $\mathbf{x}$ is feasible, $g_i(\mathbf{x}) \leq 0$ and $h_j(\mathbf{x})=0$ for every $i,j$; since $\mu_i \geq 0$, $\mu_i g_i(\mathbf{x}) \leq 0$, so
+\[
+f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \leq f(\mathbf{x}).
+\]
+
+Taking the infimum over all $\mathbf{x} \in D$ on the left-hand side, in particular over the feasible $\mathbf{x}$ under consideration, gives
+\[
+q(\boldsymbol{\mu},\boldsymbol{\lambda}) \leq f(\mathbf{x}) + \sum_i \mu_i g_i(\mathbf{x}) + \sum_j \lambda_j h_j(\mathbf{x}) \leq f(\mathbf{x}).
+\]
+
+\end{proof}
+
+Weak duality shows that the dual function always provides a lower bound on the optimal value of the original, or primal, problem, regardless of any convexity assumption; when the primal problem is convex and a mild regularity condition, known as Slater's condition, holds, this gap between the two problems closes entirely.
+
+\begin{definition}[Slater's Condition]
+The convex problem above satisfies Slater's condition if there exists a feasible point $\hat{\mathbf{x}} \in D$ with $g_i(\hat{\mathbf{x}}) < 0$ strictly for every $i$, and $h_j(\hat{\mathbf{x}}) = 0$ for every $j$.
+\end{definition}
+
+\begin{theorem}[Strong Duality]
+If $f, g_1, \dots, g_k$ are convex, $h_1, \dots, h_l$ are affine, and Slater's condition holds, then the optimal value of the primal problem equals
+\[
+\sup_{\boldsymbol{\mu}\geq \vec{0}, \boldsymbol{\lambda}} q(\boldsymbol{\mu},\boldsymbol{\lambda}),
+\]
+and this supremum is attained.
+\end{theorem}
+
+The proof of strong duality proceeds by a separation argument entirely analogous in spirit to the one used to establish the necessity of the KKT conditions, applied this time to a suitably constructed convex set encoding the achievable values of the objective and constraint functions; we omit the details, referring the reader to the specialized literature on convex analysis, and record only the important consequence that, under the hypotheses above, solving the dual problem, which is always a convex problem regardless of the primal, is equivalent to solving the original primal problem itself.
+
+\section{Calculus of Variations}
+\label{sec:calculus-variations}
+
+\subsection{Functionals and the Euler--Lagrange Equation}
+
+\begin{definition}[Functional]
+A \emph{functional} assigns a real number to a function in a specified admissible class. A typical example is
+\begin{equation}
+J[y]:=\int_a^b L\big(x,y(x),y'(x)\big)\,\dd x,
+\end{equation}
+where the prescribed function $L$, called the \emph{Lagrangian}, depends on position, function value, and derivative. A \emph{variational problem} seeks a function $y$ that minimizes $J[y]$, or more generally makes it stationary, subject to conditions such as $y(a)=y_a$ and $y(b)=y_b$.
+\end{definition}
+
+The optimization problems studied earlier in this chapter involve finitely many variables, with stationarity expressed by $\nabla f(\bv^*)=\mathbf{0}$, or by vanishing derivatives in all admissible directions when constraints are present. Here the variable is an entire function $y(\cdot)$, so the problem is infinite-dimensional. We seek the analogue of the zero-gradient condition for this setting.
+
+
+\begin{theorem}[Euler--Lagrange Equation]
+\label{thm:euler-lagrange}
+Let $L$ be $C^2$ in its arguments, and let $y^*\in C^2([a,b])$ be a stationary point of
+\[
+J[y]=\int_a^b L(x,y,y')\,\dd x
+\]
+among functions with fixed endpoint values $y(a)=y_a$ and $y(b)=y_b$. In particular, this applies to a smooth local minimizer. Then $y^*$ satisfies
+\begin{equation}
+\frac{\partial L}{\partial y}
+-\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)=0,
+\end{equation}
+with the derivatives evaluated along $(x,y^*(x),{y^*}'(x))$.
+\end{theorem}
+
+\begin{proof}
+\textit{Step 1: introduce a variation.} Choose any $\eta\in C^2([a,b])$ with
+
+\[
+\begin{aligned}
+\eta(a) &= \eta(b) \\
+&= 0,
+\end{aligned}
+\]
+and set
+\[
+y_\varepsilon(x)=y^*(x)+\varepsilon\eta(x),\qquad g(\varepsilon)=J[y_\varepsilon].
+\]
+
+Every $y_\varepsilon$ satisfies the endpoint conditions. Stationarity of $y^*$ therefore implies $g'(0)=0$. This is precisely the requirement that the directional derivative vanish in every admissible direction.
+
+\textit{Step 2: compute the first variation.} By definition,
+
+\begin{equation}
+g(\varepsilon)=\int_a^b L\big(x,y^*(x)+\varepsilon\eta(x),{y^*}'(x)+\varepsilon\eta'(x)\big)\,\dd x.
+\end{equation}
+
+Differentiation under the integral, justified by the smoothness assumptions, and the chain rule give
+\begin{equation}
+g'(\varepsilon)=\int_a^b\left[
+\left.\frac{\partial L}{\partial y}\right|_{y_\varepsilon}\eta(x)
++\left.\frac{\partial L}{\partial y'}\right|_{y_\varepsilon}\eta'(x)\right]\dd x.
+\end{equation}
+At $\varepsilon=0$, this becomes
+\begin{equation}
+g'(0)=\int_a^b\left[\frac{\partial L}{\partial y}\eta(x)
++\frac{\partial L}{\partial y'}\eta'(x)\right]\dd x,
+\end{equation}
+where both partial derivatives are now evaluated along $y^*$.
+
+\textit{Step 3: integrate by parts.} The term containing $\eta'$ satisfies
+
+\begin{equation}
+\int_a^b\frac{\partial L}{\partial y'}\eta'\,\dd x
+=\left[\frac{\partial L}{\partial y'}\eta\right]_a^b
+-\int_a^b\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)\eta\,\dd x.
+\end{equation}
+The boundary term vanishes because
+\[
+\begin{aligned}
+\eta(a) &= \eta(b) \\
+&= 0.
+\end{aligned}
+\]
+Hence
+\begin{equation}
+g'(0)=\int_a^b\left[\frac{\partial L}{\partial y}
+-\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)\right]\eta(x)\,\dd x=0
+\end{equation}
+for every admissible $\eta$.
+
+\textit{Step 4: apply the fundamental lemma of the calculus of variations.} If a continuous function $h$ satisfies
+
+\[
+\int_a^b h\eta\,\dd x=0
+\]
+for every such variation, then $h\equiv0$. Indeed, if $h(x_0)>0$ at an interior point, continuity gives an interval $(x_0-\delta,x_0+\delta)\subset(a,b)$ where $h>0$. Choosing
+\[
+\eta(x)=
+\begin{cases}
+\big[\delta^2-(x-x_0)^2\big]^3,& |x-x_0|<\delta,\\
+0,& |x-x_0|\geq\delta,
+\end{cases}
+\]
+gives a nonnegative $C^2$ variation with
+\[
+\int_a^b h\eta\,\dd x>0,
+\]
+a contradiction. The negative case is analogous, and continuity gives the conclusion at the endpoints as well. Apply this lemma to
+\[
+h=\partial L/\partial y-\dd(\partial L/\partial y')/\dd x
+\]
+to obtain the Euler--Lagrange equation.
+\end{proof}
+
+\subsection{Applications: Geodesics and Stationary Action}
+
+\begin{example}[Geodesics in the Plane: The Shortest Path Is Straight]
+For the arc length of a graph,
+\begin{equation}
+J[y]=\int_a^b\sqrt{1+y'(x)^2}\,\dd x,
+\end{equation}
+the Lagrangian does not depend explicitly on $x$ or $y$. Thus the Euler--Lagrange equation reduces to
+\[
+\frac{\dd}{\dd x}\left(\frac{y'}{\sqrt{1+y'^2}}\right)=0.
+\]
+
+Since the map $t\mapsto t/(1+t^2)^{1/2}$ is strictly increasing, $y'$ must be constant, giving $y(x)=mx+q$. To verify that this stationary path really minimizes length, set
+\[
+m=(y_b-y_a)/(b-a)
+\]
+and use the convexity of
+\[
+\ell(t)=(1+t^2)^{1/2}:
+\]
+
+\[
+\ell(y')\geq\ell(m)+\ell'(m)(y'-m).
+\]
+Integrating and using the endpoint values makes the last term vanish, so
+\[
+J[y]\geq(b-a)(1+m^2)^{1/2},
+\]
+with equality for the straight segment. The Euler--Lagrange equation alone is a stationarity condition, not a general guarantee of minimality.
+\end{example}
+
+\begin{example}[The Principle of Stationary Action]
+In classical mechanics, a physical trajectory $\bx(t)$ with fixed endpoint positions makes the \emph{action}
+\begin{equation}
+S[\bx]=\int_{t_1}^{t_2}\mathcal{L}(\bx,\dot{\bx})\,\dd t
+\end{equation}
+stationary, where $\mathcal{L}=T-V$ is kinetic energy minus potential energy. Applying the Euler--Lagrange equation to each component yields
+\[
+\frac{\partial\mathcal{L}}{\partial\bx}
+-\frac{\dd}{\dd t}\left(\frac{\partial\mathcal{L}}{\partial\dot{\bx}}\right)=\mathbf{0}.
+\]
+For
+\[
+\mathcal{L}=(1/2)m|\dot{\bx}|^2-V(\bx),
+\]
+the two derivatives are $-\nabla V$ and $m\dot{\bx}$, respectively. Therefore
+\begin{equation}
+m\ddot{\bx}=-\nabla V(\bx),
+\end{equation}
+which is Newton's second law. The variational viewpoint provides an alternative route to the equations of motion and extends naturally to constrained systems and field theories.
+\end{example}

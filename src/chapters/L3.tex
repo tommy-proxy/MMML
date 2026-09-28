@@ -318,10 +318,10 @@ and hence
 \]
 where the last limit is again computed by means of the corresponding special limit for infinitesimal sequences.
 
-Using the product rule, one easily obtains the derivative of $\tan x$ from the derivatives of $\sin x$ and $\cos x$; using instead the rule for the derivative of the inverse function, one proves the derivatives of the inverse trigonometric functions,
-\[
-D \arcsin x = \frac{1}{\sqrt{1 - x^2}}, \qquad D \arccos x = -\frac{1}{\sqrt{1 - x^2}}, \qquad D \arctan x = \frac{1}{1 + x^2}.
-\]
+Using the product rule, one easily obtains the derivative of $\tan x$
+from the derivatives of $\sin x$ and $\cos x$. The rule for derivatives
+of inverse functions gives the inverse-trigonometric derivatives as
+follows.
 
 \begin{proof}
 Let $f(x) = \sin x$. By definition, $y = \arcsin x$ if and only if $x = \sin y$. Applying the rule for the derivative of the inverse function, we obtain
@@ -341,10 +341,18 @@ D f^{-1}(x) &= \frac{1}{f'(y)} \\
 &= \cos^2 y \\
 &= \frac{\cos^2 y}{\cos^2 y + \sin^2 y} \\
 &= \frac{1}{1 + \tan^2 y} \\
-&= \frac{1}{1 + x^2},
+&= \frac{1}{1 + x^2}.
 \end{aligned}
 \]
-which completes the proof.
+Collecting the three formulas gives the consistently aligned display
+\[
+\begin{aligned}
+\frac{\dd}{\dd x}\arcsin x&=\frac{1}{\sqrt{1-x^2}},\\
+\frac{\dd}{\dd x}\arccos x&=-\frac{1}{\sqrt{1-x^2}},\\
+\frac{\dd}{\dd x}\arctan x&=\frac{1}{1+x^2}.
+\end{aligned}
+\]
+This completes the proof.
 \end{proof}
 
 \section{The Main Theorems of Differential Calculus}
@@ -416,7 +424,48 @@ for every $x \in [a,b]$. Weierstrass' Theorem guarantees that such points exist,
 
 The resulting procedure, known as the Closed Interval Method, consists of three steps. The first step is to find the critical points of $f$ inside the open interval $(a,b)$, including any points where $f$ fails to be differentiable, and to evaluate $f$ at each of these points. The second step is to evaluate $f$ at the two endpoints of the interval, namely at $a$ and at $b$. The third step is to compare all the values obtained in the first two steps: the largest of these values is the absolute maximum value of $f$ on $[a,b]$, and the smallest is the absolute minimum value.
 
-As an illustration of this method, one may consider the function $g(x) = x^4 - 4x^3$ on the interval $[0,5]$, and ask what its maximum and minimum values are on this interval, as well as what happens on the open interval $(0,5)$ and on the whole real line $\mathbb{R}$. A further classical application concerns an open box constructed from a sheet of metal measuring twenty centimetres by twelve centimetres, from each corner of which a square of side length $x$ is removed before the sides are folded upward; the problem is to determine the value of $x$ that maximizes the resulting volume of the box.
+For a complete application, let $g(x)=x^4-4x^3$ on $[0,5]$. Since
+\[
+g'(x)=4x^3-12x^2=4x^2(x-3),
+\]
+the interior critical points are $x=0$ and $x=3$, but only $x=3$ lies
+in $(0,5)$. Evaluating the critical point and endpoints gives
+\[
+g(0)=0,\qquad g(3)=81-108=-27,\qquad g(5)=625-500=125.
+\]
+Hence the absolute minimum on $[0,5]$ is $-27$ at $x=3$, and the
+absolute maximum is $125$ at $x=5$. On $(0,5)$ the minimum is still
+attained at $x=3$, whereas no maximum is attained: the supremum is
+$125$, approached as $x\to5^-$. On $\mathbb{R}$, $g(x)\to+\infty$ as
+$x\to\pm\infty$, so $-27$ at $x=3$ is the global minimum and no global
+maximum exists.
+
+As a second application, cut squares of side $x$ from a
+$20\,\mathrm{cm}\times12\,\mathrm{cm}$ sheet. The box dimensions are
+$20-2x$, $12-2x$, and $x$, so
+\[
+V(x)=x(20-2x)(12-2x)=4x^3-64x^2+240x,
+\qquad 0\leq x\leq6.
+\]
+Differentiating,
+\[
+V'(x)=12x^2-128x+240=4(3x^2-32x+60).
+\]
+The critical values are
+\[
+x=\frac{32\pm\sqrt{32^2-4\cdot3\cdot60}}{6}
+=\frac{16\pm2\sqrt{19}}{3}.
+\]
+Only
+\[
+x_* = \frac{16-2\sqrt{19}}{3}\approx2.427\ \mathrm{cm}
+\]
+belongs to $[0,6]$. Since $V(0)=V(6)=0$ and
+\[
+V(x_*)=\frac{1792+1216\sqrt{19}}{27}
+\approx262.682\ \mathrm{cm}^3,
+\]
+this value of $x$ gives the maximum volume.
 
 \subsection{Rolle's Theorem and Lagrange's Theorem}
 
@@ -776,7 +825,7 @@ T_2(x) = f(a) + f'(a)(x-a) + \frac{1}{2} f''(a) (x-a)^2.
 This function is called the second-degree Taylor polynomial of $f$ centered at $a$, and it is customarily denoted by $T_2(x)$. A graphical comparison, for instance between the function $f(x) = \cos x$ and its second-degree Taylor polynomial centered at $a = 0$, makes it apparent that the quadratic approximation is considerably more accurate than the linear one over a wider range of values of $x$; this observation is not merely qualitative but reflects a precise general fact, stated in the following theorem.
 
 \begin{theorem}[Taylor--Peano, Degree Two]
-If $f$ is twice differentiable at $a$, then
+If $f$ is of class $C^2$ on a neighborhood of $a$, then
 \[
 \lim_{x \to a} \frac{f(x) - T_2(x)}{(x-a)^2} = 0.
 \]
@@ -902,7 +951,7 @@ for every $k = 1, \dots, n$, and it is in fact the unique polynomial of degree $
 This improvement in accuracy with increasing degree is made precise by the following generalization of the Taylor--Peano theorem stated above for the case $n=2$.
 
 \begin{theorem}[Taylor--Peano Formula]
-Let $f$ be differentiable $n$ times at $a$. Then
+Let $f$ be of class $C^n$ on a neighborhood of $a$. Then
 \[
 \lim_{x \to a} \frac{f(x) - T_n(x)}{(x-a)^n} = 0.
 \]
@@ -926,17 +975,27 @@ or, setting $x = a + h$,
 f(a+h) = f(a) + f'(a) h + \cdots + \frac{1}{n!} f^{(n)}(a) h^n + o(h^n), \qquad h \to 0.
 \]
 
-An instructive feature of the Taylor--Peano formula is that the remainder term $o(x^n)$ appearing at one order can itself be expanded further, revealing additional terms of the expansion at the next order; in this sense, one may zoom into the approximation as much as desired. For instance, as $x \to 0$ one has the first-order expansion $\sin x = x + o(x)$; zooming further into the remainder reveals that
+Higher-order information can refine a particular remainder function, but
+the symbol $o(x^n)$ itself is not a uniquely defined function. For example,
+define
 \[
-o(x) = -(1/6) x^3 + o(x^3),
+R_1(x):=\sin x-x.
+\]
+Taylor expansion to third order gives
+\[
+R_1(x)=-\frac{x^3}{6}+o(x^3),
 \]
 so that
 \[
 \sin x = x - \frac{1}{6} x^3 + o(x^3).
 \]
-Zooming in once again, the next term shows that
+Similarly, if
 \[
-o(x^3) = (1/5!) x^5 + o(x^5),
+R_3(x):=\sin x-x+\frac{x^3}{6},
+\]
+then expansion to fifth order gives
+\[
+R_3(x)=\frac{x^5}{5!}+o(x^5),
 \]
 yielding the still more refined expansion
 \[
@@ -1036,7 +1095,22 @@ e^x &= \lim_{n \to \infty} T_n(x) \\
 where the last equality follows directly from the definition of series as the limit of its partial sums.
 \end{proof}
 
-The phenomenon just illustrated for the exponential function is an instance of a more general theory, that of Taylor series, or Maclaurin series in the case $a = 0$: for a sufficiently regular function $f$, the sequence of Maclaurin polynomials can reconstruct the entire function over its domain, not merely a local approximation near a single point. A useful intuitive image for this phenomenon is that the Taylor series of a function discovers, so to speak, the mathematical DNA encoded within the function at a single point, and allows the entire function to be rebuilt from this single piece of local information. This intuition is well illustrated by the sequence of Taylor polynomials of increasing degree for the function $y = \sin x$ centered at $a = 0$, which approximate the sine function over an ever wider range of values of $x$ as the degree increases.
+The phenomenon just illustrated for the exponential function belongs to
+the theory of analytic functions. Smoothness alone is not sufficient for a
+function to equal its Taylor series. For example,
+\[
+f(x)=
+\begin{cases}
+e^{-1/x^2},&x>0,\\
+0,&x\leq0,
+\end{cases}
+\]
+is of class $C^\infty$ on $\mathbb{R}$, but every derivative at $0$
+vanishes. Its Taylor series at $0$ is therefore identically zero although
+$f(x)>0$ for $x>0$. A function is called \emph{analytic} near $a$ when
+its Taylor series at $a$ converges to the function on some neighborhood
+of $a$. The exponential, sine, and cosine functions are analytic; their
+Taylor series in fact converge to them on all of $\mathbb{R}$.
 
 The systematic use of Maclaurin expansions for the computation of limits, illustrated earlier for the limit
 \[
@@ -1068,11 +1142,10 @@ extending the previous rule to the product of two small-$o$ quantities. Sixth,
 \[
 (o(x^n))^m = o(x^{nm}),
 \]
-governing the behavior of small-$o$ quantities under exponentiation. Seventh,
-\[
-o(x^n + o(x^n)) = o(x^n),
-\]
-which shows that the symbol $o(x^n)$ is stable under composition with itself.
+governing the behavior of small-$o$ quantities under exponentiation.
+Composition statements require explicit remainder functions and suitable
+domain hypotheses; an expression such as $o(x^n+o(x^n))$ is therefore
+avoided.
 
 \subsection{Applications to Indeterminate Forms}
 
@@ -1081,7 +1154,12 @@ The algebra of small $o$ underlies a general method for computing limits of an i
 \lim_{x \to 0} f(x)/g(x).
 \]
 
-If $f$ and $g$ possess derivatives of every order at $x = 0$, the Maclaurin theorem allows one to write $f(x) = a x^n + o(x^n)$ for some integer $n$ and some nonzero constant $a$, meaning that $f$ is an infinitesimal of order $n$ with leading part $a x^n$, and analogously $g(x) = b x^m + o(x^m)$ for suitable $m$ and nonzero $b$. Substituting these expansions into the quotient, one obtains
+If $f$ and $g$ have first nonzero Taylor coefficients at finite orders
+$n$ and $m$, respectively, then
+$f(x)=ax^n+o(x^n)$ and $g(x)=bx^m+o(x^m)$ for nonzero constants $a,b$.
+The existence of derivatives of every order alone does not guarantee such
+a coefficient, as the smooth nonanalytic example above shows. Under the
+stated finite-order hypothesis, substitution gives
 \[
 \begin{aligned}
 \lim_{x \to 0} \frac{f(x)}{g(x)} &= \lim_{x \to 0} \frac{a x^n + o(x^n)}{b x^m + o(x^m)} \\
@@ -1090,62 +1168,104 @@ If $f$ and $g$ possess derivatives of every order at $x = 0$, the Maclaurin theo
 \]
 and it then suffices to apply the definition of small $o$, according to which the two fractions $o(x^n)/x^n$ and $o(x^m)/x^m$ both tend to zero as $x \to 0$, in order to resolve the limit explicitly in terms of $n$, $m$, $a$, and $b$.
 
-\begin{remark}[Exercises on Taylor expansions and limits]
-The techniques developed in this section admit a broad range of applications, several of which are proposed here as exercises for the reader. One may first show, for $x \to 0$ and any two integers $m < n$, that $x^n = o(x^m)$, and subsequently deduce the multiplicative rule
-\[
-x^n \cdot o(x^m) = o(x^{n+m})
-\]
-directly from the definition of small $o$. A second exercise consists of finding the Taylor polynomial of degree six for $f(x) = \sin x$ centered at $a = \pi/3$, thereby practicing the construction of Taylor polynomials at a center other than the origin. A third group of exercises, relying on the algebra of small $o$ together with the standard table of Maclaurin expansions, asks the reader to find the Maclaurin polynomial of degree four for $f(x) = \ln(\cos x)$; to determine the order of infinitesimal and the leading part, as $x \to 0$, of the function
-\[
-f(x) = (\sinh x)^2 - \sin(x^2);
-\]
-and to compute the limit
-\[
-\lim_{x \to 0} \frac{\tan x - \sin x}{x^2 (x+1) + \ln(1 - x^2)}
-\]
-by means of suitable Maclaurin expansions of numerator and denominator. A further set of exercises concerns the qualitative behavior of graphs near points where several derivatives vanish. One may first sketch a local graph of $f(x) = \ln(\cos x)$ close to $x = 0$, using the Maclaurin expansion obtained above. A second, more theoretical exercise concerns the classification of critical points by means of higher-order derivatives: suppose that
-\[
-\begin{gathered}
-f'(a) = \cdots = f^{(n-1)}(a) = 0 \\
-\begin{aligned}
-f^{(n)}(a) &= k \\
-&\neq 0
-\end{aligned}
-\end{gathered}
-\]
-for some integer $n \geq 2$; one is asked to prove that if $n$ is odd, then $a$ is an inflection point with horizontal tangent, while if $n$ is even, then $a$ is a local minimum when $k > 0$ and a local maximum when $k < 0$. A useful hint for this exercise, in the illustrative case $n = 2$, is that it suffices to know the values $f(a)$, $f'(a)$, and $f''(a)$: indeed, if $f''(a) > 0$, then as $x \to a$ one may write
-\[
-\begin{aligned}
-f(x) &= f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + o\big((x-a)^2\big) \\
-&= f(a) + f'(a)(x-a)
-+ (x-a)^2 \left[ \frac{f''(a)}{2} + \frac{o\big((x-a)^2\big)}{(x-a)^2} \right],
-\end{aligned}
-\]
-and since the bracketed term is positive for $x$ sufficiently close to $a$, it follows that
-\[
-f(x) \geq f(a) + f'(a)(x-a)
-\]
-near $a$, that is, the graph of $f$ stays above its tangent line, confirming that $a$ is a local minimum when $n=2$ and $k>0$. The general case follows a similar pattern: for $h$ small, one has
-\[
-f(a+h) - f(a) = h^n \left[ \frac{k}{n!} + \frac{o(h^n)}{h^n} \right],
-\]
-and the sign of the bracketed expression, which approaches $k/n!$ as $h \to 0$, together with the sign of $h^n$, which depends on the parity of $n$, together determine the nature of the critical point.
+\begin{remark}[Worked exercises on Taylor expansions and limits]
+We solve the preceding computational exercises explicitly.
 
-A final group of exercises draws together the theory of Taylor series with the theory of series developed earlier. Using the table of Maclaurin expansions, one may find the sum of the series
+First, if $m<n$, then
 \[
-\sum_{n=0}^{\infty} (-1)^n x^{4n}/n!,
+\frac{x^n}{x^m}=x^{n-m}\longrightarrow0,
 \]
-for an arbitrary real number $x$, and of the numerical series
+so $x^n=o(x^m)$. If $r(x)=o(x^m)$, then
 \[
-\sum_{n=1}^{\infty} (-1)^{n-1} 3^n/(n \cdot 5^n),
+\frac{x^n r(x)}{x^{n+m}}=\frac{r(x)}{x^m}\longrightarrow0,
 \]
-by recognizing each as a Maclaurin series evaluated at a suitable point. A second exercise asks the reader to use Maclaurin polynomials together with the Taylor--Lagrange Theorem to compute the numerical value of $e^{\pi/3}$ with a precision of $10^{-2}$; the standard approach is to approximate $e^{\pi/3}$ by the partial sum
+which proves $x^n o(x^m)=o(x^{n+m})$.
+
+For $f(x)=\sin x$ centered at $a=\pi/3$, set $h=x-\pi/3$.
+The derivatives repeat with period four, and
 \[
-T_n(x) = \sum_{k=0}^{n} x^k/k!
+\sin a=\frac{\sqrt3}{2},\qquad \cos a=\frac12.
 \]
-evaluated at $x = \pi/3$, choosing $n$ large enough that the Lagrange remainder satisfies $|E_n| < 10^{-2}$, using the bound
+Therefore
 \[
-0 < E_n(\pi/3) \leq \max_{z \in [0, \pi/3]} \frac{f^{(n+1)}(z)}{(n+1)!} \left( \frac{\pi}{3} \right)^{n+1} \leq e^{\pi/3} \, \frac{1}{(n+1)!} \left( \frac{\pi}{3} \right)^{n+1},
+\begin{aligned}
+T_6(x)={}&\frac{\sqrt3}{2}+\frac12h-\frac{\sqrt3}{4}h^2
+-\frac1{12}h^3+\frac{\sqrt3}{48}h^4\\
+&+\frac1{240}h^5-\frac{\sqrt3}{1440}h^6.
+\end{aligned}
 \]
-and selecting the smallest integer $n$ for which the right-hand side falls below $10^{-2}$. A final, more theoretical exercise asks the reader to prove that Euler's number $e$ is irrational, a classical result that can be established using the series representation of $e$ together with a careful estimate of the remainder term of its Taylor--Lagrange expansion.
+
+Using $\cos x=1-x^2/2+x^4/24+o(x^4)$ and
+$\ln(1+u)=u-u^2/2+o(u^2)$, with
+$u=-x^2/2+x^4/24+o(x^4)$, gives
+\[
+\ln(\cos x)=-\frac{x^2}{2}-\frac{x^4}{12}+o(x^4).
+\]
+Thus the degree-four Maclaurin polynomial is
+$-x^2/2-x^4/12$; in particular, the graph has a strict local maximum
+at the origin and is concave downward nearby.
+
+Next,
+\[
+(\sinh x)^2=x^2+\frac{x^4}{3}+\frac{2x^6}{45}+o(x^6),
+\qquad
+\sin(x^2)=x^2-\frac{x^6}{6}+o(x^6).
+\]
+Subtracting,
+\[
+(\sinh x)^2-\sin(x^2)=\frac{x^4}{3}+\frac{19x^6}{90}+o(x^6).
+\]
+The function is therefore an infinitesimal of order $4$ with leading
+part $x^4/3$.
+
+For the quotient, the required expansions are
+\[
+\tan x-\sin x=\frac{x^3}{2}+\frac{x^5}{8}+o(x^5)
+\]
+and
+\[
+x^2(x+1)+\ln(1-x^2)
+=x^3-\frac{x^4}{2}+o(x^4).
+\]
+Dividing numerator and denominator by $x^3$ yields
+\[
+\lim_{x\to0}\frac{\tan x-\sin x}
+{x^2(x+1)+\ln(1-x^2)}=\frac12.
+\]
+
+The higher-derivative classification follows from
+\[
+f(a+h)-f(a)=h^n\left[\frac{k}{n!}+o(1)\right].
+\]
+For sufficiently small $h$, the bracket has the sign of $k$. If $n$
+is even, $h^n>0$ on both sides of the origin, giving a local minimum
+for $k>0$ and a local maximum for $k<0$. If $n$ is odd, $h^n$ changes
+sign, so the graph crosses its horizontal tangent and $a$ is an
+inflection point.
+
+Finally, the exponential and logarithmic series give
+\[
+\sum_{n=0}^{\infty}\frac{(-1)^n x^{4n}}{n!}=e^{-x^4}
+\]
+and, since $\ln(1+z)=\sum_{n=1}^{\infty}(-1)^{n-1}z^n/n$ for
+$|z|<1$,
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^{n-1}3^n}{n5^n}
+=\ln\left(1+\frac35\right)=\ln\frac85.
+\]
+
+To approximate $e^{\pi/3}$, use
+\[
+T_n=\sum_{k=0}^{n}\frac{(\pi/3)^k}{k!},\qquad
+0<E_n\leq e^{\pi/3}\frac{(\pi/3)^{n+1}}{(n+1)!}.
+\]
+For $n=4$ the bound is approximately $2.99\times10^{-2}$, whereas
+for $n=5$ it is approximately $5.22\times10^{-3}<10^{-2}$.
+Thus $n=5$ is the smallest degree certified by this bound, and
+\[
+T_5=\sum_{k=0}^{5}\frac{(\pi/3)^k}{k!}
+\approx2.84751.
+\]
+Consequently $e^{\pi/3}\approx2.85$ with absolute error below
+$10^{-2}$; the actual value is approximately $2.84965$.
 \end{remark}
