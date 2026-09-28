@@ -21,11 +21,7 @@ Every result is developed with its assumptions stated, its proof (or a proof ske
 
 ## Why this exists
 
-<<<<<<< Updated upstream
-I am a Medtech student at Campus Bio-Medico University of Rome, an interdisciplinary programme combining a Master's degree in Medicine and Surgery with a Bachelor's degree in Biomedical Engineering. I previously studied at the Medtec School of Humanitas University and Politecnico di Milano, where I attended the Mathematics course taught by Professor Monica Conti, on which the first part of this compendium is based. Working across these two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the mathematical prerequisites that the ideas silently assume.
-=======
 I am a Medtech student at Campus Bio-Medico University of Rome, an interdisciplinary programme combining a Master's degree in Medicine and Surgery with a Bachelor's degree in Biomedical Engineering. I previously studied at the Medtec School of Humanitas University and Politecnico di Milano, where I attended the Mathematics course taught by Professor Monica Conti, on which the first part of this compendium is based.  Working across those two worlds taught me that the hardest part of entering theoretical machine learning and computational neuroscience is rarely the ideas. It is the **mathematical prerequisites that the ideas silently assume**.
->>>>>>> Stashed changes
 
 Books like Bishop's *Pattern Recognition and Machine Learning*, Dayan & Abbott's *Theoretical Neuroscience*, and Sutton & Barto's *Reinforcement Learning* are wonderful, but they move quickly through measure, operators, distributions, stochastic calculus, and variational arguments. Engineering curricula often stop short of these topics, and medical curricula almost never reach them.
 
