@@ -523,13 +523,25 @@ Since $i^2 = -1$, one may regard $i$ as a square root of $-1$; however, one also
 Consequently, $-i$ is likewise a square root of $-1$. By convention, $i$ is designated the principal square root of $-1$, and one writes $\sqrt{-1} = i$;
 more generally, for any positive number $c$, one writes $\sqrt{-c} = \sqrt{c}\, i$.
 
-With this convention, the usual derivation of the quadratic formula for an equation with a nonzero leading coefficient, $ax^2 + bx + c = 0$, remains valid even when the discriminant $b^2 - 4ac$ is negative. The roots are
+With this convention, the usual derivation of the quadratic formula remains valid for an equation with a nonzero leading coefficient,
+\[
+ax^2 + bx + c = 0,
+\]
+even when the discriminant $b^2 - 4ac$ is negative. The roots are
 \[
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
 \]
 
 \begin{example}
-For $x^2+x+1=0$ we have $a=b=c=1$, hence
+Consider the equation
+\[
+x^2+x+1=0.
+\]
+Its coefficients satisfy
+\[
+a=b=c=1,
+\]
+and hence
 \[
 \Delta=b^2-4ac=1-4=-3.
 \]
@@ -538,8 +550,10 @@ Using $\sqrt{-3}=i\sqrt{3}$ in the quadratic formula gives
 x=\frac{-1\pm\sqrt{-3}}{2}
 =\frac{-1\pm i\sqrt{3}}{2}.
 \]
-Substitution provides a direct check: each root satisfies
-$x^2+x+1=0$.
+Substitution provides a direct check, since each root satisfies
+\[
+x^2+x+1=0.
+\]
 \end{example}
 
 The two roots in this example are complex conjugates. In general, the nonreal roots of a quadratic equation with real coefficients $a$, $b$, $c$
@@ -628,15 +642,15 @@ Figure~\ref{fig:ch2-polar-form} shows the geometric meaning of modulus, argument
   \draw[figblue, thick, dashed] (0,0) circle (2.5cm);
   \node[figblue] at (2.9,2.15) {$|z|=r$};
   \coordinate (Z) at (50:2.5);
-  \draw[vecB] (0,0) -- (Z) node[right, xshift=2pt] {$z = a+bi = r\,e^{i\theta}$};
+  \draw[vecB] (0,0) -- (Z) node[right, xshift=2pt] {$z$};
   \draw[black!60, dashed] (Z) -- (Z |- 0,0) node[below] {$a = r\cos\theta$};
   \draw[black!60, dashed] (Z) -- (0,0 |- Z) node[left] {$b = r\sin\theta$};
   \draw[figgreen, thick] (0.6,0) arc (0:50:0.6);
   \node[figgreen] at (0.88,0.4) {$\theta$};
   \node[circle,fill=figred,inner sep=1.3pt] at (Z) {};
 \end{tikzpicture}
-\caption[Polar representation of a complex number]{Polar representation of
-  $z = a+bi = r e^{i\theta} \in \C$ in the Argand--Gauss plane: modulus $r=|z|$,
+\caption[Polar representation of a complex number]{Cartesian and polar
+  representations of $z$ in the Argand--Gauss plane: modulus $r=|z|$,
   argument $\theta$, and Cartesian projections $a=r\cos\theta$, $b=r\sin\theta$.}
 \label{fig:ch2-polar-form}
 \end{figure}
@@ -650,7 +664,10 @@ z_1 &= r_1(\cos\theta_1 + i\sin\theta_1) \\
 z_2 &= r_2(\cos\theta_2 + i\sin\theta_2).
 \end{aligned}
 \]
-Expanding their product and applying the addition formulas for sine and cosine yields $z_1 z_2 = r_1 r_2 \big[ \cos(\theta_1+\theta_2) + i \sin(\theta_1+\theta_2) \big]$, so multiplication multiplies the moduli and adds the arguments. Similarly, the subtraction formulas for sine and cosine show that division
+Expanding their product and applying the addition formulas for sine and cosine yields
+\[
+z_1 z_2 = r_1 r_2 \big[ \cos(\theta_1+\theta_2) + i \sin(\theta_1+\theta_2) \big],
+\] so multiplication multiplies the moduli and adds the arguments. Similarly, the subtraction formulas for sine and cosine show that division
 divides the moduli and subtracts the arguments. For $z_2 \neq 0$, the quotient is
 \[
 \frac{z_1}{z_2} = \frac{r_1}{r_2} \big[ \cos(\theta_1-\theta_2) + i \sin(\theta_1-\theta_2) \big].

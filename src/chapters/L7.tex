@@ -74,7 +74,10 @@ A function $f$ of two variables is called continuous at $(a,b)$ if
 We say that $f$ is continuous on $D$ if $f$ is continuous at every point of $D$.
 \end{definition}
 
-Using the algebraic properties of limits, entirely analogous to those established for functions of a single variable, one readily verifies that sums, differences, products, and quotients of continuous functions of two variables remain continuous on their respective domains. Consequently, any polynomial function of two variables, such as $f(x,y) = x^4 + 5x^3y^2 - 6xy^4 + 7y^2$, is continuous throughout $\mathbb{R}^2$. Likewise, since a rational function is a ratio of two polynomials, it is continuous wherever its denominator does not vanish; the function $f(x,y) = x^2y/(x^2+y^2)$ provides a standard example of such a rational function, continuous throughout $\mathbb{R}^2 \setminus \{(0,0)\}$.
+Using the algebraic properties of limits, entirely analogous to those established for functions of a single variable, one readily verifies that sums, differences, products, and quotients of continuous functions of two variables remain continuous on their respective domains. Consequently, any polynomial function of two variables, such as
+\[
+f(x,y) = x^4 + 5x^3y^2 - 6xy^4 + 7y^2,
+\] is continuous throughout $\mathbb{R}^2$. Likewise, since a rational function is a ratio of two polynomials, it is continuous wherever its denominator does not vanish; the function $f(x,y) = x^2y/(x^2+y^2)$ provides a standard example of such a rational function, continuous throughout $\mathbb{R}^2 \setminus \{(0,0)\}$.
 
 \subsection{Partial Derivatives: Definition and Computation}
 
@@ -395,7 +398,13 @@ There are no local maxima among the critical points.
 
 \subsection{Tangent Planes and Differentiability}
 
-Before introducing the notion of differentiability for a function of two variables, it is useful to recall that any plane in $\mathbb{R}^3$ passing through a point $P(x_0,y_0,z_0)$ admits an equation of the form $A(x-x_0) + B(y-y_0) + C(z-z_0) = 0$, or equivalently $Ax+By+Cz=D$; the particular planes $z=z_0$, $y=y_0$, and $x=x_0$ arise as special cases of this general form.
+Before introducing the notion of differentiability for a function of two variables, it is useful to recall that any plane in $\mathbb{R}^3$ passing through a point $P(x_0,y_0,z_0)$ admits an equation of the form
+\[
+A(x-x_0) + B(y-y_0) + C(z-z_0) = 0,
+\] or equivalently
+\[
+Ax+By+Cz=D;
+\] the particular planes $z=z_0$, $y=y_0$, and $x=x_0$ arise as special cases of this general form.
 
 Let $S$ denote the graph of a function $z = f(x,y)$, regarded as a surface in $\mathbb{R}^3$, and let $C_1$ and $C_2$ denote the traces of this surface in the planes $y=b$ and $x=a$ respectively, that is, the curves obtained by intersecting $S$ with these two coordinate planes. The partial derivatives $f_x(a,b)$ and $f_y(a,b)$ admit a direct geometric interpretation as the slopes of the tangent lines $T_1$ and $T_2$ to the traces $C_1$ and $C_2$ at the common point $P(a,b,c)$, where $c = f(a,b)$; this geometric interpretation is well illustrated by the graph of $f(x,y) = 4-x^2-2y^2$, together with the corresponding tangent lines at the point $(1,1)$.
 
@@ -686,7 +695,10 @@ The vector $\mathbf{v}$ itself does not depend on the choice of basis, so
 \end{aligned}
 \]
 
-Comparing coefficients of $\mathbf{e}_i$ on both sides, since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, gives $v^i = P_j^{\;i}\hat{v}^j$; multiplying both sides by $(P^{-1})^i_{\;k}$ and summing over $i$ recovers $\hat{v}^k = (P^{-1})^k_{\;i}v^i$, as claimed, after relabeling the free index. For the covector, the dual basis vectors transform by the inverse-transpose relation $\hat{\boldsymbol{\varepsilon}}^i = (P^{-1})^i_{\;j}\boldsymbol{\varepsilon}^j$, since this is precisely the unique transformation making
+Comparing coefficients of $\mathbf{e}_i$ on both sides, since $\mathbf{e}_1,\dots,\mathbf{e}_n$ are linearly independent, gives $v^i = P_j^{\;i}\hat{v}^j$; multiplying both sides by $(P^{-1})^i_{\;k}$ and summing over $i$ recovers $\hat{v}^k = (P^{-1})^k_{\;i}v^i$, as claimed, after relabeling the free index. For the covector, the dual basis vectors transform by the inverse-transpose relation
+\[
+\hat{\boldsymbol{\varepsilon}}^i = (P^{-1})^i_{\;j}\boldsymbol{\varepsilon}^j,
+\] since this is precisely the unique transformation making
 \[
 \begin{aligned}
 \hat{\boldsymbol{\varepsilon}}^i(\hat{\mathbf{e}}_k) &= (P^{-1})^i_{\;j}P_k^{\;l}\boldsymbol{\varepsilon}^j(\mathbf{e}_l) \\[0.5em]

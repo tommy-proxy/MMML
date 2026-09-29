@@ -733,7 +733,14 @@ If the discriminant is positive, $\Delta > 0$, the denominator factors into two 
 \[
 \int 1/(x^2-x-2) \, dx.
 \]
-The roots of $x^2-x-2=0$ are $x=2$ and $x=-1$, so that the integrand decomposes as $\frac{1}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1}$ for suitable constants $A$ and $B$; clearing denominators gives $1 = A(x+1) + B(x-2)$, and setting $x=2$ yields $A = 1/3$, while setting $x=-1$ yields $B = -1/3$. Integrating the resulting decomposition term by term, one finds
+The roots of $x^2-x-2=0$ are $x=2$ and $x=-1$, so that the integrand decomposes as
+\[
+\frac{1}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1}
+\]
+ for suitable constants $A$ and $B$; clearing denominators gives
+\[
+1 = A(x+1) + B(x-2),
+\] and setting $x=2$ yields $A = 1/3$, while setting $x=-1$ yields $B = -1/3$. Integrating the resulting decomposition term by term, one finds
 \[
 \int \left( \frac{1/3}{x-2} - \frac{1/3}{x+1} \right) dx = \frac{1}{3} \ln|x-2| - \frac{1}{3} \ln|x+1| + C.
 \]

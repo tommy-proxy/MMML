@@ -474,7 +474,11 @@ $n \in \mathbb{N}$. Hence
 
 Fix $\varepsilon > 0$. By the convergence $a_n \to a$, there exists $N_1$ such that
 $|a_n - a| < \varepsilon / (2M)$ for every $n > N_1$. Likewise, by the convergence $b_n \to b$, there exists
-$N_2$ such that $|b_n-b|<\frac{\varepsilon}{2(|a|+1)}$ for every $n>N_2$. This choice is valid also when $a=0$. Combining these two estimates, we obtain
+$N_2$ such that
+\[
+|b_n-b|<\frac{\varepsilon}{2(|a|+1)}
+\]
+ for every $n>N_2$. This choice is valid also when $a=0$. Combining these two estimates, we obtain
 $|a_n b_n - ab| < \varepsilon$ for every $n > \max\{N_1, N_2\}$, which proves the claim.
 \end{proof}
 
@@ -499,7 +503,11 @@ a\in\mathbb{R} &: \quad \frac{a}{+\infty}
 \end{aligned}
 \]
 
-The shorthand notation $a + \infty = +\infty$ should be understood in the following operational sense: if
+The shorthand notation
+\[
+a + \infty = +\infty
+\]
+ should be understood in the following operational sense: if
 $a_n \to a$ and $b_n \to +\infty$, then $a_n + b_n \to +\infty$, and analogous interpretations apply to the
 remaining rules. By contrast, certain combinations of infinite or infinitesimal limits do not determine the
 resulting limit uniquely, and are accordingly called indeterminate forms. These are
@@ -624,7 +632,10 @@ to write
 \]
 
 The convention underlying decimal notation is that any real number can be represented as an infinite sum, so
-that $\pi = 3 + \frac{1}{10} + \frac{4}{10^2} + \frac{1}{10^3} + \frac{5}{10^4} + \cdots$, where the ellipsis indicates that the sum continues indefinitely, and where the more terms one adds, the closer
+that
+\[
+\pi = 3 + \frac{1}{10} + \frac{4}{10^2} + \frac{1}{10^3} + \frac{5}{10^4} + \cdots,
+\] where the ellipsis indicates that the sum continues indefinitely, and where the more terms one adds, the closer
 the resulting partial sum approaches the true value of $\pi$. This idea of summing infinitely many terms is
 formalized by the notion of an infinite series. If one attempts to add the terms of an infinite sequence
 $\{a_n\}$, one obtains an expression of the form
@@ -640,7 +651,11 @@ It is important to emphasize that this expression is, at this stage, merely a fo
 symbol and not yet a rigorous definition of what it means for the series to have a value; the precise definition requires the auxiliary notion of partial sum.
 
 \begin{definition}[Partial Sum]
-Given a sequence $\{a_n\}_{n \in \mathbb{N}}$, for every $k \in \mathbb{N}$ we denote by $s_k = a_0 + a_1 + a_2 + \cdots + a_k$ the sum of the terms $a_i$ up to index $k$, called the $k$-th partial sum. The resulting sequence $\{s_k\}_{k \in \mathbb{N}}$ is called the sequence of partial sums associated with $\{a_n\}$.
+Given a sequence $\{a_n\}_{n \in \mathbb{N}}$, its $k$-th partial sum is defined by
+\[
+s_k = a_0 + a_1 + a_2 + \cdots + a_k.
+\]
+Thus $s_k$ is the sum of the terms $a_i$ up to index $k$. The resulting sequence $\{s_k\}_{k \in \mathbb{N}}$ is called the sequence of partial sums associated with $\{a_n\}$.
 \end{definition}
 
 With this notion in hand, the series of general term $a_n$ can be rigorously defined as the limit of its sequence of partial sums.
@@ -989,7 +1004,11 @@ The asymptotic equivalence gives the limit
 \[
 \lim_{n \to \infty} a_n / b_n = 1
 \]
-Consequently, there exists an integer $N$ such that the following bounds hold for every $n > N$: $\frac{1}{2} < \frac{a_n}{b_n} < 2$, that is, $(1/2) b_n < a_n < 2 b_n$ for every $n > N$. We now invoke the ordinary Comparison Test twice. If \[
+Consequently, there exists an integer $N$ such that, for every $n>N$,
+\[
+\frac{1}{2} < \frac{a_n}{b_n} < 2.
+\]
+Equivalently, $(1/2)b_n<a_n<2b_n$. We now invoke the ordinary Comparison Test twice. If \[
 \sum b_n
 \] converges, then so does \[
 \sum 2 b_n,

@@ -33,7 +33,10 @@ The mesh of $P$ is
 \end{definition}
 
 \begin{definition}[Darboux Sums and the Double Integral]
-Let $f : R \to \mathbb{R}$ be bounded, and let $P$ be a partition of $R$ with subrectangles $R_{ij}$. Set $M_{ij} = \sup_{(x,y)\in R_{ij}} f(x,y), \qquad m_{ij} = \inf_{(x,y)\in R_{ij}} f(x,y)$, and define the upper and lower Darboux sums
+Let $f : R \to \mathbb{R}$ be bounded, and let $P$ be a partition of $R$ with subrectangles $R_{ij}$. Set
+\[
+M_{ij} = \sup_{(x,y)\in R_{ij}} f(x,y), \qquad m_{ij} = \inf_{(x,y)\in R_{ij}} f(x,y),
+\] and define the upper and lower Darboux sums
 \[
 U(f,P) = \sum_{i,j} M_{ij}\,\Delta A_{ij}, \qquad L(f,P) = \sum_{i,j} m_{ij}\,\Delta A_{ij}.
 \]
@@ -270,7 +273,11 @@ Let $f,g$ be integrable on a region $D$, and let $\alpha,\beta \in \mathbb{R}$. 
 \end{theorem}
 
 \begin{proof}
-(i) and (ii) follow directly from the corresponding properties of upper and lower Darboux sums: since $M_{ij}[\alpha f + \beta g] = \alpha M_{ij}[f] + \beta M_{ij}[g]$ whenever $\alpha,\beta \geq 0$ (with the analogous relation for $m_{ij}$ when either scalar is negative, upon exchanging the roles of $M_{ij}$ and $m_{ij}$), the Darboux sums of $\alpha f + \beta g$ are the corresponding linear combinations of the Darboux sums of $f$ and $g$ for every partition, and passing to the common limiting value defining the integral yields (i); (ii) follows since $f \leq g$ on $D$ forces $L(f,P) \leq L(g,P)$ for every partition $P$ of an enclosing rectangle (applied to the zero-extensions), hence
+(i) and (ii) follow directly from the corresponding properties of upper and lower Darboux sums: since
+\[
+M_{ij}[\alpha f + \beta g] = \alpha M_{ij}[f] + \beta M_{ij}[g]
+\]
+ whenever $\alpha,\beta \geq 0$ (with the analogous relation for $m_{ij}$ when either scalar is negative, upon exchanging the roles of $M_{ij}$ and $m_{ij}$), the Darboux sums of $\alpha f + \beta g$ are the corresponding linear combinations of the Darboux sums of $f$ and $g$ for every partition, and passing to the common limiting value defining the integral yields (i); (ii) follows since $f \leq g$ on $D$ forces $L(f,P) \leq L(g,P)$ for every partition $P$ of an enclosing rectangle (applied to the zero-extensions), hence
 \[
 \iint_D f\,dA = \sup_P L(f,P) \leq \sup_P L(g,P) = \iint_D g\, dA.
 \]
@@ -331,7 +338,15 @@ Partition $D$ by a fine grid of small rectangles $R_{ij} = [u_{i-1},u_i]\times[v
 T(u_i + \Delta u, v_j) &\approx T(u_i,v_j) + \frac{\partial T}{\partial u}(u_i,v_j)\,\Delta u, \\
 T(u_i, v_j+\Delta v) &\approx T(u_i,v_j) + \frac{\partial T}{\partial v}(u_i,v_j)\, \Delta v,
 \end{align*}
-with error terms that are $o(\Delta u)$ and $o(\Delta v)$ respectively as $\Delta u, \Delta v \to 0$. Consequently, $T(R_{ij})$ is approximated, to leading order, by the parallelogram based at $T(u_i,v_j)$ and spanned by the two vectors $\partial T/\partial u\, \Delta u$ and $\partial T/\partial v\, \Delta v$, which are precisely the two columns of $J_T(u_i,v_j)$, each scaled respectively by $\Delta u$ and $\Delta v$. The area of a parallelogram spanned by two vectors equals the absolute value of the determinant of the matrix formed by those vectors as columns; hence
+with error terms that are
+\[
+o(\Delta u)
+\]
+ and
+\[
+o(\Delta v)
+\]
+ respectively as $\Delta u, \Delta v \to 0$. Consequently, $T(R_{ij})$ is approximated, to leading order, by the parallelogram based at $T(u_i,v_j)$ and spanned by the two vectors $\partial T/\partial u\, \Delta u$ and $\partial T/\partial v\, \Delta v$, which are precisely the two columns of $J_T(u_i,v_j)$, each scaled respectively by $\Delta u$ and $\Delta v$. The area of a parallelogram spanned by two vectors equals the absolute value of the determinant of the matrix formed by those vectors as columns; hence
 \begin{align*}
 \operatorname{Area}\big(T(R_{ij})\big) &\;\approx\; \left| \det \begin{pmatrix} \partial T/\partial u \, \Delta u & \partial T/\partial v \, \Delta v \end{pmatrix} \right| \\
 &= |\det J_T(u_i,v_j)| \, \Delta u\, \Delta v = |\det J_T(u_i,v_j)|\, \operatorname{Area}(R_{ij}),
@@ -465,7 +480,11 @@ The two-dimensional Fubini Theorem, applied to the function $\mathbf{y} \mapsto 
 \subsection{Triple Integrals over General Regions}
 
 \begin{definition}[Type I Solid Region]
-A solid region $E \subset \mathbb{R}^3$ is of Type I if $E = \big\{ (x,y,z) : (x,y) \in D, \; u_1(x,y) \leq z \leq u_2(x,y) \big\}$ for a Type I or Type II planar region $D \subset \mathbb{R}^2$ and continuous functions $u_1 \leq u_2$ on $D$. Regions defined analogously with the roles of $x,y,z$ permuted are of Type II and Type III.
+A solid region $E \subset \mathbb{R}^3$ is of Type I if
+\[
+E = \big\{ (x,y,z) : (x,y) \in D, \; u_1(x,y) \leq z \leq u_2(x,y) \big\}
+\]
+ for a Type I or Type II planar region $D \subset \mathbb{R}^2$ and continuous functions $u_1 \leq u_2$ on $D$. Regions defined analogously with the roles of $x,y,z$ permuted are of Type II and Type III.
 \end{definition}
 
 As in the planar case, extending $f$ by zero outside $E$ and applying Fubini's Theorem on an enclosing box yields, for a Type I region, \[
@@ -473,7 +492,10 @@ As in the planar case, extending $f$ by zero outside $E$ and applying Fubini's T
 \] and the inner double integral over $D$ is then evaluated by the planar methods of the preceding sections.
 
 \begin{example}[Volume of a Tetrahedron]
-Let $E$ be the solid tetrahedron bounded by the coordinate planes $x=0$, $y=0$, $z=0$ and the plane $x+y+z=1$. Regarding $E$ as a Type I region over the planar triangle
+Let $E$ be the solid tetrahedron bounded by the coordinate planes $x=0$, $y=0$, $z=0$ and the plane
+\[
+x+y+z=1.
+\] Regarding $E$ as a Type I region over the planar triangle
 \[
 D = \{(x,y): x\geq0,\,y\geq0,\,x+y\leq1\},
 \]
@@ -820,7 +842,11 @@ The change of variables formula applied to this generalized polar map yields a J
 \end{proof}
 
 \begin{example}[Volume of the Unit Ball in $\mathbb{R}^n$]
-The volume $V_n = \operatorname{Vol}(\{\mathbf{x}\in\mathbb{R}^n : \|\mathbf{x}\|\leq 1\})$ of the unit ball in $\mathbb{R}^n$ can be computed in closed form using the Gaussian integral together with the shell formula above. By Fubini's Theorem in $\mathbb{R}^n$, the $n$-fold Gaussian integral separates into a product of $n$ one-dimensional Gaussian integrals, each equal to $\sqrt{\pi}$ by the earlier example:
+The volume
+\[
+V_n = \operatorname{Vol}(\{\mathbf{x}\in\mathbb{R}^n : \|\mathbf{x}\|\leq 1\})
+\]
+ of the unit ball in $\mathbb{R}^n$ can be computed in closed form using the Gaussian integral together with the shell formula above. By Fubini's Theorem in $\mathbb{R}^n$, the $n$-fold Gaussian integral separates into a product of $n$ one-dimensional Gaussian integrals, each equal to $\sqrt{\pi}$ by the earlier example:
 \[
 \int_{\mathbb{R}^n} e^{-\|\mathbf{x}\|^2}\, dV = \left( \int_{-\infty}^{\infty} e^{-t^2}\, dt \right)^n = \pi^{n/2}.
 \]

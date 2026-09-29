@@ -31,14 +31,26 @@ Among matrices with an equal number of rows and columns, several further special
 The set of matrices of a fixed dimension can be equipped with two natural algebraic operations, entirely analogous to the corresponding operations on vectors of $\mathbb{R}^n$.
 
 \begin{definition}[Matrix Addition]
-Given two matrices of the same dimension, $A = [a_{ij}]$ and $B = [b_{ij}]$, both belonging to $M_{m,n}$, their sum $A+B$ is the $m \times n$ matrix whose $(i,j)$ entry is the sum of the corresponding entries of $A$ and $B$, that is, $A + B = [a_{ij} + b_{ij}]$, for every $i = 1, \dots, m$ and $j = 1, \dots, n$.
+Given two matrices of the same dimension, $A = [a_{ij}]$ and $B = [b_{ij}]$, both belonging to $M_{m,n}$, their sum $A+B$ is the $m \times n$ matrix whose $(i,j)$ entry is the sum of the corresponding entries of $A$ and $B$, that is,
+\[
+A + B = [a_{ij} + b_{ij}],
+\] for every $i = 1, \dots, m$ and $j = 1, \dots, n$.
 \end{definition}
 
 \begin{definition}[Scalar Multiplication]
 Given a matrix $A = [a_{ij}] \in M_{m,n}$ and a real number $t \in \mathbb{R}$, the scalar product $tA$ is the $m \times n$ matrix obtained by multiplying every entry of $A$ by $t$, that is, $tA = [t \, a_{ij}]$.
 \end{definition}
 
-These two operations satisfy a collection of algebraic properties entirely analogous to those already familiar from ordinary arithmetic on real numbers. Given any three matrices $A, B, C \in M_{m,n}$ and any two real numbers $s, t$, one has that addition is associative, $A + (B+C) = (A+B) + C$, and commutative, $A + B = B + A$; that the zero matrix $O \in M_{m,n}$ satisfies $A + O = A$; that the matrix $-A = [-a_{ij}]$ is the additive inverse of $A$, satisfying $A + (-A) = O$; and that scalar multiplication satisfies $s(tA) = (st)A$, $1 \cdot A = A$, $t(A+B) = tA + tB$, and $(s+t)A = sA + tA$. Taken together, these properties show that $M_{m,n}$, equipped with the two operations of matrix addition and scalar multiplication, forms a vector space of dimension $m \cdot n$.
+These two operations satisfy the familiar algebraic properties of ordinary real arithmetic. For any $A,B,C\in M_{m,n}$ and $s,t\in\mathbb{R}$,
+\[
+\begin{aligned}
+A+(B+C)&=(A+B)+C, & A+B&=B+A,\\
+A+O&=A, & A+(-A)&=O,\\
+s(tA)&=(st)A, & 1A&=A,\\
+t(A+B)&=tA+tB, & (s+t)A&=sA+tA.
+\end{aligned}
+\]
+Taken together, these properties show that $M_{m,n}$, equipped with matrix addition and scalar multiplication, forms a vector space of dimension $m\cdot n$.
 
 \subsection{Matrix Products and Linear Systems}
 
@@ -88,7 +100,11 @@ A\mathbf{x} = \begin{pmatrix} 0\cdot 2 + 1 \cdot 1 + 1 \cdot 3 \\ 2 \cdot 2 + 2 
 The matrix-vector product enjoys an important algebraic property, namely linearity with respect to the vector argument, which lies at the very heart of the entire theory of linear algebra.
 
 \begin{theorem}[Linearity of the Matrix-Vector Product]
-Given $A \in M_{m,n}$, the matrix-vector product $A\mathbf{x}$ is linear in $\mathbf{x}$; that is, $A(\mathbf{x}+\mathbf{y}) = A\mathbf{x} + A\mathbf{y}$ for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$, and $A(t\mathbf{x}) = t(A\mathbf{x})$ for every $t \in \mathbb{R}$ and $\mathbf{x} \in \mathbb{R}^n$.
+Given $A \in M_{m,n}$, the matrix-vector product $A\mathbf{x}$ is linear in $\mathbf{x}$; that is,
+\[
+A(\mathbf{x}+\mathbf{y}) = A\mathbf{x} + A\mathbf{y}
+\]
+ for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$, and $A(t\mathbf{x}) = t(A\mathbf{x})$ for every $t \in \mathbb{R}$ and $\mathbf{x} \in \mathbb{R}^n$.
 \end{theorem}
 
 Given a matrix $A \in M_{m,n}$, one may associate with it the function $L : \mathbb{R}^n \to \mathbb{R}^m$ defined by $L(\mathbf{x}) = A\mathbf{x}$. The linearity property just stated shows precisely that $L$ is a linear map, in the sense that
@@ -184,7 +200,15 @@ AB=\begin{pmatrix}5&1\\9&5\end{pmatrix}.
 
 \end{example}
 
-Matrix multiplication satisfies several properties analogous to those of ordinary multiplication of numbers, namely associativity, $A(BC) = (AB)C$ for every $A \in M_{m,r}$, $B \in M_{r,n}$, $C \in M_{n,p}$; distributivity over addition, $A(B+C) = AB + AC$ for every $A \in M_{m,r}$ and $B, C \in M_{r,n}$, and $(A+B)C = AC + BC$ for every $A, B \in M_{m,r}$ and $C \in M_{r,n}$; and compatibility with scalar multiplication,
+Matrix multiplication satisfies several properties analogous to those of ordinary multiplication of numbers, namely associativity, $A(BC) = (AB)C$ for every $A \in M_{m,r}$, $B \in M_{r,n}$, $C \in M_{n,p}$; distributivity over addition,
+\[
+A(B+C) = AB + AC
+\]
+ for every $A \in M_{m,r}$ and $B, C \in M_{r,n}$, and
+\[
+(A+B)C = AC + BC
+\]
+ for every $A, B \in M_{m,r}$ and $C \in M_{r,n}$; and compatibility with scalar multiplication,
 \[
 \begin{aligned}
 A(tB) &= (tA)B \\
@@ -197,7 +221,7 @@ This holds for every $t \in \mathbb{R}$, $A \in M_{m,r}$, $B \in M_{r,n}$.
 In marked contrast with the multiplication of ordinary numbers, which is independent of the order of the factors, matrix multiplication is not commutative: even for square matrices, it may happen that $AB \neq BA$. For example, with
 \[
 \begin{gathered}
-\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \quad \text{and} \quad 
+\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \quad \text{and} \quad
 \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}.
 \end{gathered}
 \]
@@ -336,7 +360,10 @@ Solving $U\mathbf{x} = \mathbf{b}'$ by back-substitution, setting $z = t$ for th
 \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2 \\ 2 \\ 0 \end{pmatrix} + t \begin{pmatrix} -\tfrac{1}{3} \\ -\tfrac{1}{3} \\ 1 \end{pmatrix}.
 \]
 
-For comparison, replace the third equation by $x+y+5z=4$. Subtracting
+For comparison, replace the third equation by
+\[
+x+y+5z=4.
+\] Subtracting
 the first two equations gives $x-y=0$, hence $x=y$. The first equation
 then gives $3x+z=6$, whereas the modified third equation gives
 $2x+5z=4$. Substituting $z=6-3x$ yields
@@ -488,7 +515,10 @@ Thus $A$ is invertible with inverse $B$.
 In practice, the inverse of a nonsingular matrix can be computed by applying the Gauss elimination method to the augmented matrix $[A | I]$ until a reduced matrix of the form $[I | B]$ is obtained; the resulting matrix $B$ is then the inverse of $A$. An explicit formula for the inverse, expressed directly in terms of cofactors, is also available.
 
 \begin{theorem}[Laplace's Formula for the Inverse of a Matrix]
-The inverse of a nonsingular matrix $A$ is given by $A^{-1} = \frac{1}{\operatorname{Det}(A)} C^{\top}$, where $C^{\top}$ denotes the transpose of the matrix of cofactors $C = [C_{ij}]$, with
+The inverse of a nonsingular matrix $A$ is given by
+\[
+A^{-1} = \frac{1}{\operatorname{Det}(A)} C^{\top},
+\] where $C^{\top}$ denotes the transpose of the matrix of cofactors $C = [C_{ij}]$, with
 \[
 C_{ij} = (-1)^{i+j} \operatorname{Det}(A_{ij}).
 \]
@@ -619,14 +649,29 @@ Consider the following set of $m$ vectors of $\mathbb{R}^m$,
 \mathbf{e}_1 = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}, \qquad \mathbf{e}_2 = \begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix}, \qquad \ldots, \qquad \mathbf{e}_m = \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 1 \end{pmatrix}.
 \]
 
-Given any vector $\mathbf{v} = (v_1, \dots, v_m)$, one can write $\mathbf{v} = v_1 \mathbf{e}_1 + \cdots + v_m \mathbf{e}_m$; in this sense, every vector of $\mathbb{R}^m$ can be reached from $\mathbf{e}_1, \dots, \mathbf{e}_m$ using only the two fundamental operations of addition and scalar multiplication.
+Given any vector $\mathbf{v} = (v_1, \dots, v_m)$, one can write
+\[
+\mathbf{v} = v_1 \mathbf{e}_1 + \cdots + v_m \mathbf{e}_m;
+\] in this sense, every vector of $\mathbb{R}^m$ can be reached from $\mathbf{e}_1, \dots, \mathbf{e}_m$ using only the two fundamental operations of addition and scalar multiplication.
 
 Several pieces of terminology, central to the entire subject of linear algebra, arise directly from this observation. When a vector is obtained from a set of given vectors using only the two fundamental operations, one says that it is a linear combination of the given vectors. The set of all possible vectors reachable in this way from a given collection of vectors is called the span of those vectors. The vectors $\mathbf{e}_1, \dots, \mathbf{e}_m$ are linearly independent, meaning that none of them belongs to the span of the others; and one says that they form a basis of $\mathbb{R}^m$, capturing the fact that they constitute a set of linearly independent vectors that spans the entire space.
 
 The properties observed above for $\mathbb{R}^m$ are, in fact, common to a much wider class of mathematical objects, axiomatized by the notion of a vector space.
 
 \begin{definition}[Vector Space]
-A vector space is a set $V$, whose elements are called vectors, on which two fundamental operations are defined: an internal operation called sum, $V \times V \to V$, $(\mathbf{u}, \mathbf{v}) \mapsto \mathbf{u}+\mathbf{v}$, and an external operation called scalar multiplication, $\mathbb{R} \times V \to V$, $(t, \mathbf{u}) \mapsto t\mathbf{u}$. These two operations must satisfy the following properties, for every $\mathbf{u}, \mathbf{v}, \mathbf{z} \in V$ and every $s, t \in \mathbb{R}$: associativity of addition, $\mathbf{u} + (\mathbf{v}+\mathbf{z}) = (\mathbf{u}+\mathbf{v}) + \mathbf{z}$; commutativity of addition, $\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}$; existence of a zero element $\vec{0} \in V$ such that $\mathbf{u}+\vec{0} = \mathbf{u}$; existence, for each $\mathbf{u} \in V$, of an element $\mathbf{w} \in V$ such that $\mathbf{u}+\mathbf{w} = \vec{0}$; the associativity relation $s(t\mathbf{u}) = (st)\mathbf{u}$; the identity relation $1\mathbf{u} = \mathbf{u}$; and the two distributive laws $t(\mathbf{u}+\mathbf{v}) = t\mathbf{u}+t\mathbf{v}$ and $(s+t)\mathbf{u} = s\mathbf{u}+t\mathbf{u}$.
+A vector space is a set $V$, whose elements are called vectors, equipped with an internal operation called addition and an external operation called scalar multiplication. For every $\mathbf{u},\mathbf{v},\mathbf{z}\in V$ and $s,t\in\mathbb{R}$, these operations satisfy
+\[
+\begin{aligned}
+\mathbf{u}+(\mathbf{v}+\mathbf{z})&=(\mathbf{u}+\mathbf{v})+\mathbf{z},
+&\mathbf{u}+\mathbf{v}&=\mathbf{v}+\mathbf{u},\\
+\mathbf{u}+\vec{0}&=\mathbf{u},
+&\mathbf{u}+(-\mathbf{u})&=\vec{0},\\
+s(t\mathbf{u})&=(st)\mathbf{u},
+&1\mathbf{u}&=\mathbf{u},\\
+t(\mathbf{u}+\mathbf{v})&=t\mathbf{u}+t\mathbf{v},
+&(s+t)\mathbf{u}&=s\mathbf{u}+t\mathbf{u}.
+\end{aligned}
+\]
 \end{definition}
 
 \begin{definition}[Subspace]
@@ -638,7 +683,11 @@ Every subspace necessarily contains the zero vector: if $W$ is a subspace of $V$
 \end{remark}
 
 \begin{definition}[Linear Combination]
-Given $k$ vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ and $k$ given numbers $a_1, a_2, \dots, a_k \in \mathbb{R}$, the vector $\mathbf{w} = a_1 \mathbf{v}^1 + a_2 \mathbf{v}^2 + \cdots + a_k \mathbf{v}^k \in V$ is called the linear combination of $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k$ with coefficients $a_1, a_2, \dots, a_k$.
+Given $k$ vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ and $k$ given numbers $a_1, a_2, \dots, a_k \in \mathbb{R}$, the vector
+\[
+\mathbf{w} = a_1 \mathbf{v}^1 + a_2 \mathbf{v}^2 + \cdots + a_k \mathbf{v}^k \in V
+\]
+ is called the linear combination of $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k$ with coefficients $a_1, a_2, \dots, a_k$.
 \end{definition}
 
 \begin{definition}[Span]
@@ -661,14 +710,21 @@ x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + \cdots + x_k \mathbf{v}^k = \vec{0}.
 
 \end{definition}
 
-If not every scalar in this relation vanishes, then at least one, say $x_1$, is nonzero, and the defining equation can be rearranged as $\mathbf{v}^1 = -(x_2/x_1) \mathbf{v}^2 - \cdots - (x_k/x_1) \mathbf{v}^k$, exhibiting $\mathbf{v}^1$ as a linear combination of the remaining vectors. In this sense, $\mathbf{v}^1$ is redundant, and one has the equality
+If not every scalar in this relation vanishes, then at least one, say $x_1$, is nonzero, and the defining equation can be rearranged as
+\[
+\mathbf{v}^1 = -(x_2/x_1) \mathbf{v}^2 - \cdots - (x_k/x_1) \mathbf{v}^k,
+\] exhibiting $\mathbf{v}^1$ as a linear combination of the remaining vectors. In this sense, $\mathbf{v}^1$ is redundant, and one has the equality
 \[
 \operatorname{span}(\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k) = \operatorname{span}(\mathbf{v}^2, \dots, \mathbf{v}^k),
 \]
 showing that a linearly dependent set can always be reduced without changing its span.
 
 \begin{definition}[Linear Independence]
-The vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ are called linearly independent if the relation $x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + \cdots + x_k \mathbf{v}^k = \vec{0}$ implies $x_i = 0$ for every $i = 1, \dots, k$.
+The vectors $\mathbf{v}^1, \mathbf{v}^2, \dots, \mathbf{v}^k \in V$ are called linearly independent if the relation
+\[
+x_1 \mathbf{v}^1 + x_2 \mathbf{v}^2 + \cdots + x_k \mathbf{v}^k = \vec{0}
+\]
+ implies $x_i = 0$ for every $i = 1, \dots, k$.
 \end{definition}
 
 A set of linearly independent vectors is, in this sense, minimal for the generation of its span, since no vector in the set is redundant. In the particular case of two vectors, linear dependence admits a simple characterization: $\mathbf{v}^1$ and $\mathbf{v}^2$ are linearly dependent if and only if one is a scalar multiple of the other, where the scalar is allowed to be zero. Equivalently, either at least one vector is zero, or both are nonzero and proportional.
@@ -690,7 +746,11 @@ x_2 + 2 x_3 = 0
 This system reduces to $x_1 = -3x_3$ and $x_2 = -2x_3$, with $x_3$ free to take any value in $\mathbb{R}$; consequently, the three vectors are linearly dependent. In particular, fixing $x_3 = 1$ yields the explicit relation $\mathbf{v}^3 = 3\mathbf{v}^1 + 2\mathbf{v}^2$.
 \end{example}
 
-The example just presented illustrates the general strategy for investigating the linear independence of a family of vectors in $\mathbb{R}^m$. Given $k$ vectors $\mathbf{a}^1, \dots, \mathbf{a}^k \in \mathbb{R}^m$, with $\mathbf{a}^j = (a_{1j}, a_{2j}, \dots, a_{mj})$ for each $j = 1, \dots, k$, one investigates their linear dependence or independence by asking whether the equation $x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_k \mathbf{a}^k = \vec{0}$ in $\mathbb{R}^m$ has the unique solution $x_i = 0$ for all $i$. Writing this equation out in components yields precisely a homogeneous linear system of $m$ equations in the $k$ unknowns $x_1, \dots, x_k$; consequently, proving the linear independence of a family of $k$ vectors in $\mathbb{R}^m$ amounts to showing that this associated homogeneous linear system has only the trivial solution, connecting the study of linear independence directly to the theory of linear systems developed earlier.
+The example just presented illustrates the general strategy for investigating the linear independence of a family of vectors in $\mathbb{R}^m$. Given $k$ vectors $\mathbf{a}^1, \dots, \mathbf{a}^k \in \mathbb{R}^m$, with $\mathbf{a}^j = (a_{1j}, a_{2j}, \dots, a_{mj})$ for each $j = 1, \dots, k$, one investigates their linear dependence or independence by asking whether the equation
+\[
+x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_k \mathbf{a}^k = \vec{0}
+\]
+ in $\mathbb{R}^m$ has the unique solution $x_i = 0$ for all $i$. Writing this equation out in components yields precisely a homogeneous linear system of $m$ equations in the $k$ unknowns $x_1, \dots, x_k$; consequently, proving the linear independence of a family of $k$ vectors in $\mathbb{R}^m$ amounts to showing that this associated homogeneous linear system has only the trivial solution, connecting the study of linear independence directly to the theory of linear systems developed earlier.
 
 \begin{definition}[Basis]
 Given vectors $\mathbf{b}^1, \mathbf{b}^2, \dots, \mathbf{b}^d \in V$, the set $\{\mathbf{b}^1, \dots, \mathbf{b}^d\}$ is called a basis for $V$ if the vectors $\mathbf{b}^1, \dots, \mathbf{b}^d$ are linearly independent, and if $\{\mathbf{b}^1, \dots, \mathbf{b}^d\}$ is a set of generators of $V$, that is,
@@ -739,7 +799,10 @@ Several useful facts relate the dimension of a subspace to the dimension of the 
 \subsection{Column Space, Kernel, and the Nullity--Rank Theorem}
 
 \begin{definition}
-Let $A = [a_{ij}] \in M_{m,n}$ be a given matrix. The column space of $A$ is the subspace of $\mathbb{R}^m$ generated by the columns of $A$, that is, $\operatorname{Col}(A) = \operatorname{span}(\mathbf{a}^1, \dots, \mathbf{a}^n) \subset \mathbb{R}^m$, where $\mathbf{a}^j$ denotes the $j$-th column of $A$. Equivalently,
+Let $A = [a_{ij}] \in M_{m,n}$ be a given matrix. The column space of $A$ is the subspace of $\mathbb{R}^m$ generated by the columns of $A$, that is,
+\[
+\operatorname{Col}(A) = \operatorname{span}(\mathbf{a}^1, \dots, \mathbf{a}^n) \subset \mathbb{R}^m,
+\] where $\mathbf{a}^j$ denotes the $j$-th column of $A$. Equivalently,
 \[
 \operatorname{Col}(A) = \{ A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n \},
 \]
@@ -786,7 +849,11 @@ Assume that $\operatorname{Dim}(\operatorname{Ker}(A)) = k$, and let $\{\mathbf{
 \operatorname{Ker}(A) = \operatorname{span}(\mathbf{u}^1, \dots, \mathbf{u}^k).
 \]
 
-By an important theorem of linear algebra, one may select $n-k$ further vectors $\mathbf{w}^{k+1}, \dots, \mathbf{w}^n \in \mathbb{R}^n$, linearly independent both among themselves and from the vectors $\mathbf{u}^1, \dots, \mathbf{u}^k$, such that $\{\mathbf{u}^1, \dots, \mathbf{u}^k, \mathbf{w}^{k+1}, \dots, \mathbf{w}^n\}$ is a basis of $\mathbb{R}^n$; note that
+By an important theorem of linear algebra, one may select $n-k$ further vectors $\mathbf{w}^{k+1}, \dots, \mathbf{w}^n \in \mathbb{R}^n$, linearly independent both among themselves and from the vectors $\mathbf{u}^1, \dots, \mathbf{u}^k$, such that
+\[
+\{\mathbf{u}^1, \dots, \mathbf{u}^k, \mathbf{w}^{k+1}, \dots, \mathbf{w}^n\}
+\]
+ is a basis of $\mathbb{R}^n$; note that
 \[
 \operatorname{span}(\mathbf{w}^{k+1}, \dots, \mathbf{w}^n) \cap \operatorname{Ker}(A) = \{\vec{0}_n\}.
 \]
@@ -802,7 +869,10 @@ A\mathbf{x} &= \sum_{j=1}^{k} \alpha_j A\mathbf{u}^j + \sum_{j=k+1}^{n} \alpha_j
 &= \sum_{j=k+1}^{n} \alpha_j A\mathbf{w}^j.
 \end{aligned}
 \]
-Since $A\mathbf{u}^j = \vec{0}_m$ for each $j = 1, \dots, k$, as $\mathbf{u}^j \in \operatorname{Ker}(A)$. This shows that $A\mathbf{x} \in \operatorname{span}(A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n)$; since $\operatorname{Col}(A) = \{A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n\}$, this establishes the claim. We next show that the vectors $A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n$ are linearly independent. Take $\beta_1, \dots, \beta_{n-k} \in \mathbb{R}$ such that
+Since $A\mathbf{u}^j = \vec{0}_m$ for each $j = 1, \dots, k$, as $\mathbf{u}^j \in \operatorname{Ker}(A)$. This shows that
+\[
+A\mathbf{x} \in \operatorname{span}(A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n);
+\] since $\operatorname{Col}(A) = \{A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n\}$, this establishes the claim. We next show that the vectors $A\mathbf{w}^{k+1}, \dots, A\mathbf{w}^n$ are linearly independent. Take $\beta_1, \dots, \beta_{n-k} \in \mathbb{R}$ such that
 \[
 \sum_{j=1}^{n-k} \beta_j A\mathbf{w}^{k+j} = \vec{0}_m.
 \]
@@ -836,7 +906,10 @@ The system therefore has infinitely many solutions, depending on $n-r$ free para
 Recall that, when studying homogeneous linear systems by the Gauss elimination method, the solution set was found to depend on $n-p$ parameters, where $p$ denotes the number of pivots of the reduced matrix. Comparing this earlier result with the theorem just stated, in which the solutions depend on $n - \operatorname{Rank}(A)$ parameters, one concludes that $p = \operatorname{Rank}(A)$; that is, the rank of a matrix equals the number of pivots of its row-echelon reduction. This identity has a further important consequence: the number of linearly independent columns of a matrix necessarily coincides with the number of linearly independent rows.
 \end{remark}
 
-Let $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$ with $\mathbf{b} \neq \vec{0}_m$. A nonhomogeneous system consists in finding $\mathbf{x} \in \mathbb{R}^n$ such that $A\mathbf{x} = \mathbf{b}$. Recalling that the matrix-vector product equals $A\mathbf{x} = x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_n \mathbf{a}^n$, solving $A\mathbf{x} = \mathbf{b}$ is equivalent to finding coefficients $x_1, \dots, x_n$, if any exist, such that $\mathbf{b}$ can be written as a linear combination of the columns $\mathbf{a}^1, \mathbf{a}^2, \dots, \mathbf{a}^n$ of $A$. This reformulation immediately raises the question of whether such a system is always solvable.
+Let $A \in M_{m,n}$ and $\mathbf{b} \in \mathbb{R}^m$ with $\mathbf{b} \neq \vec{0}_m$. A nonhomogeneous system consists in finding $\mathbf{x} \in \mathbb{R}^n$ such that $A\mathbf{x} = \mathbf{b}$. Recalling that the matrix-vector product equals
+\[
+A\mathbf{x} = x_1 \mathbf{a}^1 + x_2 \mathbf{a}^2 + \cdots + x_n \mathbf{a}^n,
+\] solving $A\mathbf{x} = \mathbf{b}$ is equivalent to finding coefficients $x_1, \dots, x_n$, if any exist, such that $\mathbf{b}$ can be written as a linear combination of the columns $\mathbf{a}^1, \mathbf{a}^2, \dots, \mathbf{a}^n$ of $A$. This reformulation immediately raises the question of whether such a system is always solvable.
 
 The answer is that the system is solvable, that is, consistent, if and only if $\mathbf{b} \in \operatorname{Col}(A)$, that is, if and only if
 \[
@@ -921,7 +994,11 @@ L(\mathbf{x}) &= A\mathbf{x} \\
 Conversely, every linear map between finite-dimensional Euclidean spaces can be represented in this fashion by a suitable matrix.
 
 \begin{theorem}[Representation Theorem for Linear Maps]
-Let $L : \mathbb{R}^n \to \mathbb{R}^m$ be any linear map, that is, a map satisfying $L(s\mathbf{x}+t\mathbf{y}) = sL(\mathbf{x}) + tL(\mathbf{y})$ for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ and $s, t \in \mathbb{R}$. Setting $\mathbf{a}^j = L(\mathbf{e}_j)$ for $j = 1, \dots, n$, and $A = [\mathbf{a}^1 | \mathbf{a}^2 | \cdots | \mathbf{a}^n] \in M_{m,n}$, called the representative matrix of $L$ in the canonical basis, one has $L(\mathbf{x}) = A\mathbf{x}$ for every $\mathbf{x} \in \mathbb{R}^n$.
+Let $L : \mathbb{R}^n \to \mathbb{R}^m$ be any linear map, that is, a map satisfying
+\[
+L(s\mathbf{x}+t\mathbf{y}) = sL(\mathbf{x}) + tL(\mathbf{y})
+\]
+ for every $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ and $s, t \in \mathbb{R}$. Setting $\mathbf{a}^j = L(\mathbf{e}_j)$ for $j = 1, \dots, n$, and $A = [\mathbf{a}^1 | \mathbf{a}^2 | \cdots | \mathbf{a}^n] \in M_{m,n}$, called the representative matrix of $L$ in the canonical basis, one has $L(\mathbf{x}) = A\mathbf{x}$ for every $\mathbf{x} \in \mathbb{R}^n$.
 \end{theorem}
 
 \begin{proof}
@@ -1543,7 +1620,10 @@ Since $A_k$ is a sum of $k$ rank-one matrices $\mathbf{u}_i\mathbf{v}_i^{\top}$,
 A - A_k = \sum_{i=k+1}^{r} \sigma_i \mathbf{u}_i \mathbf{v}_i^{\top},
 \] this is itself the singular value decomposition of $A-A_k$, restricted to indices $k+1, \dots, r$, so by the previous theorem $\|A - A_k\| = \sigma_{k+1}$.
 
-It remains to show that no matrix of rank at most $k$ does better. Let $B \in M_{m,n}$ with $\operatorname{Rank}(B) \leq k$, so that $\operatorname{Dim}(\operatorname{Ker}(B)) \geq n-k$ by the Nullity--Rank Theorem. Consider the subspace $W = \operatorname{span}(\mathbf{v}_1, \dots, \mathbf{v}_{k+1})$, of dimension $k+1$; since $\operatorname{Dim}(\operatorname{Ker}(B)) + \operatorname{Dim}(W) \geq (n-k) + (k+1) = n+1 > n$, the two subspaces must intersect nontrivially, so there exists a unit vector $\mathbf{w} \in W \cap \operatorname{Ker}(B)$. Expand this vector in the basis of $W$:
+It remains to show that no matrix of rank at most $k$ does better. Let $B \in M_{m,n}$ with $\operatorname{Rank}(B) \leq k$, so that $\operatorname{Dim}(\operatorname{Ker}(B)) \geq n-k$ by the Nullity--Rank Theorem. Consider the subspace $W = \operatorname{span}(\mathbf{v}_1, \dots, \mathbf{v}_{k+1})$, of dimension $k+1$; since
+\[
+\operatorname{Dim}(\operatorname{Ker}(B)) + \operatorname{Dim}(W) \geq (n-k) + (k+1) = n+1 > n,
+\] the two subspaces must intersect nontrivially, so there exists a unit vector $\mathbf{w} \in W \cap \operatorname{Ker}(B)$. Expand this vector in the basis of $W$:
 \[
 \mathbf{w} = \sum_{i=1}^{k+1} c_i \mathbf{v}_i.
 \]

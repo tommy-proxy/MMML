@@ -332,7 +332,11 @@ By Taylor's theorem with the Peano form of the remainder, we have:
 &= 1 - \frac{\sigma^2 u^2}{2} + o(u^2).
 \end{aligned}
 \end{equation}
-Here $o(u^2)$ denotes a function such that
+Here
+\[
+o(u^2)
+\]
+ denotes a function such that
 \[
 \lim_{u \to 0} o(u^2)/u^2 = 0.
 \]
@@ -354,7 +358,11 @@ To evaluate the limit as $m \to \infty$, we rewrite the expression using the exp
 \begin{equation}
 \varphi_{Y_m}(t) = \exp\left( m \ln\left( 1 - \frac{t^2}{2m} + o\left( \frac{1}{m} \right) \right) \right)
 \end{equation}
-Using the Taylor expansion $\ln(1 + x) = x + o(x)$ for small $x$, where
+Using the Taylor expansion
+\[
+\ln(1 + x) = x + o(x)
+\]
+ for small $x$, where
 \[
 x = -(t^2/(2m)) + o( (1/m) ):
 \]
@@ -425,7 +433,10 @@ A \emph{standard Wiener process}, or \emph{standard Brownian motion}, is a real-
 \end{definition}
 
 \begin{remark}[Continuity without Differentiability]
-Brownian paths are almost surely nowhere differentiable, a result we do not prove here. The scale of an increment gives some intuition: over an interval of length $\Delta t$, its standard deviation is $(\Delta t)^{1/2}$, so a typical difference quotient has magnitude of order $\frac{\sqrt{\Delta t}}{\Delta t}=\frac{1}{\sqrt{\Delta t}}$, which grows without bound as $\Delta t\to0$. This scaling is a heuristic, not a proof of nowhere differentiability. It explains why $\dot W$ cannot be treated as an ordinary function and why an equation written informally as $\dot{\bv}=f(\bv)+\dot{\bW}$ is not a classical ODE. A rigorous treatment requires stochastic integration.
+Brownian paths are almost surely nowhere differentiable, a result we do not prove here. The scale of an increment gives some intuition: over an interval of length $\Delta t$, its standard deviation is $(\Delta t)^{1/2}$, so a typical difference quotient has magnitude of order
+\[
+\frac{\sqrt{\Delta t}}{\Delta t}=\frac{1}{\sqrt{\Delta t}},
+\] which grows without bound as $\Delta t\to0$. This scaling is a heuristic, not a proof of nowhere differentiability. It explains why $\dot W$ cannot be treated as an ordinary function and why an equation written informally as $\dot{\bv}=f(\bv)+\dot{\bW}$ is not a classical ODE. A rigorous treatment requires stochastic integration.
 \end{remark}
 
 \input{figures/brownian-paths.tex}
@@ -536,7 +547,11 @@ Dividing by $\Delta t$ and taking the limit yields
 D_2(v)=\sigma(v)^2.
 \end{equation}
 
-For $n\ge3$, the higher increment moments are $o(\Delta t)$ under suitable moment bounds, so $D_n(v)=0$. The Gaussian scaling underlying this fact is
+For $n\ge3$, the higher increment moments are
+\[
+o(\Delta t)
+\]
+ under suitable moment bounds, so $D_n(v)=0$. The Gaussian scaling underlying this fact is
 \[
 \E[|\Delta W|^n]=O((\Delta t)^{n/2});
 \]

@@ -563,7 +563,10 @@ Let $\gamma$ be a positively oriented piecewise smooth simple closed curve. Supp
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing $f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y)$, the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
+The argument rests on two facts. First, Cauchy's integral theorem states that the integral around a simple closed curve vanishes if $f$ is holomorphic on a neighborhood of the curve and its entire interior. Under $C^1$ regularity, Green's theorem (Theorem~\ref{thm:green-plane}) shows this directly: writing
+\[
+f(z)\,\dd z=(u\,\dd x-v\,\dd y)+i(v\,\dd x+u\,\dd y),
+\] the two area integrands are $-v_x-u_y$ and $u_x-v_y$, both zero by the Cauchy--Riemann equations. Second, parametrizing a positively oriented circle by $z-z_0=\varepsilon e^{i\theta}$ gives
 \begin{equation}
 \oint_{|z-z_0|=\varepsilon}(z-z_0)^n\,\dd z
 =\begin{cases}2\pi i,&n=-1,\\0,&n\in\Z,\ n\ne-1.\end{cases}

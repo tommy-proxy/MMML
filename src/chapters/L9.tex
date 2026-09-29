@@ -7,7 +7,10 @@
 The extremum tests developed for functions of several variables locate critical points of $f$ over its entire domain, but many optimization problems require $\mathbf{x}$ to satisfy one or more equality constraints, restricting the search to a lower-dimensional subset of the domain. The method of Lagrange multipliers reduces such constrained problems to an unconstrained search for critical points of an auxiliary function.
 
 \begin{definition}[Lagrangian]
-Given $f : \mathbb{R}^n \to \mathbb{R}$ and constraints $g_1(\mathbf{x}) = \cdots = g_k(\mathbf{x}) = 0$, the Lagrangian associated with the problem of extremizing $f$ subject to these constraints is the function
+Given $f : \mathbb{R}^n \to \mathbb{R}$ and constraints
+\[
+g_1(\mathbf{x}) = \cdots = g_k(\mathbf{x}) = 0,
+\] the Lagrangian associated with the problem of extremizing $f$ subject to these constraints is the function
 \[
 \mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) - \sum_{i=1}^{k} \lambda_i g_i(\mathbf{x}).
 \]
@@ -37,7 +40,11 @@ Define the constraint set by
 \[
 M = \{\mathbf{x} \in \mathbb{R}^n : g_i(\mathbf{x}) = 0, \, i=1,\dots,k\}
 \]
-Since the gradients $\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)$ are linearly independent, the Implicit Function Theorem guarantees that $M$ is, near $\mathbf{x}^*$, an $(n-k)$-dimensional smooth surface whose tangent space $T_{\mathbf{x}^*}M$ coincides with $\operatorname{Ker}(J),$ where $J \in M_{k,n}$ is the matrix with rows $\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)$; equivalently, $T_{\mathbf{x}^*}M$ is the orthogonal complement of $\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*))$ in $\mathbb{R}^n$. Let $\mathbf{v} \in T_{\mathbf{x}^*}M$ be an arbitrary tangent vector, and let $\boldsymbol{\gamma}(t)$ be a smooth curve lying in $M$ with $\boldsymbol{\gamma}(0)=\mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{v}$, whose existence is again guaranteed by the Implicit Function Theorem. Since $\mathbf{x}^*$ is a local extremum of $f$ restricted to $M$, the composite function $t \mapsto f(\boldsymbol{\gamma}(t))$ has a local extremum at $t=0$, so its derivative there vanishes; by the Chain Rule, this derivative equals
+Since the gradients $\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)$ are linearly independent, the Implicit Function Theorem guarantees that $M$ is, near $\mathbf{x}^*$, an $(n-k)$-dimensional smooth surface whose tangent space $T_{\mathbf{x}^*}M$ coincides with $\operatorname{Ker}(J),$ where $J \in M_{k,n}$ is the matrix with rows $\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*)$; equivalently, $T_{\mathbf{x}^*}M$ is the orthogonal complement of
+\[
+\operatorname{span}(\nabla g_1(\mathbf{x}^*), \dots, \nabla g_k(\mathbf{x}^*))
+\]
+ in $\mathbb{R}^n$. Let $\mathbf{v} \in T_{\mathbf{x}^*}M$ be an arbitrary tangent vector, and let $\boldsymbol{\gamma}(t)$ be a smooth curve lying in $M$ with $\boldsymbol{\gamma}(0)=\mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{v}$, whose existence is again guaranteed by the Implicit Function Theorem. Since $\mathbf{x}^*$ is a local extremum of $f$ restricted to $M$, the composite function $t \mapsto f(\boldsymbol{\gamma}(t))$ has a local extremum at $t=0$, so its derivative there vanishes; by the Chain Rule, this derivative equals
 \[
 \nabla f(\mathbf{x}^*) \cdot \boldsymbol{\gamma}'(0) = \nabla f(\mathbf{x}^*) \cdot \mathbf{v}.
 \]
@@ -54,7 +61,10 @@ as claimed.
 \end{proof}
 
 \begin{example}
-To maximize $f(x,y) = xy$ subject to the constraint $g(x,y) = x+y-1 = 0$, the Lagrange condition $\nabla f = \lambda \nabla g$ reads $(y,x) = \lambda(1,1)$, forcing $x=y$, which combined with $x+y=1$ gives
+To maximize $f(x,y) = xy$ subject to the constraint
+\[
+g(x,y) = x+y-1 = 0,
+\] the Lagrange condition $\nabla f = \lambda \nabla g$ reads $(y,x) = \lambda(1,1)$, forcing $x=y$, which combined with $x+y=1$ gives
 \[
 \begin{aligned}
 x &= y \\
@@ -125,7 +135,10 @@ Denote the active inequality constraints at $\mathbf{x}^*$ by
 I = \{i : g_i(\mathbf{x}^*) = 0\}
 \]
 
-We first argue that $\nabla f(\mathbf{x}^*)$ must lie in the cone generated nonnegatively by $\{\nabla g_i(\mathbf{x}^*)\}_{i \in I}$ together with the span of $\{\nabla h_j(\mathbf{x}^*)\}_{j=1}^l$. Suppose, for the sake of contradiction, that this were not the case; a standard separation argument for convex cones then produces a direction $\mathbf{d} \in \mathbb{R}^n$ satisfying $\nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0$, $\nabla g_i(\mathbf{x}^*) \cdot \mathbf{d} < 0$ for every $i \in I$, and $\nabla h_j(\mathbf{x}^*) \cdot \mathbf{d} = 0$ for every $j$. Since the gradients of the active and equality constraints are linearly independent by hypothesis, the Implicit Function Theorem allows one to construct a feasible curve $\boldsymbol{\gamma}(t)$ with $\boldsymbol{\gamma}(0) = \mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{d}$, remaining feasible for the equality constraints exactly and for the active inequality constraints to first order, while inactive inequality constraints remain strictly satisfied for $t$ small by continuity. Along this curve, $(d/dt)|_{t=0} f(\boldsymbol{\gamma}(t)) = \nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0$, so $f$ strictly decreases for small $t>0$ while remaining feasible, contradicting the local minimality of $\mathbf{x}^*$. Hence
+We first argue that $\nabla f(\mathbf{x}^*)$ must lie in the cone generated nonnegatively by $\{\nabla g_i(\mathbf{x}^*)\}_{i \in I}$ together with the span of $\{\nabla h_j(\mathbf{x}^*)\}_{j=1}^l$. Suppose, for the sake of contradiction, that this were not the case; a standard separation argument for convex cones then produces a direction $\mathbf{d} \in \mathbb{R}^n$ satisfying $\nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0$, $\nabla g_i(\mathbf{x}^*) \cdot \mathbf{d} < 0$ for every $i \in I$, and $\nabla h_j(\mathbf{x}^*) \cdot \mathbf{d} = 0$ for every $j$. Since the gradients of the active and equality constraints are linearly independent by hypothesis, the Implicit Function Theorem allows one to construct a feasible curve $\boldsymbol{\gamma}(t)$ with $\boldsymbol{\gamma}(0) = \mathbf{x}^*$ and $\boldsymbol{\gamma}'(0) = \mathbf{d}$, remaining feasible for the equality constraints exactly and for the active inequality constraints to first order, while inactive inequality constraints remain strictly satisfied for $t$ small by continuity. Along this curve,
+\[
+(d/dt)|_{t=0} f(\boldsymbol{\gamma}(t)) = \nabla f(\mathbf{x}^*) \cdot \mathbf{d} < 0,
+\] so $f$ strictly decreases for small $t>0$ while remaining feasible, contradicting the local minimality of $\mathbf{x}^*$. Hence
 \[
 \nabla f(\mathbf{x}^*) = -\sum_{i \in I} \mu_i^* \nabla g_i(\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*).
 \]
@@ -181,13 +194,21 @@ additional structural hypothesis, however, this gap disappears entirely, and eve
 hypothesis is \textit{convexity}.
 
 \begin{definition}[Convex Set and Convex Function]
-A set $C \subseteq \mathbb{R}^n$ is convex if $t\mathbf{x} + (1-t)\mathbf{y} \in C$ for every $\mathbf{x}, \mathbf{y} \in C$ and every $t \in [0,1]$. A function $f : C \to \mathbb{R}$, defined on a convex set $C$, is convex if $f(t\mathbf{x}+(1-t)\mathbf{y}) \leq t f(\mathbf{x}) + (1-t) f(\mathbf{y})$ for every $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$; $f$ is strictly convex if this inequality is strict whenever $\mathbf{x} \neq \mathbf{y}$ and $t \in (0,1)$.
+A set $C \subseteq \mathbb{R}^n$ is convex if $t\mathbf{x} + (1-t)\mathbf{y} \in C$ for every $\mathbf{x}, \mathbf{y} \in C$ and every $t \in [0,1]$. A function $f : C \to \mathbb{R}$, defined on a convex set $C$, is convex if
+\[
+f(t\mathbf{x}+(1-t)\mathbf{y}) \leq t f(\mathbf{x}) + (1-t) f(\mathbf{y})
+\]
+ for every $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$; $f$ is strictly convex if this inequality is strict whenever $\mathbf{x} \neq \mathbf{y}$ and $t \in (0,1)$.
 \end{definition}
 
 For differentiable functions, convexity admits two further characterizations, one in terms of the gradient and one in terms of the Hessian, both of which considerably simplify its verification in practice.
 
 \begin{theorem}[First-Order Characterization of Convexity]
-A differentiable function $f$ on a convex open set $C$ is convex if and only if $f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})$ for every $\mathbf{x}, \mathbf{y} \in C$.
+A differentiable function $f$ on a convex open set $C$ is convex if and only if
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})
+\]
+ for every $\mathbf{x}, \mathbf{y} \in C$.
 \end{theorem}
 
 \begin{proof}
@@ -203,7 +224,10 @@ so that
 \frac{f(\mathbf{x}+t(\mathbf{y}-\mathbf{x})) - f(\mathbf{x})}{t} \leq f(\mathbf{y}) - f(\mathbf{x}).
 \]
 
-Letting $t \to 0^+$, the left-hand side converges to the directional derivative $\nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})$, giving $\nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}) \leq f(\mathbf{y})-f(\mathbf{x})$, which is the claimed inequality. Conversely, suppose the inequality holds for every $\mathbf{x},\mathbf{y} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$, and let $\mathbf{z} = t\mathbf{x}+(1-t)\mathbf{y}$. Applying the hypothesis twice, once with the pair $(\mathbf{z},\mathbf{x})$ and once with the pair $(\mathbf{z},\mathbf{y})$, gives
+Letting $t \to 0^+$, the left-hand side converges to the directional derivative $\nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x})$, giving
+\[
+\nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}) \leq f(\mathbf{y})-f(\mathbf{x}),
+\] which is the claimed inequality. Conversely, suppose the inequality holds for every $\mathbf{x},\mathbf{y} \in C$. Fix $\mathbf{x}, \mathbf{y} \in C$ and $t \in [0,1]$, and let $\mathbf{z} = t\mathbf{x}+(1-t)\mathbf{y}$. Applying the hypothesis twice, once with the pair $(\mathbf{z},\mathbf{x})$ and once with the pair $(\mathbf{z},\mathbf{y})$, gives
 \[
 \begin{gathered}
 f(\mathbf{x}) \geq f(\mathbf{z}) + \nabla f(\mathbf{z})\cdot(\mathbf{x}-\mathbf{z}) \\
@@ -236,7 +260,14 @@ Suppose $\nabla^2 f(\mathbf{x})$ is positive semidefinite for every $\mathbf{x} 
 \[
 f(\mathbf{y}) = f(\mathbf{x}) + \nabla f(\mathbf{x}) \cdot (\mathbf{y}-\mathbf{x}) + \tfrac{1}{2}(\mathbf{y}-\mathbf{x})^{\top} \nabla^2 f(\mathbf{z}) (\mathbf{y}-\mathbf{x}).
 \]
-Since $\nabla^2 f(\mathbf{z})$ is positive semidefinite, the final term is nonnegative, giving $f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x})$, which is the first-order characterization above; hence $f$ is convex. Conversely, suppose $f$ is convex but, for contradiction, $\nabla^2 f(\mathbf{x}_0)\mathbf{v} \cdot \mathbf{v} < 0$ for some $\mathbf{x}_0 \in C$ and some $\mathbf{v} \neq \vec{0}$. By continuity of $\nabla^2 f$, this negative quantity persists on a neighborhood of $\mathbf{x}_0$, so for $t$ sufficiently small, the same Taylor expansion as above, applied to $\mathbf{y} = \mathbf{x}_0+t\mathbf{v}$, gives $f(\mathbf{x}_0+t\mathbf{v}) < f(\mathbf{x}_0) + t\nabla f(\mathbf{x}_0)\cdot \mathbf{v}$ for small $t \neq 0$, contradicting the first-order characterization of convexity established above, which is equivalent to convexity itself.
+Since $\nabla^2 f(\mathbf{z})$ is positive semidefinite, the final term is nonnegative, giving
+\[
+f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})\cdot(\mathbf{y}-\mathbf{x}),
+\] which is the first-order characterization above; hence $f$ is convex. Conversely, suppose $f$ is convex but, for contradiction, $\nabla^2 f(\mathbf{x}_0)\mathbf{v} \cdot \mathbf{v} < 0$ for some $\mathbf{x}_0 \in C$ and some $\mathbf{v} \neq \vec{0}$. By continuity of $\nabla^2 f$, this negative quantity persists on a neighborhood of $\mathbf{x}_0$, so for $t$ sufficiently small, the same Taylor expansion as above, applied to $\mathbf{y} = \mathbf{x}_0+t\mathbf{v}$, gives
+\[
+f(\mathbf{x}_0+t\mathbf{v}) < f(\mathbf{x}_0) + t\nabla f(\mathbf{x}_0)\cdot \mathbf{v}
+\]
+ for small $t \neq 0$, contradicting the first-order characterization of convexity established above, which is equivalent to convexity itself.
 \end{proof}
 
 \subsection{Global Optimality and Convex KKT Conditions}
@@ -272,7 +303,11 @@ Consequently,
 \[
 f(\mathbf{x}) - f(\mathbf{x}^*) \geq -\sum_i \mu_i^* \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*) - \sum_j \lambda_j^* \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*).
 \]
-Since each $h_j$ is affine, $h_j(\mathbf{x}) - h_j(\mathbf{x}^*) = \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*)$ exactly, and this vanishes since both $\mathbf{x}$ and $\mathbf{x}^*$ are feasible, hence satisfy $h_j = 0$; the second sum therefore vanishes entirely. By the first-order characterization applied to each convex $g_i$ at $\mathbf{x}^*$,
+Since each $h_j$ is affine,
+\[
+h_j(\mathbf{x}) - h_j(\mathbf{x}^*) = \nabla h_j(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*)
+\]
+ exactly, and this vanishes since both $\mathbf{x}$ and $\mathbf{x}^*$ are feasible, hence satisfy $h_j = 0$; the second sum therefore vanishes entirely. By the first-order characterization applied to each convex $g_i$ at $\mathbf{x}^*$,
 \[
 g_i(\mathbf{x}) \geq g_i(\mathbf{x}^*) + \nabla g_i(\mathbf{x}^*)\cdot(\mathbf{x}-\mathbf{x}^*),
 \]
@@ -357,7 +392,10 @@ The optimization problems studied earlier in this chapter involve finitely many 
 \label{thm:euler-lagrange}
 Let $L$ be $C^2$ in its arguments, and let $y^*\in C^2([a,b])$ be a stationary point of \[
 J[y]=\int_a^b L(x,y,y')\,\dd x
-\] among functions with fixed endpoint values $y(a)=y_a$ and $y(b)=y_b$. In particular, this applies to a smooth local minimizer. Then $y^*$ satisfies $\frac{\partial L}{\partial y} -\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)=0$, with the derivatives evaluated along $(x,y^*(x),{y^*}'(x))$.
+\] among functions with fixed endpoint values $y(a)=y_a$ and $y(b)=y_b$. In particular, this applies to a smooth local minimizer. Then $y^*$ satisfies
+\[
+\frac{\partial L}{\partial y} -\frac{\dd}{\dd x}\left(\frac{\partial L}{\partial y'}\right)=0,
+\] with the derivatives evaluated along $(x,y^*(x),{y^*}'(x))$.
 \end{theorem}
 
 \begin{proof}

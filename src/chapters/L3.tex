@@ -17,7 +17,12 @@ f'(a) &= \lim_{h \to 0} \frac{f(a+h) - f(a)}{h} \\
 provided that this limit exists and is finite.
 \end{definition}
 
-For any given $h \in \mathbb{R}$, it is convenient to introduce the notation $R_a(h) = \frac{f(a+h) - f(a)}{h}$ for the ratio appearing in the definition above, so that \[
+For any given $h \in \mathbb{R}$, define the difference quotient
+\[
+R_a(h) = \frac{f(a+h) - f(a)}{h}.
+\]
+The derivative can then be written as
+\[
 f'(a) = \lim_{h \to 0} R_a(h),
 \] provided the limit exists and is finite. The derivative admits several complementary interpretations, the first of which is geometric. Given a curve $C$ with equation $y = f(x)$, one seeks the tangent line to $C$ at the point $P = (a, f(a))$. To construct this tangent line, one considers a nearby point $Q = (x, f(x))$ with $x \neq a$, and computes the slope of the secant line through $P$ and $Q$,
 \[
@@ -47,7 +52,11 @@ v(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h},
 \[
 \Delta y = f(x_2) - f(x_1).
 \]
-The difference quotient, or incremental ratio, $\frac{\Delta y}{\Delta x} = \frac{f(x_2) - f(x_1)}{x_2 - x_1}$ is called the average rate of change of $y$ with respect to $x$ over the interval $[x_1, x_2]$. Considering the average rate of change over smaller and smaller intervals, by letting $\Delta x$ approach zero, one defines the instantaneous rate of change of $y$ with respect to $x$ at $x_1$ as
+The difference quotient, or incremental ratio,
+\[
+\frac{\Delta y}{\Delta x} = \frac{f(x_2) - f(x_1)}{x_2 - x_1}
+\]
+ is called the average rate of change of $y$ with respect to $x$ over the interval $[x_1, x_2]$. Considering the average rate of change over smaller and smaller intervals, by letting $\Delta x$ approach zero, one defines the instantaneous rate of change of $y$ with respect to $x$ at $x_1$ as
 \[
 \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_1 + \Delta x) - f(x_1)}{\Delta x}.
 \]
@@ -83,7 +92,11 @@ We wish to prove that \[
 \[
 \lim_{x \to a} [f(x) - f(a)] = 0.
 \]
-Writing $f(x) - f(a) = \frac{f(x) - f(a)}{x - a} \cdot (x-a)$ and passing to the limit as $x \to a$, using the differentiability of $f$ at $a$, we obtain
+Writing
+\[
+f(x) - f(a) = \frac{f(x) - f(a)}{x - a} \cdot (x-a)
+\]
+ and passing to the limit as $x \to a$, using the differentiability of $f$ at $a$, we obtain
 \[
 \begin{aligned}
 \lim_{x \to a} [f(x) - f(a)] &= \lim_{x \to a} \frac{f(x) - f(a)}{x-a} \cdot \lim_{x \to a} (x-a) \\
@@ -254,7 +267,10 @@ To establish the first identity, we must compute
 \[
 \lim_{h \to 0} \frac{\sin(x+h) - \sin x}{h}.
 \]
-Using the addition formula $\sin(x+h) = \sin x \cos h + \cos x \sin h$, we obtain
+Using the addition formula
+\[
+\sin(x+h) = \sin x \cos h + \cos x \sin h,
+\] we obtain
 \[
 \lim_{h \to 0} \frac{\sin x \cos h + \cos x \sin h - \sin x}{h} = \sin x \cdot \lim_{h \to 0} \frac{\cos h - 1}{h} + \cos x \cdot \lim_{h \to 0} \frac{\sin h}{h}.
 \]
@@ -358,7 +374,10 @@ Taking the right-hand limit as $h \to 0^+$ and invoking the Sign Preserving Prop
 \lim_{h \to 0^+} \frac{f(c+h) - f(c)}{h} \leq 0 \implies f'_+(c) \leq 0.
 \]
 
-Analogously, if $h < 0$ is sufficiently small, dividing inequality $(*)$ by $h$ reverses its direction, giving $\frac{f(c+h) - f(c)}{h} \geq 0$, so that taking the left-hand limit yields
+Analogously, if $h < 0$ is sufficiently small, dividing inequality $(*)$ by $h$ reverses its direction, giving
+\[
+\frac{f(c+h) - f(c)}{h} \geq 0,
+\] so that taking the left-hand limit yields
 \[
 \lim_{h \to 0^-} \frac{f(c+h) - f(c)}{h} \geq 0 \implies f'_-(c) \geq 0.
 \]
@@ -412,7 +431,14 @@ The critical values are
 x=\frac{32\pm\sqrt{32^2-4\cdot3\cdot60}}{6}
 =\frac{16\pm2\sqrt{19}}{3}.
 \]
-Only $x_* = \frac{16-2\sqrt{19}}{3}\approx2.427\ \mathrm{cm}$ belongs to $[0,6]$. Since $V(0)=V(6)=0$ and $V(x_*)=\frac{1792+1216\sqrt{19}}{27} \approx262.682\ \mathrm{cm}^3$, this value of $x$ gives the maximum volume.
+Only
+\[
+x_* = \frac{16-2\sqrt{19}}{3}\approx2.427\ \mathrm{cm}
+\]
+ belongs to $[0,6]$. Since $V(0)=V(6)=0$ and
+\[
+V(x_*)=\frac{1792+1216\sqrt{19}}{27} \approx262.682\ \mathrm{cm}^3,
+\] this value of $x$ gives the maximum volume.
 
 \subsection{Rolle's Theorem and Lagrange's Theorem}
 
@@ -719,7 +745,14 @@ Let $f$ be differentiable at $a$. Then
 
 \end{theorem}
 
-This result may be interpreted as saying that the error $E(x) = f(x) - L(x)$ approaches zero faster than $(x-a)$ itself as $x \to a$; adopting the standard Landau notation, we write $E(x) = o(x-a)$ as $x \to a$. With this notation, the conclusion of the theorem may be restated as $f(x) = f(a) + f'(a)(x-a) + o(x-a), \qquad x \to a$, or, equivalently, setting $x = a + h$,
+This result may be interpreted as saying that the error $E(x) = f(x) - L(x)$ approaches zero faster than $(x-a)$ itself as $x \to a$; adopting the standard Landau notation, we write
+\[
+E(x) = o(x-a)
+\]
+ as $x \to a$. With this notation, the conclusion of the theorem may be restated as
+\[
+f(x) = f(a) + f'(a)(x-a) + o(x-a), \qquad x \to a,
+\] or, equivalently, setting $x = a + h$,
 \[
 f(a+h) = f(a) + f'(a) h + o(h), \qquad h \to 0.
 \]
@@ -751,7 +784,14 @@ If $f$ is of class $C^2$ on a neighborhood of $a$, then
 
 \end{theorem}
 
-As in the linear case, this result may be interpreted in terms of the error term: the error $E_2(x) = f(x) - T_2(x)$ approaches zero faster than $(x-a)^2$ as $x \to a$, that is, $E_2(x) = o((x-a)^2)$ as $x \to a$. The conclusion of the theorem may accordingly be rewritten as $f(x) = f(a) + f'(a)(x-a) + \frac{1}{2} f''(a)(x-a)^2 + o\big((x-a)^2\big), \qquad x \to a$, or, setting $x = a+h$,
+As in the linear case, this result may be interpreted in terms of the error term: the error $E_2(x) = f(x) - T_2(x)$ approaches zero faster than $(x-a)^2$ as $x \to a$, that is,
+\[
+E_2(x) = o((x-a)^2)
+\]
+ as $x \to a$. The conclusion of the theorem may accordingly be rewritten as
+\[
+f(x) = f(a) + f'(a)(x-a) + \frac{1}{2} f''(a)(x-a)^2 + o\big((x-a)^2\big), \qquad x \to a,
+\] or, setting $x = a+h$,
 \[
 f(a+h) = f(a) + f'(a) h + \frac{1}{2} f''(a) h^2 + o(h^2), \qquad h \to 0.
 \]
@@ -789,7 +829,10 @@ We find
 \begin{equation*}
 g'(\tau x) = o(\tau x). \tag{2}
 \end{equation*}
-Combining $(1)$ and $(2)$, we obtain $g(x) = o(\tau x) \, x$, and hence
+Combining $(1)$ and $(2)$, we obtain
+\[
+g(x) = o(\tau x) \, x,
+\] and hence
 \[
 \lim_{x \to 0} \frac{g(x)}{x^2} = \lim_{x \to 0} \frac{o(\tau x) \, x}{x^2} = \lim_{x \to 0} \frac{o(\tau x)}{\tau x} \cdot \tau = 0,
 \]
@@ -838,7 +881,11 @@ Figure~\ref{fig:ch5-taylor} compares a function with its linear and quadratic ap
 The construction of the second-degree Taylor polynomial generalizes naturally to any degree $n$, provided that the function under consideration is differentiable a sufficient number of times.
 
 \begin{definition}
-Let $f$ be differentiable $n$ times at $a$. The polynomial $T_n(x) := f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x-a)^n$ is called the $n$-th degree Taylor polynomial of $f$ centered at $a$. In the special case $a = 0$, it is also called the $n$-th degree Maclaurin polynomial of $f$.
+Let $f$ be differentiable $n$ times at $a$. The polynomial
+\[
+T_n(x) := f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x-a)^n
+\]
+ is called the $n$-th degree Taylor polynomial of $f$ centered at $a$. In the special case $a = 0$, it is also called the $n$-th degree Maclaurin polynomial of $f$.
 \end{definition}
 
 By construction, the polynomial $T_n$ satisfies $T_n^{(k)}(a) = f^{(k)}(a)$ for every $k = 1, \dots, n$, and it is in fact the unique polynomial of degree $n$ possessing this property. As the degree $n$ increases, the corresponding Taylor polynomial provides an increasingly accurate approximation to $f$ near $a$, a phenomenon that becomes visually apparent when several Taylor polynomials of increasing degree are plotted together against the original function.
@@ -853,7 +900,11 @@ Let $f$ be of class $C^n$ on a neighborhood of $a$. Then
 
 \end{theorem}
 
-As before, this result may be phrased in terms of the error term: the error $E_n(x) = f(x) - T_n(x)$ approaches zero faster than $(x-a)^n$ as $x \to a$, that is, $E_n(x) = o((x-a)^n)$ as $x \to a$. The conclusion of the theorem is thus written as
+As before, this result may be phrased in terms of the error term: the error $E_n(x) = f(x) - T_n(x)$ approaches zero faster than $(x-a)^n$ as $x \to a$, that is,
+\[
+E_n(x) = o((x-a)^n)
+\]
+ as $x \to a$. The conclusion of the theorem is thus written as
 \[
 f(x) = f(a) + f'(a)(x-a) + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + o\big((x-a)^n\big), \qquad x \to a.
 \]
@@ -863,7 +914,11 @@ f(a+h) = f(a) + f'(a) h + \cdots + \frac{1}{n!} f^{(n)}(a) h^n + o(h^n), \qquad 
 \]
 
 Higher-order information can refine a particular remainder function, but
-the symbol $o(x^n)$ itself is not a uniquely defined function. For example,
+the symbol
+\[
+o(x^n)
+\]
+ itself is not a uniquely defined function. For example,
 define
 \[
 R_1(x):=\sin x-x.
@@ -997,19 +1052,40 @@ Taylor series in fact converge to them on all of $\mathbb{R}$.
 
 The systematic use of Maclaurin expansions for the computation of limits, illustrated earlier for the limit \[
 \lim_{x \to 0} (\sin x - x)/x^3,
-\] rests on a small collection of algebraic manipulation rules governing the symbol $o(x^n)$. We now record the precise definition of this symbol, together with its basic algebraic properties.
+\] rests on a small collection of algebraic manipulation rules governing the symbol
+\[
+o(x^n).
+\] We now record the precise definition of this symbol, together with its basic algebraic properties.
 
 \begin{definition}
-Given $n \in \mathbb{N}$, the symbol $o(x^n)$, read "small $o$ of $x^n$", denotes a generic, unspecified quantity depending on $x$, vanishing as $x \to 0$, with the property that
+Given $n \in \mathbb{N}$, the symbol
+\[
+o(x^n),
+\] read "small $o$ of $x^n$", denotes a generic, unspecified quantity depending on $x$, vanishing as $x \to 0$, with the property that
 \[
 \lim_{x \to 0} \frac{o(x^n)}{x^n} = 0.
 \]
 
 \end{definition}
 
-As $x \to 0$, the symbol $o(x^n)$ obeys the following algebraic rules, which together constitute what is customarily called the algebra of small $o$. First, $x^n = o(x^m)$ for any integer $m < n$, reflecting the fact that a higher power of $x$ is itself negligible compared to a lower power as $x \to 0$. Second, $c \cdot o(x^n) = o(x^n)$ for any constant $c$, so that multiplying a small-$o$ quantity by a fixed constant does not change its order. Third, $o(x^n) \pm o(x^n) = o(x^n)$, so that the sum or difference of two quantities of the same order remains of that order. Fourth, $x^n \cdot o(x^m) = o(x^{n+m})$, so that multiplying a small-$o$ quantity by an explicit power increases its order accordingly. Fifth, $o(x^n) \cdot o(x^m) = o(x^{n+m})$, extending the previous rule to the product of two small-$o$ quantities. Sixth, $(o(x^n))^m = o(x^{nm})$, governing the behavior of small-$o$ quantities under exponentiation.
+As $x \to 0$, the standard algebraic rules for the symbol $o$ are
+\[
+\begin{aligned}
+x^n &= o(x^m) &&\text{for every integer }m<n,\\
+c\,o(x^n) &= o(x^n) &&\text{for every constant }c,\\
+o(x^n) \pm o(x^n) &= o(x^n),\\
+x^n o(x^m) &= o(x^{n+m}),\\
+o(x^n)o(x^m) &= o(x^{n+m}),\\
+\bigl(o(x^n)\bigr)^m &= o(x^{nm}).
+\end{aligned}
+\]
+These identities state, respectively, how higher powers, scalar multiplication, addition, multiplication by a power, products, and exponentiation affect asymptotic order.
 Composition statements require explicit remainder functions and suitable
-domain hypotheses; an expression such as $o(x^n+o(x^n))$ is therefore
+domain hypotheses; an expression such as
+\[
+o(x^n+o(x^n))
+\]
+ is therefore
 avoided.
 
 \subsection{Applications to Indeterminate Forms}
@@ -1020,8 +1096,12 @@ The algebra of small $o$ underlies a general method for computing limits of an i
 \]
 
 If $f$ and $g$ have first nonzero Taylor coefficients at finite orders
-$n$ and $m$, respectively, then
-$f(x)=ax^n+o(x^n)$ and $g(x)=bx^m+o(x^m)$ for nonzero constants $a,b$.
+$n$ and $m$, respectively, then, for nonzero constants $a,b$,
+\[
+f(x)=ax^n+o(x^n),
+\qquad
+g(x)=bx^m+o(x^m).
+\]
 The existence of derivatives of every order alone does not guarantee such
 a coefficient, as the smooth nonanalytic example above shows. Under the
 stated finite-order hypothesis, substitution gives
@@ -1031,12 +1111,32 @@ stated finite-order hypothesis, substitution gives
 &= \lim_{x \to 0} \frac{x^n \left( a + \dfrac{o(x^n)}{x^n} \right)}{x^m \left( b + \dfrac{o(x^m)}{x^m} \right)}.
 \end{aligned}
 \]
-Moreover, it then suffices to apply the definition of small $o$, according to which the two fractions $o(x^n)/x^n$ and $o(x^m)/x^m$ both tend to zero as $x \to 0$, in order to resolve the limit explicitly in terms of $n$, $m$, $a$, and $b$.
+Moreover, the definition of small $o$ gives
+\[
+\frac{o(x^n)}{x^n}\longrightarrow0,
+\qquad
+\frac{o(x^m)}{x^m}\longrightarrow0
+\qquad (x\to0),
+\]
+which resolves the limit explicitly in terms of $n$, $m$, $a$, and $b$.
 
 \begin{remark}[Worked exercises on Taylor expansions and limits]
 We solve the preceding computational exercises explicitly.
 
-First, if $m<n$, then $\frac{x^n}{x^m}=x^{n-m}\longrightarrow0$, so $x^n=o(x^m)$. If $r(x)=o(x^m)$, then $\frac{x^n r(x)}{x^{n+m}}=\frac{r(x)}{x^m}\longrightarrow0$, which proves $x^n o(x^m)=o(x^{n+m})$.
+First, if $m<n$, then
+\[
+\frac{x^n}{x^m}=x^{n-m}\longrightarrow0,
+\qquad\text{so}\qquad
+x^n=o(x^m).
+\]
+For a remainder $r$ of order $m$, the same calculation gives
+\[
+r(x)=o(x^m)
+\quad\Longrightarrow\quad
+\frac{x^n r(x)}{x^{n+m}}=\frac{r(x)}{x^m}\longrightarrow0,
+\qquad\text{and hence}\qquad
+x^n o(x^m)=o(x^{n+m}).
+\]
 
 For $f(x)=\sin x$ centered at $a=\pi/3$, set $h=x-\pi/3$.
 The derivatives repeat with period four, and
@@ -1052,9 +1152,19 @@ T_6(x)={}&\frac{\sqrt3}{2}+\frac12h-\frac{\sqrt3}{4}h^2
 \end{aligned}
 \]
 
-Using $\cos x=1-x^2/2+x^4/24+o(x^4)$ and
-$\ln(1+u)=u-u^2/2+o(u^2)$, with
-$u=-x^2/2+x^4/24+o(x^4)$, gives
+Using
+\[
+\cos x=1-x^2/2+x^4/24+o(x^4)
+\]
+ and
+
+\[
+\ln(1+u)=u-u^2/2+o(u^2),
+\] with
+
+\[
+u=-x^2/2+x^4/24+o(x^4),
+\] gives
 \[
 \ln(\cos x)=-\frac{x^2}{2}-\frac{x^4}{12}+o(x^4).
 \]
@@ -1075,7 +1185,11 @@ Subtracting,
 The function is therefore an infinitesimal of order $4$ with leading
 part $x^4/3$.
 
-For the quotient, the required expansions are $\tan x-\sin x=\frac{x^3}{2}+\frac{x^5}{8}+o(x^5)$ and
+For the quotient, the required expansions are
+\[
+\tan x-\sin x=\frac{x^3}{2}+\frac{x^5}{8}+o(x^5)
+\]
+ and
 \[
 x^2(x+1)+\ln(1-x^2)
 =x^3-\frac{x^4}{2}+o(x^4).

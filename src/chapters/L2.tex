@@ -152,7 +152,15 @@ x &= e^{100} \\
 &\approx 2.688\times10^{43}.
 \end{aligned}
 \]
-The computer would require approximately $\frac{2.688\times10^{43}}{10^{18}}=2.688\times10^{25}$ seconds, or about $8.52\times10^{17}$ years. This duration should be compared with the age of the universe, approximately $14$ billion years; converting to seconds using $14 \times 10^9 \times 365.25 \times 24 \times 3600 \approx 4.42 \times 10^{17}$ seconds, the hypothetical computation would take about $6.1\times10^7$ times the age of the universe, vividly illustrating the extraordinary slowness of logarithmic growth.
+The computer would require approximately
+\[
+\frac{2.688\times10^{43}}{10^{18}}=2.688\times10^{25}
+\]
+ seconds, or about $8.52\times10^{17}$ years. This duration should be compared with the age of the universe, approximately $14$ billion years; converting to seconds using
+\[
+14 \times 10^9 \times 365.25 \times 24 \times 3600 \approx 4.42 \times 10^{17}
+\]
+ seconds, the hypothetical computation would take about $6.1\times10^7$ times the age of the universe, vividly illustrating the extraordinary slowness of logarithmic growth.
 
 \subsection{Trigonometric Functions and Their Inverses}
 
@@ -165,12 +173,20 @@ y &= \tan x \\
 \]
 This is defined for $x \neq \pi/2 + k\pi$ with $k \in \mathbb{Z}$. It is important to recall that in this context the independent variable $x$ represents an angle measured in radians, abbreviated as rad; since $\pi \, \text{rad} = 180^\circ$, one has the approximate conversion $1 \, \text{rad} \approx 57.3^\circ$.
 
-Although the tangent function fails to be injective on its natural domain, it becomes injective once the domain is restricted to the interval $(-\pi/2, \pi/2)$, on which its range is the whole real line $\mathbb{R}$. The inverse of the resulting restriction $\tan : \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \to \mathbb{R}$ is called the arctangent function, denoted by $\arctan$ or $\tan^{-1}$, and is defined as the function
+Although the tangent function fails to be injective on its natural domain, it becomes injective once the domain is restricted to the interval $(-\pi/2, \pi/2)$, on which its range is the whole real line $\mathbb{R}$. The inverse of the resulting restriction
+\[
+\tan : \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \to \mathbb{R}
+\]
+ is called the arctangent function, denoted by $\arctan$ or $\tan^{-1}$, and is defined as the function
 \[
 \arctan : \mathbb{R} \to \left( -\frac{\pi}{2}, \frac{\pi}{2} \right), \qquad y = \arctan x \iff \tan y = x.
 \]
 
-A similar construction applies to the sine function. Although $\sin x$ is not injective on its natural domain, it becomes injective once restricted to the interval $[-\pi/2, \pi/2]$, on which it defines a one-to-one function onto $[-1, 1]$. The inverse of the restriction $\sin : \left[ -\frac{\pi}{2}, \frac{\pi}{2} \right] \to [-1, 1]$ is called the arcsine function, denoted by $\arcsin$ or $\sin^{-1}$, and is defined as the function
+A similar construction applies to the sine function. Although $\sin x$ is not injective on its natural domain, it becomes injective once restricted to the interval $[-\pi/2, \pi/2]$, on which it defines a one-to-one function onto $[-1, 1]$. The inverse of the restriction
+\[
+\sin : \left[ -\frac{\pi}{2}, \frac{\pi}{2} \right] \to [-1, 1]
+\]
+ is called the arcsine function, denoted by $\arcsin$ or $\sin^{-1}$, and is defined as the function
 \[
 \arcsin : [-1, 1] \to \left[ -\frac{\pi}{2}, \frac{\pi}{2} \right], \qquad y = \arcsin x \iff \sin y = x.
 \]
@@ -211,7 +227,10 @@ An entirely analogous notion is required when $f : (-\infty, -r) \to \mathbb{R}$
 
 \subsection{Neighbourhoods and Accumulation Points}
 
-In order to formulate a single definition of limit capable of covering all of the cases described above, whether the point approached and the limiting value are finite or infinite, it is convenient to introduce a small amount of topological terminology. We call the extended real line the set $\overline{\mathbb{R}} = \mathbb{R} \cup \{+\infty\} \cup \{-\infty\}$, obtained by adjoining to the ordinary real line two ideal points at infinity. A neighborhood of a point $a \in \mathbb{R}$ is an interval of the form $U(a) = (a-r, a+r)$, for some $r > 0$. A neighborhood of $+\infty$ is a semi-line of the form $U(+\infty) = (r, +\infty)$, for some $r > 0$, and a neighborhood of $-\infty$ is a semi-line of the form $U(-\infty) = (-\infty, -r)$, for some $r > 0$. Given a point $x_0 \in \overline{\mathbb{R}}$, it is convenient to introduce the notation $\dot{U}(x_0)$ for the corresponding neighborhood with the point $x_0$ itself removed, namely
+In order to formulate a single definition of limit capable of covering all of the cases described above, whether the point approached and the limiting value are finite or infinite, it is convenient to introduce a small amount of topological terminology. We call the extended real line the set $\overline{\mathbb{R}} = \mathbb{R} \cup \{+\infty\} \cup \{-\infty\}$, obtained by adjoining to the ordinary real line two ideal points at infinity. A neighborhood of a point $a \in \mathbb{R}$ is an interval of the form $U(a) = (a-r, a+r)$, for some $r > 0$. A neighborhood of $+\infty$ is a semi-line of the form
+\[
+U(+\infty) = (r, +\infty),
+\] for some $r > 0$, and a neighborhood of $-\infty$ is a semi-line of the form $U(-\infty) = (-\infty, -r)$, for some $r > 0$. Given a point $x_0 \in \overline{\mathbb{R}}$, it is convenient to introduce the notation $\dot{U}(x_0)$ for the corresponding neighborhood with the point $x_0$ itself removed, namely
 \[
 \dot{U}(x_0) =
 \begin{cases}
@@ -221,7 +240,10 @@ In order to formulate a single definition of limit capable of covering all of th
 \end{cases}.
 \]
 
-Finally, given a finite point $a \in \mathbb{R}$, we call right-neighborhood of $a$ an interval of the form $U^+(a) = (a, a+r)$, for some $r > 0$, and we call left-neighborhood of $a$ an interval of the form $U^-(a) = (a-r, a)$, for some $r > 0$.
+Finally, given a finite point $a \in \mathbb{R}$, we call right-neighborhood of $a$ an interval of the form
+\[
+U^+(a) = (a, a+r),
+\] for some $r > 0$, and we call left-neighborhood of $a$ an interval of the form $U^-(a) = (a-r, a)$, for some $r > 0$.
 
 \subsection{The Universal Definition of Limit}
 
@@ -612,7 +634,11 @@ $y^\alpha=e^{\alpha\ln y}$ when $L>0$ and $f(x)>0$ eventually. Rational or
 integer exponents may admit larger real domains, but those cases must be
 treated according to the natural domain of the particular power function.
 The extended-limit conventions $e^{+\infty}=+\infty$,
-$e^{-\infty}=0$, and $\ln(+\infty)=+\infty$ are also useful; the notation
+$e^{-\infty}=0$, and
+\[
+\ln(+\infty)=+\infty
+\]
+ are also useful; the notation
 $\ln0=-\infty$ refers only to the one-sided limit as the argument tends to
 $0$ through positive values.
 
@@ -885,7 +911,10 @@ If instead $\varepsilon_n<0$, define
 \delta_n=-\frac{\varepsilon_n}{1+\varepsilon_n}>0.
 \]
 For all sufficiently large $n$, $\delta_n$ is defined, tends to zero, and
-$1+\varepsilon_n=(1+\delta_n)^{-1}$. Therefore
+
+\[
+1+\varepsilon_n=(1+\delta_n)^{-1}.
+\] Therefore
 \[
 \frac{\ln(1+\varepsilon_n)}{\varepsilon_n}
 =(1+\delta_n)\frac{\ln(1+\delta_n)}{\delta_n}\longrightarrow1.

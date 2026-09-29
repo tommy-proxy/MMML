@@ -55,7 +55,10 @@ Consider the equation $y' = t y^3$. As before, one immediately identifies the co
 \[
 \frac{y'(t)}{y^3(t)} = t \implies \int \frac{y'(t)}{y^3(t)} \, dt = \int t \, dt.
 \]
-The integral on the left-hand side is again elementary, yielding $-(1/(2 y^2(t))) = (t^2/2) + c$; setting $C = -2c$, we obtain two branches of solutions, $y(t) = \frac{1}{\sqrt{C - t^2}}, \qquad y(t) = -\frac{1}{\sqrt{C - t^2}}$, each defined on the maximal interval $(-\sqrt{C}, \sqrt{C})$, for every fixed $C > 0$.
+The integral on the left-hand side is again elementary, yielding $-(1/(2 y^2(t))) = (t^2/2) + c$; setting $C = -2c$, we obtain two branches of solutions,
+\[
+y(t) = \frac{1}{\sqrt{C - t^2}}, \qquad y(t) = -\frac{1}{\sqrt{C - t^2}},
+\] each defined on the maximal interval $(-\sqrt{C}, \sqrt{C})$, for every fixed $C > 0$.
 \end{example}
 
 These two examples illustrate the general method applicable to the broader class of separable equations, defined as follows.
@@ -306,7 +309,10 @@ Let $A(t)$ denote any fixed antiderivative of $a(t)$. Multiplying the equation $
 e^{-A(t)} \big[ y' - a(t) y \big] = e^{-A(t)} f(t). \tag{$*$}
 \end{equation*}
 
-Consider now the product function $y(t) e^{-A(t)}$; its derivative, computed by the product rule together with the Chain Rule applied to $e^{-A(t)}$, is precisely $\frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} \big[ y'(t) - a(t) y(t) \big]$, so that equation $(*)$ may be rewritten as
+Consider now the product function $y(t) e^{-A(t)}$; its derivative, computed by the product rule together with the Chain Rule applied to $e^{-A(t)}$, is precisely
+\[
+\frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} \big[ y'(t) - a(t) y(t) \big],
+\] so that equation $(*)$ may be rewritten as
 \[
 \frac{d}{dt} \big[ y(t) e^{-A(t)} \big] = e^{-A(t)} f(t).
 \]
@@ -350,7 +356,13 @@ This is the general solution of the associated homogeneous equation $y' = a(t) y
 
 \subsection{Second-Order Linear Equations and Initial Data}
 
-We now turn to the study of second-order linear differential equations, which take the general form $a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I$, where $a$, $b$, and $c$ are continuous functions on the interval $I$, called the coefficient functions, subject to the nondegeneracy condition $a(t) \neq 0$ for every $t \in I$, and where $f$ is a continuous function on $I$, called the forcing term. Equations of this type arise naturally in a wide variety of physical contexts; a particularly simple example is furnished by the equation of motion of a falling body, $m y'' = -mg$, whose general solution is readily found by direct integration to be $y(t) = -(1/2) g t^2 + v_0 t + y_0$, where $v_0$ and $y_0$ denote the initial velocity and initial position of the body, respectively. As for first-order linear equations, the associated initial value problem for a second-order linear equation is well-posed globally on the interval of continuity of the coefficients, subject now to the specification of two initial conditions, since the equation involves a second derivative.
+We now turn to the study of second-order linear differential equations, which take the general form
+\[
+a(t) y'' + b(t) y' + c(t) y = f(t), \qquad t \in I,
+\] where $a$, $b$, and $c$ are continuous functions on the interval $I$, called the coefficient functions, subject to the nondegeneracy condition $a(t) \neq 0$ for every $t \in I$, and where $f$ is a continuous function on $I$, called the forcing term. Equations of this type arise naturally in a wide variety of physical contexts; a particularly simple example is furnished by the equation of motion of a falling body, $m y'' = -mg$, whose general solution is readily found by direct integration to be
+\[
+y(t) = -(1/2) g t^2 + v_0 t + y_0,
+\] where $v_0$ and $y_0$ denote the initial velocity and initial position of the body, respectively. As for first-order linear equations, the associated initial value problem for a second-order linear equation is well-posed globally on the interval of continuity of the coefficients, subject now to the specification of two initial conditions, since the equation involves a second derivative.
 
 \begin{theorem}[Cauchy Theorem for Second-Order Linear Equations]
 Assume that $a$, $b$, $c$, and $f$ are continuous functions on an interval $I$, with $a(t) \neq 0$ throughout $I$. Then, for any given $t_0 \in I$, $y_0 \in \mathbb{R}$, and $v_0 \in \mathbb{R}$, the Cauchy problem
@@ -388,7 +400,11 @@ then the general solution of $(\star)$ is given by $y(t) = c_1 y_1(t) + c_2 y_2(
 
 This result shows that, once two particular linearly independent solutions of the homogeneous equation are known, every solution of the equation is thereby determined; equivalently, one says that the set of all solutions of the second-order linear homogeneous equation $(\star)$ forms a vector space of dimension two.
 
-In general, discovering two particular solutions of a second-order linear equation with variable coefficients can be a genuinely difficult problem. It is, however, always possible to do so explicitly when the coefficients are constant, that is, for an equation of the form $a y'' + b y' + c y = 0$ with $a, b, c \in \mathbb{R}$ and $a \neq 0$; the question of how to find two linearly independent solutions of such a constant-coefficient homogeneous equation, according to the sign of the discriminant of the associated characteristic equation, is addressed through dedicated techniques developed elsewhere in the course.
+In general, discovering two particular solutions of a second-order linear equation with variable coefficients can be a genuinely difficult problem. It is, however, always possible to do so explicitly when the coefficients are constant, that is, for an equation of the form
+\[
+a y'' + b y' + c y = 0
+\]
+ with $a, b, c \in \mathbb{R}$ and $a \neq 0$; the question of how to find two linearly independent solutions of such a constant-coefficient homogeneous equation, according to the sign of the discriminant of the associated characteristic equation, is addressed through dedicated techniques developed elsewhere in the course.
 
 \subsection{The Nonhomogeneous Equation}
 
@@ -414,7 +430,11 @@ The general solution of the nonhomogeneous differential equation $(\star\star)$ 
 
 This theorem shows that, once two linearly independent solutions of the associated homogeneous equation $(\star)$ are known, together with a single particular solution of the nonhomogeneous equation $(\star\star)$, every solution of $(\star\star)$ is thereby determined, exactly as in the analogous situation encountered for first-order linear equations.
 
-As in the homogeneous case, finding a particular solution of a nonhomogeneous second-order linear equation with variable coefficients can be genuinely difficult in general. When the coefficient functions are constant, however, that is, for an equation of the form $a y'' + b y' + c y = f(t)$ with $a, b, c \in \mathbb{R}$ and $a \neq 0$, a systematic technique known as the Method of Undetermined Coefficients is available, which allows one to guess the form of a particular solution directly from the structure of the forcing term $f(t)$, whether polynomial, exponential, or trigonometric in nature; the detailed development of this method, together with the classification of the homogeneous solutions according to the sign of the discriminant $\Delta$ of the characteristic equation, is left to the dedicated material provided for further study.
+As in the homogeneous case, finding a particular solution of a nonhomogeneous second-order linear equation with variable coefficients can be genuinely difficult in general. When the coefficient functions are constant, however, that is, for an equation of the form
+\[
+a y'' + b y' + c y = f(t)
+\]
+ with $a, b, c \in \mathbb{R}$ and $a \neq 0$, a systematic technique known as the Method of Undetermined Coefficients is available, which allows one to guess the form of a particular solution directly from the structure of the forcing term $f(t)$, whether polynomial, exponential, or trigonometric in nature; the detailed development of this method, together with the classification of the homogeneous solutions according to the sign of the discriminant $\Delta$ of the characteristic equation, is left to the dedicated material provided for further study.
 
 \section{Existence, Uniqueness, and Maximal Solutions}
 
