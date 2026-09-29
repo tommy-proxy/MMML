@@ -325,18 +325,19 @@ q(\boldsymbol{\mu},\boldsymbol{\lambda}) \leq f(\mathbf{x}) + \sum_i \mu_i g_i(\
 Weak duality shows that the dual function always provides a lower bound on the optimal value of the original, or primal, problem, regardless of any convexity assumption; when the primal problem is convex and a mild regularity condition, known as Slater's condition, holds, this gap between the two problems closes entirely.
 
 \begin{definition}[Slater's Condition]
-The convex problem above satisfies Slater's condition if there exists a feasible point $\hat{\mathbf{x}} \in D$ with $g_i(\hat{\mathbf{x}}) < 0$ strictly for every $i$, and $h_j(\hat{\mathbf{x}}) = 0$ for every $j$.
+Assume that $D$ is convex. The convex problem above satisfies Slater's condition if there exists a point $\hat{\mathbf{x}}$ in the relative interior of $D$ such that $g_i(\hat{\mathbf{x}}) < 0$ strictly for every inequality constraint and $h_j(\hat{\mathbf{x}}) = 0$ for every equality constraint.
 \end{definition}
 
 \begin{theorem}[Strong Duality]
-If $f, g_1, \dots, g_k$ are convex, $h_1, \dots, h_l$ are affine, and Slater's condition holds, then the optimal value of the primal problem equals
+Let $D\subseteq\mathbb{R}^n$ be a nonempty closed convex set. Assume that $f,g_1,\dots,g_k$ are finite-valued, continuous, convex functions on $D$, that $h_1,\dots,h_l$ are affine, and that the primal optimal value $p^*$ is finite. If Slater's condition holds, then the duality gap is zero and
 \[
-\sup_{\boldsymbol{\mu}\geq \vec{0}, \boldsymbol{\lambda}} q(\boldsymbol{\mu},\boldsymbol{\lambda}),
+ p^* = \max_{\boldsymbol{\mu}\geq \vec{0},\,\boldsymbol{\lambda}}
+ q(\boldsymbol{\mu},\boldsymbol{\lambda}).
 \]
-and this supremum is attained.
+In particular, the dual optimum is attained.
 \end{theorem}
 
-The proof of strong duality proceeds by a separation argument entirely analogous in spirit to the one used to establish the necessity of the KKT conditions, applied this time to a suitably constructed convex set encoding the achievable values of the objective and constraint functions; we omit the details, referring the reader to the specialized literature on convex analysis, and record only the important consequence that, under the hypotheses above, solving the dual problem, which is always a convex problem regardless of the primal, is equivalent to solving the original primal problem itself.
+The proof of strong duality proceeds by a separation argument entirely analogous in spirit to the one used to establish the necessity of the KKT conditions, applied this time to a suitably constructed convex set encoding the achievable values of the objective and constraint functions. We omit the details, referring the reader to the specialized literature on convex analysis. The finiteness, convex-domain, continuity, and Slater assumptions stated above are essential parts of the theorem rather than merely technical decoration.
 
 \section{Calculus of Variations}
 \label{sec:calculus-variations}

@@ -476,10 +476,11 @@ The proof of this formula relies on the Chain Rule for partial derivatives of co
 The Gradient Formula established above has an important consequence concerning the direction in which a function increases most rapidly at a given point.
 
 \begin{theorem}
-The maximum value of the directional derivative $D_{\mathbf{u}} f(x_0,y_0)$, taken over all unit vectors $\mathbf{u}$, equals $\| \nabla f(x_0,y_0) \|$, and this maximum value is attained precisely when $\mathbf{u}$ has the same direction as the gradient vector $\nabla f(x_0,y_0)$, that is, when
+Let $f$ be differentiable at $(x_0,y_0)$. The maximum value of the directional derivative $D_{\mathbf{u}} f(x_0,y_0)$, taken over all unit vectors $\mathbf{u}$, equals $\| \nabla f(x_0,y_0) \|$. If $\nabla f(x_0,y_0) \neq \vec{0}$, this maximum is attained uniquely when $\mathbf{u}$ has the same direction as the gradient vector, that is, when
 \[
 \mathbf{u} = \frac{\nabla f(x_0,y_0)}{\| \nabla f(x_0,y_0) \|}.
 \]
+If $\nabla f(x_0,y_0)=\vec{0}$, then $D_{\mathbf{u}}f(x_0,y_0)=0$ for every unit vector $\mathbf{u}$, so every unit direction attains the maximum.
 
 \end{theorem}
 
@@ -504,7 +505,7 @@ and it occurs in the unit direction
 =\left(\frac8{\sqrt{145}},\frac9{\sqrt{145}}\right).
 \]
 
-A further important geometric property of the gradient vector, complementing the result just stated, concerns its relationship to the level curves of $f$: the gradient vector $\nabla f(x_0,y_0)$ is always perpendicular to the level curve of $f$ that passes through the point $(x_0,y_0)$, providing a further geometric characterization of the direction of steepest ascent described above.
+A further important geometric property of the gradient vector, complementing the result just stated, concerns its relationship to level curves. At a regular point $(x_0,y_0)$, meaning that $\nabla f(x_0,y_0)\neq\vec{0}$, the level set through the point is locally a smooth curve and the gradient is perpendicular to its tangent line. This provides a further geometric characterization of the direction of steepest ascent described above.
 
 Figure~\ref{fig:ch9-gradient} illustrates the relationship between level curves, the gradient, and directional derivatives. For the scalar field $f(x,y)=x^2+y^2$ the level curves are concentric circles. The gradient $\nabla f$ is perpendicular to the
 level curve at the point and maximizes the directional derivative $D_{\bu} f = \nabla f \cdot \bu$ when $\bu \parallel \nabla f$.

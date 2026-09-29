@@ -64,7 +64,7 @@ These two examples illustrate the general method applicable to the broader class
 An equation of the form $y' = a(t) g(y)$ is called a separable equation. The special case in which $a(t)$ is constant, so that the equation takes the form $y' = g(y)$, is called an autonomous equation.
 \end{definition}
 
-Assuming that $a$ and $g$ are continuous functions, the general solution of a separable equation $y' = a(t) g(y)$ can be obtained by means of a systematic four-step procedure. The first step consists of searching for equilibrium solutions, if any exist, namely constant solutions of the form $y(t) \equiv r \in \mathbb{R}$, which correspond precisely to the roots of the equation $g(r) = 0$. The second step consists of separating the two variables $t$ and $y$: assuming that $g(y) \neq 0$, one divides the equation by $g(y)$ and integrates both sides with respect to $t$, obtaining
+Assuming that $a$ and $g$ are continuous functions, the general solution of a separable equation $y' = a(t) g(y)$ can be obtained by means of a systematic four-step procedure. The first step consists of searching for equilibrium solutions, if any exist, namely constant solutions of the form $y(t) \equiv r \in \mathbb{R}$. If $a\not\equiv0$ on the interval under consideration, these constant solutions correspond precisely to the roots of $g(r)=0$. In the degenerate case $a\equiv0$, the equation reduces to $y'=0$ and every constant function is a solution. The second step consists of separating the two variables $t$ and $y$: assuming that $g(y) \neq 0$, one divides the equation by $g(y)$ and integrates both sides with respect to $t$, obtaining
 \[
 \int \frac{y'(t)}{g(y(t))} \, dt = \int a(t) \, dt.
 \]
@@ -379,7 +379,11 @@ If $y_1(t)$ and $y_2(t)$ are both solutions of the linear homogeneous equation $
 This superposition principle, together with a suitable notion of linear independence, allows one to describe the entire family of solutions of the homogeneous equation in terms of just two particular solutions.
 
 \begin{theorem}[General Integral of the Homogeneous Equation]
-If $y_1(t)$ and $y_2(t)$ are linearly independent solutions of the linear homogeneous equation $(\star)$ on the interval $I$, meaning that the ratio $y_1/y_2$ is not constant on $I$, then the general solution of $(\star)$ is given by $y(t) = c_1 y_1(t) + c_2 y_2(t), \qquad t \in I$, where $c_1$ and $c_2$ are arbitrary constants.
+If $y_1(t)$ and $y_2(t)$ are linearly independent solutions of the linear homogeneous equation $(\star)$ on the interval $I$, in the sense that
+\[
+c_1y_1+c_2y_2\equiv0 \quad\Longrightarrow\quad c_1=c_2=0,
+\]
+then the general solution of $(\star)$ is given by $y(t) = c_1 y_1(t) + c_2 y_2(t)$ for $t\in I$, where $c_1$ and $c_2$ are arbitrary constants. When $y_2$ is nowhere zero on $I$, linear independence is equivalently characterized by the ratio $y_1/y_2$ being nonconstant.
 \end{theorem}
 
 This result shows that, once two particular linearly independent solutions of the homogeneous equation are known, every solution of the equation is thereby determined; equivalently, one says that the set of all solutions of the second-order linear homogeneous equation $(\star)$ forms a vector space of dimension two.
@@ -715,14 +719,13 @@ Assume $\dot{V}(\bv) < 0$ for $\bv \neq \bv_\infty$. For a trajectory starting n
 \end{aligned}
 \end{equation}
 
-We must show that $c = 0$. Suppose, for contradiction, that $c > 0$.
-Because the trajectory is stable, it is confined to a compact set
+We must show that $c = 0$. Suppose, for contradiction, that $c > 0$. Choose $\varepsilon>0$ so that the closed ball $\overline{B}_\varepsilon(\bv_\infty)$ is contained in $U$. By Lyapunov stability, if the initial condition is chosen sufficiently close to $\bv_\infty$, the entire forward trajectory remains in $B_\varepsilon(\bv_\infty)$. Define
 \[
-K = \{ \bv : c \leq V(\bv) \leq V(\bv(0)) \}.
+K = \left\{\bv\in\overline{B}_\varepsilon(\bv_\infty):
+c\leq V(\bv)\leq V(\bv(0))\right\}.
 \]
 
-Note that $\bv_\infty \notin K$ because $V(\bv_\infty) = 0 < c$.
-The orbital derivative $\dot{V}(\bv)$ is a continuous function on the compact set $K$. Since $\dot{V}(\bv) < 0$ everywhere on $K$, it must attain a strict maximum on $K$. Let this maximum be $-\eta$, where $\eta > 0$. Thus, for all $\bv \in K$:
+The set $K$ is a closed subset of the compact ball $\overline{B}_\varepsilon(\bv_\infty)$, and is therefore compact. Moreover, $\bv_\infty \notin K$ because $V(\bv_\infty) = 0 < c$. Since $V(\bv(t))$ decreases to $c$, the trajectory lies in $K$ for every $t\geq0$. The orbital derivative $\dot{V}$ is continuous and strictly negative on $K$, so it attains a maximum $-\eta<0$ there. Thus, for every $\bv \in K$,
 \begin{equation}
 \dot{V}(\bv) \leq -\eta < 0
 \end{equation}
@@ -737,11 +740,11 @@ V(\bv(t)) - V(\bv(0)) \leq -\eta t \implies V(\bv(t)) \leq V(\bv(0)) - \eta t
 
 As $t \to \infty$, the right-hand side approaches $-\infty$. This implies $V(\bv(t)) \to -\infty$, which strictly contradicts the fact that $V(\bv) \geq 0$ for all $\bv$.
 Therefore, our assumption $c > 0$ must be false, and we conclude $c = 0$.
-Since $V(\bv(t)) \to 0$ and $V$ is continuous and positive definite (meaning
+It remains to convert convergence of $V$ into convergence of the state. Since the trajectory is contained in the compact ball $\overline{B}_\varepsilon(\bv_\infty)$, if $\bv(t)$ did not converge to $\bv_\infty$, there would exist a sequence $t_n\to\infty$ and a number $\rho>0$ such that $\|\bv(t_n)-\bv_\infty\|\geq\rho$. A subsequence would converge to some $\bv_*\in\overline{B}_\varepsilon(\bv_\infty)$. Continuity of $V$ and $V(\bv(t_n))\to0$ would give $V(\bv_*)=0$. Positive definiteness, namely
 \[
 V(\bv) = 0 \iff \bv = \bv_\infty
 \]
-), it follows rigorously that
+would then force $\bv_*=\bv_\infty$, contradicting the distance bound. Hence
 \[
 \lim_{t \to \infty} \bv(t) = \bv_\infty.
 \]

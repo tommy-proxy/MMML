@@ -3,7 +3,7 @@
 **A rigorous, self-contained compendium: from real analysis to stochastic differential equations.**
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![PDF](https://img.shields.io/badge/PDF-339%20pages-blue.svg)](pdf/mathematical-methods-for-ml.pdf)
+[![PDF](https://img.shields.io/badge/PDF-340%20pages-blue.svg)](pdf/mathematical-methods-for-ml.pdf)
 [![Status](https://img.shields.io/badge/status-living%20document-brightgreen.svg)](#status-and-versioning)
 [![Made with LaTeX](https://img.shields.io/badge/made%20with-LaTeX-008080.svg)](src/)
 
@@ -15,7 +15,7 @@
 
 *Mathematical Methods for Machine Learning* develops a unified pathway from the foundations of mathematical analysis to the advanced methods used for modeling and inference. It covers calculus, linear and functional analysis, differential equations, optimization, Fourier methods, and probability, together with the operational tools needed for biophysical modeling and probabilistic inference in complex systems.
 
-The compendium contains **332 numbered pages** (**339 physical pages** including front matter and table of contents) across 12 chapters, each split into several source files. It began in June 2023 as a study companion to the Analysis course taught by Prof. Monica Conti at Politecnico di Milano. It has since grown into a much broader treatment, last updated in **September 2026**.
+The compendium contains **333 numbered pages** (**340 physical pages** including front matter and table of contents) across 12 chapters, each split into several source files. It began in June 2023 as a study companion to the Analysis course taught by Prof. Monica Conti at Politecnico di Milano. It has since grown into a much broader treatment, last updated in **September 2026**.
 
 Every result is developed with its assumptions stated, its proof (or a proof sketch) given, and its role in modern machine learning and computational neuroscience made explicit.
 
